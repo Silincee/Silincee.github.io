@@ -165,13 +165,52 @@ hexo generate
   ~~这会儿网不好，先不往google driver上传了，等网好了传。~~  
   [https://drive.google.com/drive/folders/1jG5T6GBzmDT1y5xhLV15H_YrzKUpn-S6?usp=sharing](https://drive.google.com/drive/folders/1jG5T6GBzmDT1y5xhLV15H_YrzKUpn-S6?usp=sharing)      
 
+1、进入`live2dw_koharu`文件夹，会看到`assets`和`lib`两个文件夹。
+
+复制这两个文件，再打开博客根目录下的`assets/live2dw`，你会发现也是`assets`和`lib`两个文件夹，将这两个删除，把刚才复制的那两个粘贴进来即可。
+
+2、打开`_layouts/base.html`，找到下面这一部分代码
+
+```
+<!--live2d function-->
+<script src="/assets/live2dw/lib/L2Dwidget.min.js"></script>
+<script>L2Dwidget.init({
+    "pluginRootPath": "live2dw/",
+    "pluginJsPath": "lib/",
+    "pluginModelPath": "assets/",
+    "tagMode": false,
+    "debug": false,
+    "model": {"jsonPath": "/assets/live2dw/assets/nitychan.model.json"},
+    "display": {"position": "right", "width": 65, "height": 90, "hOffset": 60, "vOffset": -10,},
+    "mobile": {"show": true, "scale": 1,},
+    "log": false
+});</script>
+```
+
+将其中的`"model": {"jsonPath": ""model": {"jsonPath": "/assets/live2dw/assets/nitychan.model.json"},"},`中的路径`/assets/live2dw/assets/nitychan.model.json`改为 `/assets/live2dw/assets/koharu.model.json`
+
+即为如下图所示的`***..model.json`文件的路径。（不同二次元形象的文件名不一样，都需要改一下）
+
+3、改完之后重新`jekyll serve`编译一下即可（之前说过在本地编译博客，不想在本地编译看效果也可以之前上传到remote看效果）
+
+看我右下角，是不是萌萌哒。
+
+
+
+4、需要的话可以再` "display": {"position": "right", "width": 65, "height": 90, "hOffset": 60, "vOffset": -10,},`中修改二次元形象的位置和大小。
+
+
+
+---
+
 怎么样，是不是喜出望外？  
 激动地想要[打赏](https://www.oukohou.wang/donate/)我却不知如何打赏?  
 不用担心，体贴的我也早已料到了这一痛点，特地写了个页面:  
+
 - [打赏传送门](https://www.oukohou.wang/donate/)  
 
 点击上面的传送门然后在里面痛快地撒个野吧!   
 
-![kitai](https://raw.githubusercontent.com/oukohou/image_gallery/master/blogs/anime/gakki_kitai.jpg)  
+
 
 
