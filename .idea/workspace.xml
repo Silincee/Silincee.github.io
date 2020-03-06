@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e1108593-cb63-4cf8-9894-877d9ad19767" name="Default" comment="refactor: change video's size.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_posts/2020-02-09-2019-nCov.md" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/2020-02-09-2019-nCov.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/about.html" afterDir="false" />
     </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -12,6 +12,70 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/oukohou_github_io$resize_image.coverage" NAME="resize_image Coverage Results" MODIFIED="1537262164741" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/laboratory" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/about.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3887">
+              <caret line="169" column="56" selection-start-line="169" selection-start-column="56" selection-end-line="169" selection-end-column="56" />
+              <folding>
+                <element signature="e#471#497#0" expanded="true" />
+                <element signature="e#522#548#0" expanded="true" />
+                <element signature="e#631#657#0" expanded="true" />
+                <element signature="e#742#768#0" expanded="true" />
+                <element signature="e#772#807#0" expanded="true" />
+                <element signature="e#836#862#0" expanded="true" />
+                <element signature="e#1016#1039#0" expanded="true" />
+                <element signature="e#1143#1169#0" expanded="true" />
+                <element signature="e#1173#1197#0" expanded="true" />
+                <element signature="e#1272#1298#0" expanded="true" />
+                <element signature="e#1417#1443#0" expanded="true" />
+                <element signature="e#1447#1482#0" expanded="true" />
+                <element signature="e#1521#1547#0" expanded="true" />
+                <element signature="e#1973#1996#0" expanded="true" />
+                <element signature="e#2110#2136#0" expanded="true" />
+                <element signature="e#2140#2164#0" expanded="true" />
+                <element signature="e#2548#2574#0" expanded="true" />
+                <element signature="e#2699#2725#0" expanded="true" />
+                <element signature="e#2729#2764#0" expanded="true" />
+                <element signature="e#2797#2823#0" expanded="true" />
+                <element signature="e#2958#2981#0" expanded="true" />
+                <element signature="e#3076#3102#0" expanded="true" />
+                <element signature="e#3106#3130#0" expanded="true" />
+                <element signature="e#3359#3385#0" expanded="true" />
+                <element signature="e#3389#3424#0" expanded="true" />
+                <element signature="e#3459#3485#0" expanded="true" />
+                <element signature="e#3627#3650#0" expanded="true" />
+                <element signature="e#3747#3773#0" expanded="true" />
+                <element signature="e#3777#3801#0" expanded="true" />
+                <element signature="e#4030#4056#0" expanded="true" />
+                <element signature="e#4060#4095#0" expanded="true" />
+                <element signature="e#4124#4150#0" expanded="true" />
+                <element signature="e#4324#4347#0" expanded="true" />
+                <element signature="e#4446#4472#0" expanded="true" />
+                <element signature="e#4729#4755#0" expanded="true" />
+                <element signature="e#4759#4794#0" expanded="true" />
+                <element signature="e#4828#4854#0" expanded="true" />
+                <element signature="e#4989#5012#0" expanded="true" />
+                <element signature="e#5111#5137#0" expanded="true" />
+                <element signature="e#5394#5420#0" expanded="true" />
+                <element signature="e#5494#5520#0" expanded="true" />
+                <element signature="e#6088#6114#0" expanded="true" />
+                <element signature="e#6189#6215#0" expanded="true" />
+                <element signature="e#6762#6788#0" expanded="true" />
+                <element signature="e#6792#6827#0" expanded="true" />
+                <element signature="e#6861#6887#0" expanded="true" />
+                <element signature="e#7051#7074#0" expanded="true" />
+                <element signature="e#7514#7537#0" expanded="true" />
+                <element signature="e#7548#7583#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -36,6 +100,19 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="SIGN_OFF_COMMIT" value="true" />
   </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/about.html" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="x" value="-1440" />
+    <option name="y" value="71" />
+    <option name="width" value="1440" />
+    <option name="height" value="900" />
+  </component>
   <component name="ProjectId" id="1XOAfmqPgpnBSAgDSjDWVIZpjyg" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -45,13 +122,14 @@
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SearchEverywhereHistoryKey" value="duoshuo&#9;null&#9;null" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="add_unversioned_files" value="$PROJECT_DIR$/_site/jekyll/update/2018/08/28/welcome-to-jekyll.html&#10;/home/CVAR/study/interest/blogs/github_page/oukohou.github.io/laboratory/comment_test.html&#10;/home/CVAR/study/interest/blogs/github_page/oukohou.github.io/_site/guestbook/index.html&#10;/home/CVAR/study/interest/blogs/github_page/oukohou.github.io/laboratory/fd.html&#10;true&#10;/home/CVAR/study/interest/blogs/github_page/oukohou.github.io/_site/assets/css/style.css" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -65,6 +143,18 @@
       <recent name="$PROJECT_DIR$/assets" />
       <recent name="$PROJECT_DIR$/server" />
     </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
   </component>
   <component name="RunManager" selected="JavaScript Debug.post.html">
     <configuration name="post.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/oukohou.github.io/_layouts/post.html">
@@ -94,12 +184,10 @@
     </configuration>
     <list>
       <item itemvalue="JavaScript Debug.post.html" />
-      <item itemvalue="Python.resize_image" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="JavaScript Debug.post.html" />
-        <item itemvalue="Python.resize_image" />
       </list>
     </recent_temporary>
   </component>
@@ -181,6 +269,7 @@
       <workItem from="1581260135239" duration="445000" />
       <workItem from="1581574357807" duration="2901000" />
       <workItem from="1581578153142" duration="2871000" />
+      <workItem from="1583504210261" duration="760000" />
     </task>
     <task id="LOCAL-00145" summary="add post: pix2pix.">
       <created>1547289484065</created>
@@ -528,6 +617,9 @@
     <option name="localTasksCounter" value="194" />
     <servers />
   </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="760000" />
+  </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
       <is-autoscroll-to-source value="true" />
@@ -536,6 +628,30 @@
       <are-packages-shown value="true" />
       <is-autoscroll-to-source value="true" />
     </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-1440" y="71" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Favorites" side_tool="true" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.25" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="GraphQL" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -546,6 +662,12 @@
         <entry key="MAIN">
           <value>
             <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
               <option name="COLUMN_ORDER" />
             </State>
           </value>
@@ -614,14 +736,64 @@
     </state>
     <state x="261" y="73" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1581582428435" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/laboratory/resize_image.py</url>
-          <line>17</line>
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/about.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3887">
+          <caret line="169" column="56" selection-start-line="169" selection-start-column="56" selection-end-line="169" selection-end-column="56" />
+          <folding>
+            <element signature="e#471#497#0" expanded="true" />
+            <element signature="e#522#548#0" expanded="true" />
+            <element signature="e#631#657#0" expanded="true" />
+            <element signature="e#742#768#0" expanded="true" />
+            <element signature="e#772#807#0" expanded="true" />
+            <element signature="e#836#862#0" expanded="true" />
+            <element signature="e#1016#1039#0" expanded="true" />
+            <element signature="e#1143#1169#0" expanded="true" />
+            <element signature="e#1173#1197#0" expanded="true" />
+            <element signature="e#1272#1298#0" expanded="true" />
+            <element signature="e#1417#1443#0" expanded="true" />
+            <element signature="e#1447#1482#0" expanded="true" />
+            <element signature="e#1521#1547#0" expanded="true" />
+            <element signature="e#1973#1996#0" expanded="true" />
+            <element signature="e#2110#2136#0" expanded="true" />
+            <element signature="e#2140#2164#0" expanded="true" />
+            <element signature="e#2548#2574#0" expanded="true" />
+            <element signature="e#2699#2725#0" expanded="true" />
+            <element signature="e#2729#2764#0" expanded="true" />
+            <element signature="e#2797#2823#0" expanded="true" />
+            <element signature="e#2958#2981#0" expanded="true" />
+            <element signature="e#3076#3102#0" expanded="true" />
+            <element signature="e#3106#3130#0" expanded="true" />
+            <element signature="e#3359#3385#0" expanded="true" />
+            <element signature="e#3389#3424#0" expanded="true" />
+            <element signature="e#3459#3485#0" expanded="true" />
+            <element signature="e#3627#3650#0" expanded="true" />
+            <element signature="e#3747#3773#0" expanded="true" />
+            <element signature="e#3777#3801#0" expanded="true" />
+            <element signature="e#4030#4056#0" expanded="true" />
+            <element signature="e#4060#4095#0" expanded="true" />
+            <element signature="e#4124#4150#0" expanded="true" />
+            <element signature="e#4324#4347#0" expanded="true" />
+            <element signature="e#4446#4472#0" expanded="true" />
+            <element signature="e#4729#4755#0" expanded="true" />
+            <element signature="e#4759#4794#0" expanded="true" />
+            <element signature="e#4828#4854#0" expanded="true" />
+            <element signature="e#4989#5012#0" expanded="true" />
+            <element signature="e#5111#5137#0" expanded="true" />
+            <element signature="e#5394#5420#0" expanded="true" />
+            <element signature="e#5494#5520#0" expanded="true" />
+            <element signature="e#6088#6114#0" expanded="true" />
+            <element signature="e#6189#6215#0" expanded="true" />
+            <element signature="e#6762#6788#0" expanded="true" />
+            <element signature="e#6792#6827#0" expanded="true" />
+            <element signature="e#6861#6887#0" expanded="true" />
+            <element signature="e#7051#7074#0" expanded="true" />
+            <element signature="e#7514#7537#0" expanded="true" />
+            <element signature="e#7548#7583#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
   </component>
 </project>
