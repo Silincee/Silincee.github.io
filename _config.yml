@@ -58,10 +58,10 @@ menu:
 # Link settings
 links: # 友情链接
 
-  - title: ccslience's blog
-    url: http://ccslience.oukohou.wang/
-  - title: oukohou's github
-    url: https://github.com/oukohou
+  - title: Silince's blog
+    url: http://silince.cn/
+  - title: Silince's github
+    url: https://github.com/Silincee
 #  - title:
 #    url: http://jekyllcn.com/
   - title: Jekyll blog system
@@ -70,13 +70,13 @@ links: # 友情链接
 
 # Google Analytics
 ga_track_id: 'UA-130856615-1'            # Format: UA-xxxxxx-xx
-ga_domain: www.oukohou.wang              # 默认的是 auto, 这里我是自定义了的域名，你如果没有自己的域名，需要改成auto
+ga_domain: silince.cn              # 默认的是 auto, 这里我是自定义了的域名，你如果没有自己的域名，需要改成auto
 
 
 # Code hub settings
 codehub: # 代码仓库
   - title: Github
-    url: https://github.com/oukohou
+    url: https://github.com/Silincee
 
 
 valine:
