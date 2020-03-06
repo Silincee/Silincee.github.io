@@ -1,14 +1,14 @@
 # Site settings
 title: oukohou
-subtitle: [ 璇珠杂俎]
-keywords: oukohou
-description: 我梦扬州，便想到扬州梦我。幸会。微信公众号：oukohou.
+subtitle: [Silince]
+keywords: Silince
+description: 想过平静生活的帅气上班族
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://www.oukohou.wang/" # 你的域名
-page_no_title: "oukohou's blog" # 文章无标题时默认显示内容
-beian: # "备案号"
-author: oukohou
-email: oukohou@outlook.com
+url: "https://www.jojofans.club/" # 你的域名
+page_no_title: "Silince's blog" # 文章无标题时默认显示内容
+beian: # "浙ICP备20005827号"
+author: Silince
+email: zhangjianlincn@outlook.com
 
 # Build settings
 permalink: /:year/:month/:day/:title/
