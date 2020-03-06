@@ -45,7 +45,7 @@ p {
 ---
 当然，地主家也可能没有余粮，您可以关注我的微信公众号：热心市民小张的小树洞，也不失为一种赞助： | 
 
-![微信公众号](/assets/imgs/wechat_official_account.png)              
+![微信公众号](/assets/imgs/wechat_official_account.jpeg)              
 
 ---
 又当然，您也可以三种方式随意组合进行赞助，一共有<img src="http://chart.googleapis.com/chart?cht=tx&chl=\Large sum(C_3^1, C_3^2, C_3^3) = 7" style="border:none;">种方式供您选择。
