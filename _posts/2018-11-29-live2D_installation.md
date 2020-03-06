@@ -6,6 +6,8 @@ categories: [部署]
 tags: [moe, live2D, ]  
 ---
 
+博客引自 [oukohou](https://github.com/oukohou)大佬：https://www.oukohou.wang/2018/10/11/S3FD-Single-Shot-Scale-invariant-Face-Detector/
+
 啥是live2D看板娘？就是右下角这个萌萌萌萌哒而且可以跟你的鼠标互动的卡通啦～～  
 萌不萌？是不是超萌え？  
 想不想在自己的jekyll博客上也安装一个哦？  
