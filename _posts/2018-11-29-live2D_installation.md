@@ -13,12 +13,10 @@ tags: [moe, live2D, ]
 [hexo-helper-live2d](https://github.com/EYHN/hexo-helper-live2d)，按照说明安装即可。  
 那么像我这样 jekyll + github pages 组合的朋友们可如何是好？  
 不要担心，这篇博客就是教你如何一步一步一步一步地给自己的博客添加一个萌萌萌萌哒看板娘。  
- 
+
 首先饮水思源，这篇博客的步骤大体上是参照[这篇博客](https://done.moe/tutorial/2018/08/11/how-to-add-cute-live2d-in-jekyll-blog/#fnref:1)，
-但当然不是全盘照抄，这种事我还是不屑为之的，如果完全一样，我会像我的另一篇博客[爱因斯坦求和约定](https://www.oukohou.wang/2018/10/25/Einstein-summation-convention/)
-那样直接给出原文链接即可。  
 主要是参照安装的过程中，遇到了很多意外，这里一一记录下来，以备后事之鉴。虽然应该不会有资于治道了，但至少应该有资于安装live2d吧？  
-  
+
 以下是安装步骤： 
 
 ### 1. 安装hexo：  
@@ -174,13 +172,4 @@ hexo generate
 
 ![kitai](https://raw.githubusercontent.com/oukohou/image_gallery/master/blogs/anime/gakki_kitai.jpg)  
 
-
-
-  
-<p  align="right">regards.</p>
-<h4 align="right">
-    <a href="https:www.oukohou.wang">
-        oukohou.
-    </a>
-</h4>
 
