@@ -27,7 +27,7 @@ tags: [Java, spring, ]
 
 1. 需求
 
-   ![image-20200429210647020](../assets/imgs/image-20200429210647020.png)
+   ![image-20200429210647020](/assets/imgs/image-20200429210647020.png)
 
 2. 入门案例的执行流程
 
@@ -41,7 +41,7 @@ tags: [Java, spring, ]
 
    5. Tomcat服务器渲染页面，做出响应
 
-![image-20200429220240757](../assets/imgs/image-20200429220240757.png)
+![image-20200429220240757](/assets/imgs/image-20200429220240757.png)
 
 3. SpringMVC官方提供图形
 
