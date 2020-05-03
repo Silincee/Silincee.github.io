@@ -7,7 +7,7 @@ tags: [Java, spring, ]
 
 ---
 
-## 三层架构和MVC
+## 1.三层架构和MVC
 
 1. 三层架构
    1. 开发服务器端程序，一般都基于两种形式，一种C/S架构程序，一种B/S架构程序 
@@ -23,7 +23,7 @@ tags: [Java, spring, ]
    3. View：指JSP、HTML用来展示数据给用户
    4. Controller：用来接收用户的请求，整个流程的控制器。用来进行数据校验等。
 
-## SpringMVC的入门案例
+## 2.SpringMVC的入门案例
 
 1. 需求
 
@@ -53,7 +53,7 @@ tags: [Java, spring, ]
    5. 视图解析器(View Resolver)
    6. 视图(View)
 
-## RequestMapping注解
+## 3.RequestMapping注解
 
 1. `@RequestMapping`注解的作用是建立请求URL和处理方法之间的对应关系 
 2.  RequestMapping注解可以作用在方法和类上
@@ -66,3 +66,530 @@ tags: [Java, spring, ]
    - method：指定该方法的请求方式
    - params：指定限制请求参数的条件
    - headers：发送请求中必须包含的请求头
+
+## 4.请求参数绑定
+
+> /Users/silince/Develop/MagicDontTouch/IdeaProjects/Java EE/springMVC/springmvc_day01_01_start
+
+1. 请求参数的绑定说明
+   1. 绑定机制
+      - 表单提交的数据都是k=v格式的 `username=haha&password=123`
+      - SpringMVC的参数绑定过程是把表单提交的请求参数，作为控制器中方法的参数进行绑定的 
+      - 要求:提交表单的name和参数的名称是相同的
+   2. 支持的数据类型
+      - 基本数据类型和字符串类型
+      - 实体类型（JavaBean）
+      - 集合数据类型（List、map集合等）
+
+2. 基本数据类型和字符串类型
+
+   1. 提交表单的name和参数名称是相同的
+   2. 区分大小写
+
+3. 实体类型（JavaBean）
+
+   1. 提交表单的name和JavaBean中的属性名称需要一致
+
+   2. 如果一个JavaBean类中包含其他的引用类型，那么表单的name属性需要编写成:对象.属性 例如:
+
+      address.name
+
+4. 给集合属性封装数据
+
+   1. JSP页面编写方式：list[0].属性
+
+5. 请求参数中文乱码的解决
+
+   1. 在web.xml中配置Spring提供的过滤器类
+
+   ```xml
+    
+   <!-- 配置过滤器，解决中文乱码的问题 --> <filter>
+   <filter-name>characterEncodingFilter</filter-name>
+   <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter- class>
+   <!-- 指定字符集 --> <init-param>
+   <param-name>encoding</param-name>
+   <param-value>UTF-8</param-value> </init-param>
+   </filter> <filter-mapping>
+   <filter-name>characterEncodingFilter</filter-name>
+   <url-pattern>/*</url-pattern> </filter-mapping>
+   ```
+
+   
+
+6. 自定义类型转换器
+
+   1. 表单提交的任何数据类型全部都是字符串类型，但是后台定义Integer类型，数据也可以封装上，说明
+
+      Spring框架内部会默认进行数据类型转换。
+
+   2. 如果想自定义数据类型转换，可以实现Converter的接口
+
+      1. 自定义类型转换器
+
+         ```java
+         package cn.itcast.utils;
+         import java.text.DateFormat; import java.text.SimpleDateFormat; import java.util.Date;
+         import org.springframework.core.convert.converter.Converter;
+         /**
+         * 把字符串转换成日期的转换器 * @author rt
+         */
+         public class StringToDateConverter implements Converter<String, Date>{
+         /**
+         * 进行类型转换的方法 */
+         public Date convert(String source) { // 判断
+         if(source == null) {
+         throw new RuntimeException("参数不能为空");
+         }
+         try {
+         DateFormat df = new SimpleDateFormat("yyyy-MM-dd"); // 解析字符串
+         Date date = df.parse(source);
+         return date;
+         } catch (Exception e) {
+         throw new RuntimeException("类型转换错误");
+         } }
+         }
+             
+         ```
+
+         
+
+      2. 注册自定义类型转换器，在springmvc.xml配置文件中编写配置
+
+         ```xml
+          <!-- 注册自定义类型转换器 -->
+         <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+         <property name="converters"> <set>
+         <bean class="cn.itcast.utils.StringToDateConverter"/> </set>
+                 </property>
+             </bean>
+         <!-- 开启Spring对MVC注解的支持 -->
+         <mvc:annotation-driven conversion-service="conversionService"/>
+         ```
+
+7. 在控制器中使用原生的ServletAPI对象
+
+   1. 只需要在控制器的方法参数定义HttpServletRequest和HttpServletResponse对象
+
+## 5.springMVC常用注解
+
+### RequestParam
+
+1. 作用:把请求中的指定名称的参数传递给控制器中的形参赋值
+2. 属性：
+   - value:请求参数中的名称
+   - required:请求参数中是否必须提供此参数，默认值是true，必须提供
+3. 代码如下
+
+```java
+/**
+* 接收请求 * @return */
+@RequestMapping(path="/hello")
+public String sayHello(@RequestParam(value="username",required=false)String name) {
+System.out.println("aaaa"); System.out.println(name); return "success";
+}
+```
+
+### RequestBody
+
+1. 作用:用于获取请求体的内容(注意:get方法不可以)
+2. 属性:
+   - required:是否必须有请求体，默认值是true
+3. 代码如下
+
+```java
+ /**
+* 接收请求 * @return */
+@RequestMapping(path="/hello")
+public String sayHello(@RequestBody String body) {
+System.out.println("aaaa"); System.out.println(body); return "success";
+}
+```
+
+
+
+### PathVariable
+
+1.  作用:拥有绑定url中的占位符的。例如:url中有/delete/{id}，{id}就是占位符
+
+2. 属性
+
+   - value:指定url中的占位符名称
+
+3. Restful风格的URL
+
+   1. 请求路径一样，可以根据不同的请求方式去执行后台的不同方法
+
+      ![image-20200503144715724](/assets/imgs/image-20200503144715724.png)
+
+   2. restful风格的URL优点
+
+      - 结构清晰
+      - 符合标准
+      - 易于理解
+      - 扩展方便
+
+4. 代码如下
+
+```java
+ <a href="user/hello/1">入门案例</a>
+/**
+* 接收请求 * @return */
+@RequestMapping(path="/hello/{id}")
+public String sayHello(@PathVariable(value="id") String id) {
+System.out.println(id);
+return "success"; }
+```
+
+### RequestHeader
+
+1. 作用:获取指定请求头的值
+2. 属性
+   - value:请求头的名称
+3. 代码如下
+
+```java
+@RequestMapping(path="/hello")
+public String sayHello(@RequestHeader(value="Accept") String header) {
+System.out.println(header);
+return "success"; }
+```
+
+### CookieValue
+
+1. 作用:用于获取指定cookie的名称的值
+2. 属性
+   - value:cookie的名称
+3. 代码
+
+```java
+@RequestMapping(path="/hello")
+public String sayHello(@CookieValue(value="JSESSIONID") String cookieValue) {
+System.out.println(cookieValue);
+return "success"; }
+```
+
+### ModelAttribute
+
+1. 作用
+   - 出现在方法上:表示当前方法会在控制器方法执行前先执行。
+   - 出现在参数上:获取指定的数据给参数赋值。
+2. 应用场景: 当提交表单数据不是完整的实体数据时，保证没有提交的字段使用数据库原来的数据。
+3. 代码
+
+#### 修饰的方法有返回值
+
+```java
+ /**
+* 作用在方法，先执行 
+* @param name
+* @return
+*/
+@ModelAttribute
+public User showUser(String name) {
+System.out.println("showUser执行了..."); // 模拟从数据库中查询对象
+User user = new User(); user.setName("哈哈"); user.setPassword("123"); user.setMoney(100d);
+    return user;
+}
+/**
+* 修改用户的方法
+* @param cookieValue * @return
+*/
+@RequestMapping(path="/updateUser") 
+public String updateUser(User user) {
+System.out.println(user);
+return "success"; }
+```
+
+
+
+#### 修饰的方法没有返回值
+
+```java
+/**
+* 作用在方法，先执行 
+* @param name
+* @return
+*/
+@ModelAttribute
+public void showUser(String name,Map<String, User> map) {
+System.out.println("showUser执行了..."); // 模拟从数据库中查询对象
+User user = new User(); user.setName("哈哈"); user.setPassword("123"); user.setMoney(100d);
+map.put("abc", user); }
+/**
+* 修改用户的方法
+* @param cookieValue 
+* @return
+*/
+ 
+@RequestMapping(path="/updateUser")
+public String updateUser(@ModelAttribute(value="abc") User user) {
+System.out.println(user);
+return "success"; }
+```
+
+### SessionAttributes
+
+1. 作用:用于多次执行控制器方法间的参数共享
+2. 属性. value:指定存入属性的名称
+3. 代码
+
+```java
+@Controller
+@RequestMapping(path="/user")
+@SessionAttributes(value= {"username","password","age"},types=
+{String.class,Integer.class}) public class HelloController {
+/**
+* 向session中存入值 * @return
+*/
+// 把数据存入到session域对象中
+@RequestMapping(path="/save") public String save(Model model) {
+System.out.println("向session域中保存数据"); model.addAttribute("username", "root"); model.addAttribute("password", "123"); model.addAttribute("age", 20);
+return "success"; }
+/**
+* 从session中获取值 * @return
+*/
+@RequestMapping(path="/find")
+public String find(ModelMap modelMap) {
+String username = (String) modelMap.get("username"); String password = (String) modelMap.get("password"); Integer age = (Integer) modelMap.get("age"); System.out.println(username + " : "+password +" : "+age); return "success";
+}
+/**
+* 清除值
+* @return */
+@RequestMapping(path="/delete")
+public String delete(SessionStatus status) {
+status.setComplete();
+return "success"; }
+}
+  
+```
+
+## 6.响应数据和结果视图
+
+### 返回值分类
+
+1. 返回字符串
+
+   1. Controller方法返回字符串可以指定逻辑视图的名称，根据视图解析器为物理视图的地址。
+
+      ```java
+      @RequestMapping(value="/hello") 
+      public String sayHello() {
+      System.out.println("Hello SpringMVC!!"); // 跳转到XX页面
+      return "success";
+      }
+      ```
+
+   2. 应用场景
+
+      ```java
+      @Controller 
+      @RequestMapping("/user") 
+      public class UserController {
+      /**
+      * 请求参数的绑定 */
+      @RequestMapping(value="/initUpdate") 
+      public String initUpdate(Model model) {
+      // 模拟从数据库中查询的数据
+      User user = new User(); 
+      	user.setUsername("张三"); 
+      	user.setPassword("123"); 
+        user.setMoney(100d); 
+        user.setBirthday(new Date()); 
+        model.addAttribute("user", user); return "update";
+      } 
+      }
+      
+      <h3>修改用户</h3>
+      ${ requestScope }
+      <form action="user/update" method="post">
+      		姓名:<input type="text" name="username" value="${ user.username }"><br> 
+        	密码:<input type="text" name="password" value="${ user.password }"><br> 
+          金额:<input type="text" name="money" value="${ user.money }"><br> 
+          <input type="submit" value="提交">
+      </form>
+        
+      ```
+
+2. 返回值是void
+
+   1. 如果控制器的方法返回值编写成void，执行程序报404的异常，默认查找JSP页面没有找到。默认会跳转到@RequestMapping(value="/initUpdate") initUpdate的页面。
+
+   2. 可以使用请求转发或者重定向跳转到指定的页面
+
+      ```java
+      @RequestMapping(value="/initAdd")
+      public void initAdd(HttpServletRequest request,HttpServletResponse response) throws
+      Exception { 
+        System.out.println("请求转发或者重定向");
+      	// 请求转发
+      	// request.getRequestDispatcher("/WEB-INF/pages/add.jsp").forward(request,
+      response);
+      	// 重定向
+      	// response.sendRedirect(request.getContextPath()+"/add2.jsp");
+      	response.setCharacterEncoding("UTF-8"); 			 	response.setContentType("text/html;charset=UTF-8");
+      // 直接响应数据 
+        response.getWriter().print("你好"); 
+        return;
+      }
+      ```
+
+   3. 返回值是ModelAndView对象
+
+      1. ModelAndView对象是Spring提供的一个对象，可以用来调整具体的JSP视图
+
+         ```java
+         /**
+         * 返回ModelAndView对象
+         * 可以传入视图的名称(即跳转的页面)，还可以传入对象。 
+         * @return
+         * @throws Exception
+         */
+         @RequestMapping(value="/findAll")
+         public ModelAndView findAll() throws Exception {
+         	ModelAndView mv = new ModelAndView(); 
+           // 跳转到list.jsp的页面 	
+           mv.setViewName("list");
+         	// 模拟从数据库中查询所有的用户信息 
+           List<User> users = new ArrayList<>(); 
+           User user1 = new User(); 		
+           user1.setUsername("张三"); 
+           user1.setPassword("123");
+         	User user2 = new User(); 
+           user2.setUsername("赵四");
+         	user2.setPassword("456");
+           users.add(user1); users.add(user2);
+         	// 添加对象 mv.addObject("users", users);
+         	return mv; 
+         }
+         
+         <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+         <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+         <html>
+         <head>
+         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <title>Insert title here</title>
+         </head>
+         <body>
+         	<h3>查询所有的数据</h3>
+         	<c:forEach items="${ users }" var="user">
+         	${ user.username } </c:forEach>
+         </body>
+         </html>
+           
+         ```
+
+### SpringMVC框架提供的转发和重定向
+
+1. forward请求转发.controller方法返回String类型，想进行请求转发也可以编写成
+
+   ```java
+   /**
+   * 使用forward关键字进行请求转发
+   * "forward:转发的JSP路径"，不走视图解析器了，所以需要编写完整的路径 * @return
+   * @throws Exception
+   */
+   @RequestMapping("/delete")
+   public String delete() throws Exception {
+   	System.out.println("delete方法执行了...");
+   	// return "forward:/WEB-INF/pages/success.jsp"; 
+     return "forward:/user/findAll";
+   }
+   ```
+
+2. redirect重定向
+
+   1. controller方法返回String类型，想进行重定向也可以编写成
+
+      ```java
+      /**
+      * 重定向
+      * @return
+      * @throws Exception */
+      @RequestMapping("/count")
+      public String count() throws Exception {
+      System.out.println("count方法执行了..."); return "redirect:/add.jsp";
+      // return "redirect:/user/findAll";
+      }
+      ```
+
+### ResponseBody响应json数据
+
+1. DispatcherServlet会拦截到所有的资源，导致一个问题就是静态资源(img、css、js)也会被拦截到，从而
+
+   不能被使用。解决问题就是需要配置静态资源不进行拦截，在springmvc.xml配置文件添加如下配置
+
+    	1. mvc:resources标签配置不过滤
+         	1. location元素表示webapp目录下的包下的所有文件
+         	2. mapping元素表示以/static开头的所有请求路径，如/static/a 或者/static/a/b
+
+   ```xml
+    <!-- 设置静态资源不过滤 -->
+   <mvc:resources location="/css/" mapping="/css/**"/> <!-- 样式 --> 
+   <mvc:resources location="/images/" mapping="/images/**"/> <!-- 图片 --> 
+   <mvc:resources location="/js/" mapping="/js/**"/> <!-- javascript -->
+   ```
+
+2. 使用@RequestBody获取请求体数据
+
+   1. 
+
+   ```javascript
+   // 页面加载
+   // 页面加载 $(function(){
+   // 绑定点击事件 $("#btn").click(function(){
+   $.ajax({
+   url:"user/testJson", contentType:"application/json;charset=UTF-8", data:'{"addressName":"aa","addressNum":100}', dataType:"json",
+   type:"post",
+   success:function(data){
+             alert(data);
+   					alert(data.addressName); }
+   		}); 
+   	});
+   });
+   
+   /**
+   * 获取请求体的数据 * @param body
+   */
+   @RequestMapping("/testJson")
+   public void testJson(@RequestBody String body) {
+   System.out.println(body); }
+   ```
+
+3. 使用@RequestBody注解把json的字符串转换成JavaBean的对象
+
+4. 使用@ResponseBody注解把JavaBean对象转换成json字符串，直接响应
+
+   ```java
+   @RequestMapping("/testJson")
+   public @ResponseBody Address testJson(@RequestBody Address address) {
+   	System.out.println(address); 
+     address.setAddressName("上海"); 
+     return address;
+   }
+     
+   ```
+
+   
+
+5. json字符串和JavaBean对象互相转换的过程中，需要使用jackson的jar包
+
+   ```xml
+    <dependency> 
+      <groupId>com.fasterxml.jackson.core</groupId> 
+      <artifactId>jackson-databind</artifactId> 
+      <version>2.9.0</version>
+       </dependency>
+       <dependency>
+   <groupId>com.fasterxml.jackson.core</groupId> 
+         <artifactId>jackson-core</artifactId> 
+         <version>2.9.0</version>
+       </dependency>
+       <dependency>
+   	<groupId>com.fasterxml.jackson.core</groupId> 
+         <artifactId>jackson-annotations</artifactId> 
+         <version>2.9.0</version>
+       </dependency>
+   ```
+
+   
