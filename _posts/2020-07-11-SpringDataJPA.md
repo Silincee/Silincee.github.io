@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "SpringDataJPA"
+title:  "Spring Data JPA"
 date:   2020-07-11 21:20:06 +0800--
 categories: [JavaEE]
 tags: [spring, JPA, ,JavaWeb]  
