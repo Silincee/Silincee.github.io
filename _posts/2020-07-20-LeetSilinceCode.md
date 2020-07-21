@@ -50,7 +50,7 @@ tags: [LeetCode, ]
 
 # TAG
 
-## 1. array
+## 1. Array
 
 > https://leetcode-cn.com/tag/array/
 
@@ -66,7 +66,7 @@ tags: [LeetCode, ]
 		 1 <= heights[i] <= 100
 ```
 
-分析：
+分析：桶排序
 
 ```xml
 非递减 排序也就是升序排列，最直观的一种解法就是排序后对比计数每个位置的不同数量。
@@ -105,17 +105,61 @@ public int heightChecker(int[] heights) {
     }
 ```
 
+### #674 最长连续递增序列
+
+题目：
+
+```xml
+给定一个未经排序的整数数组，找到最长且连续的的递增序列，并返回该序列的长度。
+
+示例 1:
+输入: [1,3,5,4,7]
+输出: 3
+解释: 最长连续递增序列是 [1,3,5], 长度为3。
+尽管 [1,3,5,7] 也是升序的子序列, 但它不是连续的，因为5和7在原数组里被4隔开。
+
+注意：数组长度不会超过10000。
+```
+
+分析：动态规划
+
+```xml
+算法：
+每个（连续）增加的子序列是不相交的，并且每当 nums[i-1]>=nums[i] 时，每个此类子序列的边界都会出现。当它这样做时，它标志着在 nums[i] 处开始一个新的递增子序列，我们将这样的 i 存储在变量 anchor 中。
+例如，如果 nums=[7，8，9，1，2，3]，那么 anchor 从 0 开始（nums[anchor]=7），并再次设置为 anchor=3（nums[anchor]=1）。无论 anchor 的值如何，我们都会记录 i-anchor+1 的候选答案、子数组 nums[anchor]、nums[anchor+1]、…、nums[i] 的长度，并且我们的答案会得到适当的更新。
+
+复杂度分析：
+时间复杂度：O(N)O(N)，其中 NN 是 nums 的长度。我们通过 nums 执行一个循环。
+空间复杂度：O(1)O(1)，anchor 和 ans 使用了常数级空间。
+
+```
+
+代码：
+
+```java
+class Solution {
+    public int findLengthOfLCIS(int[] nums) {
+        int ans = 0, anchor = 0;
+        for (int i = 0; i < nums.length; ++i) {
+            if (i > 0 && nums[i-1] >= nums[i]) anchor = i;
+            ans = Math.max(ans, i - anchor + 1);
+        }
+        return ans;
+    }
+}
+```
 
 
 
 
-## 2. string
 
-## 3. tree
+## 2. String
 
-## 4. linkedlist
+## 3. Tree
 
-## 5. math
+## 4. LinkedList
+
+## 5. Math
 
 
 
