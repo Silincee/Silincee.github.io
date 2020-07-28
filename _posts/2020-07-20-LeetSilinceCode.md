@@ -12,6 +12,8 @@ tags: [LeetCode, ]
 > leetcode: https://leetcode-cn.com/tag/array/
 >
 > 刷题模版： https://greyireland.gitbook.io/algorithm-pattern/	
+>
+> repo：https://github.com/labuladong/fucking-algorithm
 
 ```
 我的方法只适合连数据结构都不扎实的菜鸡选手～不要完全按tag！头一次刷，先把这五个tag做了：array，string，tree，linkedlist，math，其它的千万别按tag刷。这样不存在前面答案说的思维暗示问题，反而帮助巩固数据结构，还可以自己归纳某种数据结构的全部技巧～ 每个tag内部就按照easy-medium-hard的顺序做，这样最开始一天刷10道easy，后面熟了这个数据结构一天也能刷5道难题，不会一开始就卡壳，搞得自己很郁闷。这时候已经100多道了，之后从hard往easy刷！前面虐虐虐，后面一天20道easy爽歪歪，很快就刷完啦！赶快买个会员开始第二遍吧！
@@ -318,7 +320,7 @@ class Solution {
 ```java
 public int countCharacters(String[] words, String chars) {
     int[] chars_count = count(chars); // 统计字母表的字母出现次数
-    int res = 0;
+    int res = 0; // 所有可用单词长度之和
     for (String word : words) {
         int[] word_count = count(word); // 统计单词的字母出现次数
         if (contains(chars_count, word_count)) {
@@ -338,7 +340,7 @@ boolean contains(int[] chars_count, int[] word_count) {
     return true;
 }
 
-// 统计 26 个字母出现的次数
+// 统计 26 个字母出现的次数,用一个26位的数组表示
 int[] count(String word) {
     int[] counter = new int[26];
     for (int i = 0; i < word.length(); i++) {

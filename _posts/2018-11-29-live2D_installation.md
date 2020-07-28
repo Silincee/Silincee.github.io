@@ -200,17 +200,3 @@ hexo generate
 4、需要的话可以再` "display": {"position": "right", "width": 65, "height": 90, "hOffset": 60, "vOffset": -10,},`中修改二次元形象的位置和大小。
 
 
-
----
-
-怎么样，是不是喜出望外？  
-激动地想要[打赏](https://www.oukohou.wang/donate/)我却不知如何打赏?  
-不用担心，体贴的我也早已料到了这一痛点，特地写了个页面:  
-
-- [打赏传送门](https://www.oukohou.wang/donate/)  
-
-点击上面的传送门然后在里面痛快地撒个野吧!   
-
-
-
-
