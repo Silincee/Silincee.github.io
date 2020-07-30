@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "SpringMVC ResponseEntity<T>"
+title:  "SpringMVC ResponseEntity"
 date:   2020-05-01 10:08:06 +0800--
 categories: [Java,]
 tags: [Spring, JavaWeb,  ]  
@@ -16,15 +16,15 @@ tags: [Spring, JavaWeb,  ]
 
   
 
-ResponseEntity 表示整个HTTP响应：状态代码，标题和正文。因此，我们可以使用它来完全配置HTTP响应，它是一个对象，而*@ResponseBody*和@ResponseStatus是注解，适合于简单直接的场合。
+ResponseEntity 表示整个HTTP响应：状态代码，标题和正文。因此，我们可以使用它来完全配置HTTP响应，它是一个对象，而`@ResponseBody`和`@ResponseStatus`是注解，适合于简单直接的场合。
 
 
 
 ## **ResponseEntity**
 
-> 官方API：[][][ResponseEntity API](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html)
-
 **ResponseEntity**是一种泛型类型。因此，我们可以使用任何类型作为响应主体
+
+官方API：[][][ResponseEntity API](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html)
 
 ### 将 “Hello World!” 作为字符串返回给REST端
 
