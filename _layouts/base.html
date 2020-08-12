@@ -164,18 +164,14 @@ Yet no award for you……
         </div>
     
         <div class="pure-u-1-4">
-            <div id="sidebar" >
+            <div id="sidebar" style="overflow-x: scroll; !important overflow-y: scroll; !important">
                 {% include widgets/search_box_new %}
     
                 {% include widgets/personlized_signature %}
     
-               <div style="display: block;
-            height: 3000px;
-            overflow: auto;
-            overscroll-behavior: contain;
-            -ms-scroll-chaining: chained; !important;">
-                {% include widgets/post_toc %}
-                </div>
+
+               
+          
 
 
                 {% include widgets/category_list %}
@@ -185,7 +181,7 @@ Yet no award for you……
                 {% include widgets/codehub_list %}
     
                 {% include widgets/link_list %}
-
+                 {% include widgets/post_toc %}
                    
     
             </div>
