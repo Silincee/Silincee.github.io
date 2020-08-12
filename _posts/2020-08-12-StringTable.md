@@ -12,12 +12,12 @@ tags: [JVM, ]
 
 ## String的基本特性
 
-- String：字符串，使用一对 ”” 引起来表示
+- String：字符串，使用一对 "" 引起来表示
   - String s1 = "mogublog" ;   // 字面量的定义方式
   - String s2 =  new String("moxi"); 
-- string声明为final的，不可被继承
-- String实现了Serializable接口：表示字符串是支持序列化的。实现了Comparable接口：表示string可以比较大小
-- string在jdk8及以前内部定义了final char[] value用于存储字符串数据。JDK9时改为byte[]
+- ***String 声明为 final的，不可被继承***
+- String实现了Serializable接口：表示字符串是支持序列化的。实现了Comparable接口：表示 String可以比较大小
+- ***String 在jdk8及以前内部定义了final char[] value用于存储字符串数据。JDK9时改为byte[]***
 
 ### 为什么JDK9改变了结构
 
