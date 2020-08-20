@@ -6,7 +6,7 @@ categories: [Java]
 tags: [Elasticsearch, JavaEE, ]  
 ---
 
-# 😈Elasticsearch 启动指令
+# Elasticsearch 启动指令
 
 ```
 #启动ES
@@ -24,7 +24,7 @@ kill ...
 
 
 
-# 😈在centos中启动ES6
+# 在centos中启动ES6
 
 ```dockerfile
 docker run -e ES_JAVA_OPTS="-Xms256 -Xmx256m" -d -p 9200:9200  -p 9300:9300 --name ES01 镜像id
@@ -40,7 +40,7 @@ docker run -e ES_JAVA_OPTS="-Xms256 -Xmx256m" -d -p 9200:9200  -p 9300:9300 --na
 
 
 
-# 😈Elasticsearch核心概念
+# Elasticsearch核心概念
 
 > /Users/silince/Develop/MagicDontTouch/IdeaProjects/ElasticSearch/es-first
 
@@ -80,7 +80,7 @@ docker run -e ES_JAVA_OPTS="-Xms256 -Xmx256m" -d -p 9200:9200  -p 9300:9300 --na
 
 
 
-# 😈Spring Data Elasticsearch
+# Spring Data Elasticsearch
 
 > /Users/silince/Develop/MagicDontTouch/IdeaProjects/ElasticSearch/springdata-elasticsearch
 
