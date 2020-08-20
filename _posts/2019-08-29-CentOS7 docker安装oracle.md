@@ -2,7 +2,7 @@
 layout: post
 title:  "CentOS7 docker安装oracle"
 date:   2019-08-29 12:20:06 +0800--
-categories: [数据库，服务器]
+categories: [数据库, 服务器]
 tags: [oracle, docker, ]  
 
 ---
