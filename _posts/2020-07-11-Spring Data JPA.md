@@ -2,8 +2,8 @@
 layout: post
 title:  "Spring Data JPA"
 date:   2020-07-11 21:40:06 +0800--
-categories: [JavaEE]
-tags: [Spring, Java, ]  
+categories: [Java]
+tags: [Spring, JavaEE, ]  
 ---
 
 # JPA

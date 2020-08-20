@@ -2,8 +2,8 @@
 layout: post
 title:  "springMVC笔记"
 date:   2020-04-29 20:31:06 +0800--
-categories: [JavaEE]
-tags: [Java, spring, ]  
+categories: [Java]
+tags: [JavaEE, spring, ]  
 
 ---
 

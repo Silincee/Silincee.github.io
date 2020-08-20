@@ -2,8 +2,8 @@
 layout: post
 title:  "Elasticsearch"
 date:   2020-07-05 20:40:06 +0800--
-categories: [JavaEE]
-tags: [Elasticsearch, Java, ]  
+categories: [Java]
+tags: [Elasticsearch, JavaEE, ]  
 ---
 
 # 😈Elasticsearch 启动指令
