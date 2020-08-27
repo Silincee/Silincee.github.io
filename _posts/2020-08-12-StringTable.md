@@ -8,7 +8,7 @@ tags: [JVM, ]
 
 # StringTable
 
-> 来源：尚硅谷宋红康JVM教程 
+> 整理自：尚硅谷宋红康JVM教程
 
 ## String的基本特性
 
