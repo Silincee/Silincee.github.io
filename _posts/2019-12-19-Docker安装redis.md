@@ -2,7 +2,7 @@
 layout: post
 title:  "Docker安装redis"
 date:   2019-12-19 12:20:06 +0800--
-categories: [服务器]
+categories: [服务器, 数据库]
 tags: [docker,redis ]  
 ---
 # Docker安装redis
