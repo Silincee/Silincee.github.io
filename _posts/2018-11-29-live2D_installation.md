@@ -187,7 +187,14 @@ hexo generate
 });</script>
 ```
 
-将其中的`"model": {"jsonPath": ""model": {"jsonPath": "/assets/live2dw/assets/nitychan.model.json"},"},`中的路径`/assets/live2dw/assets/nitychan.model.json`改为 `/assets/live2dw/assets/koharu.model.json`
+修改model中的路径 
+
+```
+# /assets/live2dw/assets/nitychan.model.json改为 /assets/live2dw/assets/koharu.model.json
+"model": {"jsonPath": ""model": {"jsonPath":"/assets/live2dw/assets/nitychan.model.json"},"}
+```
+
+
 
 即为如下图所示的`***..model.json`文件的路径。（不同二次元形象的文件名不一样，都需要改一下）
 
@@ -197,6 +204,12 @@ hexo generate
 
 
 
-4、需要的话可以再` "display": {"position": "right", "width": 65, "height": 90, "hOffset": 60, "vOffset": -10,},`中修改二次元形象的位置和大小。
+4、修改二次元形象的位置和大小
+
+```
+"display": {"position": "right", "width": 65, "height": 90, "hOffset": 60, "vOffset": -10,}
+```
+
+
 
 
