@@ -72,39 +72,6 @@ redis集群的主节点数量基本不可能超过1000个，超过的话可能�
 
 
 
-### 在集群中录入值(组的概念)
-
-redis-cli客户端提供 **-c参数实现自动重定向**
-
-```shell
-redis-cli -c -p 6379
-```
-
-不在一个slot下的键值，是不能使用mget，mset等多键操作
-
-可以通过{}来定义`组的概念`，从而使key中{}内相同内容的键值对放到一个slot中去。
-
-```shell
-set user:{info}:name xxx
-set age{info} 12
-set {info}email 12345@qq.com
-hset user{info} name jiang
-hset user{info} age 19
-hset user{info} eamil 12345@qq.com
-
-#结果
-172.17.0.3:6379> keys *
-1) "user{info}"
-2) "{info}email"
-3) "user:{info}:name"
-4) "age{info}"
-------------------------------------------------------
-172.17.0.3:6379> hkeys user{info}
-1) "name"
-2) "age"
-3) "eamil"
-```
-
 
 
 ### 集群命令
@@ -138,4 +105,98 @@ CLUSTER GETKEYSINSLOT <slot> <count> 返回 count 个 slot 槽中的键。
 
 ### 集群搭建
 
-https://blog.csdn.net/qq_42815754/article/details/82912130
+1.[docker拉取redis镜像并创建容器]([http://www.silince.cn/2019/12/19/Docker%E5%AE%89%E8%A3%85redis/](http://www.silince.cn/2019/12/19/Docker安装redis/))
+
+```shell
+# 创建容器
+docker run -p 6379:6379 -v /root/docker/redis/data:/data -v /root/docker/redis/conf/redis.conf:/etc/redis/redis.conf --privileged=true --name myredis -d redis:5.0.7
+# 进入容器
+docker exec ‐it myredis env LANG=C.UTF-8 /bin/bash 
+```
+
+2.在/etc/redis/目录下存放集群节点，并修改配置文件
+
+```
+bind 0:0:0:0
+port 6380
+dbfilename "dump6380.rdb"
+pidfile /var/run/redis_6380.pid
+cluster-enabled yes
+cluster-config-file nodes-6380.conf
+cluster-node-timeout 15000
+```
+
+按同样方法修改81、82、83、84、85节点的配置文件。
+
+```
+%s/6379/6384
+```
+
+3.启动各个redis
+
+```
+redis-server redis638x.conf
+```
+
+![image-20200828181728205](/assets/imgs/image-20200828181728205.png)
+
+4.将六个节点合成一个集群
+
+组合之前，请确保所有redis实例启动后，nodes-xxx.conf文件都正常生成
+
+![image-20200828181852668](/assets/imgs/image-20200828181852668.png)
+
+```
+# 不是docker的话需要在redis-5.0.7/src/目录下执行
+redis-cli --cluster create  172.17.0.2:6380 172.17.0.2:6381 172.17.0.2:6382 172.17.0.2:6383 172.17.0.2:6384 172.17.0.2:6385 --cluster-replicas 1
+```
+
+![image-20200828183731342](/assets/imgs/image-20200828183731342.png)
+
+5.进入其中一个节点
+
+```shell
+redis-cli -c -p 6380
+```
+
+#### 记一个错误：(error) CLUSTERDOWN Hash slot not served
+
+![image-20200828184243390](/assets/imgs/image-20200828184243390.png)
+
+
+
+
+
+### 在集群中录入值(组的概念)
+
+redis-cli客户端提供 **-c参数实现自动重定向**
+
+```shell
+redis-cli -c -p 6379
+```
+
+不在一个slot下的键值，是不能使用mget，mset等多键操作
+
+可以通过{}来定义`组的概念`，从而使key中{}内相同内容的键值对放到一个slot中去。
+
+```shell
+set user:{info}:name xxx
+set age{info} 12
+set {info}email 12345@qq.com
+hset user{info} name jiang
+hset user{info} age 19
+hset user{info} eamil 12345@qq.com
+
+#结果
+172.17.0.3:6379> keys *
+1) "user{info}"
+2) "{info}email"
+3) "user:{info}:name"
+4) "age{info}"
+------------------------------------------------------
+172.17.0.3:6379> hkeys user{info}
+1) "name"
+2) "age"
+3) "eamil"
+```
+
