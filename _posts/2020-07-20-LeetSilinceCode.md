@@ -56,7 +56,7 @@ tags: [LeetCode, ]
 
 > https://leetcode-cn.com/tag/array/
 
-### [#1051 高度检查器](https://leetcode-cn.com/problems/height-checker/) 
+### [#1051 高度检查器](https://leetcode-cn.com/problems/height-checker/)  $1/2$
 
 > 2019.08.28：😭  在对比一次后，忘记加上arr[j]--
 >
