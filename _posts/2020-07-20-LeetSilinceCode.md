@@ -52,15 +52,17 @@ tags: [LeetCode, ]
 
 # TAG
 
+正确率 > 80% 可移除 👩🏻‍💻
+
 ## 1. Array
 
 > https://leetcode-cn.com/tag/array/
 
-### [#1051 高度检查器](https://leetcode-cn.com/problems/height-checker/)  $1/2$
+### [#1051 高度检查器](https://leetcode-cn.com/problems/height-checker/)  👩🏻‍💻
 
-> 2019.08.28：😭  在对比一次后，忘记加上arr[j]--
->
-> 2019.08.29：😎
+- 正确率：$1/2=50\%$
+- 2019.08.28：😭  在对比一次后，忘记加arr[j]--；
+- 2019.08.29：😎
 
 题目：
 
@@ -114,7 +116,7 @@ public int heightChecker(int[] heights) {
     }
 ```
 
-### [#674 最长连续递增序列](https://leetcode-cn.com/problems/longest-continuous-increasing-subsequence/) 
+### [#674 最长连续递增序列](https://leetcode-cn.com/problems/longest-continuous-increasing-subsequence/)  👩🏻‍💻
 
 题目：
 
@@ -161,7 +163,7 @@ class Solution {
 }
 ```
 
-### [#26 删除排序数组中的重复项](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/)
+### [#26 删除排序数组中的重复项](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/) 👩🏻‍💻
 
 题目：
 
@@ -199,7 +201,7 @@ public int removeDuplicates(int[] nums) {
 
 
 
-### [#88 合并两个有序数组](https://leetcode-cn.com/problems/merge-sorted-array/)
+### [#88 合并两个有序数组](https://leetcode-cn.com/problems/merge-sorted-array/) 👩🏻‍💻
 
 题目：
 
@@ -295,7 +297,7 @@ class Solution {
 
 
 
-### [#1160 拼写单词](https://leetcode-cn.com/problems/find-words-that-can-be-formed-by-characters/)
+### [#1160 拼写单词](https://leetcode-cn.com/problems/find-words-that-can-be-formed-by-characters/) 👩🏻‍💻
 
 题目：
 
