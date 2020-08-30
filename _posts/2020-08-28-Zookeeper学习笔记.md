@@ -165,7 +165,7 @@ quit
 6）停止Zookeeper
 
 ```
-bin.zkServer.sh stop
+bin/zkServer.sh stop
 ```
 
 ### 配置参数解读
@@ -236,34 +236,46 @@ Zookeeper使用的基本时间，服务器之间或客户端与服务器之间�
 
 ### Stat结构体
 
-1. czxid - 创建节点的事务 zxid <br>每次修改 ZooKeeper 状态都会收到一个 zxid 形式的时间戳，也就是 ZooKeeper 事务 ID。事务 ID 是 ZooKeeper 中所有修改总的次序。每个修改都有唯一的 zxid，如果 zxid1 小于 zxid2，那么 zxid1 在 zxid2 之前发生。
-2. ctime - znode 被创建的毫秒数(从 1970 年开始)
-3. mzxid - znode 最后更新的事务 zxid
-4. mtime - znode 最后修改的毫秒数(从 1970 年开始)
-5. pZxid-znode 最后更新的子节点 zxid
-6. cversion - znode 子节点变化号， znode 子节点修改次数
-7. dataversion - znode 数据变化号
-8. aclVersion - znode 访问控制列表的变化号
-9. ephemeralOwner- 如果是临时节点，这个是 znode 拥有者的 session id。如果不是临时节点则是 0。
-10. dataLength- znode 的数据长度
-11. numChildren - znode 子节点数量
+1. czxid - 创建节点的事务 zxid 
 
-### 监听器原理
+   每次修改 ZooKeeper 状态都会收到一个 zxid 形式的时间戳，也就是 ZooKeeper 事务 ID。事务 ID 是 ZooKeeper 中所有修改总的次序。每个修改都有唯一的 zxid，如果 zxid1 小于 zxid2，那么 zxid1 在 zxid2 之前发生。
+
+2. ctime - znode 被创建的毫秒数(从 1970 年开始)
+
+3. mzxid - znode 最后更新的事务 zxid
+
+4. mtime - znode 最后修改的毫秒数(从 1970 年开始)
+
+5. pZxid-znode 最后更新的子节点 zxid
+
+6. cversion - znode 子节点变化号， znode 子节点修改次数
+
+7. dataversion - znode 数据变化号
+
+8. aclVersion - znode 访问控制列表的变化号
+
+9. ephemeralOwner- 如果是临时节点，这个是 znode 拥有者的 session id。如果不是临时节点则是 0。
+
+10. ***dataLength- znode 的数据长度***
+
+11. ***numChildren - znode 子节点数量***
+
+### 监听器原理 🤔
 
 **面试重点**
 
 监听原理详解：
 
 1. 首先要有一个main()线程
-2. 在main线程中创建Zookeeper客户端， 这时就会创建两个线程， 一个负责网络连接通信（ connet ）， 一个负责监听（ listener ）。
+2. 在main线程中创建Zookeeper客户端， ***这时就会创建两个线程， 一个负责网络连接通信（ connet ）， 一个负责监听（ listener ）。***
 3. 通过connect线程将注册的监听事件发送给Zookeeper。
 4. 在Zookeeper的注册监听器列表中将注册的监听事件添加到列表中。
-5. Zookeeper监听到有数据或路径变化， 就会将这个消息发送给listener线程。
-6. listener线程内部调用了process()方法。
+5. ***Zookeeper监听到有数据或路径变化， 就会将这个消息发送给listener线程。***
+6. ***listener线程内部调用了process()方法。***
 
 ![](/assets/imgs/10.png)
 
-常见的监听:
+***常见的监听:***
 
 1. 监听节点数据的变化 `get path [watch]`
 2. 监听子节点增减的变化 `ls path [watch]`
@@ -277,6 +289,65 @@ Zookeeper使用的基本时间，服务器之间或客户端与服务器之间�
 3. 当Leader收到半数以上 Server 的成功信息， 说明该写操作可以执行。Leader会向各个Server 发送提交信息，各个Server收到信息后会**落实队列里的写请求， 此时写成功**。
 4. Server1会进一步通知 Client 数据写成功了，这时就认为整个写操作成功
 
+### ACL权限控制
+
+ACL：Access Control List 访问控制列表
+
+**概述**
+
+ACL 权限控制，使用：scheme​：id：​perm 来标识，主要涵盖 3 个方面：
+　　权限模式（Scheme）：授权的策略
+　　授权对象（ID）:授权的对象
+　　权限（Permission）:授予的权限
+
+其特性如下：
+　　ZooKeeper的权限控制是基于每个znode节点的，需要对每个节点设置权限
+　　每个znode支持设置多种权限控制方案和多个权限
+　　子节点不会继承父节点的权限，客户端无权访问某节点，但可能可以访问它的子节点
+
+例如:
+
+```
+setAcl /test2 ip:128.0.0.1:crwda
+```
+
+#### scheme 采用何种方式授权
+
+　　**world：**默认方式，相当于全部都能访问
+　　**auth**：代表已经认证通过的用户(cli中可以通过addauth digest user:pwd 来添加当前上下文中的授权用户)
+　　**digest**：即用户名:密码这种方式认证，这也是业务系统中最常用的。用 *username:password* 字符串来产生一个MD5串，然后该串被用来作为ACL ID。认证是通过明文发送*username:password* 来进行的，当用在ACL时，表达式为*username:base64* ，base64是password的SHA1摘要的编码。
+　　**ip**：使用客户端的主机IP作为ACL ID 。这个ACL表达式的格式为*addr/bits* ，此时addr中的有效位与客户端addr中的有效位进行比对。
+
+####  ID  给谁授予权限
+
+　　授权对象ID是指，权限赋予的用户或者一个实体，例如：IP 地址或者机器。授权模式 schema 与 授权对象 ID 之间
+
+![img](/assets/imgs/1196212-20190312150144821-1097483460.png)
+
+#### permission  授予什么权限
+
+**CREATE、READ、WRITE、DELETE、ADMIN** 也就是 **增、删、改、查、管理**权限，这5种权限简写为crwda
+
+注意:
+
+**这5种权限中，delete是指对子节点的删除权限，其它4种权限指对自身节点的操作权限**
+
+**更详细的如下:**
+
+　　**CREATE**  c 可以创建子节点
+　　**DELETE**  d 可以删除子节点（仅下一级节点）
+　　**READ**    r 可以读取节点数据及显示子节点列表
+　　**WRITE**   w 可以设置节点数据
+　　**ADMIN**   a 可以设置节点访问控制列表权限 
+
+#### ACL 相关命令
+
+`getAcl    getAcl <path>`   读取ACL权限
+`setAcl    setAcl <path> <acl>`   设置ACL权限
+`addauth   addauth <scheme> <auth>`   添加认证用户
+
+
+
 ## Zookerper实战 🤔
 
 ### 分布式安装
@@ -286,6 +357,7 @@ Zookeeper使用的基本时间，服务器之间或客户端与服务器之间�
 **1.docker创建容器 myzk、myzk2、myzk3**
 
 ```shell
+# --privileged=true 给容器一定的读写权限
 docker run -v /root/zookeeper:/opt/module  --privileged=true --name myzk -d redis:5.0.7
 docker run -v /root/zookeeper:/opt/module  --privileged=true --name myzk2 -d redis:5.0.7
 docker run -v /root/zookeeper:/opt/module  --privileged=true --name myzk3 -d redis:5.0.7
@@ -312,13 +384,13 @@ vim myid
 # 并分别在 myzk2、myzk3 上修改 myid 文件中内容为 3、4
 ```
 
-**3.配置 zoo.cfg 文件**
+**3.配置 zoo.cfg 文件** [虚拟机硬盘扩容步骤](http://www.silince.cn/2020/08/28/centos虚拟机扩展磁盘空间/)
 
 ```shell
 # 重命名/zookeeper-3.4.14/conf 这个目录下的 zoo_sample.cfg 为 zoo.cfg
 mv zoo_sample.cfg zoo.cfg
 # 修改zoo.cfg 文件数据存储路径配置 ⚠️ 虚拟机硬盘设的太小了导致没法改，吐啦
-dataDir=/root/silince/zookeeper-3.4.14/zkData
+dataDir=/root/silince/zookeeper/zkData
 # 增加如下配置
 server.2=172.17.0.2:2888:3888 
 server.3=172.17.0.3:2888:3888 
@@ -338,7 +410,7 @@ docker inspect  容器/镜像 |grep IPAddress
 
 **4.集群操作**
 
-分别启动zookeeper
+分别启动zookeeper ⚠️ ***启动的节点要超过半数才能真正启动***
 
 ```
 bin/zkServer.sh start
@@ -350,11 +422,9 @@ bin/zkServer.sh start
 bin/zkServer.sh status
 ```
 
+![image-20200829195725228](/assets/imgs/image-20200829195725228.png)
 
-
-
-
-### 客户端命令行操作
+### 客户端命令行Shell操作
 
 | 命令基本语法     | 功能描述                                               |
 | ---------------- | ------------------------------------------------------ |
@@ -370,7 +440,7 @@ bin/zkServer.sh status
 
 1． 启动客户端
 
-	zkCli.cmd -server 127.0.0.1:2182
+	bin/zkCli.sh
 
 ---
 
@@ -383,75 +453,32 @@ bin/zkServer.sh status
 3． 查看当前 znode 中所包含的内容
 
 	ls /
-	[zookeeper]
 
 ---
 
 4． 查看当前节点详细数据
 
 	ls2 /
-	[zookeeper]
-	cZxid = 0x0
-	ctime = Thu Jan 01 08:00:00 CST 1970
-	mZxid = 0x0
-	mtime = Thu Jan 01 08:00:00 CST 1970
-	pZxid = 0x0
-	cversion = -1
-	dataVersion = 0
-	aclVersion = 0
-	ephemeralOwner = 0x0
-	dataLength = 0
-	numChildren = 1
 
 ---
 
 5． 分别创建 2 个普通节点
 
-	create /sanguo "jinlian"
-	Created /sanguo
-	
-	create /sanguo/shuguo "liubei"
-	Created /sanguo/shuguo
+	create /zhejiang "zhejiang"
+	create /zhejiang/hangzhou "hangzhou"
 
 ---
 
 6．获得节点的值
 
 	get /sanguo
-	jinlian
-	cZxid = 0x300000004
-	ctime = Sat Jul 18 13:07:51 CST 2020
-	mZxid = 0x300000004
-	mtime = Sat Jul 18 13:07:51 CST 2020
-	pZxid = 0x300000005
-	cversion = 1
-	dataVersion = 0
-	aclVersion = 0
-	ephemeralOwner = 0x0
-	dataLength = 7
-	numChildren = 1
-	
 	get /sanguo/shuguo
-	liubei
-	cZxid = 0x300000005
-	ctime = Sat Jul 18 13:09:21 CST 2020
-	mZxid = 0x300000005
-	mtime = Sat Jul 18 13:09:21 CST 2020
-	pZxid = 0x300000005
-	cversion = 0
-	dataVersion = 0
-	aclVersion = 0
-	ephemeralOwner = 0x0
-	dataLength = 6
-	numChildren = 0
-	[zk: 127.0.0.1:2182(CONNECTED) 8]
 
 ---
 
 7． 创建短暂节点
 
 	create -e /sanguo/wuguo "zhouyu"
-	Created /sanguo/wuguo
 
 a. 在当前客户端是能查看到的
 
@@ -461,7 +488,6 @@ a. 在当前客户端是能查看到的
 b. 退出当前客户端然后再重启客户端
 
 	quit
-	
 	zkCli.cmd -server 127.0.0.1:2182
 
 c. 再次查看根目录下短暂节点已经删除
@@ -487,7 +513,9 @@ b. 创建带序号的节点
 	[zk: 127.0.0.1:2182(CONNECTED) 4] create -s /sanguo/weiguo/sunshangxiang "meinv"
 	Created /sanguo/weiguo/sunshangxiang0000000002
 
-如果原来没有序号节点，序号从 0 开始依次递增。 如果原节点下已有 2 个节点，则再排序时从 2 开始，以此类推。
+***如果原来没有序号节点，序号从 0 开始依次递增。 如果原节点下已有 2 个节点，则再排序时从 2 开始，以此类推。***
+
+***用于记录节点的创建顺序***
 
 ---
 
@@ -497,10 +525,10 @@ b. 创建带序号的节点
 
 ---
 
-10． 节点的值变化监听
+10． ***节点的值变化监听******⚠️只能监听一次***
 
 
-a. 在 127.0.0.1:2182 上注册监听/sanguo 节点数据变化
+a. 在 127.0.0.1:2182 上注册监听/sanguo 节点数据变化；
 
 	[zk: 127.0.0.1:2182(CONNECTED) 7] get /sanguo watch
 	jinlian
@@ -540,7 +568,7 @@ c. 观察 127.0.0.1:2182 收到数据变化的监听
 
 ---
 
-11． 节点的子节点变化监听（路径变化）
+11． ***节点的子节点变化监听（路径变化）***
 
 a. 在 127.0.0.1:2182 上注册监听/sanguo 节点的子节点变化
 
@@ -597,9 +625,8 @@ c. 观察 127.0.0.1:2182 收到子节点变化的监听
 
 ### API应用
 
-#### 在 Eclipse 环境搭建 ####
+#### 创建一个 Maven 工程
 
-- 创建一个 Maven 工程
 - 为 [pom.xml](pom.xml) 添加关键依赖
 
 ```xml
@@ -618,7 +645,7 @@ c. 观察 127.0.0.1:2182 收到子节点变化的监听
 </dependencies>
 ```
 
-- 需要在项目的 `src/main/resources` 目录下，新建一个文件，命名为[log4j.properties](src/main/resources/log4j.properties)，在文件中填入如下内容：
+- 需要在项目的 `src/main/resources` 目录下，新建一个文件，命名为log4j.properties，在文件中填入如下内容：
 
 ```properties
 log4j.rootLogger=INFO, stdout
@@ -633,8 +660,6 @@ log4j.appender.logfile.layout.ConversionPattern=%d %p [%c] - %m%n
 
 #### 创建 ZooKeeper 客户端 ####
 
-[ZooKeeperTest源码](src/test/java/com/lun/ZooKeeperTest.java)
-
 ```java
 public class ZooKeeperTest {
 	private static String connectString = "127.0.0.1:2182,127.0.0.1:2183,127.0.0.1:2184";
@@ -647,7 +672,7 @@ public class ZooKeeperTest {
 
 		zkClient = new ZooKeeper(connectString, sessionTimeout, new Watcher() {
 			@Override
-			// 收到事件通知后的回调函数（用户的业务逻辑）
+			// ⚠️ 收到事件通知后的回调函数（用户的业务逻辑）
 			public void process(WatchedEvent event) {
 				System.out.println(event.getType() + "--" + event.getPath());
 
@@ -685,7 +710,7 @@ public void create() throws Exception {
 // 获取子节点
 @Test
 public void getChildren() throws Exception {
-	List<String> children = zkClient.getChildren("/", true);
+	List<String> children = zkClient.getChildren("/", true); // true 开启监听
 	for (String child : children) {
 		System.out.println(child);
 	}
@@ -708,11 +733,15 @@ public void exist() throws Exception {
 
 ### 服务器节点动态上下线案例分析
 
+> /Users/silince/Develop/MagicDontTouch/IdeaProjects
+
 #### 需求 ####
 
 某分布式系统中，主节点可以有多台，可以动态上下线，任意一台客户端都能实时感知到主节点服务器的上下线。
 
 #### 需求分析 ####
+
+对去Zookeeper集群来说，服务器和客户端都是它的客户端。
 
 ![](/assets/imgs/01.png)
 
@@ -724,8 +753,6 @@ public void exist() throws Exception {
 	Created /servers
 
 ##### 服务器端向 Zookeeper 注册代码 #####
-
-[DistributeServer源码](src/main/java/com/lun/DistributeServer.java)
 
 ```java
 public class DistributeServer {
@@ -771,8 +798,6 @@ public class DistributeServer {
 ```
 
 ##### 服务器节点动态上下线案例全部代码实现
-
-[DistributeClient源码](src/main/java/com/lun/DistributeClient.java)
 
 ```java
 public class DistributeClient {
@@ -857,16 +882,20 @@ public class DistributeClient {
 
 CRUD：
 
-1. C
-	- create
-2. R 
-	- ls
-	- ls2
-	- get
-	- stat
-3. U
-	- set
-4. D
-	- delete
-	- rmr
-5. help
+- C
+  - create
+
+- R 
+  - ls
+  - ls2
+  - get
+  - stat
+
+- U
+  - set
+
+- D
+  - delete
+  - rmr
+
+- help
