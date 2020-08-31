@@ -254,6 +254,10 @@ class Solution {
 无论数组是1 2 1 2 1，亦或是1 2 2 1 1，总能得到正确的候选人。
 ```
 
+方法二说明：
+
+![image-20200831201456212](/Users/silince/Pictures/Typora/image-20200831201456212.png)
+
 代码：
 
 ```java
