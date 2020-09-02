@@ -9,7 +9,7 @@ tags: [高并发,锁 ]
 
 # 用户态与内核态
 
-JDK早期，synchronized 叫做重量级锁， 因为申请锁资源必须通过kernel, 系统调用
+JDK早期，synchronized 叫做***重量级锁***， 申请锁资源必须通过kernel, 系统调用(从用户态向内核态调用)
 
 ```assembly
 ;hello.asm
@@ -39,19 +39,23 @@ _start:
 
 # CAS
 
+Compare And Swap (Compare And Exchange) / 自旋 / 自旋锁 / 无锁 （无重量锁）。
 
+- 在大多数处理器的指令中，都会实现 CAS 相关的指令，这一条指令就可以完成“比较并交换”的操作，也正是由于这是一条（而不是多条）CPU 指令，所以 CAS 相关的指令是具备原子性的，这个组合操作在执行期间不会被打断，这样就能保证并发安全。由于这个原子性是由 CPU 保证的，所以无需我们程序员来操心。
 
-Compare And Swap (Compare And Exchange) / 自旋 / 自旋锁 / 无锁 （无重量锁）
+- Java 中的CAS操作只是对CPU的 cmpxchgq 指令的一层封装。它的功能就是一次只原子地修改一个变量。
 
-因为经常配合循环操作，直到完成为止，所以泛指一类操作
+- 因为经常配合循环操作，直到完成为止，所以泛指一类操作。 cas(v, a, b) ，变量v，期待值a, 修改值b
 
-cas(v, a, b) ，变量v，期待值a, 修改值b
+## ***ABA问题***
 
-ABA问题，你的女朋友在离开你的这段儿时间经历了别的人，自旋就是你空转等待，一直等到她接纳你为止
+描述：比较的时候经过了多次修改最后值和原来的值相同。
 
-解决办法（版本号 AtomicStampedReference），基础类型简单值不需要版本号
+***解决办法（版本号 AtomicStampedReference），基础类型简单值不需要版本号***。
 
-# Unsafe
+![image-20200902103033627](../assets/imgs/image-20200902103033627.png)
+
+## Unsafe
 
 AtomicInteger:
 
@@ -76,39 +80,6 @@ Unsafe:
 public final native boolean compareAndSwapInt(Object var1, long var2, int var4, int var5);
 ```
 
-运用：
-
-```java
-package com.mashibing.jol;
-
-import sun.misc.Unsafe;
-
-import java.lang.reflect.Field;
-
-public class T02_TestUnsafe {
-
-    int i = 0;
-    private static T02_TestUnsafe t = new T02_TestUnsafe();
-
-    public static void main(String[] args) throws Exception {
-        //Unsafe unsafe = Unsafe.getUnsafe();
-
-        Field unsafeField = Unsafe.class.getDeclaredFields()[0];
-        unsafeField.setAccessible(true);
-        Unsafe unsafe = (Unsafe) unsafeField.get(null);
-
-        Field f = T02_TestUnsafe.class.getDeclaredField("i");
-        long offset = unsafe.objectFieldOffset(f);
-        System.out.println(offset);
-
-        boolean success = unsafe.compareAndSwapInt(t, offset, 0, 1);
-        System.out.println(success);
-        System.out.println(t.i);
-        //unsafe.compareAndSwapInt()
-    }
-}
-```
-
 jdk8u: unsafe.cpp:
 
 cmpxchg = compare and exchange
@@ -124,12 +95,12 @@ UNSAFE_END
 
 jdk8u: atomic_linux_x86.inline.hpp **93行**
 
-is_MP = Multi Processor  
+***is_MP = Multi Processor***  
 
 ```c++
 inline jint     Atomic::cmpxchg    (jint     exchange_value, volatile jint*     dest, jint     compare_value) {
   int mp = os::is_MP();
-  __asm__ volatile (LOCK_IF_MP(%4) "cmpxchgl %1,(%3)"
+  __asm__ volatile (LOCK_IF_MP(%4) "cmpxchgl %1,(%3)" // ⚠️ cmpxchgl 并不是原子性的指令
                     : "=a" (exchange_value)
                     : "r" (exchange_value), "a" (compare_value), "r" (dest), "r" (mp)
                     : "cc", "memory");
@@ -158,25 +129,25 @@ jdk8u: atomic_linux_x86.inline.hpp
 #define LOCK_IF_MP(mp) "cmp $0, " #mp "; je 1f; lock; 1: "
 ```
 
-最终实现：
+### 最终实现 🤔
 
-cmpxchg = cas修改变量值
+cmpxchg = cas修改变量值（多核需要加lock）
 
 ```assembly
 lock cmpxchg 指令
 ```
 
-硬件：
+***硬件***：
 
-lock指令在执行后面指令的时候锁定一个北桥信号
-
-（不采用锁总线的方式）
+lock指令在执行后面指令的时候锁定一个北桥信号（不采用锁总线的方式）
 
 
 
-# markword
+# 对象在内存中的存储布局
 
-# 工具：JOL = Java Object Layout
+![image-20200902113000823](/assets/imgs/image-20200902113000823.png)
+
+## 工具：JOL = Java Object Layout
 
 ```xml
 <dependencies>
@@ -189,34 +160,13 @@ lock指令在执行后面指令的时候锁定一个北桥信号
     </dependencies>
 ```
 
+[code](https://github.com/Silincee/-/blob/master/src/main/java/com/silince/jol/HelloJol.java) 
 
+![image-20200902123803015](/assets/imgs/image-20200902123803015.png)
 
-jdk8u: markOop.hpp
+加锁后：对象头发生变化
 
-```java
-// Bit-format of an object header (most significant first, big endian layout below):
-//
-//  32 bits:
-//  --------
-//             hash:25 ------------>| age:4    biased_lock:1 lock:2 (normal object)
-//             JavaThread*:23 epoch:2 age:4    biased_lock:1 lock:2 (biased object)
-//             size:32 ------------------------------------------>| (CMS free block)
-//             PromotedObject*:29 ---------->| promo_bits:3 ----->| (CMS promoted object)
-//
-//  64 bits:
-//  --------
-//  unused:25 hash:31 -->| unused:1   age:4    biased_lock:1 lock:2 (normal object)
-//  JavaThread*:54 epoch:2 unused:1   age:4    biased_lock:1 lock:2 (biased object)
-//  PromotedObject*:61 --------------------->| promo_bits:3 ----->| (CMS promoted object)
-//  size:64 ----------------------------------------------------->| (CMS free block)
-//
-//  unused:25 hash:31 -->| cms_free:1 age:4    biased_lock:1 lock:2 (COOPs && normal object)
-//  JavaThread*:54 epoch:2 cms_free:1 age:4    biased_lock:1 lock:2 (COOPs && biased object)
-//  narrowOop:32 unused:24 cms_free:1 unused:4 promo_bits:3 ----->| (COOPs && CMS promoted object)
-//  unused:21 size:35 -->| cms_free:1 unused:7 ------------------>| (COOPs && CMS free block)
-```
-
-
+![image-20200902124107917](/assets/imgs/image-20200902124107917.png)
 
 
 
@@ -368,9 +318,7 @@ inflate方法：膨胀为重量级锁
 
 
 
-# 锁升级过程
-
-
+# 锁升级过程 🤔
 
 ## JDK8 markword实现表：
 
@@ -379,6 +327,8 @@ inflate方法：膨胀为重量级锁
 ![](/assets/imgs/markword-64.png)
 
 **自旋锁什么时候升级为重量级锁？**
+
+> 竞争加剧：有线程超过10次自旋， -XX:PreBlockSpin， 或者自旋线程数超过CPU核数的一半， 1.6之后，加入自适应自旋 Adapative Self Spinning ， JVM自己控制升级重量级锁：-> 向操作系统申请资源，linux mutex , CPU从3级-0级系统调用，线程挂起，进入等待队列，等待操作系统的调度，然后再映射回用户空间
 
 **为什么有自旋锁还需要重量级锁？**
 
@@ -419,9 +369,10 @@ synchronized优化的过程和markword息息相关
 3. 默认synchronized(o) 
    00 -> 轻量级锁
    默认情况 偏向锁有个时延，默认是4秒
-   why? 因为JVM虚拟机自己有一些默认启动的线程，里面有好多sync代码，这些sync代码启动时就知道肯定会有竞争，如果使用偏向锁，就会造成偏向锁不断的进行锁撤销和锁升级的操作，效率较低。
+   ***why? 因为JVM虚拟机自己有一些默认启动的线程，里面有好多sync代码，这些sync代码启动时就知道肯定会有竞争，如果使用偏向锁，就会造成偏向锁不断的进行锁撤销和锁升级的操作，效率较低。***
 
    ```shell
+   // 偏向锁启动延时
    -XX:BiasedLockingStartupDelay=0
    ```
 
@@ -438,8 +389,7 @@ synchronized优化的过程和markword息息相关
    线程在自己的线程栈生成LockRecord ，用CAS操作将markword设置为指向自己这个线程的LR的指针，设置成功者得到锁
 
 7. 如果竞争加剧
-   竞争加剧：有线程超过10次自旋， -XX:PreBlockSpin， 或者自旋线程数超过CPU核数的一半， 1.6之后，加入自适应自旋 Adapative Self Spinning ， JVM自己控制
-   升级重量级锁：-> 向操作系统申请资源，linux mutex , CPU从3级-0级系统调用，线程挂起，进入等待队列，等待操作系统的调度，然后再映射回用户空间
+   竞争加剧：有线程超过10次自旋， -XX:PreBlockSpin， 或者自旋线程数超过CPU核数的一半， 1.6之后，加入自适应自旋 Adapative Self Spinning ， JVM自己控制升级重量级锁：-> 向操作系统申请资源，linux mutex , CPU从3级-0级系统调用，线程挂起，进入等待队列，等待操作系统的调度，然后再映射回用户空间
 
 (以上实验环境是JDK11，打开就是偏向锁，而JDK8默认对象头是无锁)
 
