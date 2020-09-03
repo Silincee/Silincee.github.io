@@ -31,7 +31,7 @@ _start:
 
     mov ebx, 0
     mov eax, 1 ;exit函数系统调用号
-    int 0x80
+    int 0x80 ; 0x80H软中断 触发系统调用
 
 ```
 
