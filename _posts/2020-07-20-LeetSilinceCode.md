@@ -23,24 +23,66 @@ tags: [LeetCode,数据结构 ]
 
 **时间紧迫**：
 
+- 刷题目录：https://github.com/CyC2018/CS-Notes/blob/master/notes/Leetcode%20%E9%A2%98%E8%A7%A3%20-%20%E7%9B%AE%E5%BD%95.md
 - 在 [https://leetcode-cn.com/problemset/all/](https://link.zhihu.com/?target=https%3A//leetcode-cn.com/problemset/all/) 页面的右侧。先刷热题 HOT 100，再刷精选 TOP 面试题，之后刷其他的题。
 
 - https://zhuanlan.zhihu.com/p/96883783
 - https://www.byteflying.com/archives/1015
+- [IDEA配置leetcode插件](https://blog.csdn.net/u010180815/article/details/104728115/)
 
 
 
-# TAG
+# 算法思想
+
+## 双指针
+
+| 题目                                                         | 算法思想 | 正确率 |
+| ------------------------------------------------------------ | -------- | ------ |
+| [\#167 有序数组的 Two Sum](https://github.com/CyC2018/CS-Notes/blob/master/notes/Leetcode 题解 - 双指针.md#1-有序数组的-two-sum) | 双指针   | 0%     |
+| [\#633 两数平方和](https://github.com/CyC2018/CS-Notes/blob/master/notes/Leetcode 题解 - 双指针.md#2-两数平方和) | 双指针   | 0%     |
+| [\#345 反转字符串中的元音字符](https://github.com/CyC2018/CS-Notes/blob/master/notes/Leetcode 题解 - 双指针.md#3-反转字符串中的元音字符) | 双指针   | 0%     |
+| [\#680 回文字符串](https://github.com/CyC2018/CS-Notes/blob/master/notes/Leetcode 题解 - 双指针.md#4-回文字符串) | 双指针   | 0%     |
+| [\#88 归并两个有序数组](https://github.com/CyC2018/CS-Notes/blob/master/notes/Leetcode 题解 - 双指针.md#5-归并两个有序数组) | 双指针   | 0%     |
+| [\#141 判断链表是否存在环](https://github.com/CyC2018/CS-Notes/blob/master/notes/Leetcode 题解 - 双指针.md#6-判断链表是否存在环) | 双指针   | 0%     |
+| [\#542 最长子序列](https://github.com/CyC2018/CS-Notes/blob/master/notes/Leetcode 题解 - 双指针.md#7-最长子序列) | 双指针   | 0%     |
+
+
+
+## 排序算法
+
+![image-20200720125956366](/assets/imgs/image-20200720125956366.png)
+
+[十大排序算法](https://mp.weixin.qq.com/s/Qf416rfT4pwURpW3aDHuCg)
+
+[排序算法的复杂度、实现和稳定性](https://www.jianshu.com/p/916b15eae350)
+
+## 贪心思想
+
+## 二分查找
+
+## 分治
+
+## 搜索
+
+## 动态规划
+
+## 数学
+
+
+
+
+
+
+
+# 数据结构相关
 
 正确率 > 80% 可移除 👩🏻‍💻
 
-## 1. Array
+## Array
 
 > https://leetcode-cn.com/tag/array/
 
-### 概览
-
-| 题目                                                         | 小结                      | 正确率 |
+| 题目                                                         | 算法思想                  | 正确率 |
 | ------------------------------------------------------------ | ------------------------- | ------ |
 | [\#26 删除排序数组中的重复项](http://www.silince.cn/2020/07/20/LeetSilinceCode/#26-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9) | 双指针                    | 0%     |
 | [\#88 合并两个有序数组](http://www.silince.cn/2020/07/20/LeetSilinceCode/#88-合并两个有序数组) | 双指针                    | 0%     |
@@ -51,8 +93,21 @@ tags: [LeetCode,数据结构 ]
 
 
 
-### [#26 删除排序数组中的重复项](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/) 
+## String
 
+## Tree
+
+## HashTable
+
+## Graph
+
+
+
+# 题：
+
+## [#26 删除排序数组中的重复项](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/) 
+
+- Easy
 - 2019.08.30：😭 
 
 题目：
@@ -91,8 +146,9 @@ public int removeDuplicates(int[] nums) {
 
 ---
 
-### [#88 合并两个有序数组](https://leetcode-cn.com/problems/merge-sorted-array/) 
+## [#88 合并两个有序数组](https://leetcode-cn.com/problems/merge-sorted-array/) 
 
+- Easy
 - 2019.08.30：😭 
 
 题目：
@@ -189,8 +245,9 @@ class Solution {
 
 ---
 
-### [#169 多数元素](https://leetcode-cn.com/problems/majority-element/) 
+## [#169 多数元素](https://leetcode-cn.com/problems/majority-element/) 
 
+- Easy
 - 2019.08.30：😭 哈希表，naive！ 
 
 题目：
@@ -331,8 +388,9 @@ class Solution {
 
 ---
 
-### [#674 最长连续递增序列](https://leetcode-cn.com/problems/longest-continuous-increasing-subsequence/)  
+## [#674 最长连续递增序列](https://leetcode-cn.com/problems/longest-continuous-increasing-subsequence/)  
 
+- Easy
 - 2019.08.30：😭 
 
 题目：
@@ -381,8 +439,9 @@ class Solution {
 
 ---
 
-### [#1051 高度检查器](https://leetcode-cn.com/problems/height-checker/)  
+## [#1051 高度检查器](https://leetcode-cn.com/problems/height-checker/)  
 
+- Easy
 - 2019.08.28：😭  在对比一次后，忘记加arr[j]--；
 - 2019.08.29：😎
 
@@ -440,8 +499,9 @@ public int heightChecker(int[] heights) {
 
 ---
 
-### [#1160 拼写单词](https://leetcode-cn.com/problems/find-words-that-can-be-formed-by-characters/) 
+## [#1160 拼写单词](https://leetcode-cn.com/problems/find-words-that-can-be-formed-by-characters/) 
 
+- Easy
 - 2019.08.30：😭 
 
 题目：
@@ -507,32 +567,11 @@ int[] count(String word) {
 
 
 
+# 模版.
 
+### 题号 
 
-## 2. String
-
-## 3. Tree
-
-## 4. LinkedList
-
-## 5. Math
-
-
-
-# 排序算法
-
-![image-20200720125956366](/assets/imgs/image-20200720125956366.png)
-
-[十大排序算法](https://mp.weixin.qq.com/s/Qf416rfT4pwURpW3aDHuCg)
-
-[排序算法的复杂度、实现和稳定性](https://www.jianshu.com/p/916b15eae350)
-
-
-
-# Ex.
-
-### 题号  👩🏻‍💻 50%
-
+- 难度
 - 2019.08.28：😭  
 
 题目：
