@@ -97,17 +97,166 @@ public class SpinLock {
 
 
 
+# 公平与非公平锁
+
+ReentrantLock的空参构造默认实现非公平锁，非公平锁在加锁时先进行了一次CAS获取锁的尝试，如果获取到锁，直接执行，不需要排队阻塞。***不过也可以调用其他构造实现公平锁。***
+
+**非公平锁：**
+
+```java
+final void lock() {
+    if (compareAndSetState(0, 1))
+        setExclusiveOwnerThread(Thread.currentThread());
+    else
+        acquire(1);
+}
+```
+
+**公平锁：**
+
+```java
+// Class FairSync
+final void lock() {
+    acquire(1);
+}
+
+// ---> acquire(1)来自于父类 AbstractQueuedSynchronizer
+public final void acquire(int arg) {
+  // 在 CAS 之前加了判断
+  if (!tryAcquire(arg) && //⚠️  是 非tryAcquire(arg)
+      acquireQueued(addWaiter(Node.EXCLUSIVE), arg))
+    selfInterrupt();
+}
+```
+
+刚释放锁的线程再次获取同步状态的几率会非常大，使得其他线程只能在同步队列中等待。
+
+**公平性锁保证了锁的获取按照FIFO原则，而代价是进行大量的线程切换。非公平性锁虽然可能造成线程“饥饿”，但极少的线程切换，保证了其更大的吞吐量。**
+
+
+
 # 队列同步器AQS
 
 ***队列同步器AbstractQueuedSynchronizer（AQS）是用来构建锁或者其他同步组件的基础框架，它使用了一个int成员变量表示同步状态***，通过内置的**FIFO队列**来完成资源获取线程的排队工作，并发包的作者（Doug Lea）期望它能够成为实现大部分同步需求的基础。
 
 > ReentrantLock的lock方法调用的是Sync的lock()，而Sync继承于AbstractQueuedSynchronizer。
 
+![image-20200904165704239](../assets/imgs/image-20200904165704239.png)
+
+## FIFO队列
+
+同步器依赖内部的同步队列（一个FIFO双向队列）来完成同步状态的管理，当前线程获取同步状态失败时，***同步器会将当前线程以及等待状态等信息构造成为一个节点（Node）并将其加入同步队列，同时会阻塞当前线程，当同步状态释放时，会把首节点中的线程唤醒，使其再次尝试获取同步状态。***
+
+![image-20200904161509333](../assets/imgs/image-20200904161509333.png)
+
 ## AQS的实现
 
-### FIFO队列
+**AQS的属性：**
 
-同步器依赖内部的同步队列（一个FIFO双向队列）来完成同步状态的管理，当前线程获取同步状态失败时，同步器会将当前线程以及等待状态等信息构造成为一个节点（Node）并将其加入同步队列，同时会阻塞当前线程，当同步状态释放时，会把首节点中的线程唤醒，使其再次尝试获取同步状态。
+```java
+public abstract class AbstractQueuedSynchronizer {
+  // 等待队列头结点
+	private transient volatile Node head;
+  // 等待队列尾结点
+	private transient volatile Node tail;
+  // 状态
+	private volatile int state;
+  // 当前持有锁的线程。继承于AbstractOwnableSynchronizer
+  private transient Thread exclusiveOwnerThread;
+}
+```
+
+**AQS中的节点Node：**
+
+```java
+static final class Node {
+    // 等待状态，若值为-1，表示后继节点处于等待状态
+    volatile int waitStatus;
+    // 前一个节点
+    volatile Node prev;
+    // 下一个节点
+    volatile Node next;
+    // ⚠️ 节点绑定线程
+    volatile Thread thread;
+}
+```
+
+![image-20200904182446859](../assets/imgs/image-20200904182446859-9215167.png)
+
+
+
+### 独占锁同步状态的获取
+
+![](../assets/imgs/image-20200904161535892.png)
+
+#### **非公平锁模式：**
+
+ReentrantLock的空参构造默认实现非公平锁
+
+```java
+// 非公平锁在加锁时先进行了一次CAS获取锁的尝试，如果获取到锁，直接执行，不需要排队阻塞
+final void lock() {
+    if (compareAndSetState(0, 1))
+        setExclusiveOwnerThread(Thread.currentThread());
+    else
+        acquire(1);
+}
+```
+
+#### **公平锁模式：**
+
+```java
+//1⃣️ Class FairSync
+final void lock() {
+    acquire(1);
+}
+
+//2⃣️ ---> acquire(1)来自于父类 AbstractQueuedSynchronizer
+public final void acquire(int arg) {
+  if (!tryAcquire(arg) && //⚠️  是 非tryAcquire(arg)
+      acquireQueued(addWaiter(Node.EXCLUSIVE), arg))
+    selfInterrupt();
+}
+
+//3⃣️ tryAcquire(arg) --> 来自于AbstractQueuedSynchronizer的实现类FairSync
+protected final boolean tryAcquire(int acquires) {
+  final Thread current = Thread.currentThread(); // 获取当前线程
+  int c = getState(); // Lock中要抢占的对象，类似于自实现锁中的 volatile int status=0;
+  if (c == 0) {  // 0:自由状态/无人持有，可以抢占
+    if (!hasQueuedPredecessors() &&  // 公平锁不会立刻进行CAS，还要判断自己是否需要排队 !hasQueuedPredecessors() 
+        compareAndSetState(0, acquires)) { // 尝试 CAS 操作
+      setExclusiveOwnerThread(current); // 如果CAS改变成功，把当前线程放入队列
+      return true;
+    }
+  }
+  else if (current == getExclusiveOwnerThread()) {
+    int nextc = c + acquires;
+    if (nextc < 0)
+      throw new Error("Maximum lock count exceeded");
+    setState(nextc);
+    return true;
+  }
+  return false;
+}
+
+// 4⃣️ hasQueuedPredecessors() 公平锁不会立刻进行CAS，还要判断自己是否需要排队 
+public final boolean hasQueuedPredecessors() {
+  // The correctness of this depends on head being initialized
+  // before tail and on head.next being accurate if the current
+  // thread is first in queue.
+  Node t = tail; // Read fields in reverse initialization order
+  Node h = head;
+  Node s;
+  return h != t &&
+    ((s = h.next) == null || s.thread != Thread.currentThread());
+}
+```
+
+步骤4的注释：
+
+当第一个线程t1 进入时，队头和队尾都是null，所以`h != t` 为False，return False，不需要排队。此时如果CAS操作成功，第3步的`tryAcquire()`返回true，第2步的`acquire(1)`未进入if，正常返回。***sync.lock()正常执行完毕。***
+
+
 
 
 
@@ -124,13 +273,7 @@ public class SpinLock {
 - 线程再次获取锁。锁需要去识别获取锁的线程是否为当前占据锁的线程，如果是，则再次成功获取。
 - 锁的最终释放。线程重复n次获取了锁，随后在第n次释放该锁后，其他线程能够获取到该锁。锁的最终释放要求锁对于获取进行**计数自增**，计数表示当前锁被重复获取的次数，而锁被释放时，**计数自减**，当计数等于0时表示锁已经成功释放。
 
-# 公平与非公平锁
 
-ReentrantLock还可以实现非公平锁，其区别在于非公平锁在加锁时先进行了一次CAS获取锁的尝试，如果获取到锁，直接执行，不需要排队阻塞。
-
-刚释放锁的线程再次获取同步状态的几率会非常大，使得其他线程只能在同步队列中等待。
-
-**公平性锁保证了锁的获取按照FIFO原则，而代价是进行大量的线程切换。非公平性锁虽然可能造成线程“饥饿”，但极少的线程切换，保证了其更大的吞吐量。**
 
 # 读写锁
 
