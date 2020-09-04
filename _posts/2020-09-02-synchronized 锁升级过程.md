@@ -544,7 +544,7 @@ C2 Compile Level 2 (二级优化)
 ## synchronized vs Lock (CAS)
 
 - 在高争用 高耗时的环境下synchronized效率更高
-- 在低争用 低耗时的环境下CAS效率更高
+- 在低争用 低耗时的环境下Lock (CAS)效率更高
 -  ***synchronized到重量级之后是等待队列（不消耗CPU）, CAS（等待期间消耗CPU）***
 
  一切以实测为准
