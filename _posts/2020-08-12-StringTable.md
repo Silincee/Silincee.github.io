@@ -2,7 +2,7 @@
 scrolllayout: post
 title:  "StringTable"
 date:   2020-08-12 10:29:06 +0800--
-categories: [Java]
+categories: [JVM]
 tags: [JVM, ]  
 ---
 
