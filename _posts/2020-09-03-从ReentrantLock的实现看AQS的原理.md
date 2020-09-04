@@ -156,6 +156,7 @@ public final void acquire(int arg) {
 ```java
 public abstract class AbstractQueuedSynchronizer {
   // 等待队列头结点
+  // 将不需要序列化的属性前添加关键字transient，序列化对象的时候，这个属性就不会被序列化
 	private transient volatile Node head;
   // 等待队列尾结点
 	private transient volatile Node tail;
@@ -205,6 +206,10 @@ final void lock() {
 
 #### **公平锁模式：**
 
+case1: 无竞争情况下
+
+当第一个线程t1 进入时，队头和队尾都是null，所以`h != t` 为False，return False，不需要排队。此时如果CAS操作成功，第3步的`tryAcquire()`返回true，第2步的`acquire(1)`未进入if，正常返回。***sync.lock()正常执行完毕。***  ***⚠️ 所以交替执行的线程不会使用到队列。***
+
 ```java
 //1⃣️ Class FairSync
 final void lock() {
@@ -213,7 +218,7 @@ final void lock() {
 
 //2⃣️ ---> acquire(1)来自于父类 AbstractQueuedSynchronizer
 public final void acquire(int arg) {
-  if (!tryAcquire(arg) && //⚠️  是 非tryAcquire(arg)
+  if (!tryAcquire(arg) && //⚠️  3⃣️带回来了true，所以无须对后半条语句进行判断，该函数正常返回咯
       acquireQueued(addWaiter(Node.EXCLUSIVE), arg))
     selfInterrupt();
 }
@@ -225,8 +230,8 @@ protected final boolean tryAcquire(int acquires) {
   if (c == 0) {  // 0:自由状态/无人持有，可以抢占
     if (!hasQueuedPredecessors() &&  // 公平锁不会立刻进行CAS，还要判断自己是否需要排队 !hasQueuedPredecessors() 
         compareAndSetState(0, acquires)) { // 尝试 CAS 操作
-      setExclusiveOwnerThread(current); // 如果CAS改变成功，把当前线程放入队列
-      return true;
+      setExclusiveOwnerThread(current); // 如果CAS也改变成功，把当前线程设置为持锁线程
+      return true; //返回2⃣️
     }
   }
   else if (current == getExclusiveOwnerThread()) {
@@ -252,9 +257,66 @@ public final boolean hasQueuedPredecessors() {
 }
 ```
 
-步骤4的注释：
+case2：出现竞争情况下
 
-当第一个线程t1 进入时，队头和队尾都是null，所以`h != t` 为False，return False，不需要排队。此时如果CAS操作成功，第3步的`tryAcquire()`返回true，第2步的`acquire(1)`未进入if，正常返回。***sync.lock()正常执行完毕。***
+t1线程以上锁，t2在t1未解锁时候访问同步代码；此时state已经被线程t1改为1，所以只能 return false。
+
+![image-20200904221550944](../assets/imgs/image-20200904221550944-9230490.png)
+
+返回到第2步，继续判断是否需要入队
+
+
+
+```java
+//1⃣️ Class FairSync
+final void lock() {
+    acquire(1);
+}
+
+//2⃣️ ---> acquire(1)来自于父类 AbstractQueuedSynchronizer
+public final void acquire(int arg) {
+  if (!tryAcquire(arg) && //  3⃣️带回来了false，继续判断后半条语句(是否需要入队)，->4⃣️
+      acquireQueued(addWaiter(Node.EXCLUSIVE), arg))
+    selfInterrupt();
+}
+
+//3⃣️ tryAcquire(arg) --> 来自于AbstractQueuedSynchronizer的实现类FairSync
+protected final boolean tryAcquire(int acquires) {
+  final Thread current = Thread.currentThread(); // 获取当前线程 t2
+  int c = getState(); // Lock中要抢占的对象，类似于自实现锁中的 volatile int status=0;
+  if (c == 0) {  // 此时c=1 执行else if
+    if (!hasQueuedPredecessors() &&  
+        compareAndSetState(0, acquires)) { 
+      setExclusiveOwnerThread(current); 
+      return true;
+    }
+  }
+  else if (current == getExclusiveOwnerThread()) { // 判断当前线程是否和持锁线程相同，t2!=t1
+    int nextc = c + acquires;
+    if (nextc < 0)
+      throw new Error("Maximum lock count exceeded");
+    setState(nextc);
+    return true;
+  }
+  return false; // 只能返回false咯，回到了2⃣️
+}
+
+// 4⃣️ addWaiter(Node.EXCLUSIVE), arg)
+private Node addWaiter(Node mode) {
+  Node node = new Node(Thread.currentThread(), mode);
+  // Try the fast path of enq; backup to full enq on failure
+  Node pred = tail;
+  if (pred != null) {
+    node.prev = pred;
+    if (compareAndSetTail(pred, node)) {
+      pred.next = node;
+      return node;
+    }
+  }
+  enq(node);
+  return node;
+}
+```
 
 
 
@@ -272,6 +334,46 @@ public final boolean hasQueuedPredecessors() {
 
 - 线程再次获取锁。锁需要去识别获取锁的线程是否为当前占据锁的线程，如果是，则再次成功获取。
 - 锁的最终释放。线程重复n次获取了锁，随后在第n次释放该锁后，其他线程能够获取到该锁。锁的最终释放要求锁对于获取进行**计数自增**，计数表示当前锁被重复获取的次数，而锁被释放时，**计数自减**，当计数等于0时表示锁已经成功释放。
+
+```java
+//3⃣️ tryAcquire(arg) --> 来自于AbstractQueuedSynchronizer的实现类FairSync
+protected final boolean tryAcquire(int acquires) {
+  final Thread current = Thread.currentThread(); // 获取当前线程 t2
+  int c = getState(); // Lock中要抢占的对象，类似于自实现锁中的 volatile int status=0;
+  if (c == 0) {  // 此时c=1 执行else if
+    if (!hasQueuedPredecessors() &&  
+        compareAndSetState(0, acquires)) { 
+      setExclusiveOwnerThread(current); 
+      return true;
+    }
+  }
+  // ⚠️⚠️⚠️ ReentrantLock 锁重入的实现！
+  else if (current == getExclusiveOwnerThread()) { // 判断当前线程是否和持锁线程相同
+    int nextc = c + acquires; // 如果是同一个线程，计数器变量+1；示当前锁被重复获取的次数
+    if (nextc < 0)
+      throw new Error("Maximum lock count exceeded");
+    setState(nextc); // 设置锁的计数器
+    return true;
+  }
+  return false;
+}
+
+// ReentrantLock.unlock() 调用了Sync中的tryRelease
+protected final boolean tryRelease(int releases) {
+  int c = getState() - releases; // 计数器 -1；锁被释放时，计数自减，当计数等于0时表示锁已经成功释放。
+  if (Thread.currentThread() != getExclusiveOwnerThread())
+    throw new IllegalMonitorStateException();
+  boolean free = false;
+  if (c == 0) {
+    free = true;
+    setExclusiveOwnerThread(null);
+  }
+  setState(c);
+  return free;
+}
+```
+
+
 
 
 
