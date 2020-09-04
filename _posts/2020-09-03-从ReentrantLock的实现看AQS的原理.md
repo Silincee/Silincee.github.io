@@ -211,12 +211,12 @@ case1: 无竞争情况下
 当第一个线程t1 进入时，队头和队尾都是null，所以`h != t` 为False，return False，不需要排队。此时如果CAS操作成功，第3步的`tryAcquire()`返回true，第2步的`acquire(1)`未进入if，正常返回。***sync.lock()正常执行完毕。***  ***⚠️ 所以交替执行的线程不会使用到队列。***
 
 ```java
-//1⃣️ Class FairSync
+//1⃣️1️⃣ Class FairSync
 final void lock() {
     acquire(1);
 }
 
-//2⃣️ ---> acquire(1)来自于父类 AbstractQueuedSynchronizer
+//2⃣️1️⃣ ---> acquire(1)来自于父类 AbstractQueuedSynchronizer
 public final void acquire(int arg) {
   if (!tryAcquire(arg) && //⚠️  3⃣️带回来了true，所以无须对后半条语句进行判断，该函数正常返回咯
       acquireQueued(addWaiter(Node.EXCLUSIVE), arg))
