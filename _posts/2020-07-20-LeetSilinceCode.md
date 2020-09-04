@@ -5,6 +5,7 @@ date:   2020-07-20 13:20:06 +0800--
 categories: [数据结构]
 tags: [LeetCode,数据结构 ]  
 
+
 ---
 
 # PLAN
@@ -36,21 +37,21 @@ tags: [LeetCode,数据结构 ]
 
 ## 双指针
 
-| 题目                                                         | 算法思想 | 正确率 |
-| ------------------------------------------------------------ | -------- | ------ |
-| [\#167 有序数组的 Two Sum](https://github.com/CyC2018/CS-Notes/blob/master/notes/Leetcode 题解 - 双指针.md#1-有序数组的-two-sum) | 双指针   | 0%     |
-| [\#633 两数平方和](https://github.com/CyC2018/CS-Notes/blob/master/notes/Leetcode 题解 - 双指针.md#2-两数平方和) | 双指针   | 0%     |
-| [\#345 反转字符串中的元音字符](https://github.com/CyC2018/CS-Notes/blob/master/notes/Leetcode 题解 - 双指针.md#3-反转字符串中的元音字符) | 双指针   | 0%     |
-| [\#680 回文字符串](https://github.com/CyC2018/CS-Notes/blob/master/notes/Leetcode 题解 - 双指针.md#4-回文字符串) | 双指针   | 0%     |
-| [\#88 归并两个有序数组](https://github.com/CyC2018/CS-Notes/blob/master/notes/Leetcode 题解 - 双指针.md#5-归并两个有序数组) | 双指针   | 0%     |
-| [\#141 判断链表是否存在环](https://github.com/CyC2018/CS-Notes/blob/master/notes/Leetcode 题解 - 双指针.md#6-判断链表是否存在环) | 双指针   | 0%     |
-| [\#542 最长子序列](https://github.com/CyC2018/CS-Notes/blob/master/notes/Leetcode 题解 - 双指针.md#7-最长子序列) | 双指针   | 0%     |
+| 题目                             | 算法思想 | 正确率 |
+| -------------------------------- | -------- | ------ |
+| [\#167 有序数组的 Two Sum]()     | 双指针   | 0%     |
+| [\#633 两数平方和]()             | 双指针   | 0%     |
+| [\#345 反转字符串中的元音字符]() | 双指针   | 0%     |
+| [\#680 回文字符串]()             | 双指针   | 0%     |
+| [\#88 归并两个有序数组]()        | 双指针   | 0%     |
+| [\#141 判断链表是否存在环]()     | 双指针   | 0%     |
+| [\#542 最长子序列]()             | 双指针   | 0%     |
 
 
 
 ## 排序算法
 
-![image-20200720125956366](/assets/imgs/image-20200720125956366.png)
+![image-20200720125956366](/assets/imgs/image-20200720125956366-9188642.png)
 
 [十大排序算法](https://mp.weixin.qq.com/s/Qf416rfT4pwURpW3aDHuCg)
 
@@ -145,6 +146,10 @@ public int removeDuplicates(int[] nums) {
 ```
 
 ---
+
+
+
+
 
 ## [#88 合并两个有序数组](https://leetcode-cn.com/problems/merge-sorted-array/) 
 
@@ -245,6 +250,16 @@ class Solution {
 
 ---
 
+## [\#141 判断链表是否存在环](https://leetcode-cn.com/problems/linked-list-cycle/description/)
+
+
+
+
+
+## [\#167 有序数组的 Two Sum](https://leetcode-cn.com/problems/two-sum-ii-input-array-is-sorted/description/)
+
+
+
 ## [#169 多数元素](https://leetcode-cn.com/problems/majority-element/) 
 
 - Easy
@@ -310,7 +325,7 @@ class Solution {
 
 方法二说明：
 
-![image-20200831201456212](/assets/imgs/image-20200831201456212.png)
+![image-20200831201456212](/assets/imgs/image-20200831201456212-9188642.png)
 
 代码：
 
@@ -388,6 +403,18 @@ class Solution {
 
 ---
 
+## [\#345 反转字符串中的元音字符](https://leetcode-cn.com/problems/reverse-vowels-of-a-string/description/)
+
+
+
+## [\#542 最长子序列](https://leetcode-cn.com/problems/longest-word-in-dictionary-through-deleting/description/)
+
+
+
+## [\#633 两数平方和](https://leetcode-cn.com/problems/sum-of-square-numbers/description/)
+
+
+
 ## [#674 最长连续递增序列](https://leetcode-cn.com/problems/longest-continuous-increasing-subsequence/)  
 
 - Easy
@@ -438,6 +465,10 @@ class Solution {
 ```
 
 ---
+
+## [\#680 回文字符串](https://leetcode-cn.com/problems/valid-palindrome-ii/description/)
+
+
 
 ## [#1051 高度检查器](https://leetcode-cn.com/problems/height-checker/)  
 
