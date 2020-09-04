@@ -2,8 +2,8 @@
 layout: post
 title:  "synchronized 锁升级过程"
 date:   2020-09-02 09:58:06 +0800--
-categories: [Java]
-tags: [高并发,锁 ]  
+categories: [Java, 并发编程]
+tags: [并发编程,锁 ]  
 
 ---
 

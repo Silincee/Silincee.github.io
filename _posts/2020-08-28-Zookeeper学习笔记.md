@@ -2,7 +2,7 @@
 layout: post
 title:  "Zookeeper学习笔记"
 date:   2020-08-28 20:20:06 +0800--
-categories: [Java]
+categories: [Java, 分布式]
 tags: [Zookeeper, Java, ]  
 
 ---

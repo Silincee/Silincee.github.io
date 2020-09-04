@@ -2,8 +2,8 @@
 layout: post
 title:  "从ReentrantLock的实现看AQS的原理"
 date:   2020-09-03 18:58:06 +0800--
-categories: [Java]
-tags: [高并发, ]  
+categories: [Java, 并发编程]
+tags: [并发编程, ]  
 ---
 
 [Java中的锁及AQS实现原理](https://blog.csdn.net/TJtulong/article/details/105345940)
