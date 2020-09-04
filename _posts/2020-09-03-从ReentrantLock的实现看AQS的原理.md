@@ -12,8 +12,6 @@ tags: [并发编程, ]
 
 [Java AQS底层原理解析](https://segmentfault.com/a/1190000020521611?utm_source=sf-related)
 
-1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣
-
 # 自己实现一个锁
 
 ## 方法一：通过**自旋**实现一个锁
@@ -211,19 +209,19 @@ case1: 无竞争情况下
 当第一个线程t1 进入时，队头和队尾都是null，所以`h != t` 为False，return False，不需要排队。此时如果CAS操作成功，第3步的`tryAcquire()`返回true，第2步的`acquire(1)`未进入if，正常返回。***sync.lock()正常执行完毕。***  ***⚠️ 所以交替执行的线程不会使用到队列。***
 
 ```java
-//1⃣️1️⃣ Class FairSync
+//1️⃣ Class FairSync
 final void lock() {
     acquire(1);
 }
 
-//2⃣️1️⃣ ---> acquire(1)来自于父类 AbstractQueuedSynchronizer
+//2️⃣ ---> acquire(1)来自于父类 AbstractQueuedSynchronizer
 public final void acquire(int arg) {
-  if (!tryAcquire(arg) && //⚠️  3⃣️带回来了true，所以无须对后半条语句进行判断，该函数正常返回咯
+  if (!tryAcquire(arg) && //⚠️  3️⃣带回来了true，所以无须对后半条语句进行判断，该函数正常返回咯
       acquireQueued(addWaiter(Node.EXCLUSIVE), arg))
     selfInterrupt();
 }
 
-//3⃣️ tryAcquire(arg) --> 来自于AbstractQueuedSynchronizer的实现类FairSync
+//3️⃣ tryAcquire(arg) --> 来自于AbstractQueuedSynchronizer的实现类FairSync
 protected final boolean tryAcquire(int acquires) {
   final Thread current = Thread.currentThread(); // 获取当前线程
   int c = getState(); // Lock中要抢占的对象，类似于自实现锁中的 volatile int status=0;
@@ -231,7 +229,7 @@ protected final boolean tryAcquire(int acquires) {
     if (!hasQueuedPredecessors() &&  // 公平锁不会立刻进行CAS，还要判断自己是否需要排队 !hasQueuedPredecessors() 
         compareAndSetState(0, acquires)) { // 尝试 CAS 操作
       setExclusiveOwnerThread(current); // 如果CAS也改变成功，把当前线程设置为持锁线程
-      return true; //返回2⃣️
+      return true; //返回2️⃣
     }
   }
   else if (current == getExclusiveOwnerThread()) {
@@ -244,7 +242,7 @@ protected final boolean tryAcquire(int acquires) {
   return false;
 }
 
-// 4⃣️ hasQueuedPredecessors() 公平锁不会立刻进行CAS，还要判断自己是否需要排队 
+// 4️⃣ hasQueuedPredecessors() 公平锁不会立刻进行CAS，还要判断自己是否需要排队 
 public final boolean hasQueuedPredecessors() {
   // The correctness of this depends on head being initialized
   // before tail and on head.next being accurate if the current
@@ -263,24 +261,24 @@ t1线程以上锁，t2在t1未解锁时候访问同步代码；此时state已经
 
 ![image-20200904221550944](../assets/imgs/image-20200904221550944-9230490.png)
 
-返回到第2步，继续判断是否需要入队
+返回到第2步，继续判断是否需要入队。首先执行addWaiter(Node.EXCLUSIVE)创建一个节点，
 
-
+> ⚠️ 一点小原则：AQS队列头部的thread永远为空！
 
 ```java
-//1⃣️ Class FairSync
+//1️⃣ Class FairSync
 final void lock() {
     acquire(1);
 }
 
-//2⃣️ ---> acquire(1)来自于父类 AbstractQueuedSynchronizer
+//2️⃣ ---> acquire(1)来自于父类 AbstractQueuedSynchronizer
 public final void acquire(int arg) {
-  if (!tryAcquire(arg) && //  3⃣️带回来了false，继续判断后半条语句(是否需要入队)，->4⃣️
+  if (!tryAcquire(arg) && //  3️⃣带回来了false，继续判断后半条语句(是否需要入队)，->4️⃣
       acquireQueued(addWaiter(Node.EXCLUSIVE), arg))
     selfInterrupt();
 }
 
-//3⃣️ tryAcquire(arg) --> 来自于AbstractQueuedSynchronizer的实现类FairSync
+//3️⃣ tryAcquire(arg) --> 来自于AbstractQueuedSynchronizer的实现类FairSync
 protected final boolean tryAcquire(int acquires) {
   final Thread current = Thread.currentThread(); // 获取当前线程 t2
   int c = getState(); // Lock中要抢占的对象，类似于自实现锁中的 volatile int status=0;
@@ -298,27 +296,44 @@ protected final boolean tryAcquire(int acquires) {
     setState(nextc);
     return true;
   }
-  return false; // 只能返回false咯，回到了2⃣️
+  return false; // 只能返回false咯，回到了2️⃣
 }
 
-// 4⃣️ addWaiter(Node.EXCLUSIVE), arg)
+// 4️⃣ addWaiter(Node.EXCLUSIVE), arg)
 private Node addWaiter(Node mode) {
-  Node node = new Node(Thread.currentThread(), mode);
+  Node node = new Node(Thread.currentThread(), mode); // 实例化一个node(双向链表)
   // Try the fast path of enq; backup to full enq on failure
-  Node pred = tail;
-  if (pred != null) {
+  Node pred = tail; // pred = null;
+  if (pred != null) { //false
     node.prev = pred;
     if (compareAndSetTail(pred, node)) {
       pred.next = node;
       return node;
     }
   }
-  enq(node);
-  return node;
+  enq(node); // 到这咯->5️⃣
+  return node; // 返回t2的node.->2️⃣
+}
+
+// 5️⃣ enq(node)
+private Node enq(final Node node) {
+  for (;;) { // 死循环
+    Node t = tail; // t=null; //第二次循环t!=null咯，->else
+    if (t == null) { // Must initialize
+      if (compareAndSetHead(new Node())) // ⚠️ CAS 设置 AQS的头部(一个空的Node)！保证入队操作安全
+        tail = head; // 尾部也指向这个空Node ⚠️ 注入灵魂: AQS队列头部的thread永远为空！
+    } else { //第二次循环时进入
+      node.prev = t; // 4️⃣中t2的node的prev指向空node，即入队
+      if (compareAndSetTail(t, node)) { // AQS尾部是t就更改为node，原子操作
+        t.next = node; // 空节点的next指向t2的node
+        return t; // 返回队列头部节点t(空节点)->4️⃣
+      }
+    }
+  }
 }
 ```
 
-
+1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣🔟
 
 
 
