@@ -274,7 +274,7 @@ final void lock() {
 //2️⃣ ---> acquire(1)来自于父类 AbstractQueuedSynchronizer
 public final void acquire(int arg) {
   if (!tryAcquire(arg) && //  3️⃣带回来了false，继续判断后半条语句(是否需要入队)，->4️⃣
-      acquireQueued(addWaiter(Node.EXCLUSIVE), arg))
+      acquireQueued(addWaiter(Node.EXCLUSIVE), arg)) // 6️⃣
     selfInterrupt();
 }
 
@@ -330,6 +330,58 @@ private Node enq(final Node node) {
       }
     }
   }
+}
+
+// 6️⃣ acquireQueued(addWaiter(Node.EXCLUSIVE), arg))
+final boolean acquireQueued(final Node node, int arg) {
+  boolean failed = true; 
+  try {
+    boolean interrupted = false; // ReentrantLock 可以被打断
+    for (;;) {
+      final Node p = node.predecessor();
+      if (p == head && tryAcquire(arg)) { // 判断自己是不是第一个排队的(不是指头部)，是的话尝试获得锁
+        setHead(node);
+        p.next = null; // help GC
+        failed = false;
+        return interrupted;
+      }
+      if (shouldParkAfterFailedAcquire(p, node) &&  // t2自旋失败来到这,
+          parkAndCheckInterrupt())
+        interrupted = true;
+    }
+  } finally {
+    if (failed)
+      cancelAcquire(node);
+  }
+}
+
+// 7️⃣ shouldParkAfterFailedAcquire()在获取锁失败后是否需要park
+private static boolean shouldParkAfterFailedAcquire(Node pred, Node node) {
+  int ws = pred.waitStatus;
+  if (ws == Node.SIGNAL)
+    /*
+             * This node has already set status asking a release
+             * to signal it, so it can safely park.
+             */
+    return true;
+  if (ws > 0) {
+    /*
+             * Predecessor was cancelled. Skip over predecessors and
+             * indicate retry.
+             */
+    do {
+      node.prev = pred = pred.prev;
+    } while (pred.waitStatus > 0);
+    pred.next = node;
+  } else {
+    /*
+             * waitStatus must be 0 or PROPAGATE.  Indicate that we
+             * need a signal, but don't park yet.  Caller will need to
+             * retry to make sure it cannot acquire before parking.
+             */
+    compareAndSetWaitStatus(pred, ws, Node.SIGNAL);
+  }
+  return false;
 }
 ```
 
