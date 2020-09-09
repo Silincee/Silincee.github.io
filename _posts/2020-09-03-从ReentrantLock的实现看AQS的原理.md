@@ -261,6 +261,8 @@ public final boolean hasQueuedPredecessors() {
 }
 ```
 
+
+
 ##### 线程t2进入(未获得锁)：
 
 ![image-20200904221550944](/assets/imgs/image-20200904221550944-9230490.png)
@@ -394,7 +396,7 @@ private final boolean parkAndCheckInterrupt() {
 
 ##### 线程t2进入(获得锁)：
 
-![image-20200907102645011](/assets/imgs/image-20200907102645011.png)
+![image-20200909151409617](/assets/imgs/image-20200909151409617.png)
 
 ```java
 //1️⃣ Class FairSync
