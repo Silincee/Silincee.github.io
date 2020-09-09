@@ -1,5 +1,5 @@
 ---
-![image-20200904182446859](/assets/imgs/image-20200904182446859-9215167.png)layout: post
+layout: post
 title:  "从ReentrantLock的实现看AQS的原理"
 date:   2020-09-03 18:58:06 +0800--
 categories: [Java, 并发编程]
