@@ -290,7 +290,7 @@ class Solution {
 时间复杂度：O(n)。
 空间复杂度：O(n)。哈希表最多包含 n - [n/2] 个键值对，所以占用的空间为 O(n)。
 
-方法二：排序
+方法二：排序  众数
 思路：
 如果将数组 nums 中的所有元素按照单调递增或单调递减的顺序排序，那么下标为 [n/2] 的元素（下标从 0 开始）一定是众数。
 算法：
@@ -300,16 +300,9 @@ class Solution {
 时间复杂度：O(nlogn)。将数组排序的时间复杂度为 O(nlogn)。
 空间复杂度：O(logn)。如果使用语言自带的排序算法，需要使用 O(logn) 的栈空间。如果自己编写堆排序，则只需要使用 O(1) 的额外空间。
 
-方法三：随机化
-思路：
-因为超过 [n/2]的数组下标被众数占据了，这样我们随机挑选一个下标对应的元素并验证，有很大的概率能找到众数。
-算法：
-由于一个给定的下标对应的数字很有可能是众数，我们随机挑选一个下标，检查它是否是众数，如果是就返回，否则继续随机挑选。
-复杂度分析
-时间复杂度：理论上最坏情况下的时间复杂度为 O(∞)，因为如果我们的语气很差，这个算法会一直找不到众数，随机挑选无穷多次，所以最坏时间复杂度是没有上限的。每一次随机后，我们需要 O(n)O(n) 的时间判断这个数是否为众数，因此期望的时间复杂度为 O(n)。
-空间复杂度：O(1)。随机方法只需要常数级别的额外空间。
 
-方法四：摩尔投票法
+方法三：摩尔投票法
+摩尔投票法，遇到相同的数，就投一票，遇到不同的数，就减一票，最后还存在票的数就是众数
 候选人(cand_num)初始化为nums[0]，票数count初始化为1。
 当遇到与cand_num相同的数，则票数count = count + 1，否则票数count = count - 1。
 当票数count为0时，更换候选人，并将票数count重置为1。
@@ -330,19 +323,24 @@ class Solution {
 代码：
 
 ```java
-// 方法一：哈希表计数法
+// 方法一：哈希表计数法 ☑️
 class Solution {
     public int majorityElement(int[] nums) {
-        Map<Integer, Long> map = Arrays.stream(nums).boxed().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-        long limit = nums.length >> 1;
-        for (Map.Entry<Integer, Long> entry : map.entrySet())
-            if (entry.getValue() > limit)
-                return entry.getKey();
-        return -1;
+       int limit = nums.length/2;
+    	// 1 遍历整个数组放入HashMap key为数值，value为次数
+		Map<Integer,Integer> map = new HashMap<>(); //构造一个具有指定初始容量和默认负载因子（0.75）的空HashMap。
+		for (int num : nums) {
+			map.merge(num,1,(o_val,n_val)->{return o_val+n_val;}); //它将新的值赋值给到key中（如果不存在）或更新具有给定值的现有key（UPSERT）
+		}
+		// 2 遍历HashMap中的每个Entry 寻找value大于半数的值
+		for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+			if (entry.getValue()>limit) return entry.getKey();
+		}
+    	return -1
     }
 }
 
-// 方法二: 排序
+// 方法二: 排序 ☑️
 class Solution {
     public int majorityElement(int[] nums) {
         Arrays.sort(nums);
@@ -350,37 +348,9 @@ class Solution {
     }
 }
 
-// 方法三：随机化
-class Solution {
-    private int randRange(Random rand, int min, int max) {
-        return rand.nextInt(max - min) + min;
-    }
 
-    private int countOccurences(int[] nums, int num) {
-        int count = 0;
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] == num) {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    public int majorityElement(int[] nums) {
-        Random rand = new Random();
-
-        int majorityCount = nums.length/2;
-
-        while (true) {
-            int candidate = nums[randRange(rand, 0, nums.length)];
-            if (countOccurences(nums, candidate) > majorityCount) {
-                return candidate;
-            }
-        }
-    }
-}
-
-// 方法四：摩尔投票法
+// 方法三：摩尔投票法
+// 摩尔投票法，遇到相同的数，就投一票，遇到不同的数，就减一票，最后还存在票的数就是众数
 class Solution {
     public int majorityElement(int[] nums) {
         int cand_num = nums[0], count = 1;
