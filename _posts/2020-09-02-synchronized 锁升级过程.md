@@ -333,6 +333,8 @@ inflate方法：膨胀为重量级锁
 # 各种锁的介绍
 
 > https://www.it610.com/article/1296202395713347584.htm
+>
+> [不可不说的Java“锁”事 美团技术团队](https://mp.weixin.qq.com/s?__biz=MjM5NjQ5MTI5OA==&mid=2651749434&idx=3&sn=5ffa63ad47fe166f2f1a9f604ed10091&chksm=bd12a5778a652c61509d9e718ab086ff27ad8768586ea9b38c3dcf9e017a8e49bcae3df9bcc8&scene=38#wechat_redirect)
 
 ![image-20200903170512257](/assets/imgs/image-20200903170512257.png)
 

@@ -1,5 +1,5 @@
 ---
-layout: post
+![image-20200904182446859](/assets/imgs/image-20200904182446859-9215167.png)layout: post
 title:  "从ReentrantLock的实现看AQS的原理"
 date:   2020-09-03 18:58:06 +0800--
 categories: [Java, 并发编程]
@@ -9,6 +9,8 @@ tags: [并发编程, ]
 [美团 从ReentrantLock的实现看AQS的原理及应用](https://tech.meituan.com/2019/12/05/aqs-theory-and-apply.html)
 
 [JUC AQS ReentrantLock源码分析（一）](https://blog.csdn.net/java_lyvee/article/details/98966684)
+
+
 
 # 自己实现一个锁
 
@@ -149,6 +151,16 @@ ReentrantLock并发机制和操作系统的PV机制原理相同。都需要一�
 
 ## AQS的实现
 
+### AQS框架
+
+![img](/assets/imgs/82077ccf14127a87b77cefd1ccf562d3253591.png)
+
+- 上图中有颜色的为Method，无颜色的为Attribution。
+- 总的来说，AQS框架共分为五层，自上而下由浅入深，从AQS对外暴露的API到底层基础数据。
+- 当有自定义同步器接入时，只需重写第一层所需要的部分方法即可，不需要关注底层具体的实现流程。当自定义同步器进行加锁或者解锁操作时，先经过第一层的API进入AQS内部方法，然后经过第二层进行锁的获取，接着对于获取锁失败的流程，进入第三层和第四层的等待队列处理，而这些处理方式均依赖于第五层的基础数据提供层。
+
+
+
 **AQS的属性：**
 
 ```java
@@ -184,9 +196,30 @@ static final class Node {
 
 ![image-20200904182446859](/assets/imgs/image-20200904182446859-9215167.png)
 
+waitStatus有下面几个枚举值：
+
+| 枚举      | 含义                                           |
+| :-------- | :--------------------------------------------- |
+| 0         | 当一个Node被初始化的时候的默认值               |
+| CANCELLED | 为1，表示线程获取锁的请求已经取消了            |
+| CONDITION | 为-2，表示节点在等待队列中，节点线程等待唤醒   |
+| PROPAGATE | 为-3，当前线程处在SHARED情况下，该字段才会使用 |
+| SIGNAL    | 为-1，表示线程已经准备好了，就等资源释放了     |
+
+线程两种锁的模式：
+
+| 模式      | 含义                           |
+| :-------- | :----------------------------- |
+| SHARED    | 表示线程以共享的模式等待锁     |
+| EXCLUSIVE | 表示线程正在以独占的方式等待锁 |
 
 
-### 独占锁同步状态的获取
+
+
+
+
+
+### 独占锁加锁过程
 
 ![](/assets/imgs/image-20200904161535892.png)
 
@@ -594,6 +627,32 @@ ANSWER：因为阻塞了没办法修改自己；如果加在阻塞的上方，�
 
 如果是第一个线程t1，那么和队列无关，线程直接持有锁。并且也不会初始化队列，如果接下来的线程都是交替执行，那么永远和AQS队列无关，都是直接线程持有锁，如果发生了竞争，比如t1持有锁的过程中T2来lock，那么这个时候就会初始化AQS，初始化AQS的时候会在队列的头部虚拟一个Thread为NULL的Node，因为队列当中的head永远是持有锁的那个node（除了第一次会虚拟一个，其他时候都是持有锁的那个线程锁封装的node），现在第一次的时候持有锁的是tf而tf不在队列当中所以虚拟了一个node节点，队列当中的除了head之外的所有的node都在park，当tf释放锁之后unpark某个（基本是队列当中的第二个，为什么是第二个呢？前面说过head永远是持有锁的那个node，当有时候也不会是第二个，比如第二个被cancel之后，至于为什么会被cancel，不在我们讨论范围之内，cancel的条件很苛刻，基本不会发生）node之后，node被唤醒，假设node是t2，那么这个时候会首先把t2变成head（sethead），在sethead方法里面会把t2代表的node设置为head，并且把node的Thread设置为null，为什么需要设置null？其实原因很简单，现在t2已经拿到锁了，node就不要排队了，那么node对Thread的引用就没有意义了。所以队列的head里面的Thread永远为null。
 
+### 解锁过程
+
+![image-20200909155215729](/assets/imgs/image-20200909155215729.png)
+
+- 通过ReentrantLock的解锁方法Unlock进行解锁。
+- Unlock会调用内部类Sync的Release方法，该方法继承于AQS。
+- Release中会调用tryRelease方法，tryRelease需要自定义同步器实现，tryRelease只在ReentrantLock中的Sync实现，因此可以看出，释放锁的过程，并不区分是否为公平锁。
+- 释放成功后，所有处理由AQS框架完成，与自定义同步器无关。
+
+
+
+# ReentrantLock特性
+
+ReentrantLock意思为可重入锁，指的是一个线程能够对一个临界资源重复加锁。为了帮助大家更好地理解ReentrantLock的特性，我们先将ReentrantLock跟常用的Synchronized进行比较，其特性如下：
+
+|            | ReentrantLock                  | Synchronized     |
+| ---------- | ------------------------------ | ---------------- |
+| 锁实现机制 | 依赖AQS                        | 监视器模式       |
+| 灵活性     | 支持响应中断、超时、尝试获取锁 | 不灵活           |
+| 释放形式   | 必须显示调用unlock()释放锁     | 自动释放监视器   |
+| 锁类型     | 公平锁&非公平锁                | 非公平锁         |
+| 条件队列   | 可关联多个条件队列             | 关联一个条件队列 |
+| 可重入性   | 可重入                         | 可重入           |
+
+
+
 
 
 # [ReentrantLock打断](https://www.bilibili.com/video/BV19J411Q7R5?p=12)
@@ -653,6 +712,7 @@ public static boolean interrupted() {
   return currentThread().isInterrupted(true);
 }
 
+// 当中断线程被唤醒时，并不知道被唤醒的原因，可能是当前线程在等待中被中断，也可能是释放了锁以后被唤醒。因此我们通过Thread.interrupted()方法检查中断标记（该方法返回了当前线程的中断状态，并将当前线程的中断标识设置为False），并记录下来，如果发现该线程被中断过，就再中断一次，还原用户状态。
 static void selfInterrupt() {
   Thread.currentThread().interrupt();
 }
@@ -774,7 +834,7 @@ protected final boolean tryRelease(int releases) {
 
 如果在一个整型变量上维护多种状态，就一定需要**按位切割使用**这个变量，读写锁将变量切分成了两个部分，**高16位表示读，低16位表示写**，划分方式如图（当前同步状态表示一个线程已经获取了写锁，且重进入了两次，同时也连续获取了两次读锁）：
 
-![image-20200903203931055](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20200903203931055.png)
+![image-20200903203931055](/assets/imgs/image-20200903203931055.png)
 
 **写锁是一个支持重进入的排它锁**。如果当前线程已经获取了写锁，则增加写状态。如果当前线程在获取写锁时，读锁已经被获取（读状态不为0）或者该线程不是已经获取写锁的线程，则当前线程进入等待状态。
 
