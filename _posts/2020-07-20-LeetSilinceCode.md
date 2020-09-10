@@ -383,6 +383,62 @@ class Solution {
 
 ## [\#633 两数平方和](https://leetcode-cn.com/problems/sum-of-square-numbers/description/)
 
+- Easy
+- 2019.09.10：😭 
+
+题目：
+
+```xml
+给定一个非负整数 c ，你要判断是否存在两个整数 a 和 b，使得 a2 + b2 = c。
+
+示例1:
+
+输入: 5
+输出: True
+解释: 1 * 1 + 2 * 2 = 5
+```
+
+分析：
+
+```xml
+方法一：双指针
+判断c是否为非负整数，若是，则直接返回false
+利用Math包中sqrt()方法求出小于c的平方根的最大整数作为右指针，同时设置左指针从0开始；
+开始循环，若左指针小于右指针，判断两指针之和与c的大小；
+若和等于c，返回false；
+若和小于c，左指针加1；
+若和大于c，右指针减1；
+默认返回false
+复杂度分析：
+时间复杂度O(sqrt(c))
+空间复杂度O(1)
+```
+
+代码：
+
+```java
+// 双指针
+class Solution {
+    public boolean judgeSquareSum(int c) {
+    	if (c<0) return false;
+    	int i = 0; //双指针的左指针
+    	int j = (int) Math.sqrt(c); //双指针的右指针
+    	while (i<=j){
+    		long sum = i*i+j*j; // 防止 sum变量溢出
+    		if (sum==c) return true;
+    		else if (sum<c){
+    			i++;
+			}else{j--;}
+		}
+		return false;
+    }
+}
+```
+
+---
+
+
+
 
 
 ## [#674 最长连续递增序列](https://leetcode-cn.com/problems/longest-continuous-increasing-subsequence/)  
