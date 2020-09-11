@@ -40,7 +40,7 @@ tags: [LeetCode,数据结构 ]
 | ------------------------------------------------------------ | -------- | ------ |
 | [\#167 有序数组的 Two Sum](http://www.silince.cn/2020/07/20/LeetSilinceCode/#167-%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84-two-sum) | 双指针   | 0%     |
 | [\#633 两数平方和](http://www.silince.cn/2020/07/20/LeetSilinceCode/#633-%E4%B8%A4%E6%95%B0%E5%B9%B3%E6%96%B9%E5%92%8C) | 双指针   | 50%    |
-| [\#345 反转字符串中的元音字符](http://www.silince.cn/2020/07/20/LeetSilinceCode/#345-%E5%8F%8D%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%85%83%E9%9F%B3%E5%AD%97%E7%AC%A6) | 双指针   | 0%     |
+| [\#345 反转字符串中的元音字符](http://www.silince.cn/2020/07/20/LeetSilinceCode/#345-%E5%8F%8D%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%85%83%E9%9F%B3%E5%AD%97%E7%AC%A6) | 双指针   | 100%   |
 | [\#680 回文字符串](http://www.silince.cn/2020/07/20/LeetSilinceCode/#680-%E5%9B%9E%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2) | 双指针   | 0%     |
 | [\#88 合并两个有序数组](http://www.silince.cn/2020/07/20/LeetSilinceCode/#88-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84) | 双指针   | 0%     |
 | [\#141 判断链表是否存在环](http://www.silince.cn/2020/07/20/LeetSilinceCode/#141-判断链表是否存在环) | 双指针   | 0%     |
@@ -374,6 +374,57 @@ class Solution {
 ---
 
 ## [\#345 反转字符串中的元音字符](https://leetcode-cn.com/problems/reverse-vowels-of-a-string/description/)
+
+- Easy
+- 2019.09.11：😎  
+
+题目：
+
+```xml
+编写一个函数，以字符串作为输入，反转该字符串中的元音字母。
+
+示例 1：
+输入："hello"
+输出："holle"
+```
+
+分析：
+
+```xml
+双指针法交换前后元音元素
+转换成数组后，分别定义前后两个索引指针用 while 依次遍历数组，同时遇到元音则交换。
+最后扫描完数组后，一定要在返回的时候再转成字符串 String 输出
+```
+
+代码：
+
+```java
+class Solution {
+  public String reverseVowels(String s) {
+    String str = "aeuioAEUIO";
+    int i = 0;
+    int j = s.length() - 1;
+    char[] chars = s.toCharArray();
+
+    while (i < j) {
+      if (str.indexOf(chars[i]) != -1) { // 判断元音 str.indexOf(ch)!=-1
+        if (str.indexOf(chars[j]) != -1) {
+          char temp = chars[i];
+          chars[i] = chars[j];
+          chars[j] = temp;
+          i++;
+          j--;
+        }else {
+          j--; //j 不是元音 ++
+        }
+      } else {i++;} // i 不是元音 ++
+    }
+    return new String(chars);
+  }
+}
+```
+
+
 
 
 
