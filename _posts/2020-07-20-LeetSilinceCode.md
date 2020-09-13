@@ -38,6 +38,7 @@ tags: [LeetCode,数据结构 ]
 
 | 题目                                                         | 算法思想 | 正确率 |
 | ------------------------------------------------------------ | -------- | ------ |
+| [\#11 盛最多水的容器](http://www.silince.cn/2020/07/20/LeetSilinceCode/#11-盛最多水的容器) | 双指针   | 0%     |
 | [\#167 有序数组的 Two Sum](http://www.silince.cn/2020/07/20/LeetSilinceCode/#167-%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84-two-sum) | 双指针   | 0%     |
 | [\#633 两数平方和](http://www.silince.cn/2020/07/20/LeetSilinceCode/#633-%E4%B8%A4%E6%95%B0%E5%B9%B3%E6%96%B9%E5%92%8C) | 双指针   | 50%    |
 | [\#345 反转字符串中的元音字符](http://www.silince.cn/2020/07/20/LeetSilinceCode/#345-%E5%8F%8D%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%85%83%E9%9F%B3%E5%AD%97%E7%AC%A6) | 双指针   | 50%    |
@@ -104,6 +105,42 @@ tags: [LeetCode,数据结构 ]
 
 
 # 题：
+
+## [\#11 盛最多水的容器](https://leetcode-cn.com/problems/container-with-most-water/)
+
+- medium
+- 2019.09.13：😭 
+
+题目：
+
+```xml
+给你 n 个非负整数 a1，a2，...，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0)。找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
+说明：你不能倾斜容器，且 n 的值至少为 2。
+
+示例：
+输入：[1,8,6,2,5,4,8,3,7]
+输出：49
+```
+
+![image-20200913205928929](/assets/imgs/image-20200913205928929.png)
+
+分析：双指针法
+
+```xml
+
+```
+
+代码：
+
+```java
+
+```
+
+---
+
+
+
+
 
 ## [#26 删除排序数组中的重复项](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/) 
 
@@ -303,13 +340,14 @@ public boolean hasCycle(ListNode head) {
     return false;
 }
 
-// 方法二
+// 方法二 ⭐️
 public boolean hasCycle(ListNode head) {
     if (head == null || head.next == null) {
         return false;
     }
     ListNode slow = head; // 慢指针
     ListNode fast = head.next; // 快指针
+  	// 直到两个指针相遇都没有指向null则返回true
     while (slow != fast) {
         if (fast == null || fast.next == null) { //fast.next == null 防止fast.next.next空指针异常
             return false;
@@ -321,7 +359,7 @@ public boolean hasCycle(ListNode head) {
 }
 ```
 
-## 
+
 
 
 
