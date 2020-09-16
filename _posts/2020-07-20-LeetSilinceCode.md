@@ -11,6 +11,8 @@ tags: [LeetCode,数据结构 ]
 
 > leetcode: https://leetcode-cn.com/tag/array/
 >
+> labuladong 的算法小抄：https://labuladong.gitbook.io/algo/
+>
 > 刷题模版： https://greyireland.gitbook.io/algorithm-pattern/	
 >
 > repo：https://github.com/labuladong/fucking-algorithm
@@ -39,7 +41,7 @@ tags: [LeetCode,数据结构 ]
 | 题目                                                         | 算法思想        | 正确率 |
 | ------------------------------------------------------------ | --------------- | ------ |
 | [\#11 盛最多水的容器](http://www.silince.cn/2020/07/20/LeetSilinceCode/#11-盛最多水的容器) | 双指针          | 0%     |
-| [\#167 有序数组的 Two Sum](http://www.silince.cn/2020/07/20/LeetSilinceCode/#167-%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84-two-sum) | 双指针/二分查找 | 0%     |
+| [\#167 有序数组的 Two Sum](http://www.silince.cn/2020/07/20/LeetSilinceCode/#167-%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84-two-sum) | 双指针/二分查找 | 50%    |
 | [\#633 两数平方和](http://www.silince.cn/2020/07/20/LeetSilinceCode/#633-%E4%B8%A4%E6%95%B0%E5%B9%B3%E6%96%B9%E5%92%8C) | 双指针          | 50%    |
 | [\#345 反转字符串中的元音字符](http://www.silince.cn/2020/07/20/LeetSilinceCode/#345-%E5%8F%8D%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%85%83%E9%9F%B3%E5%AD%97%E7%AC%A6) | 双指针          | 50%    |
 | [\#680 回文字符串](http://www.silince.cn/2020/07/20/LeetSilinceCode/#680-%E5%9B%9E%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2) | 双指针          | 50%    |
@@ -382,6 +384,7 @@ public boolean hasCycle(ListNode head) {
 
 - easy
 - 2019.09.15：😭  
+- 2019.09.16：😎
 
 题目：
 
@@ -639,9 +642,58 @@ class Solution {
 
 ## [\#542 最长子序列](https://leetcode-cn.com/problems/longest-word-in-dictionary-through-deleting/description/)
 
+- easy
+- 2019.09.16：😭  
+
+题目：
+
+```xml
+给定一个字符串和一个字符串字典，找到字典里面最长的字符串，该字符串可以通过删除给定字符串的某些字符来得到。如果答案不止一个，返回长度最长且字典顺序最小的字符串。如果答案不存在，则返回空字符串。
+
+示例 1:
+输入:
+s = "abpcplea", d = ["ale","apple","monkey","plea"]
+输出: 
+"apple"
+
+说明:
+所有输入的字符串只包含小写字母。
+字典的大小不会超过 1000。
+所有输入的字符串长度不会超过 1000。
+```
+
+分析：
+
+```xml
+这题的关键就是怎么在字符串字典中找到那个对应的字符串。其实很简单。
+只要利用两个指针i,j，一个指向s字符串，一个指向sstr字符串，每一次查找过程中,i依次后移，若i,j对应的两个字符相等，则j后移，如果j可以移到sstr.length()，那么说明sstr中对应的字符s中都有，即s中删除一些字符后，可以得到sstr字符串，最后一步就是比较当前的结果字符与找到的sstr字符，按照题目的需求来决定是否改变结果字符，是不是还挺简单的呀。
+```
+
+代码：
+
+```java
+class Solution {
+    public String findLongestWord(String s, List<String> d) {
+        String str="";
+        for(String sstr:d){
+            for(int i=0,j=0;i<s.length()&&j<sstr.length();i++){
+                if(s.charAt(i)==sstr.charAt(j)) j++;
+                if(j==sstr.length()){
+                    if(sstr.length()>str.length()||(sstr.length()==str.length()&&str.compareTo(sstr)>0))  str=sstr;
+                }
+            }
+        }
+        return str;
+        
+    }
+}
+```
 
 
-## [\#633 两数平方和](https://leetcode-cn.com/problems/sum-of-square-numbers/description/)
+
+
+
+## [\#633 两数平方和 here](https://leetcode-cn.com/problems/sum-of-square-numbers/description/)
 
 - Easy
 - 2019.09.10：😭 
@@ -960,7 +1012,7 @@ int[] count(String word) {
 
 ### 题号 
 
-- 难度
+- easy
 - 2019.08.28：😭  
 
 题目：
