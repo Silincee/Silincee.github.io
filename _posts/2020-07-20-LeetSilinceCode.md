@@ -9,28 +9,17 @@ tags: [LeetCode,数据结构 ]
 
 # PLAN
 
-> leetcode: https://leetcode-cn.com/tag/array/
+> [labuladong 的算法小抄](https://labuladong.gitbook.io/algo/)   [repo](https://github.com/labuladong/fucking-algorithm)
 >
-> labuladong 的算法小抄：https://labuladong.gitbook.io/algo/
+> [刷题目录](https://github.com/CyC2018/CS-Notes/blob/master/notes/Leetcode%20%E9%A2%98%E8%A7%A3%20-%20%E7%9B%AE%E5%BD%95.md)
 >
-> 刷题模版： https://greyireland.gitbook.io/algorithm-pattern/	
+> [C#LeetCode刷题，走进Google，走近人生](https://www.byteflying.com/archives/1015)
 >
-> repo：https://github.com/labuladong/fucking-algorithm
+> [如何科学的刷 LeetCode ？](https://zhuanlan.zhihu.com/p/96883783)
 
 ```
 我的方法只适合连数据结构都不扎实的菜鸡选手～不要完全按tag！头一次刷，先把这五个tag做了：array，string，tree，linkedlist，math，其它的千万别按tag刷。这样不存在前面答案说的思维暗示问题，反而帮助巩固数据结构，还可以自己归纳某种数据结构的全部技巧～ 每个tag内部就按照easy-medium-hard的顺序做，这样最开始一天刷10道easy，后面熟了这个数据结构一天也能刷5道难题，不会一开始就卡壳，搞得自己很郁闷。这时候已经100多道了，之后从hard往easy刷！前面虐虐虐，后面一天20道easy爽歪歪，很快就刷完啦！赶快买个会员开始第二遍吧！
 ```
-
-## **刷题策略**： 
-
-**时间紧迫**：
-
-- 刷题目录：https://github.com/CyC2018/CS-Notes/blob/master/notes/Leetcode%20%E9%A2%98%E8%A7%A3%20-%20%E7%9B%AE%E5%BD%95.md
-- 在 [https://leetcode-cn.com/problemset/all/](https://link.zhihu.com/?target=https%3A//leetcode-cn.com/problemset/all/) 页面的右侧。先刷热题 HOT 100，再刷精选 TOP 面试题，之后刷其他的题。
-
-- https://zhuanlan.zhihu.com/p/96883783
-- https://www.byteflying.com/archives/1015
-- [IDEA配置leetcode插件](https://blog.csdn.net/u010180815/article/details/104728115/)
 
 
 
@@ -47,7 +36,7 @@ tags: [LeetCode,数据结构 ]
 | [\#680 回文字符串](http://www.silince.cn/2020/07/20/LeetSilinceCode/#680-%E5%9B%9E%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2) | 双指针          | 50%    |
 | [\#88 合并两个有序数组](http://www.silince.cn/2020/07/20/LeetSilinceCode/#88-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84) | 双指针          | 0%     |
 | [\#141 判断链表是否存在环](http://www.silince.cn/2020/07/20/LeetSilinceCode/#141-判断链表是否存在环) | 双指针          | 0%     |
-| [\#542 最长子序列](http://www.silince.cn/2020/07/20/LeetSilinceCode/#542-最长子序列) | 双指针          | 0%     |
+| [\#524 最长子序列](http://www.silince.cn/2020/07/20/LeetSilinceCode/#542-最长子序列) | 双指针          | 0%     |
 
 
 
@@ -640,7 +629,7 @@ class Solution {
 
 
 
-## [\#542 最长子序列](https://leetcode-cn.com/problems/longest-word-in-dictionary-through-deleting/description/)
+## [\#524 最长子序列](https://leetcode-cn.com/problems/longest-word-in-dictionary-through-deleting/description/)
 
 - easy
 - 2019.09.16：😭  
@@ -666,25 +655,34 @@ s = "abpcplea", d = ["ale","apple","monkey","plea"]
 
 ```xml
 这题的关键就是怎么在字符串字典中找到那个对应的字符串。其实很简单。
-只要利用两个指针i,j，一个指向s字符串，一个指向sstr字符串，每一次查找过程中,i依次后移，若i,j对应的两个字符相等，则j后移，如果j可以移到sstr.length()，那么说明sstr中对应的字符s中都有，即s中删除一些字符后，可以得到sstr字符串，最后一步就是比较当前的结果字符与找到的sstr字符，按照题目的需求来决定是否改变结果字符，是不是还挺简单的呀。
+只要利用两个指针i,j，一个指向s字符串，一个指向s1字符串，每一次查找过程中,i依次后移，若i,j对应的两个字符相等，则j后移，如果j可以移到s1.length()，那么说明s1中对应的字符s中都有，即s中删除一些字符后，可以得到s1字符串，最后一步就是比较当前的结果字符与找到的s1字符，按照题目的需求来决定是否改变结果字符，是不是还挺简单的呀。
+时间复杂度：O(n)
+空间复杂度：O(1)
 ```
 
 代码：
 
 ```java
 class Solution {
+	// s = "abpcplea", d = ["ale","apple","monkey","plea"]
     public String findLongestWord(String s, List<String> d) {
-        String str="";
-        for(String sstr:d){
-            for(int i=0,j=0;i<s.length()&&j<sstr.length();i++){
-                if(s.charAt(i)==sstr.charAt(j)) j++;
-                if(j==sstr.length()){
-                    if(sstr.length()>str.length()||(sstr.length()==str.length()&&str.compareTo(sstr)>0))  str=sstr;
-                }
-            }
-        }
-        return str;
-        
+    	// 定义连个指针，一个指向s字符串，一个指向s1
+		String str = "";
+		for (String s1 : d) {
+			// 每一次查找过程中,i依次后移，若i,j对应的两个字符相等，则j后移，如果j可以移到s1.length()，
+			// 那么说明s1中对应的字符s中都有，即s中删除一些字符后，可以得到s1字符串，
+			for (int i=0,j=0;i<s.length()&&j<s1.length();i++){
+				if (s.charAt(i)==s1.charAt(j)) j++;
+				if (j==s1.length()){
+					// 比较当前的结果字符与找到的s1字符，按照题目的需求来决定是否改变结果字符
+					// 找到字典里面最长的字符串;如果答案不止一个，返回长度最长且字典顺序最小的字符串
+					if (s1.length()>str.length()||(s1.length()==str.length()&&str.compareTo(s1)>0)){
+						str=s1;
+					}
+				}
+			}
+		}
+    	return str;
     }
 }
 ```
@@ -693,7 +691,7 @@ class Solution {
 
 
 
-## [\#633 两数平方和 here](https://leetcode-cn.com/problems/sum-of-square-numbers/description/)
+## [\#633 两数平方和 ](https://leetcode-cn.com/problems/sum-of-square-numbers/description/)
 
 - Easy
 - 2019.09.10：😭 
