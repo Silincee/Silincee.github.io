@@ -42,15 +42,15 @@ tags: [LeetCode,数据结构 ]
 
 ## 排序算法
 
-| 题目                                        | 算法思想 | 正确率 |
-| ------------------------------------------- | -------- | ------ |
-| /#215 Kth Element(Medium)                   | 快速排序 |        |
-| /#347 Top K Frequent Elements(Medium)       | 桶排序   |        |
-| /#451 Sort Characters By Frequency (Medium) | 桶排序   |        |
-| /#75 Sort Colors (Medium)                   |          |        |
-|                                             |          |        |
-|                                             |          |        |
-|                                             |          |        |
+| 题目                                                         | 算法思想 | 正确率 |
+| ------------------------------------------------------------ | -------- | ------ |
+| [\#215 数组中的第K个最大元素](https://leetcode-cn.com/problems/kth-largest-element-in-an-array/) | 快速排序 |        |
+| [\#347 前 K 个高频元素](https://leetcode-cn.com/problems/top-k-frequent-elements/) | 桶排序   |        |
+| [\#451 根据字符出现频率排序](https://leetcode-cn.com/problems/sort-characters-by-frequency/) | 桶排序   |        |
+| [\#75 颜色分类 ]([http://www.silince.cn/2020/07/20/LeetSilinceCode/#75-%E9%A2%9C%E8%89%B2%E5%88%86%E7%B1%BB](http://www.silince.cn/2020/07/20/LeetSilinceCode/#75-颜色分类)) |          |        |
+|                                                              |          |        |
+|                                                              |          |        |
+|                                                              |          |        |
 
 
 
