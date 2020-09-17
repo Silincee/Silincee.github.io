@@ -42,6 +42,18 @@ tags: [LeetCode,数据结构 ]
 
 ## 排序算法
 
+| 题目                                        | 算法思想 | 正确率 |
+| ------------------------------------------- | -------- | ------ |
+| /#215 Kth Element(Medium)                   | 快速排序 |        |
+| /#347 Top K Frequent Elements(Medium)       | 桶排序   |        |
+| /#451 Sort Characters By Frequency (Medium) | 桶排序   |        |
+| /#75 Sort Colors (Medium)                   |          |        |
+|                                             |          |        |
+|                                             |          |        |
+|                                             |          |        |
+
+
+
 ![image-20200720125956366](/assets/imgs/image-20200720125956366-9188642.png)
 
 [十大排序算法](https://mp.weixin.qq.com/s/Qf416rfT4pwURpW3aDHuCg)
@@ -188,6 +200,31 @@ public int removeDuplicates(int[] nums) {
 ```
 
 ---
+
+
+
+## [\#75 颜色分类](https://leetcode-cn.com/problems/sort-colors/)
+
+- easy
+- 2019.08.28：😭  
+
+题目：
+
+```xml
+
+```
+
+分析：
+
+```xml
+
+```
+
+代码：
+
+```java
+
+```
 
 
 
@@ -573,6 +610,35 @@ class Solution {
 
 ---
 
+
+
+## [\#215 数组中的第K个最大元素](https://leetcode-cn.com/problems/kth-largest-element-in-an-array/)
+
+- easy
+- 2019.08.28：😭  
+
+题目：
+
+```xml
+
+```
+
+分析：
+
+```xml
+
+```
+
+代码：
+
+```java
+
+```
+
+
+
+
+
 ## [\#345 反转字符串中的元音字符](https://leetcode-cn.com/problems/reverse-vowels-of-a-string/description/)
 
 - Easy
@@ -623,6 +689,56 @@ class Solution {
     return new String(chars);
   }
 }
+```
+
+
+
+## [\#347 前 K 个高频元素](https://leetcode-cn.com/problems/top-k-frequent-elements/)
+
+- easy
+- 2019.08.28：😭  
+
+题目：
+
+```xml
+
+```
+
+分析：
+
+```xml
+
+```
+
+代码：
+
+```java
+
+```
+
+
+
+## [\#451 根据字符出现频率排序](https://leetcode-cn.com/problems/sort-characters-by-frequency/)
+
+- easy
+- 2019.08.28：😭  
+
+题目：
+
+```xml
+
+```
+
+分析：
+
+```xml
+
+```
+
+代码：
+
+```java
+
 ```
 
 
