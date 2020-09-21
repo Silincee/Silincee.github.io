@@ -49,9 +49,13 @@ tags: [JavaEE, spring, ]
    1. 前端控制器(DispatcherServlet) 
    2. 处理器映射器(HandlerMapping) 
    3. 处理器(Handler)
-   4. 处理器适配器(HandlAdapter)
+   4. 处理器适配器(HandlerAdapter)
    5. 视图解析器(View Resolver)
    6. 视图(View)
+
+![image-20200921103327350](/assets/imgs/image-20200921103327350-0655883.png)
+
+
 
 ## 3.RequestMapping注解
 
@@ -592,7 +596,11 @@ return "success"; }
        </dependency>
    ```
 
-## springMVC文件上传
+## 7.springMVC文件上传
 
 ![image-20200503210254910](/assets/imgs/image-20200503210254910.png)
+
+
+
+
 
