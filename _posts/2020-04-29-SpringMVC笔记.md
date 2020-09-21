@@ -7,7 +7,7 @@ tags: [JavaEE, spring, ]
 
 ---
 
-## 1.三层架构和MVC
+## 三层架构和MVC
 
 1. 三层架构
    1. 开发服务器端程序，一般都基于两种形式，一种C/S架构程序，一种B/S架构程序 
@@ -23,7 +23,7 @@ tags: [JavaEE, spring, ]
    3. View：指JSP、HTML用来展示数据给用户
    4. Controller：用来接收用户的请求，整个流程的控制器。用来进行数据校验等。
 
-## 2.SpringMVC的入门案例
+## SpringMVC的入门案例
 
 1. 需求
 
@@ -57,7 +57,7 @@ tags: [JavaEE, spring, ]
 
 
 
-## 3.RequestMapping注解
+## RequestMapping注解
 
 1. `@RequestMapping`注解的作用是建立请求URL和处理方法之间的对应关系 
 2.  RequestMapping注解可以作用在方法和类上
@@ -71,7 +71,7 @@ tags: [JavaEE, spring, ]
    - params：指定限制请求参数的条件
    - headers：发送请求中必须包含的请求头
 
-## 4.请求参数绑定
+## 请求参数绑定
 
 > /Users/silince/Develop/MagicDontTouch/IdeaProjects/Java EE/springMVC/springmvc_day01_01_start
 
@@ -175,7 +175,7 @@ tags: [JavaEE, spring, ]
 
    1. 只需要在控制器的方法参数定义HttpServletRequest和HttpServletResponse对象
 
-## 5.springMVC常用注解
+## springMVC常用注解
 
 ### RequestParam
 
@@ -368,7 +368,7 @@ return "success"; }
   
 ```
 
-## 6.响应数据和结果视图
+## 响应数据和结果视图
 
 ### 返回值分类
 
@@ -596,11 +596,229 @@ return "success"; }
        </dependency>
    ```
 
-## 7.springMVC文件上传
+## springMVC文件上传
 
 ![image-20200503210254910](/assets/imgs/image-20200503210254910.png)
 
 
 
+## SpringMVC的异常处理
+
+系统中异常包括两类:预期异常和运行时异常 RuntimeException，前者通过捕获异常从而获取异常信息， 后者主要通过规范代码开发、测试通过手段减少运行时异常的发生。
+
+系统的 dao、service、controller 出现都通过 throws Exception 向上抛出，最后由 springmvc 前端控制器交由异常处理器进行异常处理，如下图:
+
+![image-20200921130008896](/assets/imgs/image-20200921130008896.png)
+
+### SpringMVC的异常处理
+
+1.自定义异常类
+
+```java
+public class SysException extends Exception{
+
+  private static final long serialVersionUID = 4055945147128016300L;
+  // 异常提示信息
+	private String message; 
+  
+  public SysException(String message) {
+		this.message = message; 
+  }
+  
+  public String getMessage() {
+    return message;
+	}
+  
+	public void setMessage(String message) { 
+  	this.message = message;
+	}
+} 
+```
+
+2.自定义异常处理器
+
+```java
+/**
+ * 异常处理器
+ */
+public class SysExceptionResolver implements HandlerExceptionResolver{
+
+    /**
+     * 处理异常业务逻辑
+     */
+    public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+        // 获取到异常对象
+        SysException e = null;
+        if(ex instanceof SysException){
+            e = (SysException)ex;
+        }else{
+            e = new SysException("系统正在维护....");
+        }
+        // 创建ModelAndView对象
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("errorMsg",e.getMessage());
+        mv.setViewName("error");
+        return mv;
+    }
+}
+```
+
+3.配置异常处理器
+
+```xml
+<!-- 配置异常处理器 -->
+<bean id="sysExceptionResolver" class="cn.itcast.exception.SysExceptionResolver"/>
+```
 
 
+
+## SpringMVC 中的拦截器
+
+### 拦截器的作用
+
+***Spring MVC 的处理器拦截器类似于 Servlet 开发中的过滤器 Filter，用于对处理器进行预处理和后处理。***
+
+用户可以自己定义一些拦截器来实现特定的功能。 
+
+谈到拦截器，还要向大家提一个词——拦截器链(Interceptor Chain)。拦截器链就是将拦截器按一定的顺序联结成一条链。在访问被拦截的方法或字段时，拦截器链中的拦截器就会按其之前定义的顺序被调用。 
+
+说到这里，可能大家脑海中有了一个疑问，这不是我们之前学的过滤器吗?是的***它和过滤器是有几分相似，但是也有区别***，接下来我们就来说说他们的区别: 
+
+- 过滤器是servlet规范中的一部分，任何java web工程都可以使用。  
+- 拦截器是 SpringMVC 框架自己的，只有使用了 SpringMVC 框架的工程才能用。  
+- 过滤器在 url-pattern 中配置了/*之后，可以对所有要访问的资源拦截。 
+- 拦截器它是只会拦截访问的控制器方法，如果访问的是 jsp，html,css,image 或者 js 是不会进行拦截的。  
+
+它也是 AOP 思想的具体应用。 ***我们要想自定义拦截器， 要求必须实现:HandlerInterceptor 接口。*** 							 					 				
+
+### 自定义拦截器
+
+第一步:编写一个普通类实现 HandlerInterceptor 接口
+
+```java
+/**
+ * 自定义拦截器
+ */
+public class MyInterceptor1 implements HandlerInterceptor{
+
+    /**
+     * 预处理，controller方法执行前
+     * return true 放行，执行下一个拦截器，如果没有，执行controller中的方法
+     * return false不放行
+     * @param request
+     * @param response
+     * @param handler
+     * @return
+     * @throws Exception
+     */
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        System.out.println("MyInterceptor1执行了...前1111");
+        // request.getRequestDispatcher("/WEB-INF/pages/error.jsp").forward(request,response);
+        return true;
+    }
+
+    /**
+     * 后处理方法，controller方法执行后，success.jsp执行之前
+     * @param request
+     * @param response
+     * @param handler
+     * @param modelAndView
+     * @throws Exception
+     */
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        System.out.println("MyInterceptor1执行了...后1111");
+        // request.getRequestDispatcher("/WEB-INF/pages/error.jsp").forward(request,response);
+    }
+
+    /**
+     * success.jsp页面执行后，该方法会执行
+     * @param request
+     * @param response
+     * @param handler
+     * @param ex
+     * @throws Exception
+     */
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        System.out.println("MyInterceptor1执行了...最后1111");
+    }
+
+}
+```
+
+
+
+第二步:配置拦截器
+
+```xml
+<!--配置拦截器-->
+<mvc:interceptors>
+  <!--配置拦截器-->
+  <mvc:interceptor>
+    <!--要拦截的具体的方法-->
+    <mvc:mapping path="/user/*"/>
+    <!--不要拦截的方法
+            <mvc:exclude-mapping path=""/>
+            -->
+    <!--配置拦截器对象-->
+    <bean class="cn.itcast.controller.cn.itcast.interceptor.MyInterceptor1" />
+  </mvc:interceptor>
+
+  <!--配置第二个拦截器-->
+  <mvc:interceptor>
+    <!--要拦截的具体的方法-->
+    <mvc:mapping path="/**"/>
+    <!--不要拦截的方法
+            <mvc:exclude-mapping path=""/>
+            -->
+    <!--配置拦截器对象-->
+    <bean class="cn.itcast.controller.cn.itcast.interceptor.MyInterceptor2" />
+  </mvc:interceptor>
+</mvc:interceptors>
+```
+
+运行结果：
+
+![image-20200921135110800](/assets/imgs/image-20200921135110800.png)
+
+### 拦截器的放行
+
+放行的含义是指，如果有下一个拦截器就执行下一个，如果该拦截器处于拦截器链的最后一个，则执行控制器中的方法。
+
+![image-20200921135227220](/assets/imgs/image-20200921135227220.png)
+
+### 拦截器中方法的说明
+
+#### preHandle
+
+- 预处理，controller方法执行前
+- return true 放行，执行下一个拦截器，如果没有，执行controller中的方法
+- return false不放行
+
+#### postHandle
+
+- 后处理方法，在业务处理器处理完请求后按拦截器定义逆序调用调用，但是 DispatcherServlet 向客户端返回响应前被调用，
+
+#### afterCompletion
+
+- 只有 preHandle 返回 true 才调用
+
+- 在 DispatcherServlet 完全处理完请求后被调用
+- 可以在该方法中进行一些资源清理的操作。
+
+### 拦截器的作用路径
+
+```xml
+作用路径可以通过在配置文件中配置。 <!-- 配置拦截器的作用范围 -->
+<mvc:interceptors>
+    <mvc:interceptor>
+			<mvc:mapping path="/**" /><!-- 用于指定对拦截的 url --> 
+      <mvc:exclude-mapping path=""/><!-- 用于指定排除的 url--> 
+      <bean id="handlerInterceptorDemo1"
+		class="com.itheima.web.interceptor.HandlerInterceptorDemo1"></bean> 
+  </mvc:interceptor>
+</mvc:interceptors>
+```
+
+### 多个拦截器执行顺序
+
+![image-20200921150925485](/assets/imgs/image-20200921150925485.png)
