@@ -82,7 +82,7 @@ tags: [LeetCode,数据结构 ]
 
 正确率 > 80% 可移除 👩🏻‍💻
 
-## Array
+## 数组
 
 > https://leetcode-cn.com/tag/array/
 
@@ -99,21 +99,48 @@ tags: [LeetCode,数据结构 ]
 
 
 
-## String
+## 链表
 
-## Tree
+## 树
 
-## HEAP
+[目录](https://github.com/CyC2018/CS-Notes/blob/master/notes/Leetcode%20%E9%A2%98%E8%A7%A3%20-%20%E6%A0%91.md#1-%E6%A0%91%E7%9A%84%E9%AB%98%E5%BA%A6)
 
-## HashTable
+| 题目                                                         | 算法思想 | 正确率 |
+| ------------------------------------------------------------ | -------- | ------ |
+| [\#104 树的高度](http://www.silince.cn/2020/07/20/LeetSilinceCode/#104-树的高度) | 递归     | 0%     |
+| [\# 平衡二叉树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#110-平衡二叉树) | 递归     |        |
+| [\# 两节点的最长路径]()                                      | 递归     |        |
+| [\# 翻转树]()                                                | 递归     |        |
+| [\# 归并两棵树]()                                            | 递归     |        |
+| [\# 判断路径和是否等于一个数]()                              | 递归     |        |
+| [\# 统计路径和等于一个数的路径数量]()                        | 递归     |        |
+| [\# 子树]()                                                  | 递归     |        |
+| [\# 树的对称]()                                              | 递归     |        |
+| [\# 最小路径]()                                              | 递归     |        |
+| [\# 统计左叶子结点的和]()                                    | 递归     |        |
+| [\# 相同节点值的最大路径长度]()                              | 递归     |        |
+| [\# 间隔遍历]()                                              | 递归     |        |
+| [\# 找出二叉树中第二小的节点]()                              | 递归     |        |
+| [\# ]()                                                      | 层次遍历 |        |
+| [\# ]()                                                      | 层次遍历 |        |
 
-## Graph
+
+
+
+
+## 栈和队列
+
+## 哈希表
+
+## 字符串
+
+## 图
 
 
 
 # 题：
 
-## [\#11 盛最多水的容器](https://leetcode-cn.com/problems/container-with-most-water/)
+## [\#11. 盛最多水的容器](https://leetcode-cn.com/problems/container-with-most-water/)
 
 - medium
 - 2019.09.13：😭 
@@ -164,7 +191,7 @@ class Solution {
 
 
 
-## [#26 删除排序数组中的重复项](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/) 
+## [#26. 删除排序数组中的重复项](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/) 
 
 - Easy
 - 2019.08.30：😭 
@@ -207,7 +234,7 @@ public int removeDuplicates(int[] nums) {
 
 
 
-## [\#75 颜色分类](https://leetcode-cn.com/problems/sort-colors/)
+## [\#75. 颜色分类](https://leetcode-cn.com/problems/sort-colors/)
 
 - easy
 - 2019.08.28：😭  
@@ -234,7 +261,7 @@ public int removeDuplicates(int[] nums) {
 
 
 
-## [#88 合并两个有序数组](https://leetcode-cn.com/problems/merge-sorted-array/)  
+## [#88. 合并两个有序数组](https://leetcode-cn.com/problems/merge-sorted-array/)  
 
 - Easy
 - 2019.08.30：😭 
@@ -333,7 +360,67 @@ class Solution {
 
 ---
 
-## [\#141 判断链表是否存在环](https://leetcode-cn.com/problems/linked-list-cycle/description/) 
+
+
+## [\#104. 二叉树的最大深度](https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/)
+
+- easy
+- 2019.08.28：😭  
+
+题目：
+
+```xml
+
+```
+
+分析：
+
+```xml
+
+```
+
+代码：
+
+```java
+
+```
+
+---
+
+
+
+## [\#110. 平衡二叉树](https://leetcode-cn.com/problems/balanced-binary-tree/)
+
+- easy
+- 2019.08.28：😭  
+
+题目：
+
+```xml
+
+```
+
+分析：
+
+```xml
+
+```
+
+代码：
+
+```java
+
+```
+
+
+
+
+
+
+
+
+
+## [\#141. 判断链表是否存在环](https://leetcode-cn.com/problems/linked-list-cycle/description/) 
 
 - Easy
 - 2019.09.13：😭 
@@ -410,7 +497,7 @@ public boolean hasCycle(ListNode head) {
 
 
 
-## [\#167 有序数组的 Two Sum](https://leetcode-cn.com/problems/two-sum-ii-input-array-is-sorted/description/)
+## [\#167. 有序数组的 Two Sum](https://leetcode-cn.com/problems/two-sum-ii-input-array-is-sorted/description/)
 
 - easy
 - 2019.09.15：😭  
@@ -500,7 +587,7 @@ class Solution {
 
 
 
-## [#169 多数元素](https://leetcode-cn.com/problems/majority-element/) 
+## [#169. 多数元素](https://leetcode-cn.com/problems/majority-element/) 
 
 - Easy
 - 2019.08.30：😭 哈希表，naive！ 
@@ -616,7 +703,7 @@ class Solution {
 
 
 
-## [\#215 数组中的第K个最大元素](https://leetcode-cn.com/problems/kth-largest-element-in-an-array/)
+## [\#215. 数组中的第K个最大元素](https://leetcode-cn.com/problems/kth-largest-element-in-an-array/)
 
 - easy
 - 2019.08.28：😭  
@@ -643,7 +730,7 @@ class Solution {
 
 
 
-## [\#345 反转字符串中的元音字符](https://leetcode-cn.com/problems/reverse-vowels-of-a-string/description/)
+## [\#345. 反转字符串中的元音字符](https://leetcode-cn.com/problems/reverse-vowels-of-a-string/description/)
 
 - Easy
 - 2019.09.11：😎  
@@ -697,7 +784,7 @@ class Solution {
 
 
 
-## [\#347 前 K 个高频元素 here](https://leetcode-cn.com/problems/top-k-frequent-elements/)
+## [\#347. 前 K 个高频元素](https://leetcode-cn.com/problems/top-k-frequent-elements/)
 
 - medium
 - 2019.09.23：😭  
@@ -828,7 +915,7 @@ class Solution {
 
 
 
-## [\#451 根据字符出现频率排序](https://leetcode-cn.com/problems/sort-characters-by-frequency/)
+## [\#451. 根据字符出现频率排序](https://leetcode-cn.com/problems/sort-characters-by-frequency/)
 
 - easy
 - 2019.08.28：😭  
@@ -855,7 +942,7 @@ class Solution {
 
 
 
-## [\#524 最长子序列](https://leetcode-cn.com/problems/longest-word-in-dictionary-through-deleting/description/)
+## [\#524. 最长子序列](https://leetcode-cn.com/problems/longest-word-in-dictionary-through-deleting/description/)
 
 - easy
 - 2019.09.16：😭  
@@ -917,7 +1004,7 @@ class Solution {
 
 
 
-## [\#633 两数平方和 ](https://leetcode-cn.com/problems/sum-of-square-numbers/description/)
+## [\#633. 两数平方和 ](https://leetcode-cn.com/problems/sum-of-square-numbers/description/)
 
 - Easy
 - 2019.09.10：😭 
@@ -978,7 +1065,7 @@ class Solution {
 
 
 
-## [#674 最长连续递增序列](https://leetcode-cn.com/problems/longest-continuous-increasing-subsequence/)  
+## [#674. 最长连续递增序列](https://leetcode-cn.com/problems/longest-continuous-increasing-subsequence/)  
 
 - Easy
 - 2019.08.30：😭 
@@ -1029,7 +1116,7 @@ class Solution {
 
 ---
 
-## [\#680 回文字符串](https://leetcode-cn.com/problems/valid-palindrome-ii/description/) 
+## [\#680. 回文字符串](https://leetcode-cn.com/problems/valid-palindrome-ii/description/) 
 
 - Easy
 - 2019.09.12：😭  
@@ -1104,7 +1191,7 @@ class Solution {
 
 
 
-## [#1051 高度检查器](https://leetcode-cn.com/problems/height-checker/)  
+## [#1051. 高度检查器](https://leetcode-cn.com/problems/height-checker/)  
 
 - Easy
 - 2019.08.28：😭  在对比一次后，忘记加arr[j]--；
@@ -1164,7 +1251,7 @@ public int heightChecker(int[] heights) {
 
 ---
 
-## [#1160 拼写单词](https://leetcode-cn.com/problems/find-words-that-can-be-formed-by-characters/) 
+## [#1160. 拼写单词](https://leetcode-cn.com/problems/find-words-that-can-be-formed-by-characters/) 
 
 - Easy
 - 2019.08.30：😭 
@@ -1256,4 +1343,6 @@ int[] count(String word) {
 ```java
 
 ```
+
+---
 
