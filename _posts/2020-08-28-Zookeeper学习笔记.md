@@ -142,6 +142,7 @@ bin/zkServer.sh start
 
 ```
 jps
+# 显示 1100 QuorumPeerMain
 ```
 
 3）查看状态
