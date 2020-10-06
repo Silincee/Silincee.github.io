@@ -16,6 +16,8 @@ tags: [LeetCode,数据结构 ]
 > [C#LeetCode刷题，走进Google，走近人生](https://www.byteflying.com/archives/1015)
 >
 > [如何科学的刷 LeetCode ？](https://zhuanlan.zhihu.com/p/96883783)
+>
+> [LetSilinceCode](http://www.silince.cn/2020/07/20/LeetSilinceCode/)
 
 ```
 我的方法只适合连数据结构都不扎实的菜鸡选手～不要完全按tag！头一次刷，先把这五个tag做了：array，string，tree，linkedlist，math，其它的千万别按tag刷。这样不存在前面答案说的思维暗示问题，反而帮助巩固数据结构，还可以自己归纳某种数据结构的全部技巧～ 每个tag内部就按照easy-medium-hard的顺序做，这样最开始一天刷10道easy，后面熟了这个数据结构一天也能刷5道难题，不会一开始就卡壳，搞得自己很郁闷。这时候已经100多道了，之后从hard往easy刷！前面虐虐虐，后面一天20道easy爽歪歪，很快就刷完啦！赶快买个会员开始第二遍吧！
@@ -40,12 +42,12 @@ tags: [LeetCode,数据结构 ]
 
 
 
-## 排序算法
+## 排序算法 Here
 
 | 题目                                                         | 算法思想 | 正确率 |
 | ------------------------------------------------------------ | -------- | ------ |
-| [\#215 数组中的第K个最大元素](https://leetcode-cn.com/problems/kth-largest-element-in-an-array/) | 快速排序 |        |
-| [\#347 前 K 个高频元素](https://leetcode-cn.com/problems/top-k-frequent-elements/) | 桶排序   |        |
+| [\#215 数组中的第K个最大元素](http://www.silince.cn/2020/07/20/LeetSilinceCode/#215-数组中的第k个最大元素) | 快速排序 | 0%     |
+| [\#347 前 K 个高频元素](https://leetcode-cn.com/problems/top-k-frequent-elements/) | 桶排序   | 0%     |
 | [\#451 根据字符出现频率排序](https://leetcode-cn.com/problems/sort-characters-by-frequency/) | 桶排序   |        |
 | [\#75 颜色分类 ]([http://www.silince.cn/2020/07/20/LeetSilinceCode/#75-%E9%A2%9C%E8%89%B2%E5%88%86%E7%B1%BB](http://www.silince.cn/2020/07/20/LeetSilinceCode/#75-颜色分类)) |          |        |
 |                                                              |          |        |
@@ -792,19 +794,107 @@ class Solution {
 题目：
 
 ```xml
+在未排序的数组中找到第 k 个最大的元素。请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。
 
+示例 1:
+输入: [3,2,1,5,6,4] 和 k = 2
+输出: 5
+示例 2:
+输入: [3,2,3,1,2,4,5,5,6] 和 k = 4
+输出: 4
+
+说明:
+你可以假设 k 总是有效的，且 1 ≤ k ≤ 数组的长度。
 ```
 
 分析：
 
-```xml
+***方法一：基于快速排序的选择方法***
 
-```
+> 适用于确定数据量的情况
+
+我们可以用***快速排序***来解决这个问题，先对原数组排序，再返回倒数第 k 个位置，这样平均时间复杂度是O(nlogn)，但其实我们可以做的更快。
+
+![image-20201006132933073](/assets/imgs/image-20201006132933073.png)
+
+因此我们可以改进快速排序算法来解决这个问题：在分解的过程当中，我们会对子数组进行划分，如果划分得到的 q 正好就是我们需要的下标，就直接返回 a[q]；否则，***如果 q 比目标下标小，就递归右子区间，否则递归左子区间。这样就可以把原来递归两个区间变成只递归一个区间，提高了时间效率。这就是「快速选择」算法。***
+
+我们知道快速排序的性能和「划分」出的子数组的长度密切相关。直观地理解如果每次规模为 n 的问题我们都划分成 1 和 n - 1，每次递归的时候又向 n−1 的集合中递归，这种情况是最坏的，时间代价是 $O(n^2)$。我们可以引入随机化来加速这个过程，它的时间代价的期望是 O(n)。
+
+- 时间复杂度：O(n)
+- 空间复杂度：O(nlogn)
 
 代码：
 
 ```java
+// 方法一：快速选择
+class Solution {
+    Random random = new Random();
 
+    public int findKthLargest(int[] nums, int k) {
+        // 要找到的元素所在索引:  前K大，即倒数索引第K个
+        int index = nums.length - k;
+        int right = nums.length - 1;
+        int left = 0;
+        return quickSelect(nums, left, right, index);
+    }
+    
+    public int quickSelect(int[] nums, int left, int right, int index) {
+        // 随机生成轴值，得到分区值后的轴值索引
+        int q = randomPartition(nums, left, right);
+
+        // 递归的出口
+        if (q == index) {
+            // 如果刚好索引q就是想要的索引，则直接返回
+            return nums[q];
+
+        } else {
+            // 如果不是，比较q 与 index ,确定下次要检索的区间, 要么是[q+1, right], 要么就是[left, q-1]
+            return q < index ? quickSelect(nums, q + 1, right, index) : quickSelect(nums, left, q - 1, index);
+        }
+    }
+
+  	// 随机选择轴值
+    public int randomPartition(int[] nums, int l, int r) {
+        // 1. 随机数范围: [0, r-l+1) 同时加l, 则是 [l, r+1).即在这个[l,r] 中随机选一个索引出来
+        int i = random.nextInt(r - l + 1) + l;
+
+        // 2. 交换nums[i]， nums[r], 也就是将随机数先放在最右边nums[r]上
+        swap(nums, i, r);
+        return partition(nums, l, r);
+    }
+
+    // 该函数负责把比轴值大的元素放到右边，小的元素放到左边，最后返回新数组中轴值的下标
+    // 为了方便比较，把轴值反倒数组的最右边，并且初始化第一个比轴值小的位置(数组的最左边)
+    public int partition(int[] nums, int l, int r) {
+        // 3. 在调用当前方法的randomPartition方法中，已经确定了随机数是nums[r]
+        int x = nums[r];
+        int i = l - 1; // i+1 为当前大于轴值的元素下标
+
+        // 首先比较区间在[l， r)之间
+        // 这个for循环操作就是将小于 x 的数都往[i, j]的左边区间设置，从而实现存在[l, i]区间,使得对应数值都 小于 x
+        for (int j = l; j < r; j++) {
+            // 4. nums[j] 跟随机数 x 比较
+            if (nums[j] <= x) {
+                i++; // 有小于x的元素，这轴值坐标+1
+                swap(nums, i, j);
+            }
+        }
+
+        // 换回轴值
+        //5. 既然已经将<x的值都放在一边了，现在将x也就是nums[r] 跟nums[i+1]交换，从而分成两个区间[l.i+1]左, [i+2, r]右，左边区间的值都小于x
+        swap(nums, i + 1, r);
+
+        // 然后返回这个分区值(新的初始索引left)
+        return i + 1;
+    }
+
+    public void swap(int[] a, int i, int j) {
+        int temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
+    }
+}
 ```
 
 
