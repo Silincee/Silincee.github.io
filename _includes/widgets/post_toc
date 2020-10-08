@@ -61,7 +61,7 @@ function TOCize(toc, content, matchHeightTo) {
         }
         q.textContent = h.textContent;
         q.setAttribute('href', '#' + hash );
-        q.addEventListener('click', scrollToHeader.bind(this, h, hash), false);
+        // q.addEventListener('click', scrollToHeader.bind(this, h, hash), false);
         return q;
     };
 
