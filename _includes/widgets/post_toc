@@ -61,7 +61,7 @@ function TOCize(toc, content, matchHeightTo) {
         }
         q.textContent = h.textContent;
         q.setAttribute('href', '#' + hash );
-        // q.addEventListener('click', scrollToHeader.bind(this, h, hash), false);
+        q.addEventListener('click', scrollToHeader.bind(this, h, hash), false);
         return q;
     };
 
@@ -128,8 +128,8 @@ function TOCize(toc, content, matchHeightTo) {
         }
         scrolldummy.style.height = (c+'px');
     };
-    window.addEventListener('scroll', s1, false);
-    window.addEventListener('resize', s1, false);
+    // window.addEventListener('scroll', s1, false);
+    // window.addEventListener('resize', s1, false);
 }
 
 TOCize(
