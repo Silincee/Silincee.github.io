@@ -367,7 +367,8 @@ class Solution {
 ## [\#104. 二叉树的最大深度](https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/)
 
 - easy
-- 2019.08.28：😭  
+- 2020.08.28：😭  
+- 2020.10.10: 😎(递归)
 
 题目：
 
@@ -389,7 +390,7 @@ class Solution {
 
 分析：
 
-***方法一***：递归
+***方法一***：递归 ⭐️
 
 如果我们知道了左子树和右子树的最大深度 l 和 r，那么该二叉树的最大深度即为.  $max(l,r)+1$
 
@@ -412,7 +413,7 @@ class Solution {
 代码：
 
 ```java
-// 方法一 递归/深度优先
+// ⭐️方法一 递归/深度优先
 class Solution {
     public int maxDepth(TreeNode root) {
         // 因此我们在计算当前二叉树的最大深度时，
