@@ -421,13 +421,11 @@ class Solution {
     public int maxDepth(TreeNode root) {
         // 因此我们在计算当前二叉树的最大深度时，
 			  // 可以先递归计算出其左子树和右子树的最大深度，然后在 O(1) 时间内计算出当前二叉树的最大深度
-        if (root == null) {
-            return 0;
-        } else {
-            int leftHeight = maxDepth(root.left);
-            int rightHeight = maxDepth(root.right);
-            return Math.max(leftHeight, rightHeight) + 1;
-        }
+        if (root == null) return 0;
+        int leftHeight = maxDepth(root.left);
+        int rightHeight = maxDepth(root.right);
+        return Math.max(leftHeight, rightHeight) + 1;
+       
     }
 }
 
