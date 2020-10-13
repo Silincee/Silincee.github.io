@@ -13,6 +13,8 @@ tags: [LeetCode,数据结构 ]
 >
 > [刷题目录](https://github.com/CyC2018/CS-Notes/blob/master/notes/Leetcode%20%E9%A2%98%E8%A7%A3%20-%20%E7%9B%AE%E5%BD%95.md)
 >
+> [刷题两个月，从入门到字节跳动offer，这是我的模板 | GitHub 1.2k星](https://github.com/greyireland/algorithm-pattern)
+>
 > [C#LeetCode刷题，走进Google，走近人生](https://www.byteflying.com/archives/1015)
 >
 > [如何科学的刷 LeetCode ？](https://zhuanlan.zhihu.com/p/96883783)
@@ -109,7 +111,7 @@ tags: [LeetCode,数据结构 ]
 
 | 题目                                                         | 算法思想      | 正确率 |
 | ------------------------------------------------------------ | ------------- | ------ |
-| [\#104 树的高度](http://www.silince.cn/2020/07/20/LeetSilinceCode/#104-树的高度) | 递归/广度优先 | 50%    |
+| [\#104 树的高度](http://www.silince.cn/2020/07/20/LeetSilinceCode/#104-二叉树的最大深度) | 递归/广度优先 | 50%    |
 | [\#110 平衡二叉树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#110-平衡二叉树) | 递归          | 0%     |
 | [\#543 两节点的最长路径]()                                   | 递归          |        |
 | [\#226 翻转树]()                                             | 递归          |        |
