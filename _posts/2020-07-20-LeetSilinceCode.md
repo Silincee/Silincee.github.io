@@ -109,8 +109,8 @@ tags: [LeetCode,数据结构 ]
 
 | 题目                                                         | 算法思想      | 正确率 |
 | ------------------------------------------------------------ | ------------- | ------ |
-| [\#104 树的高度](http://www.silince.cn/2020/07/20/LeetSilinceCode/#104-树的高度) | 递归/广度优先 | 0%     |
-| [\#110 平衡二叉树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#110-平衡二叉树) | 递归          |        |
+| [\#104 树的高度](http://www.silince.cn/2020/07/20/LeetSilinceCode/#104-树的高度) | 递归/广度优先 | 50%    |
+| [\#110 平衡二叉树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#110-平衡二叉树) | 递归          | 0%     |
 | [\#543 两节点的最长路径]()                                   | 递归          |        |
 | [\#226 翻转树]()                                             | 递归          |        |
 | [\#617 归并两棵树]()                                         | 递归          |        |
@@ -125,6 +125,7 @@ tags: [LeetCode,数据结构 ]
 | [\#671 找出二叉树中第二小的节点]()                           | 递归          |        |
 | [\# ]()                                                      | 层次遍历      |        |
 | [\# ]()                                                      | 层次遍历      |        |
+| [\#剑指 Offer 07. 重建二叉树](https://leetcode-cn.com/problems/zhong-jian-er-cha-shu-lcof/) |               |        |
 
 
 
@@ -481,19 +482,122 @@ class Solution {
 题目：
 
 ```xml
+给定一个二叉树，判断它是否是高度平衡的二叉树。
+本题中，一棵高度平衡二叉树定义为：一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过1。
 
+示例 1:
+给定二叉树 [3,9,20,null,null,15,7]
+
+    3
+   / \
+  9  20
+    /  \
+   15   7
+返回 true 。
+
+示例 2:
+给定二叉树 [1,2,2,3,3,null,null,4,4]
+
+       1
+      / \
+     2   2
+    / \
+   3   3
+  / \
+ 4   4
 ```
 
 分析：
 
-```xml
+***方法一***：从底至顶（提前阻断） ⭐️
 
-```
+> 此方法为本题的最优解法，但“从底至顶”的思路不易第一时间想到。
+
+思路是对二叉树做先序遍历，从底至顶返回子树最大高度，若判定某子树不是平衡树则 “剪枝” ，直接向上返回。
+
+算法流程：
+
+`recur(root)`:
+
+- 递归返回值：
+  1. 当节点`root` 左 / 右子树的高度差 <=1 ：则返回以节点`root`为根节点的子树的最大高度，即节点 `root` 的左右子树中最大高度加 1 （` max(left, right) + 1` ）；
+  2. 当节点`root` 左 / 右子树的高度差  `≥2 `：则返回 −1 ，代表 此子树不是平衡树 。
+- 递归终止条件：
+  1. 当越过叶子节点时，返回高度 0 ；
+  2. 当左（右）子树高度` left== -1 `时，代表此子树的 左（右）子树 不是平衡树，因此直接返回 −1 ；
+
+`isBalanced(root)` ：
+
+返回值： 若` recur(root) != -1` ，则说明此树平衡，返回 true ； 否则返回 false 
+
+复杂度分析：
+时间复杂度 O(N)： N 为树的节点数；最差情况下，需要递归遍历树的所有节点。
+空间复杂度 O(N)： 最差情况下（树退化为链表时），系统递归需要使用 O(N) 的栈空间。
+
+***方法二：从顶至底（暴力法）***:
+
+> 此方法容易想到，但会产生大量重复计算，时间复杂度较高。
+
+构造一个获取当前节点最大深度的方法 depth(root) ，通过比较此子树的左右子树的最大高度差abs(depth(root.left) - depth(root.right))，来判断此子树是否是二叉平衡树。若树的所有子树都平衡时，此树才平衡。
+
+**算法流程：**
+**isBalanced(root) ：判断树 root 是否平衡**
+
+- **特例处理**： 若树根节点 root 为空，则直接返回 true ；
+- **返回值**： 所有子树都需要满足平衡树性质，因此以下三者使用与逻辑 && 连接；
+  1. abs(self.depth(root.left) - self.depth(root.right)) <= 1 ：判断 当前子树 是否是平衡树；
+  2. self.isBalanced(root.left) ： 先序遍历递归，判断 当前子树的左子树 是否是平衡树；
+  3. self.isBalanced(root.right) ： 先序遍历递归，判断 当前子树的右子树 是否是平衡树；
+
+**depth(root) ： 计算树 root 的最大高度**
+
+- **终止条件**： 当 root 为空，即越过叶子节点，则返回高度 0 ；
+- **返回值**： 返回左 / 右子树的最大高度加 1 。
+
+**复杂度分析：**
+时间复杂度 O(Nlog2N)： 最差情况下， isBalanced(root) 遍历树所有节点，占用 O(N) ；判断每个节点的最大高度 depth(root) 需要遍历 各子树的所有节点 ，子树的节点数的复杂度为 O(log 2N) 
+空间复杂度O(N)： 最差情况下（树退化为链表时），系统递归需要使用 O(N) 的栈空间。
 
 代码：
 
 ```java
+// ⭐️ 方法一
+class Solution {
+	// 对二叉树做先序遍历，从底至顶返回子树最大高度，若判定某子树不是平衡树则 “剪枝” ，直接向上返回
+	public boolean isBalanced(TreeNode root) {
+		return recur(root) != -1;
+	}
 
+	private int recur(TreeNode root) {
+		if (root == null) return 0;
+		int left = recur(root.left);
+		// 当左（右）子树高度 left== -1 时，代表此子树的 左（右）子树 不是平衡树，因此直接返回 -1 ；
+		if(left == -1) return -1;
+		int right = recur(root.right);
+		if(right == -1) return -1;
+		// 当 左/右 子树深度差大于 1 时，返回 -1 ；否则，返回 左/右子树深度最大值 + 1
+		// max(left, right) + 1 为当前子树的深度;以此作为返回值，才能判断树是否是"平衡二叉树"，即 abs(left - right) <=1 是否成立
+		return Math.abs(left - right) <=1 ? Math.max(left, right) + 1 : -1;
+	}
+}
+
+// 方法二
+class Solution {
+    public boolean isBalanced(TreeNode root) {
+		if(root==null) return true;
+		// 比较此子树的左右子树的最大高度差
+		return (Math.abs(depth(root.left)-depth(root.right))<=1)
+				&& isBalanced(root.left)
+				&& isBalanced(root.right);
+    }
+
+    // 获取当前节点最大深度
+	  // 终止条件： 当 root 为空，即越过叶子节点，则返回高度 0
+    private int depth(TreeNode root){
+    	if (root ==null) return 0;
+    	return Math.max(depth(root.left),depth(root.right))+1;
+	}
+}
 ```
 
 
