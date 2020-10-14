@@ -9,21 +9,11 @@ tags: [LeetCode,数据结构 ]
 
 # PLAN
 
-> [labuladong 的算法小抄](https://labuladong.gitbook.io/algo/)   [repo](https://github.com/labuladong/fucking-algorithm)
+> [labuladong 的算法小抄 技巧模版总结](https://labuladong.gitbook.io/algo/)   [repo](https://github.com/labuladong/fucking-algorithm)
 >
 > [刷题目录](https://github.com/CyC2018/CS-Notes/blob/master/notes/Leetcode%20%E9%A2%98%E8%A7%A3%20-%20%E7%9B%AE%E5%BD%95.md)
 >
-> [刷题两个月，从入门到字节跳动offer，这是我的模板 | GitHub 1.2k星](https://github.com/greyireland/algorithm-pattern)
->
-> [C#LeetCode刷题，走进Google，走近人生](https://www.byteflying.com/archives/1015)
->
 > [如何科学的刷 LeetCode ？](https://zhuanlan.zhihu.com/p/96883783)
->
-> [LetSilinceCode](http://www.silince.cn/2020/07/20/LeetSilinceCode/)
-
-```
-我的方法只适合连数据结构都不扎实的菜鸡选手～不要完全按tag！头一次刷，先把这五个tag做了：array，string，tree，linkedlist，math，其它的千万别按tag刷。这样不存在前面答案说的思维暗示问题，反而帮助巩固数据结构，还可以自己归纳某种数据结构的全部技巧～ 每个tag内部就按照easy-medium-hard的顺序做，这样最开始一天刷10道easy，后面熟了这个数据结构一天也能刷5道难题，不会一开始就卡壳，搞得自己很郁闷。这时候已经100多道了，之后从hard往easy刷！前面虐虐虐，后面一天20道easy爽歪歪，很快就刷完啦！赶快买个会员开始第二遍吧！
-```
 
 
 
@@ -143,7 +133,7 @@ tags: [LeetCode,数据结构 ]
 
 
 
-# 题：
+# 题
 
 ## [\#11. 盛最多水的容器](https://leetcode-cn.com/problems/container-with-most-water/)
 
