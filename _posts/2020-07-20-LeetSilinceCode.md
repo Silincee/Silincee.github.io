@@ -117,14 +117,14 @@ tags: [LeetCode,数据结构 ]
 | [\#671 找出二叉树中第二小的节点](http://www.silince.cn/2020/07/20/LeetSilinceCode/#671-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%AC%AC%E4%BA%8C%E5%B0%8F%E7%9A%84%E8%8A%82%E7%82%B9) | 递归          |        |
 | [\#637 一棵树每层节点的平均数](http://www.silince.cn/2020/07/20/LeetSilinceCode/#637-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%B9%B3%E5%9D%87%E5%80%BC) | 层次遍历      |        |
 | [\#513 得到左下角的节点](http://www.silince.cn/2020/07/20/LeetSilinceCode/#513-%E6%89%BE%E6%A0%91%E5%B7%A6%E4%B8%8B%E8%A7%92%E7%9A%84%E5%80%BC) | 层次遍历      |        |
-| [\#144 非递归实现二叉树的前序遍历]()                         | 前序遍历      |        |
-| [\#145 非递归实现二叉树的后序遍历]()                         | 后序遍历      |        |
-| [\#94 非递归实现二叉树的中序遍历]()                          | 中序遍历      |        |
-| [\#699 修剪二叉查找树]()                                     | BST           |        |
-| [\#230 寻找二叉查找树的第 k 个元素]()                        | BST           |        |
-| [\#538 把二叉查找树每个节点的值都加上比它大的节点的值]()     | BST           |        |
-| [\#235 二叉查找树的最近公共祖先]()                           | BST           |        |
-| [\#236 二叉树的最近公共祖先]()                               | BST           |        |
+| [\#144 非递归实现二叉树的前序遍历](http://www.silince.cn/2020/07/20/LeetSilinceCode/#144-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86) | 前序遍历      |        |
+| [\#145 非递归实现二叉树的后序遍历](http://www.silince.cn/2020/07/20/LeetSilinceCode/#145-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86) | 后序遍历      |        |
+| [\#94 非递归实现二叉树的中序遍历](http://www.silince.cn/2020/07/20/LeetSilinceCode/#94-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86) | 中序遍历      |        |
+| [\#699 修剪二叉查找树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#669-%E4%BF%AE%E5%89%AA%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91) | BST           |        |
+| [\#230 寻找二叉查找树的第 k 个元素](http://www.silince.cn/2020/07/20/LeetSilinceCode/#230-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%AC%ACk%E5%B0%8F%E7%9A%84%E5%85%83%E7%B4%A0) | BST           |        |
+| [\#538 把二叉查找树每个节点的值都加上比它大的节点的值](http://www.silince.cn/2020/07/20/LeetSilinceCode/#538-%E6%8A%8A%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E8%BD%AC%E6%8D%A2%E4%B8%BA%E7%B4%AF%E5%8A%A0%E6%A0%91) | BST           |        |
+| [\#235 二叉查找树的最近公共祖先](http://www.silince.cn/2020/07/20/LeetSilinceCode/#235-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88) | BST           |        |
+| [\#236 二叉树的最近公共祖先](http://www.silince.cn/2020/07/20/LeetSilinceCode/#236-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88) | BST           |        |
 | [\#108 从有序数组中构造二叉查找树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#108-%E5%B0%86%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E8%BD%AC%E6%8D%A2%E4%B8%BA%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91) | BST           |        |
 | [\#109 根据有序链表构造平衡的二叉查找树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#109-%E6%9C%89%E5%BA%8F%E9%93%BE%E8%A1%A8%E8%BD%AC%E6%8D%A2%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91) | BST           |        |
 | [\#653 在二叉查找树中寻找两个节点，使它们的和为一个给定值](http://www.silince.cn/2020/07/20/LeetSilinceCode/#653-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C-iv---%E8%BE%93%E5%85%A5-bst) | BST           |        |
