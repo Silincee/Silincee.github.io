@@ -112,8 +112,8 @@ tags: [LeetCode,数据结构 ]
 | 题目                                                         | 算法思想      | 正确率 |
 | ------------------------------------------------------------ | ------------- | ------ |
 | [\#104 树的高度](http://www.silince.cn/2020/07/20/LeetSilinceCode/#104-二叉树的最大深度) | 递归/广度优先 | 50%    |
-| [\#110 平衡二叉树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#110-平衡二叉树) | 递归          | 0%     |
-| [\#543 两节点的最长路径]()                                   | 递归          |        |
+| [\#110 平衡二叉树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#110-平衡二叉树) | 递归          | 50%    |
+| [\#543 两节点的最长路径](http://www.silince.cn/2020/07/20/LeetSilinceCode/#543-二叉树的直径) | 递归          |        |
 | [\#226 翻转树]()                                             | 递归          |        |
 | [\#617 归并两棵树]()                                         | 递归          |        |
 | [\#112 判断路径和是否等于一个数]()                           | 递归          |        |
@@ -432,9 +432,7 @@ class Solution {
 // 方法二 广度优先搜索
 class Solution {
     public int maxDepth(TreeNode root) {
-        if (root == null) {
-            return 0;
-        }
+        if (root==null ) return 0;
       	// 队列里存放的是「当前层的所有节点」
         Queue<TreeNode> queue = new LinkedList<TreeNode>();
       /**
@@ -451,17 +449,12 @@ class Solution {
         while (!queue.isEmpty()) {
           	// 每层节点的数量
             int size = queue.size();
-            // 每次拓展下一层的时候，不同于广度优先搜索的每次只从队列里拿出一个节点，我们需要将队列里的所有节点都拿出来进行拓展
-            while (size > 0) {
-                // poll() 检索并删除此列表的头部（第一个元素）。
-                TreeNode node = queue.poll();
-                if (node.left != null) {
-                    queue.offer(node.left);
-                }
-                if (node.right != null) {
-                    queue.offer(node.right);
-                }
-                size--;
+            // 每次拓展下一层的时候，不同于广度优先搜索的每次只从队列里拿出一个节点，我们需要将队列里的所有节点都拿出来进行拓展             
+            for (int i = 0; i < size; i++) {
+              // poll() 检索并删除此列表的头部（第一个元素）。
+              TreeNode node = queue.poll();
+              if (node.left!=null) queue.offer(node.left);
+              if (node.right!=null) queue.offer(node.right);
             }
             ans++;
         }
@@ -477,7 +470,8 @@ class Solution {
 ## [\#110. 平衡二叉树](https://leetcode-cn.com/problems/balanced-binary-tree/)
 
 - easy
-- 2019.08.28：😭  
+- 2020.08.28：😭 
+- 2020.10.14：😎 
 
 题目：
 
@@ -1278,6 +1272,38 @@ class Solution {
 
 
 
+## [\#543. 二叉树的直径](https://leetcode-cn.com/problems/diameter-of-binary-tree/)
+
+- easy
+- 2020.10.14：😭  
+
+题目：
+
+```xml
+
+```
+
+分析：
+
+***方法一：***递归
+
+
+
+- 时间复杂度：O()
+- 空间复杂度：O()
+
+
+
+代码：
+
+```java
+
+```
+
+---
+
+
+
 
 
 ## [\#633. 两数平方和 ](https://leetcode-cn.com/problems/sum-of-square-numbers/description/)
@@ -1600,7 +1626,7 @@ int[] count(String word) {
 ### 题号 
 
 - easy
-- 2019.08.28：😭  
+- 2020.10.01：😭  
 
 题目：
 
