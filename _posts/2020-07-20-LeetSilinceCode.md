@@ -9,7 +9,7 @@ tags: [LeetCode,数据结构 ]
 
 # PLAN
 
-> [labuladong 的算法小抄 技巧模版总结](https://labuladong.gitbook.io/algo/)   [repo](https://github.com/labuladong/fucking-algorithm)
+> [labuladong 的算法小抄 技巧模版总结](https://labuladong.gitbook.io/algo/)   [repo](https://github.com/labuladong/fucking-algorithm)    [公众号完整文章](https://mp.weixin.qq.com/s/AWsL7G89RtaHyHjRPNJENA)
 >
 > [刷题目录](https://github.com/CyC2018/CS-Notes/blob/master/notes/Leetcode%20%E9%A2%98%E8%A7%A3%20-%20%E7%9B%AE%E5%BD%95.md)
 >
@@ -34,7 +34,7 @@ tags: [LeetCode,数据结构 ]
 
 
 
-## 排序算法 Here
+## 排序算法
 
 | 题目                                                         | 算法思想 | 正确率 |
 | ------------------------------------------------------------ | -------- | ------ |
@@ -95,7 +95,7 @@ tags: [LeetCode,数据结构 ]
 
 ## 链表
 
-## 树
+## 二叉树
 
 [目录](https://github.com/CyC2018/CS-Notes/blob/master/notes/Leetcode%20%E9%A2%98%E8%A7%A3%20-%20%E6%A0%91.md#1-%E6%A0%91%E7%9A%84%E9%AB%98%E5%BA%A6)
 
@@ -104,7 +104,8 @@ tags: [LeetCode,数据结构 ]
 | [\#104 树的高度](http://www.silince.cn/2020/07/20/LeetSilinceCode/#104-二叉树的最大深度) | 递归/广度优先 | 50%    |
 | [\#110 平衡二叉树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#110-平衡二叉树) | 递归          | 50%    |
 | [\#543 两节点的最长路径](http://www.silince.cn/2020/07/20/LeetSilinceCode/#543-二叉树的直径) | 递归          | 0%     |
-| [\#226 翻转树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#226-%E7%BF%BB%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91) | 递归          |        |
+| [\#226 翻转树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#226-%E7%BF%BB%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91) | 递归          | 100%   |
+| [\#116 填充每个节点的下一个右侧节点指针](http://www.silince.cn/2020/07/20/LeetSilinceCode/#116-填充每个节点的下一个右侧节点指针) | 递归          | 0%     |
 | [\#617 归并两棵树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#617-%E5%90%88%E5%B9%B6%E4%BA%8C%E5%8F%89%E6%A0%91) | 递归          |        |
 | [\#112 判断路径和是否等于一个数](http://www.silince.cn/2020/07/20/LeetSilinceCode/#112-%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8C) | 递归          |        |
 | [\#437 统计路径和等于一个数的路径数量](http://www.silince.cn/2020/07/20/LeetSilinceCode/#437-%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8C-iii) | 递归          |        |
@@ -798,6 +799,75 @@ class Solution {
 
 
 
+## [\#116. 填充每个节点的下一个右侧节点指针](https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node/)
+
+- 中等
+- 2020.10.01：😭  
+
+题目：
+
+```xml
+给定一个完美二叉树，其所有叶子节点都在同一层，每个父节点都有两个子节点。
+填充它的每个 next 指针，让这个指针指向其下一个右侧节点。如果找不到下一个右侧节点，则将 next 指针设置为 NULL。
+初始状态下，所有 next 指针都被设置为 NULL。
+
+提示：
+你只能使用常量级额外空间。
+使用递归解题也符合要求，本题中递归程序占用的栈空间不算做额外的空间复杂度。
+```
+
+分析：
+
+题目的意思就是把二叉树的每一层节点都用`next`指针连接起来：
+
+![image-20201018223328790](/assets/imgs/image-20201018223328790.png)
+
+而且题目说了，输入是一棵「完美二叉树」，形象地说整棵二叉树是一个正三角形，除了最右侧的节点`next`指针会指向`null`，其他节点的右侧一定有相邻的节点。
+
+⚠️ **二叉树的问题难点在于，如何把题目的要求细化成每个节点需要做的事情**，但是如果只依赖一个节点的话，肯定是没办法连接「跨父节点」的两个相邻节点的。
+
+那么，我们的做法就是增加函数参数，一个节点做不到，我们就给他安排两个节点，「将每一层二叉树节点连接起来」可以细化成「将每两个相邻节点都连接起来」：
+
+这样，`connectTwoNode`函数不断递归，可以无死角覆盖整棵二叉树，将所有相邻节点都连接起来，也就避免了我们之前出现的问题，这道题就解决了。
+
+
+
+代码：
+
+```java
+class Solution {
+	public Node connect(Node root) {
+		if (root == null) return null;
+		connectTwoNode(root.left, root.right);
+		return root;
+	}
+
+	// 定义：输入两个节点，将它俩连接起来
+	public void connectTwoNode(Node node1, Node node2) {
+		if (node1 == null || node2 == null) {
+			return;
+		}
+		/**** 前序遍历位置 ****/
+		// 将传入的两个节点连接
+		node1.next = node2;
+
+		// 连接相同父节点的两个子节点
+		connectTwoNode(node1.left, node1.right);
+		connectTwoNode(node2.left, node2.right);
+		// 连接跨越父节点的两个子节点
+		connectTwoNode(node1.right, node2.left);
+	}
+}
+```
+
+---
+
+
+
+
+
+
+
 
 
 
@@ -1299,29 +1369,52 @@ class Solution {
 ## [\#226. 翻转二叉树](https://leetcode-cn.com/problems/invert-binary-tree/)
 
 - easy
-- 2020.10.01：😭  
+- 2020.10.01：😎
 
 题目：
 
 ```xml
+翻转一棵二叉树。
 
+示例：
+输入：
+     4
+   /   \
+  2     7
+ / \   / \
+1   3 6   9
+输出：
+     4
+   /   \
+  7     2
+ / \   / \
+9   6 3   1
 ```
 
 分析：
 
-***方法一：***递归
-
-
-
-- 时间复杂度：O()
-- 空间复杂度：O()
-
-
+通过观察，**我们发现只要把二叉树上的每一个节点的左右子节点进行交换，最后的结果就是完全翻转之后的二叉树**。
 
 代码：
 
 ```java
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+    	if (root==null) return null;
 
+		/**** 前序遍历位置 ****/
+		// root 节点需要交换它的左右子节点
+    	TreeNode temp = root.left;
+    	root.left=root.right;
+    	root.right=temp;
+
+		// 让左右子节点继续翻转它们的子节点
+    	invertTree(root.left);
+    	invertTree(root.right);
+      
+    	return root;
+    }
+}
 ```
 
 ---
