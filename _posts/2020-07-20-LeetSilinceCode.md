@@ -106,6 +106,7 @@ tags: [LeetCode,数据结构 ]
 | [\#543 两节点的最长路径](http://www.silince.cn/2020/07/20/LeetSilinceCode/#543-二叉树的直径) | 递归          | 0%     |
 | [\#226 翻转树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#226-%E7%BF%BB%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91) | 递归          | 100%   |
 | [\#116 填充每个节点的下一个右侧节点指针](http://www.silince.cn/2020/07/20/LeetSilinceCode/#116-填充每个节点的下一个右侧节点指针) | 递归          | 0%     |
+| [\#114. 二叉树展开为链表](http://www.silince.cn/2020/07/20/LeetSilinceCode/#114-二叉树展开为链表) | 递归          | 0%     |
 | [\#617 归并两棵树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#617-%E5%90%88%E5%B9%B6%E4%BA%8C%E5%8F%89%E6%A0%91) | 递归          |        |
 | [\#112 判断路径和是否等于一个数](http://www.silince.cn/2020/07/20/LeetSilinceCode/#112-%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8C) | 递归          |        |
 | [\#437 统计路径和等于一个数的路径数量](http://www.silince.cn/2020/07/20/LeetSilinceCode/#437-%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8C-iii) | 递归          |        |
@@ -796,6 +797,94 @@ class Solution {
 ```
 
 ---
+
+
+
+## [\#114. 二叉树展开为链表](https://leetcode-cn.com/problems/flatten-binary-tree-to-linked-list/)
+
+- 中等
+- 2020.10.01：😭  
+
+题目：
+
+```xml
+给定一个二叉树，原地将它展开为一个单链表。
+
+例如，给定二叉树
+
+    1
+   / \
+  2   5
+ / \   \
+3   4   6
+将其展开为：
+
+1
+ \
+  2
+   \
+    3
+     \
+      4
+       \
+        5
+         \
+          6
+```
+
+分析：
+
+我们尝试给出这个函数的定义：
+
+**给`flatten`函数输入一个节点`root`，那么以`root`为根的二叉树就会被拉平为一条链表**。
+
+我们再梳理一下，如何按题目要求把一棵树拉平成一条链表？很简单，以下流程：
+
+1、将`root`的左子树和右子树拉平。
+
+2、将`root`的右子树接到左子树下方，然后将整个左子树作为右子树。
+
+![image-20201019091037744](/assets/imgs/image-20201019091037744.png)
+
+上面三步看起来最难的应该是第一步对吧，如何把`root`的左右子树拉平？其实很简单，按照`flatten`函数的定义，对`root`的左右子树递归调用`flatten`函数即可：
+
+⚠️：***另外注意递归框架是后序遍历，因为我们要先拉平左右子树才能进行后续操作。***
+
+代码：
+
+```java
+class Solution {
+    public void flatten(TreeNode root) {
+    // base case
+    if (root == null) return;
+
+    flatten(root.left);
+    flatten(root.right);
+
+    /**** 后序遍历位置 ****/
+    // 1、左右子树已经被拉平成一条链表
+    TreeNode left = root.left;
+    TreeNode right = root.right;
+
+    // 2、将左子树作为右子树
+    root.left = null;
+    root.right = left;
+
+    // 3、将原先的右子树接到当前右子树的末端
+    TreeNode p = root;
+    while (p.right != null) {
+        p = p.right;
+    }
+    p.right = right;
+}
+}
+```
+
+---
+
+
+
+
 
 
 
