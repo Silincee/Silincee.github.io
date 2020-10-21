@@ -107,7 +107,10 @@ tags: [LeetCode,数据结构 ]
 | [\#226 翻转树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#226-%E7%BF%BB%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91) | 递归          | 100%   |
 | [\#116 填充每个节点的下一个右侧节点指针](http://www.silince.cn/2020/07/20/LeetSilinceCode/#116-填充每个节点的下一个右侧节点指针) | 递归          | 0%     |
 | [\#114. 二叉树展开为链表](http://www.silince.cn/2020/07/20/LeetSilinceCode/#114-二叉树展开为链表) | 递归          | 0%     |
-| [\#617 归并两棵树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#617-%E5%90%88%E5%B9%B6%E4%BA%8C%E5%8F%89%E6%A0%91) | 递归          |        |
+| [\#617 归并两棵树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#617-%E5%90%88%E5%B9%B6%E4%BA%8C%E5%8F%89%E6%A0%91) | 递归          | 0%     |
+| [\#654. 最大二叉树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#654-最大二叉树) | 递归          | 0%     |
+| [\#105. 从前序与中序遍历序列构造二叉树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#105-从前序与中序遍历序列构造二叉树) | 递归          | 0%     |
+| [\#106. 从中序与后序遍历序列构造二叉树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#106-从中序与后序遍历序列构造二叉树) | 递归          | 0%     |
 | [\#112 判断路径和是否等于一个数](http://www.silince.cn/2020/07/20/LeetSilinceCode/#112-%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8C) | 递归          |        |
 | [\#437 统计路径和等于一个数的路径数量](http://www.silince.cn/2020/07/20/LeetSilinceCode/#437-%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8C-iii) | 递归          |        |
 | [\#572 子树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#572-%E5%8F%A6%E4%B8%80%E4%B8%AA%E6%A0%91%E7%9A%84%E5%AD%90%E6%A0%91) | 递归          |        |
@@ -541,6 +544,224 @@ class Solution {
 
 
 
+## [\#105. 从前序与中序遍历序列构造二叉树](https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)
+
+- Medium
+- 2020.10.01：😭  
+
+题目：
+
+```xml
+根据一棵树的前序遍历与中序遍历构造二叉树。
+
+注意:
+你可以假设树中没有重复的元素。
+
+例如，给出
+
+前序遍历 preorder = [3,9,20,15,7]
+中序遍历 inorder = [9,3,15,20,7]
+返回如下的二叉树：
+
+    3
+   / \
+  9  20
+    /  \
+   15   7
+```
+
+分析：
+
+**我们肯定要想办法确定根节点的值，把根节点做出来，然后递归构造左右子树即可**。
+
+我们先来回顾一下，前序遍历和中序遍历的结果有什么特点？
+
+```java
+void traverse(TreeNode root) {
+    // 前序遍历
+    preorder.add(root.val);
+    traverse(root.left);
+    traverse(root.right);
+}
+
+void traverse(TreeNode root) {
+    traverse(root.left);
+    // 中序遍历
+    inorder.add(root.val);
+    traverse(root.right);
+}
+```
+
+这样的遍历顺序差异，导致了`preorder`和`inorder`数组中的元素分布有如下特点：
+
+![image-20201021122425297](/assets/imgs/image-20201021122425297.png)
+
+***找到根节点是很简单的，前序遍历的第一个值`preorder[0]`就是根节点的值，关键在于如何通过根节点的值，将`preorder`和`postorder`数组划分成两半，构造根节点的左右子树？***
+
+换句话说，对于以下代码中的`?`部分应该填入什么：
+
+```java
+/* 主函数 */
+TreeNode buildTree(int[] preorder, int[] inorder) {
+    return build(preorder, 0, preorder.length - 1,
+                 inorder, 0, inorder.length - 1);
+}
+
+/* 
+   若前序遍历数组为 preorder[preStart..preEnd]，
+   后续遍历数组为 postorder[postStart..postEnd]，
+   构造二叉树，返回该二叉树的根节点 
+*/
+TreeNode build(int[] preorder, int preStart, int preEnd, 
+               int[] inorder, int inStart, int inEnd) {
+    // root 节点对应的值就是前序遍历数组的第一个元素
+    int rootVal = preorder[preStart];
+    // rootVal 在中序遍历数组中的索引
+    int index = 0;
+    for (int i = inStart; i <= inEnd; i++) {
+        if (inorder[i] == rootVal) {
+            index = i;
+            break;
+        }
+    }
+
+    TreeNode root = new TreeNode(rootVal);
+    // 递归构造左右子树
+    root.left = build(preorder, ?, ?,
+                      inorder, ?, ?);
+
+    root.right = build(preorder, ?, ?,
+                       inorder, ?, ?);
+    return root;
+}
+```
+
+对于代码中的`rootVal`和`index`变量，就是下图这种情况：
+
+![image-20201021122515752](/assets/imgs/image-20201021122515752.png)
+
+现在我们来看图做填空题，下面这几个问号处应该填什么：
+
+```java
+root.left = build(preorder, ?, ?,
+                  inorder, ?, ?);
+
+root.right = build(preorder, ?, ?,
+                   inorder, ?, ?);
+```
+
+对于左右子树对应的`inorder`数组的起始索引和终止索引比较容易确定：
+
+![image-20201021122535222](/assets/imgs/image-20201021122535222.png)
+
+```java
+root.left = build(preorder, ?, ?,
+                  inorder, inStart, index - 1);
+
+root.right = build(preorder, ?, ?,
+                   inorder, index + 1, inEnd);
+```
+
+对于`preorder`数组呢？如何确定左右数组对应的起始索引和终止索引？
+
+这个可以通过左子树的节点数推导出来，假设左子树的节点数为`leftSize`，那么`preorder`数组上的索引情况是这样的：
+
+![image-20201021122555818](/assets/imgs/image-20201021122555818.png)
+
+看着这个图就可以把`preorder`对应的索引写进去了：
+
+```java
+int leftSize = index - inStart;
+
+root.left = build(preorder, preStart + 1, preStart + leftSize,
+                  inorder, inStart, index - 1);
+
+root.right = build(preorder, preStart + leftSize + 1, preEnd,
+                   inorder, index + 1, inEnd);
+```
+
+至此，整个算法思路就完成了，我们再补一补 base case 即可写出解法代码：
+
+
+
+代码：
+
+```java
+class Solution {
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+		return build(preorder,0,preorder.length-1,
+				inorder,0,inorder.length-1);
+    }
+
+   // 若前序遍历数组为 preorder[preStart..preEnd]，
+   // 中序遍历数组为 inorder[inStart..inEnd]，
+   // 构造二叉树，返回该二叉树的根节点
+    public TreeNode build(int[] preorder,int preStart,int preEnd,int[] inorder,int inStart,int inEnd){
+    // 递归出口
+		if (preStart>preEnd){
+			return null;
+		}
+
+    // 先构建根节点 再递归生成左右子树
+		// root 节点对应的值就是前序遍历数组的第一个元素
+		int rootVal = preorder[preStart];
+		// rootVal 再中序数组中的索引
+		int index = 0;
+		for (int i = inStart; i <= inEnd ; i++) {
+			if (inorder[i]==rootVal){
+				index=i;
+				break;
+			}
+		}
+
+		TreeNode root = new TreeNode(rootVal);
+
+		// 递归构造左右子树
+		int leftSize = index-inStart;
+		root.left = build(preorder,preStart+1,preStart+leftSize,inorder,inStart,index-1);
+		root.right = build(preorder,preStart+leftSize+1,preEnd,inorder,index+1,inEnd);
+
+		return root;
+	}
+}
+```
+
+---
+
+
+
+## [\#106. 从中序与后序遍历序列构造二叉树](https://leetcode-cn.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/)
+
+- Medium
+- 2020.10.01：😭  
+
+题目：
+
+```xml
+
+```
+
+分析：
+
+***方法一：***递归
+
+
+
+- 时间复杂度：O()
+- 空间复杂度：O()
+
+代码：
+
+```java
+
+```
+
+---
+
+
+
+
+
 ## [\#108. 将有序数组转换为二叉搜索树](https://leetcode-cn.com/problems/convert-sorted-array-to-binary-search-tree/)
 
 - Medium
@@ -840,9 +1061,9 @@ class Solution {
 
 我们再梳理一下，如何按题目要求把一棵树拉平成一条链表？很简单，以下流程：
 
-1、将`root`的左子树和右子树拉平。
+1、将左子树作为右子树
 
-2、将`root`的右子树接到左子树下方，然后将整个左子树作为右子树。
+2、将原先的右子树接到当前右子树的末端
 
 ![image-20201019091037744](/assets/imgs/image-20201019091037744.png)
 
@@ -854,28 +1075,27 @@ class Solution {
 
 ```java
 class Solution {
-    public void flatten(TreeNode root) {
+  public void flatten(TreeNode root) {
     // base case
     if (root == null) return;
 
     flatten(root.left);
     flatten(root.right);
 
-    /**** 后序遍历位置 ****/
-    // 1、左右子树已经被拉平成一条链表
-    TreeNode left = root.left;
-    TreeNode right = root.right;
+      /**** 后序遍历位置 ****/
+      // 1、左右子树已经被拉平成一条链表
+      TreeNode left = root.left;
+      TreeNode right = root.right;
 
-    // 2、将左子树作为右子树
-    root.left = null;
-    root.right = left;
+      // 2、将左子树作为右子树
+      root.left = null;
+      root.right = left;
 
-    // 3、将原先的右子树接到当前右子树的末端
-    TreeNode p = root;
-    while (p.right != null) {
-        p = p.right;
-    }
-    p.right = right;
+      // 3、将原先的右子树接到当前右子树的末端
+      while (root.right != null) {
+        root = root.right;
+      }
+      root.right = right;
 }
 }
 ```
@@ -2370,6 +2590,116 @@ class Solution {
 ```
 
 ---
+
+
+
+## [\#654. 最大二叉树](https://leetcode-cn.com/problems/maximum-binary-tree/)
+
+- 中等
+- 2020.10.01：😭  
+
+题目：
+
+```xml
+给定一个不含重复元素的整数数组。一个以此数组构建的最大二叉树定义如下：
+二叉树的根是数组中的最大元素。
+左子树是通过数组中最大值左边部分构造出的最大二叉树。
+右子树是通过数组中最大值右边部分构造出的最大二叉树。
+通过给定的数组构建最大二叉树，并且输出这个树的根节点。
+
+示例 ：
+输入：[3,2,1,6,0,5]
+输出：返回下面这棵树的根节点：
+
+      6
+    /   \
+   3     5
+    \    / 
+     2  0   
+       \
+        1
+```
+
+分析：
+
+按照我们刚才说的，先明确根节点做什么？**对于构造二叉树的问题，根节点要做的就是把想办法把自己构造出来**。
+
+我们肯定要遍历数组把找到最大值`maxVal`，把根节点`root`做出来，然后对`maxVal`左边的数组和右边的数组进行递归调用，作为`root`的左右子树。
+
+按照题目给出的例子，输入的数组为`[3,2,1,6,0,5]`，对于整棵树的根节点来说，其实在做这件事：
+
+```java
+TreeNode constructMaximumBinaryTree([3,2,1,6,0,5]) {
+    // 找到数组中的最大值
+    TreeNode root = new TreeNode(6);
+    // 递归调用构造左右子树
+    root.left = constructMaximumBinaryTree([3,2,1]);
+    root.right = constructMaximumBinaryTree([0,5]);
+    return root;
+}
+```
+
+再详细一点，就是如下伪码：
+
+```java
+TreeNode constructMaximumBinaryTree(int[] nums) {
+    if (nums is empty) return null;
+    // 找到数组中的最大值
+    int maxVal = Integer.MIN_VALUE;
+    int index = 0;
+    for (int i = 0; i < nums.length; i++) {
+        if (nums[i] > maxVal) {
+            maxVal = nums[i];
+            index = i;
+        }
+    }
+
+    TreeNode root = new TreeNode(maxVal);
+    // 递归调用构造左右子树
+    root.left = constructMaximumBinaryTree(nums[0..index-1]);
+    root.right = constructMaximumBinaryTree(nums[index+1..nums.length-1]);
+    return root;
+}
+```
+
+看懂了吗？**对于每个根节点，只需要找到当前`nums`中的最大值和对应的索引，然后递归调用左右数组构造左右子树即可**。
+
+
+
+代码：
+
+```java
+class Solution {
+    public TreeNode constructMaximumBinaryTree(int[] nums) {
+    	return build(nums,0,nums.length-1);
+    }
+
+    // 将 nums[lo..hi] 构造成符合条件的树，返回根节点
+    public TreeNode build(int[] nums,int low,int high){
+    	if (low>high) return null;
+
+		// 找到数组中的最大值和对应的索引
+		int index = -1;
+		int maxVal = Integer.MIN_VALUE;
+		for (int i = low; i <=high; i++) { // ⚠️ 只能用<= 因为是要得到索引
+			if (maxVal<nums[i]){
+				index=i;
+				maxVal = nums[i];
+			}
+		}
+
+		TreeNode root = new TreeNode(maxVal);
+		// 递归调用构造左右子树
+		root.left = build(nums,low,index-1);
+		root.right = build(nums,index+1,high);
+
+		return root;
+	}
+```
+
+---
+
+
 
 
 
