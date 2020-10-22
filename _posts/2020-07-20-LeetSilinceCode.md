@@ -759,7 +759,7 @@ class Solution {
 
 与105类似，现在`postoder`和`inorder`对应的状态如下：
 
-![image-20201022101616643](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201022101616643.png)
+![image-20201022101616643](/assets/imgs/image-20201022101616643.png)
 
 
 
