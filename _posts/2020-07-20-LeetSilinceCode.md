@@ -110,7 +110,7 @@ tags: [LeetCode,数据结构 ]
 | [\#617 归并两棵树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#617-%E5%90%88%E5%B9%B6%E4%BA%8C%E5%8F%89%E6%A0%91) | 递归          | 0%     |
 | [\#654. 最大二叉树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#654-最大二叉树) | 递归          | 0%     |
 | [\#105. 从前序与中序遍历序列构造二叉树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#105-从前序与中序遍历序列构造二叉树) | 递归          | 0%     |
-| [\#106. 从中序与后序遍历序列构造二叉树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#106-从中序与后序遍历序列构造二叉树) | 递归          | 0%     |
+| [\#106. 从中序与后序遍历序列构造二叉树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#106-从中序与后序遍历序列构造二叉树) | 递归          | 100%   |
 | [\#112 判断路径和是否等于一个数](http://www.silince.cn/2020/07/20/LeetSilinceCode/#112-%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8C) | 递归          |        |
 | [\#437 统计路径和等于一个数的路径数量](http://www.silince.cn/2020/07/20/LeetSilinceCode/#437-%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8C-iii) | 递归          |        |
 | [\#572 子树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#572-%E5%8F%A6%E4%B8%80%E4%B8%AA%E6%A0%91%E7%9A%84%E5%AD%90%E6%A0%91) | 递归          |        |
@@ -733,17 +733,35 @@ class Solution {
 ## [\#106. 从中序与后序遍历序列构造二叉树](https://leetcode-cn.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/)
 
 - Medium
-- 2020.10.01：😭  
+- 2020.10.01：😎  
 
 题目：
 
 ```xml
+根据一棵树的中序遍历与后序遍历构造二叉树。
+
+注意:
+你可以假设树中没有重复的元素。
+
+例如，给出
+中序遍历 inorder = [9,3,15,20,7]
+后序遍历 postorder = [9,15,7,20,3]
+返回如下的二叉树：
+    3
+   / \
+  9  20
+    /  \
+   15   7
 
 ```
 
 分析：
 
-***方法一：***递归
+与105类似，现在`postoder`和`inorder`对应的状态如下：
+
+![image-20201022101616643](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201022101616643.png)
+
+
 
 
 
@@ -753,7 +771,36 @@ class Solution {
 代码：
 
 ```java
+class Solution {
+    public TreeNode buildTree(int[] inorder, int[] postorder) {
+			return build(inorder,0,inorder.length-1,
+					postorder,0,postorder.length-1);
+    }
 
+    public TreeNode build(int[] inorder,int inStart,int inEnd, int[] postorder,int postStart,int postEnd){
+    	// 递归出口
+		if (inStart>inEnd) return null;
+
+    	// 找到根节点
+		int rootVal = postorder[postEnd]; // 别用postorder.length-1 太浪费时间
+		int index = -1;
+		for (int i = inStart; i <=inEnd; i++) {
+			if (inorder[i]==rootVal) {
+				index = i;
+				break;
+			}
+		}
+		// 迭代生成左右子树
+		TreeNode root = new TreeNode(rootVal);
+		int leftSize = index-inStart; // 左子树节点个数
+
+		root.left = build(inorder,inStart,index-1,postorder,postStart,postStart+leftSize-1);
+		root.right = build(inorder,index+1,inEnd,postorder,postStart+leftSize,postEnd-1);
+
+		return root;
+
+	}
+}
 ```
 
 ---
