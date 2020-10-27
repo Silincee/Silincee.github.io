@@ -104,15 +104,15 @@ tags: [LeetCode,数据结构 ]
 | [\#104 树的高度](http://www.silince.cn/2020/07/20/LeetSilinceCode/#104-二叉树的最大深度) | 递归/广度优先 | 50%    |
 | [\#110 平衡二叉树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#110-平衡二叉树) | 递归          | 50%    |
 | [\#543 两节点的最长路径](http://www.silince.cn/2020/07/20/LeetSilinceCode/#543-二叉树的直径) | 递归          | 0%     |
-| [\#226 翻转树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#226-%E7%BF%BB%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91) | 递归          | 100%   |
-| [\#116 填充每个节点的下一个右侧节点指针](http://www.silince.cn/2020/07/20/LeetSilinceCode/#116-填充每个节点的下一个右侧节点指针) | 递归          | 0%     |
-| [\#114. 二叉树展开为链表](http://www.silince.cn/2020/07/20/LeetSilinceCode/#114-二叉树展开为链表) | 递归          | 0%     |
+| [\#226 翻转树 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#226-%E7%BF%BB%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91) | 递归          | 100%   |
+| [\#116 填充每个节点的下一个右侧节点指针 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#116-填充每个节点的下一个右侧节点指针) | 递归          | 0%     |
+| [\#114. 二叉树展开为链表 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#114-二叉树展开为链表) | 递归          | 0%     |
 | [\#617 归并两棵树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#617-%E5%90%88%E5%B9%B6%E4%BA%8C%E5%8F%89%E6%A0%91) | 递归          | 0%     |
-| [\#654. 最大二叉树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#654-最大二叉树) | 递归          | 0%     |
-| [\#105. 从前序与中序遍历序列构造二叉树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#105-从前序与中序遍历序列构造二叉树) | 递归          | 0%     |
-| [\#106. 从中序与后序遍历序列构造二叉树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#106-从中序与后序遍历序列构造二叉树) | 递归          | 100%   |
+| [\#654. 最大二叉树 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#654-最大二叉树) | 递归          | 0%     |
+| [\#105. 从前序与中序遍历序列构造二叉树 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#105-从前序与中序遍历序列构造二叉树) | 递归          | 0%     |
+| [\#106. 从中序与后序遍历序列构造二叉树 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#106-从中序与后序遍历序列构造二叉树) | 递归          | 100%   |
+| [\#652 寻找重复的子树 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#652-寻找重复的子树) | 递归          | 0%     |
 | [\#112 判断路径和是否等于一个数](http://www.silince.cn/2020/07/20/LeetSilinceCode/#112-%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8C) | 递归          |        |
-| [\#652 寻找重复的子树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#652-寻找重复的子树) | 递归          |        |
 | [\#437 统计路径和等于一个数的路径数量](http://www.silince.cn/2020/07/20/LeetSilinceCode/#437-%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8C-iii) | 递归          |        |
 | [\#572 子树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#572-%E5%8F%A6%E4%B8%80%E4%B8%AA%E6%A0%91%E7%9A%84%E5%AD%90%E6%A0%91) | 递归          |        |
 | [\#101 树的对称](http://www.silince.cn/2020/07/20/LeetSilinceCode/#101-%E5%AF%B9%E7%A7%B0%E4%BA%8C%E5%8F%89%E6%A0%91) | 递归          |        |
