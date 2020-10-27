@@ -1073,7 +1073,7 @@ class Solution {
 
 - 中等
 - 2020.10.01：😭  
-- 2020.10.27：😭   莫得思路
+- 2020.10.27：😭   while写成了if
 
 题目：
 
@@ -1141,7 +1141,7 @@ class Solution {
       root.right = left;
 
       // 3、将原先的右子树接到当前右子树的末端
-      while (root.right != null) {
+      while (root.right != null) { // ⚠️ while非常重要，需要循环找到最后当前右子树的末端
         root = root.right;
       }
       root.right = right;
