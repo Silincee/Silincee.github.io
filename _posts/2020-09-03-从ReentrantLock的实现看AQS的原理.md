@@ -10,7 +10,7 @@ tags: [并发编程, ]
 
 [JUC AQS ReentrantLock源码分析（一）](https://blog.csdn.net/java_lyvee/article/details/98966684)
 
-
+[1.5w字，30图带你彻底掌握 AQS！](https://mp.weixin.qq.com/s/iNz6sTen2CSOdLE0j7qu9A)
 
 # 自己实现一个锁
 
