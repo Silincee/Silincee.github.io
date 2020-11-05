@@ -2345,50 +2345,60 @@ F(N) = F(N - 1) + F(N - 2), 其中 N > 1.
 
 ```java
 // 方法一
-int fib(int N) {
-    if (N == 1 || N == 2) return 1;
-    return fib(N - 1) + fib(N - 2);
+class Solution {
+    public int fib(int N) {
+		if (N==1||N==2) return 1;
+		return fib(N-1)+fib(N-2);
+    }
 }
 
 // 方法二
-int fib(int N) {
-    if (N < 1) return 0;
-    // 备忘录全初始化为 0
-    vector<int> memo(N + 1, 0);
-    // 进行带备忘录的递归
-    return helper(memo, N);
-}
-
-int helper(vector<int>& memo, int n) {
-    // base case 
-    if (n == 1 || n == 2) return 1;
-    // 已经计算过
-    if (memo[n] != 0) return memo[n];
-    memo[n] = helper(memo, n - 1) + helper(memo, n - 2);
-    return memo[n];
+class Solution {
+    public int fib(int N) {
+		if (N<1) return 0;
+		// 备忘录全初始化为0
+		int[] memo = new int[N+1];
+		// 进行带备忘录的回归
+		return helper(memo,N);
+    }
+  
+    public int helper(int[] memo,int n){
+    	// base case
+		if (n==1||n==2) return 1;
+		// 已经计算过
+		if (memo[n] !=0) return memo[n];
+		memo[n] = helper(memo,n-1)+helper(memo,n-2);
+		return memo[n];
+	}
 }
 
 // 方法三
-int fib(int N) {
-    vector<int> dp(N + 1, 0);
-    // base case
-    dp[1] = dp[2] = 1;
-    for (int i = 3; i <= N; i++)
-        dp[i] = dp[i - 1] + dp[i - 2];
-    return dp[N];
+class Solution {
+    public int fib(int N) {
+		int[] dp = new int[N+1];
+		// base case
+		dp[1] = dp[2]=1;
+		for (int i = 3; i <=N ; i++) {
+			dp[i]=dp[i-1]+dp[i-2];
+		}
+		return dp[N];
+    }
 }
 // 再优化
 // 当前状态只和之前的两个状态有关，其实并不需要那么长的一个 DP table 来存储所有的状态
-int fib(int n) {
-    if (n == 2 || n == 1) 
-        return 1;
-    int prev = 1, curr = 1;
-    for (int i = 3; i <= n; i++) {
-        int sum = prev + curr;
-        prev = curr;
-        curr = sum;
+class Solution {
+  public int fib(int N) {
+    if (N==0) return 0;
+    if (N == 2 || N == 1) return 1;
+    int prev = 1;
+    int curr = 1;
+    for (int i = 3; i <= N; i++) {
+      int sum = prev + curr;
+      prev = curr;
+      curr = sum;
     }
     return curr;
+  }
 }
 ```
 
