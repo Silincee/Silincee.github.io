@@ -14,6 +14,8 @@ tags: [LeetCode,数据结构 ]
 > [刷题目录](https://github.com/CyC2018/CS-Notes/blob/master/notes/Leetcode%20%E9%A2%98%E8%A7%A3%20-%20%E7%9B%AE%E5%BD%95.md)
 >
 > [如何科学的刷 LeetCode ](https://zhuanlan.zhihu.com/p/96883783)
+>
+> now:动态规划和回溯算法到底谁是谁爹？
 
 
 
