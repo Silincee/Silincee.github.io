@@ -2077,11 +2077,11 @@ class Solution {
 
 至此，状态转移方程其实已经完成了，以上算法已经是暴力解法了，以上代码的数学形式就是状态转移方程：
 
-![image-20201116205314827](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201116205314827.png)
+![image-20201116205314827](/assets/imgs/image-20201116205314827.png)
 
 至此，这个问题其实就解决了，只不过需要消除一下重叠子问题，比如 `amount = 11, coins = {1,2,5}` 时画出递归树看看：
 
-![image-20201116205333883](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201116205333883.png)
+![image-20201116205333883](/assets/imgs/image-20201116205333883.png)
 
 **递归算法的时间复杂度分析：子问题总数 x 每个子问题的时间**。
 
@@ -2172,7 +2172,7 @@ class Solution {
 }
 ```
 
-![image-20201116221952265](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201116221952265.png)
+![image-20201116221952265](/assets/imgs/image-20201116221952265.png)
 
 
 
