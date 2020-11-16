@@ -1990,25 +1990,191 @@ class Solution {
 题目：
 
 ```xml
+给定不同面额的硬币 coins 和一个总金额 amount。编写一个函数来计算可以凑成总金额所需的最少的硬币个数。如果没有任何一种硬币组合能组成总金额，返回 -1。
 
+你可以认为每种硬币的数量是无限的。
+
+示例 1：
+输入：coins = [1, 2, 5], amount = 11
+输出：3 
+解释：11 = 5 + 5 + 1
+
+示例 2：
+输入：coins = [2], amount = 3
+输出：-1
 ```
 
 分析：
 
-***方法一：***递归
+***方法一：***暴力递归
 
+首先，这个问题是动态规划问题，因为它具有「最优子结构」的。**要符合「最优子结构」，子问题间必须互相独立**。
 
+凑零钱问题，为什么说它符合最优子结构呢？比如你想求 `amount = 11` 时的最少硬币数（原问题），如果你知道凑出 `amount = 10` 的最少硬币数（子问题），你只需要把子问题的答案加一（再选一枚面值为 1 的硬币）就是原问题的答案。因为硬币的数量是没有限制的，所以子问题之间没有相互制，是互相独立的。
 
-- 时间复杂度：O()
-- 空间复杂度：O()
+那么，既然知道了这是个动态规划问题，就要思考**如何列出正确的状态转移方程**？
 
+1、**确定 base case**，这个很简单，显然目标金额 `amount` 为 0 时算法返回 0，因为不需要任何硬币就已经凑出目标金额了。
 
+2、**确定「状态」，也就是原问题和子问题中会变化的变量**。由于硬币数量无限，硬币的面额也是题目给定的，只有目标金额会不断地向 base case 靠近，所以唯一的「状态」就是目标金额 `amount`。
 
-代码：
+3、**确定「选择」，也就是导致「状态」产生变化的行为**。目标金额为什么变化呢，因为你在选择硬币，你每选择一枚硬币，就相当于减少了目标金额。所以说所有硬币的面值，就是你的「选择」。
+
+4、**明确** **`dp`** **函数/数组的定义**。我们这里讲的是自顶向下的解法，所以会有一个递归的 `dp` 函数，一般来说函数的参数就是状态转移中会变化的量，也就是上面说到的「状态」；函数的返回值就是题目要求我们计算的量。就本题来说，状态只有一个，即「目标金额」，题目要求我们计算凑出目标金额所需的最少硬币数量。所以我们可以这样定义 `dp` 函数：
+
+`dp(n)` 的定义：输入一个目标金额 `n`，返回凑出目标金额 `n` 的最少硬币数量。
+
+搞清楚上面这几个关键点，解法的伪码就可以写出来了：
 
 ```java
-
+class Solution {
+	// 伪代码框架 	
+    public int coinChange(int[] coins, int amount) {
+    	
+		return dp(coins,amount);
+    }
+    
+	// 定义：要凑出金额n,至少需要dp(n)个硬币
+    public int dp(int[] coins,int amount){
+    	int res = Integer.MAX_VALUE;
+    	// 做选择，选择需要硬币最少的那个结果
+		for (int coin : coins) {
+			res=Math.min(res,1+dp(coins,amount-coin));
+		}
+		return res;
+	}
+}
 ```
+
+根据伪码，我们加上 base case 即可得到最终的答案。显然目标金额为 0 时，所需硬币数量为 0；当目标金额小于 0 时，无解，返回 -1：
+
+```java
+class Solution {
+	// 伪代码框架
+    public int coinChange(int[] coins, int amount) {
+
+		return dp(coins,amount);
+    }
+
+	// 定义：要凑出金额n,至少需要dp(n)个硬币
+    public int dp(int[] coins,int amount){
+    	// base case
+		if (amount==0) return 0;
+		if (amount<0) return -1;
+
+		// 求最小值，使用初始化为Integer的最大值
+    	int res = Integer.MAX_VALUE;
+		for (int coin : coins) {
+			int subProblem = dp(coins,amount-coin);
+			// 子问题无解 跳过
+			if (subProblem==-1) continue;
+			res=Math.min(res,1+subProblem);
+		}
+		return res!=Integer.MAX_VALUE?res:-1;
+	}
+}
+```
+
+至此，状态转移方程其实已经完成了，以上算法已经是暴力解法了，以上代码的数学形式就是状态转移方程：
+
+![image-20201116205314827](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201116205314827.png)
+
+至此，这个问题其实就解决了，只不过需要消除一下重叠子问题，比如 `amount = 11, coins = {1,2,5}` 时画出递归树看看：
+
+![image-20201116205333883](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201116205333883.png)
+
+**递归算法的时间复杂度分析：子问题总数 x 每个子问题的时间**。
+
+子问题总数为递归树节点个数，这个比较难看出来，是 O(n^k)，总之是指数级别的。每个子问题中含有一个 for 循环，复杂度为 O(k)。所以总时间复杂度为 O(k * n^k)，指数级别。
+
+
+
+方法二：带备忘录的递归
+
+类似之前斐波那契数列的例子，只需要稍加修改，就可以通过备忘录消除子问题.
+
+很显然「备忘录」大大减小了子问题数目，完全消除了子问题的冗余，所以子问题总数不会超过金额数 `n`，即子问题数目为 O(n)。处理一个子问题的时间不变，仍是 O(k)，所以总的时间复杂度是 O(kn)。
+
+```java
+class Solution {
+
+    // 伪代码框架
+    public int coinChange(int[] coins, int amount) {
+
+    // 初始化备忘录
+		HashMap<Integer, Integer> memo = new HashMap<>();
+
+		return dp(memo,coins,amount);
+    }
+
+    // 定义：要凑出金额n,至少需要dp(n)个硬币
+    public int dp(HashMap<Integer, Integer> memo,int[] coins,int amount){
+
+    // 查备忘录，避免重复计算
+		Integer integer = memo.get(amount);
+		if (integer !=null) return integer;
+    	// base case
+		if (amount==0) return 0;
+		if (amount<0) return -1;
+
+    // 求最小值，使用初始化为Integer的最大值
+    int res = Integer.MAX_VALUE;
+		for (int coin : coins) {
+			int subProblem = dp(memo,coins,amount-coin);
+      // 子问题无解 跳过
+			if (subProblem==-1) continue;
+			res=Math.min(res,1+subProblem);
+		}
+
+    // 记录备忘录
+		memo.put(amount,res!=Integer.MAX_VALUE?res:-1);
+		return memo.get(amount);
+	}
+}
+```
+
+
+
+方法三：dp数组的迭代解法
+
+当然，我们也可以自底向上使用 dp table 来消除重叠子问题，关于「状态」「选择」和 base case 与之前没有区别，`dp` 数组的定义和刚才 `dp` 函数类似，也是把「状态」，也就是目标金额作为变量。不过 `dp` 函数体现在函数参数，而 `dp` 数组体现在数组索引：
+
+**`dp`** **数组的定义：当目标金额为** **`i`** **时，至少需要** **`dp[i]`** **枚硬币凑出**。
+
+根据我们文章开头给出的动态规划代码框架可以写出如下解法：
+
+PS：为啥 `dp` 数组初始化为 `amount + 1` 呢，因为凑成 `amount` 金额的硬币数最多只可能等于 `amount`（全用 1 元面值的硬币），所以初始化为 `amount + 1` 就相当于初始化为正无穷，便于后续取最小值。
+
+```java
+class Solution {
+
+  public int coinChange(int[] coins, int amount) {
+
+    // 数组大小为 amount+1，初始值也为amount+1
+    int[] dp = new int[amount + 1];
+    for (int i = 0; i <= amount; i++) {
+      dp[i]=amount+1;
+    }
+
+    // base case
+    dp[0]=0;
+    // 外层 for 循环遍历所有状态的所有值
+    for (int i = 0; i < dp.length; i++) {
+      // 内层 for 循环在求所有选择的最小值
+      for (int coin : coins) {
+        // 子问题无解，跳过
+        if (i-coin<0) continue;
+        dp[i]=Math.min(dp[i],1+dp[i-coin]);
+      }
+    }
+    return (dp[amount]==amount+1)?-1:dp[amount];
+  }
+}
+```
+
+![image-20201116221952265](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201116221952265.png)
+
+
 
 ---
 
