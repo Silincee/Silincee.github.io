@@ -2036,12 +2036,12 @@ class Solution {
     // 定义：要凑出金额n,至少需要dp(n)个硬币
     public int dp(int[] coins,int amount){
     	int res = Integer.MAX_VALUE;
-    	// 做选择，选择需要硬币最少的那个结果
+      // 做选择，选择需要硬币最少的那个结果
       for (int coin : coins) {
-			    res=Math.min(res,1+dp(coins,amount-coin));
+          res=Math.min(res,1+dp(coins,amount-coin));
        }
-      return res;
-	}
+       return res;
+    }
 }
 ```
 
@@ -2054,11 +2054,11 @@ class Solution {
        return dp(coins,amount);
     }
 
-	// 定义：要凑出金额n,至少需要dp(n)个硬币
+    // 定义：要凑出金额n,至少需要dp(n)个硬币
     public int dp(int[] coins,int amount){
         // base case
-		    if (amount==0) return 0;
-		    if (amount<0) return -1;
+        if (amount==0) return 0;
+        if (amount<0) return -1;
 
         // 求最小值，使用初始化为Integer的最大值
         int res = Integer.MAX_VALUE;
@@ -2069,7 +2069,7 @@ class Solution {
             res=Math.min(res,1+subProblem);
         }
         return res!=Integer.MAX_VALUE?res:-1;
-	  }
+   }
 }
 ```
 
@@ -2126,7 +2126,7 @@ class Solution {
         // 记录备忘录
         memo.put(amount,res!=Integer.MAX_VALUE?res:-1);
         return memo.get(amount);
-	}
+   }
 }
 ```
 
