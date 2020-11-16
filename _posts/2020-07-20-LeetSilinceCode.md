@@ -1984,8 +1984,8 @@ class Solution {
 
 ## [\#322. 零钱兑换](https://leetcode-cn.com/problems/coin-change/)
 
-- easy
-- 2020.10.01：😭  
+- 中等
+- 2020.11.16：😭  
 
 题目：
 
@@ -2028,20 +2028,19 @@ class Solution {
 
 ```java
 class Solution {
-	// 伪代码框架 	
+    // 伪代码框架 	
     public int coinChange(int[] coins, int amount) {
-    	
-		return dp(coins,amount);
+        return dp(coins,amount);
     }
     
-	// 定义：要凑出金额n,至少需要dp(n)个硬币
+    // 定义：要凑出金额n,至少需要dp(n)个硬币
     public int dp(int[] coins,int amount){
     	int res = Integer.MAX_VALUE;
     	// 做选择，选择需要硬币最少的那个结果
-		for (int coin : coins) {
-			res=Math.min(res,1+dp(coins,amount-coin));
-		}
-		return res;
+      for (int coin : coins) {
+			    res=Math.min(res,1+dp(coins,amount-coin));
+       }
+      return res;
 	}
 }
 ```
@@ -2050,28 +2049,27 @@ class Solution {
 
 ```java
 class Solution {
-	// 伪代码框架
+    // 伪代码框架
     public int coinChange(int[] coins, int amount) {
-
-		return dp(coins,amount);
+       return dp(coins,amount);
     }
 
 	// 定义：要凑出金额n,至少需要dp(n)个硬币
     public int dp(int[] coins,int amount){
-    	// base case
-		if (amount==0) return 0;
-		if (amount<0) return -1;
+        // base case
+		    if (amount==0) return 0;
+		    if (amount<0) return -1;
 
-		// 求最小值，使用初始化为Integer的最大值
-    	int res = Integer.MAX_VALUE;
-		for (int coin : coins) {
-			int subProblem = dp(coins,amount-coin);
-			// 子问题无解 跳过
-			if (subProblem==-1) continue;
-			res=Math.min(res,1+subProblem);
-		}
-		return res!=Integer.MAX_VALUE?res:-1;
-	}
+        // 求最小值，使用初始化为Integer的最大值
+        int res = Integer.MAX_VALUE;
+        for (int coin : coins) {
+            int subProblem = dp(coins,amount-coin);
+            // 子问题无解 跳过
+            if (subProblem==-1) continue;
+            res=Math.min(res,1+subProblem);
+        }
+        return res!=Integer.MAX_VALUE?res:-1;
+	  }
 }
 ```
 
@@ -2103,32 +2101,31 @@ class Solution {
 
     // 初始化备忘录
 		HashMap<Integer, Integer> memo = new HashMap<>();
-
-		return dp(memo,coins,amount);
+       return dp(memo,coins,amount);
     }
 
     // 定义：要凑出金额n,至少需要dp(n)个硬币
     public int dp(HashMap<Integer, Integer> memo,int[] coins,int amount){
 
-    // 查备忘录，避免重复计算
-		Integer integer = memo.get(amount);
-		if (integer !=null) return integer;
-    	// base case
-		if (amount==0) return 0;
-		if (amount<0) return -1;
+        // 查备忘录，避免重复计算
+        Integer integer = memo.get(amount);
+        if (integer !=null) return integer;
+        // base case
+        if (amount==0) return 0;
+        if (amount<0) return -1;
 
-    // 求最小值，使用初始化为Integer的最大值
-    int res = Integer.MAX_VALUE;
-		for (int coin : coins) {
-			int subProblem = dp(memo,coins,amount-coin);
-      // 子问题无解 跳过
-			if (subProblem==-1) continue;
-			res=Math.min(res,1+subProblem);
-		}
+        // 求最小值，使用初始化为Integer的最大值
+        int res = Integer.MAX_VALUE;
+        for (int coin : coins) {
+            int subProblem = dp(memo,coins,amount-coin);
+            // 子问题无解 跳过
+            if (subProblem==-1) continue;
+              res=Math.min(res,1+subProblem);
+         }
 
-    // 记录备忘录
-		memo.put(amount,res!=Integer.MAX_VALUE?res:-1);
-		return memo.get(amount);
+        // 记录备忘录
+        memo.put(amount,res!=Integer.MAX_VALUE?res:-1);
+        return memo.get(amount);
 	}
 }
 ```
