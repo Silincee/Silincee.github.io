@@ -89,6 +89,9 @@ tags: [LeetCode,数据结构 ]
 
 代码方面，回溯算法的框架：
 
+- **写** **`backtrack`** **函数时，需要维护走过的「路径」和当前可以做的「选择列表」，当触发「结束条件」时，将「路径」记入结果集**。
+- **其核心就是 for 循环里面的递归，在递归调用之前「做选择」，在递归调用之后「撤销选择」**，特别简单。
+
 ```
 result = []
 def backtrack(路径, 选择列表):
@@ -103,7 +106,9 @@ def backtrack(路径, 选择列表):
         撤销选择
 ```
 
-**其核心就是 for 循环里面的递归，在递归调用之前「做选择」，在递归调用之后「撤销选择」**，特别简单。
+其实想想看，回溯算法和动态规划是不是有点像呢？我们在动态规划系列文章中多次强调，动态规划的三个需要明确的点就是「状态」「选择」和「base case」，是不是就对应着走过的「路径」，当前的「选择列表」和「结束条件」？
+
+某种程度上说，动态规划的暴力求解阶段就是回溯算法。只是有的问题具有重叠子问题性质，可以用 dp table 或者备忘录优化，将递归树大幅剪枝，这就变成了动态规划。而今天的两个问题，都没有重叠子问题，也就是回溯算法问题了，复杂度非常高是不可避免的。
 
 | 题目                                                         | 算法思想 | 正确率 |
 | ------------------------------------------------------------ | -------- | ------ |
@@ -438,6 +443,112 @@ n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并
 
 
 分析：
+
+这个问题本质上跟全排列问题差不多，决策树的每一层表示棋盘上的每一行；每个节点可以做出的选择是，在该行的任意一列放置一个皇后。
+
+直接套用框架:
+
+```java
+vector<vector<string>> res;
+
+/* 输入棋盘边长 n，返回所有合法的放置 */
+vector<vector<string>> solveNQueens(int n) {
+    // '.' 表示空，'Q' 表示皇后，初始化空棋盘。
+    vector<string> board(n, string(n, '.'));
+    backtrack(board, 0);
+    return res;
+}
+
+// 路径：board 中小于 row 的那些行都已经成功放置了皇后
+// 选择列表：第 row 行的所有列都是放置皇后的选择
+// 结束条件：row 超过 board 的最后一行
+void backtrack(vector<string>& board, int row) {
+    // 触发结束条件
+    if (row == board.size()) {
+        res.push_back(board);
+        return;
+    }
+
+    int n = board[row].size();
+    for (int col = 0; col < n; col++) {
+        // 排除不合法选择
+        if (!isValid(board, row, col)) 
+            continue;
+        // 做选择
+        board[row][col] = 'Q';
+        // 进入下一行决策
+        backtrack(board, row + 1);
+        // 撤销选择
+        board[row][col] = '.';
+    }
+}
+```
+
+这部分主要代码，其实跟全排列问题差不多，`isValid` 函数的实现也很简单：
+
+```java
+/* 是否可以在 board[row][col] 放置皇后？ */
+bool isValid(vector<string>& board, int row, int col) {
+    int n = board.size();
+    // 检查列是否有皇后互相冲突
+    for (int i = 0; i < n; i++) {
+        if (board[i][col] == 'Q')
+            return false;
+    }
+    // 检查右上方是否有皇后互相冲突
+    for (int i = row - 1, j = col + 1; 
+            i >= 0 && j < n; i--, j++) {
+        if (board[i][j] == 'Q')
+            return false;
+    }
+    // 检查左上方是否有皇后互相冲突
+    for (int i = row - 1, j = col - 1;
+            i >= 0 && j >= 0; i--, j--) {
+        if (board[i][j] == 'Q')
+            return false;
+    }
+    return true;
+}
+```
+
+函数 `backtrack` 依然像个在决策树上游走的指针，通过 `row` 和 `col` 就可以表示函数遍历到的位置，通过 `isValid` 函数可以将不符合条件的情况剪枝：
+
+![image-20201117214315687](/assets/imgs/image-20201117214315687.png)
+
+如果直接给你这么一大段解法代码，可能是懵逼的。但是现在明白了回溯算法的框架套路，还有啥难理解的呢？无非是改改做选择的方式，排除不合法选择的方式而已，只要框架存于心，你面对的只剩下小问题了。
+
+当 `N = 8` 时，就是八皇后问题，数学大佬高斯穷尽一生都没有数清楚八皇后问题到底有几种可能的放置方法，但是我们的算法只需要一秒就可以算出来所有可能的结果。
+
+不过真的不怪高斯。这个问题的复杂度确实非常高，看看我们的决策树，虽然有 `isValid` 函数剪枝，但是最坏时间复杂度仍然是 O(N^(N+1))，而且无法优化。如果 `N = 10` 的时候，计算就已经很耗时了。
+
+**有的时候，我们并不想得到所有合法的答案，只想要一个答案，怎么办呢**？比如解数独的算法，找所有解法复杂度太高，只要找到一种解法就可以。
+
+其实特别简单，只要稍微修改一下回溯算法的代码即可：
+
+```java
+// 函数找到一个答案后就返回 true
+bool backtrack(vector<string>& board, int row) {
+    // 触发结束条件
+    if (row == board.size()) {
+        res.push_back(board);
+        return true;
+    }
+    ...
+    for (int col = 0; col < n; col++) {
+        ...
+        board[row][col] = 'Q';
+
+        if (backtrack(board, row + 1))
+            return true;
+
+        board[row][col] = '.';
+    }
+
+    return false;
+}
+```
+
+这样修改后，只要找到一个答案，for 循环的后续递归穷举都会被阻断。
 
 
 
