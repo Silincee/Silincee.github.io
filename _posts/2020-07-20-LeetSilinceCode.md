@@ -417,15 +417,15 @@ class Solution {
     }
 
     for (int i = 0; i < nums.length; i++) {
-      // 排除不合法的选择
-      if (track.contains(nums[i]))
-        continue;
-      // 做选择
-      track.add(nums[i]);
-      // 进入下一层决策树
-      backtrack(nums, track);
-      // 取消选择
-      track.removeLast();
+      // 判断何时才能前进，排除不合法的选择
+      if (track.contains(nums[i])){
+        // 做选择
+        track.add(nums[i]);
+        // 进入下一层决策树
+        backtrack(nums, track);
+        // 取消选择
+        track.removeLast();
+      }
     }
   }
 }
@@ -514,7 +514,7 @@ public void backtrack(char[][] board, int row) {
 
     // 遍历选择列表
     for (int col = 0; col < board.length; col++) {
-        // 排除不合法选择
+        // 判断何时前进,排除不合法选择
         if (isValid(board, row, col)) {
           // 做选择
           board[row][col] = 'Q';
