@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "SpringCloud学习笔记"
+title:  "SpringCloud 微服务架构编码构建"
 date:   2020-11-18 19:21:16 +0800--
 categories: [Java,]
-tags: [Java, 分布式, ]  
+tags: [Java, 分布式, SpringCloud]  
 
 ---
 
@@ -11,7 +11,7 @@ tags: [Java, 分布式, ]
 
 服务架构是一种架构模式,它提倡将单一应用程序划分成一组小的服务,服务之间互相协调、互相配合,为用户提供最终价值。每个服务运行在其独立的进程中,服务与服务间采用轻量级的通信机制互相协作(通常是基于HTTP协议的 (RESTful api) 。每个服务都围绕着具本业务进行构建,并且能够被独立的部署到生产环境、类生产环境等。另外,应当尽量避免统一的、集中式的服务管理机制,对具体的一个服务而应根据业务上下文,选择合适的语言、工具对其进行构建。
 
-![image-20201118220217597](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201118220217597.png)
+![image-20201118220217597](/assets/imgs/image-20201118220217597.png)
 
 涉及到的技术：
 
@@ -59,11 +59,11 @@ SpringCloud和Springboot之间的依赖关系:https://spring.io/projects/spring-
 
 以前：
 
-![image-20201118220108156](/Users/silince/Pictures/Typora/image-20201118220108156-5785517.png)
+![image-20201118220108156](/assets/imgs/image-20201118220108156-5785517.png)
 
 now2020:
 
-![image-20201119193752546](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201119193752546.png)
+![image-20201119193752546](/assets/imgs/image-20201119193752546.png)
 
 
 
@@ -131,7 +131,9 @@ Maven使用dependencyManagement元素来提供了一种管理依赖版本号的�
 
 ## Rest微服务工程构建
 
-### cloud-provider-payment8001微服务提供者支付Module模块
+### 微服务提供者支付模块
+
+[code](https://github.com/Silincee/springcloud2020/tree/main/cloud-consumer-order80)
 
 - [建module](https://github.com/Silincee/springcloud2020/tree/main/cloud-provider-payment8001)
 - [改POM](https://github.com/Silincee/springcloud2020/blob/main/cloud-provider-payment8001/pom.xml)
@@ -173,19 +175,21 @@ Maven使用dependencyManagement元素来提供了一种管理依赖版本号的�
 
 （3）Enabling automatic build 
 
-![WX20201120-220714](/Users/silince/Develop/博客/blog_to_git/assets/imgs/WX20201120-220714.png)
+![WX20201120-220714](/assets/imgs/WX20201120-220714.png)
 
 （4）Update the value of
 
 press `command+shift+Alt+/` and search for the registry.
 
-![WX20201120-221226](/Users/silince/Develop/博客/blog_to_git/assets/imgs/WX20201120-221226-5881652.png)
+![WX20201120-221226](/assets/imgs/WX20201120-221226-5881652.png)
 
 （5）重启IDEA
 
 
 
-### cloud-consumer-order80微服务消费者订单Module模块
+### 微服务消费者订单模块
+
+[code](https://github.com/Silincee/springcloud2020/tree/main/cloud-consumer-order80)
 
 #### RestTemplate
 
@@ -211,8 +215,55 @@ public class ApplicationContextConfig
 }
 ```
 
+⚠️注意：转发时发布要忘记在后台方法参数上加上`@RequestBody`注解
 
+```java
+@PostMapping(value = "/payment/create")
+public CommonResult create(@RequestBody Payment payment) {
+  int result = paymentService.create(payment);
+  log.info("****插入结果"+result);
+
+  if (result>0) {
+    return new CommonResult(200,"插入数据库成功",result);
+  }else {
+    return new CommonResult(444,"插入数据库失败",null);
+  }
+}
+```
 
 
 
 ### 工程重构
+
+系统中有重复部分(实体类)，重构。
+
+新建模块cloud-api-commons
+
+#### hutool工具包
+
+```xml
+<dependency>
+  <groupId>cn.hutool</groupId>
+  <artifactId>hutool-all</artifactId>
+  <version>5.1.0</version>
+</dependency>
+```
+
+一个Java基础工具类，对文件、流、加密解密、转码、正则、线程、XML等JDK方法进行封装，组成各种Util工具类，同时提供以下组件：
+
+- hutool-aop JDK动态代理封装，提供非IOC下的切面支持
+- hutool-bloomFilter 布隆过滤，提供一些Hash算法的布隆过滤
+- hutool-cache 缓存
+- hutool-core 核心，包括Bean操作、日期、各种Util等
+- hutool-cron 定时任务模块，提供类Crontab表达式的定时任务
+- hutool-crypto 加密解密模块
+- hutool-db JDBC封装后的数据操作，基于ActiveRecord思想
+- hutool-dfa 基于DFA模型的多关键字查找
+- hutool-extra 扩展模块，对第三方封装（模板引擎、邮件等）
+- hutool-http 基于HttpUrlConnection的Http客户端封装
+- hutool-log 自动识别日志实现的日志门面
+- hutool-script 脚本执行封装，例如Javascript
+- hutool-setting 功能更强大的Setting配置文件和Properties封装
+- hutool-system 系统参数调用封装（JVM信息等）
+- hutool-json JSON实现
+- hutool-captcha 图片验证码实现
