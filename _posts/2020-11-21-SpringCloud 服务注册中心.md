@@ -228,7 +228,7 @@ public Object discovery(){
 - 关闭Linux服务器防火墙后启动zookeeper服务器
 - zookeeper服务器取代Eureka服务器，zk作为服务注册中心
 
-![image-20201122201938039](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201122201938039.png)
+![image-20201122201938039](/assets/imgs/image-20201122201938039.png)
 
 ## 服务提供者
 
@@ -236,7 +236,7 @@ public Object discovery(){
 
 - [POM](https://github.com/Silincee/springcloud2020/blob/main/cloud-provider-payment8004/pom.xml) 注意`spring-cloud-starter-zookeeper-discovery`中的jar包冲突
 
-  ![image-20201122195923689](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201122195923689.png)
+  ![image-20201122195923689](/assets/imgs/image-20201122195923689.png)
 
 - [YML](https://github.com/Silincee/springcloud2020/blob/main/cloud-provider-payment8004/src/main/resources/application.yml)
 
@@ -246,7 +246,7 @@ public Object discovery(){
 
 测试结果：
 
-![WX20201122-200615](/Users/silince/Develop/博客/blog_to_git/assets/imgs/WX20201122-200615.png)
+![WX20201122-200615](/assets/imgs/WX20201122-200615.png)
 
 🤔 服务节点是临时节点还是持久节点 ？
 
@@ -273,17 +273,106 @@ public Object discovery(){
 ## Consul简介
 
 > 官网地址：https://www.consul.io/intro/index.html
+>
+> 文档：https://www.springcloud.cc/spring-cloud-consul.html
 
 Consul是一开源的分布式服务发现和配置管理系统，由HashiCorp公司用Go语言开发。
 
 提供了微服务系统中的服务治理、配置中心、控制总线等功能。这些功能中的每一个都可以根据需要 单独使用，也可以一起使用以构建全方位的服务网格，总之Consul提供了一种完整的服务网格解决方案。
 
+它具有很多优点。包括:基于raft协议，比较简洁；支持健康检查， 同时支持HTTP和DNS协议支持跨数据中心的WAN集群提供图形界面跨平台，支持Linux、Mac、 Windows
 
+能干嘛：
+
+- 服务发现	
+  - 提供HTTP和DNS两种发现方式
+- 健康监测
+  - 支持多种协议，HTTP、TCP、Docker、Shell脚本定制化
+- KV存储
+  - key , Value的存储方式
+- 多数据中心
+  - Consul支持多数据中心
+- 可视化Web界面
 
 ## 安装并运行Consul
 
+```shell
+unzip consul_1.8.6_darwin_amd64.zip
+mv consul ~/Applications/consul/bin
+# 查看版本
+consul --version
+# 使用开发模式启动 
+consul agent -dev
+```
+
+通过以下地址可以访问Consul的首页：http://localhost:8500，结果页面：![image-20201122211959858](/assets/imgs/image-20201122211959858.png)
+
+
+
 ## 服务提供者
+
+- 新建Module支付服务[cloud-providerconsul-payment8006](https://github.com/Silincee/springcloud2020/tree/main/cloud-providerconsul-payment8006)
+- POM
+- YML
+- 主启动类
+- 业务类Controller
+- 验证测试：http://localhost:8006/payment/consul
+
+
 
 ## 服务消费者
 
+- 新建Module消费服务 [cloud-consumerconsul-order80](https://github.com/Silincee/springcloud2020/tree/main/cloud-consumerconsul-order80)
+- POM
+- YML
+- 主启动类
+- 配置Bean
+- 业务类Controller
+- 访问测试地址：http://localhost/consumer/payment/consul
+
+
+
+# 小结
+
 ## 三个注册中心异同点
+
+***CAP理论关注粒度是数据，而不是整体系统设计的策略***
+
+- C:Consistency(强一致性)
+- A:Availability(可用性)
+- P:Partition tolerance(分区容错)
+
+| 组件名    | 语言 | CAP  | 服务健康检查 | 对外暴露接口 | Spring Cloud集成 |
+| --------- | ---- | ---- | ------------ | ------------ | ---------------- |
+| Eureka    | Java | AP   | 可配支持     | HTTP         | 已集成           |
+| Consul    | Go   | CP   | 支持         | HTTP/DNS     | 已集成           |
+| Zookeeper | Java | CP   | 支持         | 客户端       | 已集成           |
+
+**最多只能同时较好的满足两个。**
+
+CAP理论的核心是: **一个分布式系统不可能同时很好的满足致性， 可用性和分区容错性这三个需求，**因此，根据CAP原理将NoSQL数据库分成了满足CA原则、满足CP原则和满足AP原则三大类:
+
+- CA --- 单点集群，满足一致性，可用性的系统，通常在可扩展性上不太强大
+- CP --- 满足一致性， 分区容忍必的系统，通常性能不是特别高
+- AP --- 满足可用性，分区容忍性的系统，通常可能对一致性要求低一些
+
+![image-20201122215359075](/assets/imgs/image-20201122215359075.png)
+
+## AP架构
+
+当网络分区出现后，为了保证可用性，**系统B可以返回旧值**，保证系统的可用性。
+
+**结论:违背了一致性C的要求，只满足可用性和分区容错，即AP**
+
+![image-20201122215918965](/assets/imgs/image-20201122215918965.png)
+
+
+
+## CP架构
+
+当网络分区出现后，为了保证一致性，就必须拒接请求，否则无法保证一致性
+
+**结论:违背了可用性A的要求，只满足一致性和分区容错，即CP**
+
+![image-20201122220112005](/assets/imgs/image-20201122220112005.png)
+
