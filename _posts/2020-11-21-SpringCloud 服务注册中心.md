@@ -9,6 +9,8 @@ tags: [Java, 分布式, SpringCloud]
 
 # Eureka服务注册与发现
 
+> Eureka已停止更新：https://github.com/Netflix/eureka/wiki
+
 ## 基础知识
 
 1.什么是服务治理
@@ -212,9 +214,39 @@ public Object discovery(){
 - Eureka服务端在收到最后一次心跳后等待时间上限，单位为秒(默认是90秒)，超时将剔除服务
   - `eureka.instance.lease-expiration-duration-in-seconds=90`  
 
+
+
 # Zookeeper服务注册与发现
 
+> Eureka停止更新了怎么办，使用SpringCloud整合Zookeeper代替Eureka
+>
+> [Zookerper学习笔记](http://www.silince.cn/2020/08/28/Zookeeper学习笔记/)
 
+## 注册中心Zookeeper
+
+- zookeeper是一个分布式协调工具，可以实现注册中心功能
+- 关闭Linux服务器防火墙后启动zookeeper服务器
+- zookeeper服务器取代Eureka服务器，zk作为服务注册中心
+
+## 服务提供者
+
+- 新建 [cloud-provider-payment8004](https://github.com/Silincee/springcloud2020/tree/main/cloud-provider-payment8004)
+
+- [POM](https://github.com/Silincee/springcloud2020/blob/main/cloud-provider-payment8004/pom.xml) 注意`spring-cloud-starter-zookeeper-discovery`中的jar包冲突
+
+  ![image-20201122195923689](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201122195923689.png)
+
+- [YML](https://github.com/Silincee/springcloud2020/blob/main/cloud-provider-payment8004/src/main/resources/application.yml)
+
+- [主启动类](https://github.com/Silincee/springcloud2020/blob/main/cloud-provider-payment8004/src/main/java/cn/silince/springcloud/PaymentMain8004.java)
+
+- [Controller](https://github.com/Silincee/springcloud2020/blob/main/cloud-provider-payment8004/src/main/java/cn/silince/springcloud/controller/PaymentController.java)
+
+测试结果：
+
+![WX20201122-200615](/Users/silince/Develop/博客/blog_to_git/assets/imgs/WX20201122-200615.png)
+
+## 服务消费者
 
 
 
