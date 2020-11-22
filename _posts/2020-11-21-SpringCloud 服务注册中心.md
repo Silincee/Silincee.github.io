@@ -228,6 +228,8 @@ public Object discovery(){
 - 关闭Linux服务器防火墙后启动zookeeper服务器
 - zookeeper服务器取代Eureka服务器，zk作为服务注册中心
 
+![image-20201122201938039](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201122201938039.png)
+
 ## 服务提供者
 
 - 新建 [cloud-provider-payment8004](https://github.com/Silincee/springcloud2020/tree/main/cloud-provider-payment8004)
@@ -246,8 +248,42 @@ public Object discovery(){
 
 ![WX20201122-200615](/Users/silince/Develop/博客/blog_to_git/assets/imgs/WX20201122-200615.png)
 
+🤔 服务节点是临时节点还是持久节点 ？
+
+- ***是临时节点，服务未发送心跳直接去除***
+
+
+
 ## 服务消费者
+
+> [Zookeeper集群配置](http://www.silince.cn/2020/08/28/Zookeeper学习笔记/#分布式安装)
+
+- [新建cloud-consumerzk-order80](https://github.com/Silincee/springcloud2020/tree/main/cloud-consumerzk-order80)
+- [POM](https://github.com/Silincee/springcloud2020/blob/main/cloud-consumerzk-order80/pom.xml)
+- [YML](https://github.com/Silincee/springcloud2020/blob/main/cloud-consumerzk-order80/src/main/resources/application.yml)
+- [主启动](https://github.com/Silincee/springcloud2020/blob/main/cloud-consumerzk-order80/src/main/java/cn/silince/springcloud/OrderMainZK80.java)
+- [业务类](https://github.com/Silincee/springcloud2020/blob/main/cloud-consumerzk-order80/src/main/java/cn/silince/springcloud/controller/OrderZKController.java)
+- 启动8004注册进zookeeper
+- 验证测试，访问测试地址：http://localhost/consumer/payment/zk
 
 
 
 # Consul服务注册与发现
+
+## Consul简介
+
+> 官网地址：https://www.consul.io/intro/index.html
+
+Consul是一开源的分布式服务发现和配置管理系统，由HashiCorp公司用Go语言开发。
+
+提供了微服务系统中的服务治理、配置中心、控制总线等功能。这些功能中的每一个都可以根据需要 单独使用，也可以一起使用以构建全方位的服务网格，总之Consul提供了一种完整的服务网格解决方案。
+
+
+
+## 安装并运行Consul
+
+## 服务提供者
+
+## 服务消费者
+
+## 三个注册中心异同点
