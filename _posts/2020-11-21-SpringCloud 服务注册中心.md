@@ -44,7 +44,61 @@ Eureka采用了CS的设计架构， Eureka Server作为服务注册功能的服�
 
 
 
+
+
 ## 集群构建步骤
+
+1.集群原理说明
+
+问题：微服务RPC远程服务调用最核心的是什么？
+
+高可用，试想你的注册中心只有一个only one，它出故障了那就呵呵了， 会导致整个微服务环境不可用。
+
+解决方案：搭建Eureka注册中心集群，实现负载均衡+故障容错
+
+![image-20201122132749158](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201122132749158.png)
+
+2.集群环境构建步骤
+
+- 参考cloud-eureka-server7001,新建[cloud-eureka-server7002](https://github.com/Silincee/springcloud2020/tree/main/cloud-eureka-server7002)
+
+- 改POM
+
+- 修改映射配置，host文件
+
+  ```shell
+  # springcloud2020
+  127.0.0.1	eureka7001.com
+  127.0.0.1	eureka7002.com
+  ```
+
+- [写YML](https://github.com/Silincee/springcloud2020/blob/main/cloud-eureka-server7002/src/main/resources/application.yml)
+
+- 主启动(复制cloud-eureka-server7001的主启动类到7002即可)
+
+3.将支付服务8001微服务发布到上面2台Eureka集群配置中 [YML](https://github.com/Silincee/springcloud2020/blob/main/cloud-provider-payment8001/src/main/resources/application.yml)
+
+4.将订单服务80微服务发布到上面2台Eureka集群配置中 [YML](https://github.com/Silincee/springcloud2020/blob/main/cloud-consumer-order80/src/main/resources/application.yml)
+
+5.支付服务提供者8001集群环境构建
+
+- 参考cloud-provider-payment8001,新建[cloud-provider-payment8002](https://github.com/Silincee/springcloud2020/tree/main/cloud-provider-payment8002)
+- [POM](https://github.com/Silincee/springcloud2020/blob/main/cloud-provider-payment8002/pom.xml)
+- [YML](https://github.com/Silincee/springcloud2020/blob/main/cloud-provider-payment8002/src/main/resources/application.yml)
+- [主启动类](https://github.com/Silincee/springcloud2020/blob/main/cloud-provider-payment8002/src/main/java/cn/silince/springcloud/PaymentMain8002.java)
+- 修改[8001](https://github.com/Silincee/springcloud2020/blob/main/cloud-provider-payment8001/src/main/java/cn/silince/springcloud/controller/PaymentController.java)/[8002](https://github.com/Silincee/springcloud2020/blob/main/cloud-provider-payment8002/src/main/java/cn/silince/springcloud/controller/PaymentController.java)的Controller，默认的方式为轮询
+
+6.负载均衡
+
+- ⚠️ [订单服务访问地址不能写死！](https://github.com/Silincee/springcloud2020/blob/main/cloud-consumer-order80/src/main/java/cn/silince/springcloud/controller/OrderController.java)
+
+  ```java
+  public static final String PAYMENT_URL="http://CLOUD-PAYMENT-SERVICE";
+  ```
+
+  
+
+
 
 ## actuator微服务信息完善
 
