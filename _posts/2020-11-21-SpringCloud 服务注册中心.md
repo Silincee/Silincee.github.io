@@ -86,7 +86,7 @@ Eureka采用了CS的设计架构， Eureka Server作为服务注册功能的服�
 - [POM](https://github.com/Silincee/springcloud2020/blob/main/cloud-provider-payment8002/pom.xml)
 - [YML](https://github.com/Silincee/springcloud2020/blob/main/cloud-provider-payment8002/src/main/resources/application.yml)
 - [主启动类](https://github.com/Silincee/springcloud2020/blob/main/cloud-provider-payment8002/src/main/java/cn/silince/springcloud/PaymentMain8002.java)
-- 修改[8001](https://github.com/Silincee/springcloud2020/blob/main/cloud-provider-payment8001/src/main/java/cn/silince/springcloud/controller/PaymentController.java)/[8002](https://github.com/Silincee/springcloud2020/blob/main/cloud-provider-payment8002/src/main/java/cn/silince/springcloud/controller/PaymentController.java)的Controller，默认的方式为轮询
+- 修改[8001](https://github.com/Silincee/springcloud2020/blob/main/cloud-provider-payment8001/src/main/java/cn/silince/springcloud/controller/PaymentController.java)/[8002](https://github.com/Silincee/springcloud2020/blob/main/cloud-provider-payment8002/src/main/java/cn/silince/springcloud/controller/PaymentController.java)的Controller
 
 6.负载均衡
 
@@ -96,17 +96,92 @@ Eureka采用了CS的设计架构， Eureka Server作为服务注册功能的服�
   public static final String PAYMENT_URL="http://CLOUD-PAYMENT-SERVICE";
   ```
 
-  
+- [使用@LoadBalanced注解赋予RestTemplate负载均衡的能力](https://github.com/Silincee/springcloud2020/blob/main/cloud-consumer-order80/src/main/java/cn/silince/springcloud/config/ApplicationContextConfig.java) ***Ribbon的负载均衡功能，默认的方式为轮询***
+
+- Ribbon和Eureka整合后Consumer可以直接调用服务而不用再关心地址和端口号，且该服务还有负载功能了
 
 
 
 ## actuator微服务信息完善
 
+1.服务显示格式`主机名称：服务名称修改`，需要去掉主机名称
+
+2.使得访问信息有ip信息提示，方便排查
+
+在`cloud-provider-payment8001`的`application.yml`添加以下配置：
+
+```yml
+eureka:
+    instance-id: payment8001
+    #访问路径可以显示IP地址
+    prefer-ip-address: true
+```
+
+效果：
+
+![WX20201122-155031](/Users/silince/Develop/博客/blog_to_git/assets/imgs/WX20201122-155031.png)
+
+
+
 ## 服务发现Discovery
+
+***对于注册进eureka里面的微服务，可以通过服务发现来获得该服务的信息***
+
+1.修改`cloud-provider-payment8001`的Controller，添加以下内容
+
+```java
+@Autowired
+private DiscoveryClient discoveryClient;
+
+/**
+ * @description: 对于注册进eureka里面的微服务，可以通过服务发现来获得该服务的信息
+ */
+@GetMapping(value = "/payment/discovery")
+public Object discovery(){
+  // 方式一：获得eureka下所有的微服务名称列表
+  List<String> services = discoveryClient.getServices();
+  for (String service : services) {
+    log.info("*****element: "+service);
+  }
+
+  // 方式二：根据微服务名称获得服务包含的实例列表
+  List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
+  for (ServiceInstance instance : instances) {
+    log.info(instance.getServiceId()+"\t"+instance.getHost()+"\t"+instance.getPort()+"\t"+instance.getUri());
+  }
+  return this.discoveryClient;
+}
+```
+
+2.8001主启动类添加`@EnableDiscoveryClient`注解
+
+测试结果：
+
+![image-20201122161621701](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201122161621701.png)
+
+
 
 ## eureka自我保护
 
+1.故障现象
 
+保护模式主要用于一组客户端和Eureka Server之间存在网络分区场景下的保护。一旦进入保护模式，
+***Eureka Server将会尝试保护其服务注册表中的信息，不再删除服务注册表中的数据，也就是不会注销任何微服务。***
+
+如果在Eureka Server的首页看到以下这段提示，则说明Eureka进入了保护模式
+![image-20201122161801553](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201122161801553.png)
+
+
+
+2.导致原因
+
+一句话：***某时刻某一个微服务不可用了，Eureka不会立刻清理，依旧会对该微服务的信息进行保存***
+
+属于CAP里面的AP分支
+
+
+
+3.怎么禁止自我保护
 
 
 
