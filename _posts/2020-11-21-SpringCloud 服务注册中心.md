@@ -25,7 +25,7 @@ Eureka采用了CS的设计架构， Eureka Server作为服务注册功能的服�
 
 在服务注册与发现中，有一个注册中心。 当服务器启动的时候，会把当前自己服务器的信息比如服务地址通讯地址等以别名方式注册到注册中心上。另一方（消费者/服务提供者） ，以该别名的方式去注册中心上获取到实际的服务通讯地址，然后再实现本地RPC调用RPC远程调用框架核心设计思想:在于注册中心，因为使用注册中心管理每个服务与服务之间的一一个依赖关系（服务治理概念。在任何rpc远程框架中，都会有一个注册中心（存放服务地址相关信息---接口地址）
 
-![image-20201121213909447](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201121213909447.png)
+![image-20201121213909447](/assets/imgs/image-20201121213909447.png)
 
 ***Eureka包含两个组件: Eureka Server和Eureka Client：***
 
@@ -56,7 +56,7 @@ Eureka采用了CS的设计架构， Eureka Server作为服务注册功能的服�
 
 解决方案：搭建Eureka注册中心集群，实现负载均衡+故障容错
 
-![image-20201122132749158](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201122132749158.png)
+![image-20201122132749158](/assets/imgs/image-20201122132749158.png)
 
 2.集群环境构建步骤
 
@@ -119,7 +119,7 @@ eureka:
 
 效果：
 
-![WX20201122-155031](/Users/silince/Develop/博客/blog_to_git/assets/imgs/WX20201122-155031.png)
+![WX20201122-155031](/assets/imgs/WX20201122-155031.png)
 
 
 
@@ -157,7 +157,7 @@ public Object discovery(){
 
 测试结果：
 
-![image-20201122161621701](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201122161621701.png)
+![image-20201122161621701](/assets/imgs/image-20201122161621701.png)
 
 
 
@@ -169,21 +169,48 @@ public Object discovery(){
 ***Eureka Server将会尝试保护其服务注册表中的信息，不再删除服务注册表中的数据，也就是不会注销任何微服务。***
 
 如果在Eureka Server的首页看到以下这段提示，则说明Eureka进入了保护模式
-![image-20201122161801553](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201122161801553.png)
+![image-20201122161801553](/assets/imgs/image-20201122161801553.png)
 
 
 
 2.导致原因
 
-一句话：***某时刻某一个微服务不可用了，Eureka不会立刻清理，依旧会对该微服务的信息进行保存***
+一句话：***某时刻某一个微服务不可用了，Eureka不会立刻清理，依旧会对该微服务的信息进行保存***，属于CAP里面的AP分支。
 
-属于CAP里面的AP分支
+- 为什么会产生Eureka自我保护机制？
+
+  为了防止EurekaClient可以正常运行，但是与EurekaServer网络不通情况下，EurekaServer**不会立刻将EurekaClient服务剔除**
+
+- 什么是自我保护模式？
+
+  默认情况下，如果EurekaServer在一定时间内没有接收到某 个微服务实例的心跳， EurekaServer将会注销该实例 （默认90秒）。但是当网络分区故障发生（延时、卡顿、拥挤）时， 微服务与EurekaServer之间无法正常通信，以上行为可能变得非常危险了一因为微服务本身其实是健康的，**此时本不应该注销这个微服务**。Eureka通过 ”自我保护模式”来解决这个问题---当EurekaServer节点在短时间内丢失过多客户端时（可能发生了网络分区故障），那么这个节点就会进入自我保护模式。
+
+![image-20201122163733225](/assets/imgs/image-20201122163733225.png)
+
+**在自我保护模式中，Eureka Server会保护服务注册表中的信息，不再注销任何服务实例。**
+
+它的设计哲学就是宁可保留错误的服务注册信息，也不盲目注销任何可能健康的服务实例。**一句话讲解:好死不如赖活着。**
+
+综上，自我保护模式是一种应对网络异常的安全保护措施。 它的架构哲学是宁可同时保留所有微服务（健康的微服务和不健康的微服务都会保留）也不盲目注销任何健康的微服务。使用自我保护模式，可以让Eureka集群更加的健壮、稳定。
 
 
 
-3.怎么禁止自我保护
+3.怎么禁止自我保护（一般生产环境中不会禁止自我保护）
 
+1）注册中心eureakeServer端7001
 
+- 出厂默认，自我保护机制是开启的
+
+- 使用`eureka.server.enable-self-preservation = false`可以禁用自我保护模式
+
+  ![image-20201122170100824](/assets/imgs/image-20201122170100824.png)
+
+2）生产者客户端eureakeClient端8001
+
+- Eureka客户端向服务端发送心跳的时间间隔，单位为秒(默认是30秒)
+  - `eureka.instance.lease-renewal-interval-in-seconds=30`  
+- Eureka服务端在收到最后一次心跳后等待时间上限，单位为秒(默认是90秒)，超时将剔除服务
+  - `eureka.instance.lease-expiration-duration-in-seconds=90`  
 
 # Zookeeper服务注册与发现
 
