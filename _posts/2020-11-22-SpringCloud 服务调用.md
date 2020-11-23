@@ -185,11 +185,175 @@ public class MySelfRule {
 
 ### RoundRobinRule源码
 
+```java
+// 原子整型类
+private AtomicInteger nextServerCyclicCounter;
+
+public Server choose(ILoadBalancer lb, Object key) {
+  if (lb == null) {
+    log.warn("no load balancer");
+    return null;
+  }
+
+  Server server = null;
+  int count = 0;
+  while (server == null && count++ < 10) {
+    List<Server> reachableServers = lb.getReachableServers(); // 活着/可达健康的机器列表
+    List<Server> allServers = lb.getAllServers(); //  所有服务器的列表
+    int upCount = reachableServers.size();
+    int serverCount = allServers.size(); // 服务器集群总数量
+
+    if ((upCount == 0) || (serverCount == 0)) { // 无可用机器
+      log.warn("No up servers available from load balancer: " + lb);
+      return null;
+    }
+		
+    int nextServerIndex = incrementAndGetModulo(serverCount); //得到余数
+    server = allServers.get(nextServerIndex); // 根据取模后的余数选择机器
+
+    if (server == null) {
+      /* Transient. */
+      Thread.yield(); // 使当前线程由执行状态，变成为就绪状态
+      continue;
+    }
+
+    if (server.isAlive() && (server.isReadyToServe())) {
+      return (server);
+    }
+
+    // Next.
+    server = null;
+  }
+
+  if (count >= 10) {
+    log.warn("No available alive servers after 10 tries from load balancer: "
+             + lb);
+  }
+  return server;
+}
+/**
+ * Inspired by the implementation of {@link AtomicInteger#incrementAndGet()}.
+ *
+ * @param modulo The modulo to bound the value of the counter.
+ * @return The next value.
+ */
+private int incrementAndGetModulo(int modulo) { // modulo:服务器集群总数量
+  // 自旋锁
+  for (;;) {
+    int current = nextServerCyclicCounter.get();
+    int next = (current + 1) % modulo; // 取余操作
+    if (nextServerCyclicCounter.compareAndSet(current, next)) // CAS比较并设值
+      return next; // 返回余数
+  }
+}
+```
+
 
 
 
 
 ### 自定义负载均衡算法
+
+1.7001/7002集群启动
+
+2.8001/8002微服务controller改造，添加以测试方法
+
+```java
+/** 
+ * @description: 自定义负载均衡算法 
+ */ 
+@GetMapping(value = "/payment/lb")
+public String getPaymentLB(){
+  return serverPort;
+}
+```
+
+3.80订单微服务改造
+
+- ApplicationContextBean去掉`@LoadBalanced`
+- [LoadBalancer接口](https://github.com/Silincee/springcloud2020/blob/main/cloud-consumer-order80/src/main/java/cn/silince/springcloud/lb/LoadBalancer.java)
+
+```java
+/**
+* @description: 自定义负载均衡算法接口
+*/
+public interface LoadBalancer {
+
+    /**
+    * @description: 获取所有服务实例列表
+    */
+    ServiceInstance instances(List<ServiceInstance> serviceInstances);
+    
+}
+```
+
+- [MyLB](https://github.com/Silincee/springcloud2020/blob/main/cloud-consumer-order80/src/main/java/cn/silince/springcloud/lb/MyLb.java)
+
+```java
+/**
+ * @program: cloud2020
+ * @description: 自定义负载均衡算法实现类
+ * @author: Silince
+ * @create: 2020-11-23 13:16
+ **/
+@Component // 使得容器能扫描得到该类
+public class MyLb implements LoadBalancer {
+
+    private AtomicInteger atomicInteger = new AtomicInteger(0); // 原子整型类
+
+    public final int getAndIncrement() {
+        int current;
+        int next;
+
+        do {
+            current = this.atomicInteger.get();
+            next = current >= Integer.MAX_VALUE ? 0 : current + 1;
+        } while (!this.atomicInteger.compareAndSet(current,next)); // CAS自旋
+        System.out.println("****第几次访问，次数next: "+next);
+        return next;
+    }
+
+
+    @Override
+    public ServiceInstance instances(List<ServiceInstance> serviceInstances) {
+        int index =  getAndIncrement() % serviceInstances.size();
+        return serviceInstances.get(index);
+    }
+}
+```
+
+- [OrderController](https://github.com/Silincee/springcloud2020/blob/main/cloud-consumer-order80/src/main/java/cn/silince/springcloud/controller/OrderController.java)
+
+```java
+@RestController
+@Slf4j
+public class OrderController {
+  
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @Autowired
+    private LoadBalancer loadBalancer;
+
+    @Autowired
+    private DiscoveryClient discoveryClient;
+
+    @GetMapping("/consumer/payment/lb")
+    public String getPaymentLB(){
+        List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
+        if (instances==null||instances.size()<=0){
+            return null;
+        }
+        ServiceInstance serviceInstance = loadBalancer.instances(instances);
+        URI uri = serviceInstance.getUri();
+        return restTemplate.getForObject(uri+"/payment/lb",String.class);
+    }
+}
+```
+
+- 测试:http://localhost/consumer/payment/lb
+
+
 
 
 
