@@ -328,7 +328,7 @@ public class MyLb implements LoadBalancer {
 @RestController
 @Slf4j
 public class OrderController {
-  
+
     @Autowired
     private RestTemplate restTemplate;
 
@@ -355,6 +355,7 @@ public class OrderController {
 
 
 
-
-
 # OpenFeign服务接口调用
+
+
+
