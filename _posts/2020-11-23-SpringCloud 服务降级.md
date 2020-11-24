@@ -11,7 +11,7 @@ tags: [Java, 分布式, SpringCloud]
 
 复杂分布式体系结构中的应用程序有数十个依赖关系，每个依赖关系在某些时候将不可避免地失败。
 
-![image-20201123195006080](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201123195006080.png)
+![image-20201123195006080](/assets/imgs/image-20201123195006080.png)
 
 
 
@@ -113,13 +113,13 @@ cd /Users/silince/Applications/jmeter/apache-jmeter-5.3/bin
 ./jmeter.sh
 ```
 
-![image-20201123204311947](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201123204311947.png)
+![image-20201123204311947](/assets/imgs/image-20201123204311947.png)
 
-![image-20201123204542479](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201123204542479.png)
+![image-20201123204542479](/assets/imgs/image-20201123204542479.png)
 
-![image-20201123204646299](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201123204646299.png)
+![image-20201123204646299](/assets/imgs/image-20201123204646299.png)
 
-![WX20201123-204845](/Users/silince/Develop/博客/blog_to_git/assets/imgs/WX20201123-204845.png)
+![WX20201123-204845](/assets/imgs/WX20201123-204845.png)
 
 2.再来一个访问
 
@@ -162,7 +162,7 @@ cd /Users/silince/Applications/jmeter/apache-jmeter-5.3/bin
 - http://localhost/consumer/payment/hystrix/timeout/31
 - **消费者80，要么转圈圈等待,要么消费端报超时错误**
 
-![image-20201123210738488](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201123210738488.png)
+![image-20201123210738488](/assets/imgs/image-20201123210738488.png)
 
 ### 故障现象和导致原因
 
@@ -286,7 +286,7 @@ public class OrderHystrixController {
 - `@DefaultProperties(defaultFallback = "")`
 - [controller配置](https://github.com/Silincee/springcloud2020/blob/main/cloud-consumer-feign-hystrix-order80/src/main/java/cn/silince/springcloud/controller/OrderHystrixController.java)
 
-![image-20201123224105001](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201123224105001.png)
+![image-20201123224105001](/assets/imgs/image-20201123224105001.png)
 
 ***2）和业务逻辑混一起？？？混乱***
 
@@ -332,11 +332,235 @@ public interface PaymentHystrixService {
 
 ## 服务熔断
 
+一句话就是家里保险丝。
+
+熔断机制是应对雪崩效应的一种微服务链路保护机制。当扇出链路的某个微服务出错不可用或者响应时间太长时，会进行服务的降级，进而熔断该节点微服务的调用，快速返回错误的响应信息。
+
+**当检测到该节点微服务调用响应正常后，逐渐恢复调用链路。**
+
+在Spring Cloud框架里，熔断机制通过Hystrix实现。Hystrix会监控微服务间调用的状况，
+
+当失败的调用到一定阈值，缺省是5秒内20次调用失败，就会启动熔断机制。熔断机制的注解是`@HystrixCommand`.
+
+
+
+
+
+### 实操
+
+1.修改[cloud-provider-hystrix-payment8001](https://github.com/Silincee/springcloud2020/tree/main/cloud-provider-hystrix-payment8001)
+
+2.[PaymentService](https://github.com/Silincee/springcloud2020/blob/main/cloud-provider-hystrix-payment8001/src/main/java/cn/silince/springcloud/service/impl/PaymentServiceImpl.java)
+
+涉及到断路器的三个重要参数:**快照时间窗、请求总数阀值、错误百分比阀值。**
+
+- **快照时间窗**:断路器确定是否打开需要统计一些请求和错误数据， 而统计的时间范围就是快照时间窗，默认为最近的10秒。
+- **请求总数阀值**:在快照时间窗内，必须满足请求总数阀值才有资格熔断。默认为20，意味着在10秒内，如果该hystrix命令的调用次数不足20次即使所有的请求都超时或其他原因失败，断路器都不会打开。
+- **错误百分比阀值**:当请求总数在快照时间窗内超过了阀值，比如发生了30次调用，如果在这30次调用中，有15次发生了超时异常，也就是超过50%的错误百分比，在默认设定50%阀值情况下，这时候就会将断路器打开。
+
+3.[PaymentController](https://github.com/Silincee/springcloud2020/blob/main/cloud-provider-hystrix-payment8001/src/main/java/cn/silince/springcloud/controller/PaymentController.java)
+
+4.测试
+
+- 自测cloud-provider-hystrix-payment8001
+  - 正确 http://localhost:8001/payment/circuit/31
+  - 错误 http://localhost:8001/payment/circuit/-31
+- **重点测试：多次错误,然后慢慢正确，发现刚开始不满足条件，就算是正确的访问地址也不能进行访问，需要慢慢的恢复链路**
+
+
+
+### 原理总结
+
+熔断类型:
+
+- 熔断打开
+
+  请求不再进行调用当前服务，内部设置时钟一般为MTTR(平均故障处理时间)，当打开时长达到所设时钟则进入熔断状态
+
+- 熔断关闭
+
+  熔断关闭不会对服务进行熔断
+
+- 熔断半开
+
+  部分请求根据规则调用当前服务，如果请求成功且符合规则则认为当前服务恢复正常，关闭熔断
+
+![image-20201124095515910](/assets/imgs/image-20201124095515910-6188057.png)
+
+官网步骤：
+
+![image-20201124100930639](/assets/imgs/image-20201124100930639-6188079.png)
+
+断路器开启或者关闭的条件：
+
+1. 当满足一定阀值的时候（默认10秒内超过20个请求次数）
+2. 当失败率达到一定的时候（默认10秒内超过50%请求失败）
+3. 到达以上阀值，断路器将会开启
+4. 当开启的时候，所有请求都不会进行转发
+5. 一段时间之后（默认是5秒），这个时候断路器是半开状态，会让其中一个请求进行转发。如果成功，断路器会关闭，若失败，继续开启。重复4和5
+
+断路器打开之后:
+
+1. 再有请求调用的时候，将不会调用主逻辑，而是直接调用降级fallback。通过断路器，实现了自动地发现错误并将降级逻辑切换为主逻辑，减少响应延迟的效果。
+
+2. 原来的主逻辑要如何恢复呢？
+
+   对于这一问题，hystrix也为我们实现了 自动恢复功能。
+
+   当断路器打开，对主逻辑进行熔断之后， hystrix会启动一个休眠时间窗， 在这个时间窗内，熔断逻辑是临时的成为主逻辑。
+
+   当休眠时间窗到期，断路器将进入半开状态，释放一次请求到原来的主逻辑上，如果此次请求正常返回，那么断路器将继续闭合。
+
+   主逻辑恢复，如果这次请求依然有问题，断路器继续进入打开状态，休眠时间窗重新计时。
+
+### ALL配置
+
+![image-20201124113020614](/assets/imgs/image-20201124113020614.png)
+
+![image-20201124113043907](/assets/imgs/image-20201124113043907.png)
+
+![image-20201124113307490](/assets/imgs/image-20201124113307490.png)
+
+![image-20201124113334648](/assets/imgs/image-20201124113334648.png)
+
+
+
 ## 服务限流
+
+[见alibaba的Sentinel]()
+
+
 
 
 
 # hystrix工作流程
 
+> https://github.com/Netflix/Hystrix/wiki/How-it-Works
+
+The following sections will explain this flow in greater detail:
+
+1. [Construct a `HystrixCommand` or `HystrixObservableCommand` Object](https://github.com/Netflix/Hystrix/wiki/How-it-Works#flow1)
+2. [Execute the Command](https://github.com/Netflix/Hystrix/wiki/How-it-Works#flow2)
+3. [Is the Response Cached?](https://github.com/Netflix/Hystrix/wiki/How-it-Works#flow3)
+4. [Is the Circuit Open?](https://github.com/Netflix/Hystrix/wiki/How-it-Works#flow4)
+5. [Is the Thread Pool/Queue/Semaphore Full?](https://github.com/Netflix/Hystrix/wiki/How-it-Works#flow5)
+6. [`HystrixObservableCommand.construct()` or `HystrixCommand.run()`](https://github.com/Netflix/Hystrix/wiki/How-it-Works#flow6)
+7. [Calculate Circuit Health](https://github.com/Netflix/Hystrix/wiki/How-it-Works#flow7)
+8. [Get the Fallback](https://github.com/Netflix/Hystrix/wiki/How-it-Works#flow8)
+9. [Return the Successful Response](https://github.com/Netflix/Hystrix/wiki/How-it-Works#flow9)
+
+![image-20201124113613545](/assets/imgs/image-20201124113613545.png)
+
+
+
 # 服务监控hystrixDashboard
 
+## 概述
+
+除了隔离依赖服务的调用以外，Hytrix还提供了**准实时的调用监控（Hystrix Dashboard）**，Hystrix会持续地记录 所有通过Hystrix发起的请求的执行信息，并以统计报表和图形的形式展示给用户，包括每秒执行多少请多少成功，多少失败等。Netflix通过
+
+`hystrix-metrics-event-stream`项目实现了对以生指标的监控。Spring Cloud也提供了Hystrix Dashboard的整合，对监控内容转化成可视化界面。
+
+## 仪表盘9001
+
+1.新建[cloud-consumer-hystrix-dashboard9001](https://github.com/Silincee/springcloud2020/tree/main/cloud-consumer-hystrix-dashboard9001)
+
+2.POM
+
+3.YML
+
+4.HystrixDashboardMain9001+**新注解@EnableHystrixDashboard**
+
+5.**所有Provider微服务提供类（8001/8002/8003）都需要监控依赖配置**
+
+```xml
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+```
+
+6.启动cloud-consumer-hystrix-dashboard9001该微服务后续将监控微服务8001:http://localhost:9001/hystrix
+
+## 断路器演示
+
+1.修改cloud-provider-hystrix-payment8001
+
+- 注意：新版本Hystrix需要在主启动类MainAppHystrix8001中指定监控路径，不然会报 `Unable to connect to Command Metric Stream`错误
+
+```java
+@SpringBootApplication
+@EnableEurekaClient
+@EnableCircuitBreaker
+public class PaymentHystrixMain8001 {
+    public static void main(String[] args) {
+        SpringApplication.run(PaymentHystrixMain8001.class, args);
+
+    }
+
+    /**
+     *此配置是为了服务监控而配置，与服务容错本身无关，springcloud升级后的坑
+     *ServletRegistrationBean因为springboot的默认路径不是"/hystrix.stream"，
+     *只要在自己的项目里配置上下面的servlet就可以了
+     */
+    @Bean
+    public ServletRegistrationBean getServlet() {
+        HystrixMetricsStreamServlet streamServlet = new HystrixMetricsStreamServlet();
+        ServletRegistrationBean registrationBean = new ServletRegistrationBean(streamServlet);
+        registrationBean.setLoadOnStartup(1);
+        registrationBean.addUrlMappings("/hystrix.stream");
+        registrationBean.setName("HystrixMetricsStreamServlet");
+        return registrationBean;
+    }
+}
+```
+
+
+
+2.监控测试
+
+1.9001监控8001
+
+![image-20201124120437644](/assets/imgs/image-20201124120437644.png)
+
+2.测试地址
+
+- http://localhost:8001/payment/circuit/31
+
+- http://localhost:8001/payment/circuit/-31
+
+- 上述测试通过 ok
+
+- 先访问正确地址，再多次访问错误地址，再正确地址，会发现图示断路器都是慢慢放开的
+
+  - 监控结果，成功
+
+    ![image-20201124120806458](/assets/imgs/image-20201124120806458.png)
+
+  - 监控结果，失败
+
+    ![image-20201124120834749](/assets/imgs/image-20201124120834749.png)
+
+## 图例说明
+
+- 7色
+
+  ![image-20201124121109511](/assets/imgs/image-20201124121109511.png)
+
+- 1圈
+
+  实心圆:共有两种含义。它通过颜色的变化代表了实例的健康程度，它的健康度从`绿色<黄色<橙色<红色`递减。
+
+  该实心圆除了颜色的变化之外，它的大小也会根据实例的请求流量发生变化，流量越大该实心圆就越大。所以通过该实心圆的展示，就可以在大量的实例中快速的发现**故障实例和高压力实例**。
+
+- 1线
+
+  曲线:用来记录2分钟内流量的相对变化，可以通过它来观察到流量的上升和下降趋势。
+
+- 整图说明
+
+  ![image-20201124121215757](/assets/imgs/image-20201124121215757.png)
+
+- 整图说明2
+
+![image-20201124121330510](/assets/imgs/image-20201124121330510.png)
