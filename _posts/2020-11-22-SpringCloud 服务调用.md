@@ -59,7 +59,7 @@ Nginx是服务器负载均衡，客户端所有请求都会交给nginx，然后�
 
 **总结：Ribbon其实就是一个软负载均衡的客户端组件，他可以和其他所需请求的客户端结合使用，和eureka结合只是其中的一个实例。**
 
-![image-20201123094412190](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201123094412190.png)
+![image-20201123094412190](/assets/imgs/image-20201123094412190.png)
 
 Ribbon在工作时分成两步：
 
@@ -132,7 +132,7 @@ public CommonResult<Payment> create(Payment payment){
 - ZoneAvoidanceRule
   - 默认规则，复合判断server所在区域的性能和server的可用性选择服务器
 
-![image-20201123102100659](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201123102100659-6098324.png)
+![image-20201123102100659](/assets/imgs/image-20201123102100659-6098324.png)
 
 
 
@@ -357,5 +357,148 @@ public class OrderController {
 
 # OpenFeign服务接口调用
 
+## 概述
+
+1.[OpenFeign](https://cloud.spring.io/spring-cloud-static/Hoxton.SR1/reference/htmlsingle/#spring-cloud-openfeign)是什么
+
+GitHub:https://github.com/spring-cloud/spring-cloud-openfeign
+
+**Feign是一个声明式的web服务客户端，让编写web服务客户端变得非常容易，只需创建一个接口并在接口上添加注解即可。** ***一句话，Feign就是一个服务接口绑定器。***
+
+它的使用方法是**定义一个服务接口然后在上面添加注解**。Feign也支持可拔插式的编码器和解码器。Spring Cloud对Feign进行了封装，使其支持了Spring MVC标准注解和HttpMessageConverters。**Feign可以与Eureka和Ribbon组合使用以支持负载均衡。**
 
 
+
+2.能干嘛
+
+***Feign旨在使编写Java Http客户端变得更容易。***
+
+前面在使用Ribbon+ RestTemplate时，利用RestTemplate对http请求的封装处理，形成了一套模版化的调用方法。但是在实际开发中，由于对服务依赖的调用可能不止一处，**往往一个接口会被多处调用，所以通常都会针对每个微服务自行封装一 些客户端类来包装这些依赖服务的调用。**所以，Feign在此基础上做了进一步封装，由他来帮助我们定义和实现依赖服务接口的定义。在Feign的实现下,**我们只需创建一个接口并使用注解的方式来配置它（以前是Dao接口 上面标注Mapper注解，现在是一个微服务接口 上面标注一个Feign注解即可）**， 即可完成对服务提供方的接口绑定，简化了使用Spring cloud Ribbon时， 自动封装服务调用客户端的开发量。
+
+***Feign集成了Ribbon***
+
+利用Ribbon维护了Payment的服务列表信息，并通过轮询实现了客户端的负载均衡。而与Ribbon不同的是，**通过feign只需要定义服务绑定接口且以声明式的方法，优雅而简单的实现了服务调用**。
+
+
+
+3.Feign和OpenFeign两者区别
+
+![image-20201123180627382](/assets/imgs/image-20201123180627382.png)
+
+
+
+## 使用步骤
+
+1.微服务调用接口+@FeignClient
+
+2.新建[cloud-consumer-feign-order80](https://github.com/Silincee/springcloud2020/tree/main/cloud-consumer-feign-order80) ，Feign在消费端使用
+
+3.[POM](https://github.com/Silincee/springcloud2020/blob/main/cloud-consumer-feign-order80/pom.xml)
+
+4.[YML](https://github.com/Silincee/springcloud2020/blob/main/cloud-consumer-feign-order80/src/main/resources/application.yml)
+
+5.[主启动类]()
+
+6.业务类
+
+- [新建PaymentFeignService接口并新增注解@FeignClient](https://github.com/Silincee/springcloud2020/blob/main/cloud-consumer-feign-order80/src/main/java/cn/silince/springcloud/service/PaymentFeignService.java)
+- [控制层Controller](https://github.com/Silincee/springcloud2020/blob/main/cloud-consumer-feign-order80/src/main/java/cn/silince/springcloud/controller/OrderFeignController.java)
+
+7.测试
+
+- 先启动2个eureka集群7001/7002
+- 再启动2个微服务8001/8002
+- 启动OpenFeign启动
+- http://localhost/consumer/payment/get/31
+- Feign自带负载均衡配置项
+
+### 总结
+
+![image-20201123190409506](/assets/imgs/image-20201123190409506.png)
+
+Feign与ribbon+restTemplate不同，可以使程序员使用更为熟悉的面向接口编程。
+
+![image-20201123190857514](/assets/imgs/image-20201123190857514.png)
+
+
+
+
+
+## 超时控制
+
+1.超时设置，故意设置超时演示出错情况
+
+- [服务提供方8001故意写暂停程序](https://github.com/Silincee/springcloud2020/blob/main/cloud-provider-payment8001/src/main/java/cn/silince/springcloud/controller/PaymentController.java)
+
+- [服务消费方80添加超时方法PaymentFeignService](https://github.com/Silincee/springcloud2020/blob/main/cloud-consumer-feign-order80/src/main/java/cn/silince/springcloud/service/PaymentFeignService.java)
+
+- [服务消费方80添加超时方法OrderFeignController](https://github.com/Silincee/springcloud2020/blob/main/cloud-consumer-feign-order80/src/main/java/cn/silince/springcloud/controller/OrderFeignController.java)
+
+- 测试
+
+  - http://localhost/consumer/payment/feign/timeout
+  - 错误页面
+
+  ![image-20201123193246594](/assets/imgs/image-202011223193246594.png)
+
+
+
+2.OpenFeign默认等待一秒钟，超过后报错
+
+默认Feign客户端只等待秒钟， 但是服务端处理需要超过1秒钟，导致Feign客户端不想等待了，直接返回报错。为了避免这样的情况，有时候我们需要设置Feign客户端的超时控制。
+
+
+
+3.OpenFeign默认支持Ribbon，YML文件里需要开启OpenFeign客户端超时控制
+
+```yml
+#设置feign客户端超时时间(OpenFeign默认支持ribbon)
+ribbon:
+#指的是建立连接所用的时间，适用于网络状况正常的情况下,两端连接所用的时间
+  ReadTimeout: 5000
+#指的是建立连接后从服务器读取到可用资源所用的时间
+  ConnectTimeout: 5000
+```
+
+
+
+## 日志打印功能
+
+Feign提供了日志打功能，我们可以通过配置来调整日志级别，从而了解Feign中Http请求的细节。说白了就是**对Feign接口的调用情况进行监控和输出。**
+
+日志级别
+
+- NONE:默认的，不显示任何日志；
+- BASIC:仅记录请求方法、URL、 响应状态码及执行时间；
+- HEADERS:除了BASIC 中定义的信息之外，还有请求和响应的头信息；
+- FULL:除了HEADERS中定义的信息之外，还有请求和响应的正文及元数据。
+
+使用步骤：
+
+1.[配置日志bean](https://github.com/Silincee/springcloud2020/blob/main/cloud-consumer-feign-order80/src/main/java/cn/silince/springcloud/config/FeignConfig.java)
+
+```java
+@Configuration
+public class FeignConfig {
+    
+    @Bean
+    Logger.Level feignLoggerLevel(){
+        return Logger.Level.FULL;
+    }
+}
+```
+
+2.YML文件里需要开启日志的Feign客户端
+
+```yml
+logging:
+  level:
+    # feign日志以什么级别监控哪个接口
+    cn.silince.springcloud.service.PaymentFeignService: debug
+```
+
+
+
+3.后台日志查看
+
+![image-20201123194438210](/assets/imgs/image-20201123194438210.png)
