@@ -21,7 +21,7 @@ SpringCloud提供了ConfigServer来解决这个问题，我们每一 个微服�
 
 ***2.SpringCloud config 是什么：***
 
-![image-20201125184309983](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201125184309983.png)
+![image-20201125184309983](/assets/imgs/image-20201125184309983.png)
 
 SpringCloud Config为微服务架构中的微服务提供集中化的外部配置支持，**配置服务器为各个不同微服务应用的所有环境提供了一个中心化的外部配置。**
 
@@ -214,4 +214,4 @@ public class ConfigClientController {
 
 我们想大范围的自动刷新，求方法
 
-解决方法：[消息总线！！！]()
+解决方法：[消息总线！！！](http://www.silince.cn/2020/11/25/SpringCloud-消息总线/)
