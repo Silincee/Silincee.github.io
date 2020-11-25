@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "SpringCloud 服务配置"
+title: "SpringCloud Config分布式服务配置中心"
 date: 2020-11-25 14:11:16 +0800--
 categories: [Java, 分布式]
 tags: [Java, 分布式, SpringCloud]  
@@ -113,12 +113,12 @@ spring:
 
 ### 配置步骤
 
-1.新建cloud-config-client-3355
+1.新建[cloud-config-client-3355](https://github.com/Silincee/springcloud2020/tree/main/cloud-config-client-3355)
 
-- POM
-- bootstrap.yml
-- 主启动
-- 业务类
+- [POM](https://github.com/Silincee/springcloud2020/blob/main/cloud-config-client-3355/pom.xml)
+- [bootstrap.yml](https://github.com/Silincee/springcloud2020/blob/main/cloud-config-client-3355/target/classes/bootstrap.yml)
+- [主启动](https://github.com/Silincee/springcloud2020/blob/main/cloud-config-client-3355/src/main/java/cn/silince/springcloud/ConfigClientMain3355.java)
+- [业务类](https://github.com/Silincee/springcloud2020/blob/main/cloud-config-client-3355/src/main/java/cn/silince/springcloud/controller/ConfigClientController.java)
 - 测试：
   - http://localhost:3355/configInfo 
   - 成功实现了客户端3355访问SpringCloud Config3344通过GitHub获取配置信息
