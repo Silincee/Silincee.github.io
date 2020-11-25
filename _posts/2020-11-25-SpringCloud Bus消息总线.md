@@ -57,11 +57,16 @@ erl
 
 ```shell
 tar -zxvf rabbitmq-server-mac-standalone-3.7.14.tar.xz
+# 启动服务
 cd /Users/silince/Applications/rabbitmq/rabbitmq_server-3.7.14
-sbin/rabbitmq-server
+./sbin/rabbitmq-server
+# 关闭服务
+./rabbitmqctl stop
 # RabbitMQ 启动插件
 cd /Users/lidong/javaEE/rabbitmq_server-3.6.6/sbin
 sudo ./rabbitmq-plugins enable rabbitmq_management（执行一次以后不用再次执行）
+# RabbitMQ 关闭插件
+sudo ./rabbitmq-plugins disable rabbitmq_management
 # 登陆管理界面 账号密码初始默认都为guest
 http://localhost:15672/
 ```
