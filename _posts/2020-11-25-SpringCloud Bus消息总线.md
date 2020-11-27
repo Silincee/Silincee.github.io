@@ -39,7 +39,7 @@ ConfigClient实例都监听MQ中同一个topic（默认是springCloudBus）。�
 
 
 
-# RabbitMQ环境配置
+# [RabbitMQ环境配置]()
 
 1.安装Erlang，[下载地址](http://www.erlang.org/download/otp_src_R16B03.tar.gz)
 
@@ -174,4 +174,4 @@ management:
 
 # 通知总结
 
-![image-20201125223832779](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201125223832779.png)
+![image-20201125223832779](/assets/imgs/image-20201125223832779.png)

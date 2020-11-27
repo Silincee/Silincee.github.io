@@ -62,10 +62,10 @@ tags: [LeetCode,数据结构 ]
 
 > [二分查找](https://labuladong.gitbook.io/algo/di-ling-zhang-bi-du-xi-lie/er-fen-cha-zhao-xiang-jie)
 
-| 题目                                                | 算法思想 | 正确率 |
-| --------------------------------------------------- | -------- | ------ |
-| [\#704 二分查找]()                                  | 二分查找 | 0%     |
-| [\#34 在排序数组中查找元素的第一个和最后一个位置]() | 二分查找 |        |
+| 题目                                                         | 算法思想 | 正确率 |
+| ------------------------------------------------------------ | -------- | ------ |
+| [\#704 二分查找](www.silince.cn/2020/07/20/LeetSilinceCode/#704-二分查找) | 二分查找 | 0%     |
+| [\#34 在排序数组中查找元素的第一个和最后一个位置](http://www.silince.cn/2020/07/20/LeetSilinceCode/#34-在排序数组中查找元素的第一个和最后一个位置) | 二分查找 |        |
 
 二分查找并不简单，Knuth 大佬（发明 KMP 算法的那位）都说二分查找：**思路很简单，细节是魔鬼**。很多人喜欢拿整型溢出的 bug 说事儿，但是二分查找真正的坑根本就不是那个细节问题，而是在于到底要给 `mid` 加一还是减一，while 里到底用 `<=` 还是 `<`。
 
@@ -207,7 +207,7 @@ PS：这里先要说一个搜索左右边界和上面这个算法的一个区别
 
 因为对于搜索左右侧边界的二分查找，这种写法比较普遍，我就拿这种写法举例了，保证你以后遇到这类代码可以理解。你非要用两端都闭的写法反而更简单，我会在后面写相关的代码，把三种二分搜索都用一种两端都闭的写法统一起来，你耐心往后看就行了。
 
-**2）为什么没有返回 -1 的操作？如果** **`nums`** **中不存在** **`target`** **这个值，怎么办**？
+**⭐️ 2）为什么没有返回 -1 的操作？如果** **`nums`** **中不存在** **`target`** **这个值，怎么办**？
 
 答：因为要一步一步来，先理解一下这个「左侧边界」有什么特殊含义：
 
@@ -228,10 +228,10 @@ while (left < right) {
 // target 比所有数都大
 if (left == nums.length) return -1;
 // 类似之前算法的处理方式
-return nums[left] == target ? left : -1;
+if (nums[left] != target) return -1;
 ```
 
-**3）为什么** **`left = mid + 1`****，****`right = mid`** **？和之前的算法不一样**？
+**3）为什么** **`left = mid + 1`**，`right = mid` **？和之前的算法不一样**？
 
 答：这个很好解释，因为我们的「搜索区间」是 `[left, right)` 左闭右开，所以当 `nums[mid]` 被检测之后，下一步的搜索区间应该去掉 `mid` 分割成两个区间，即 `[left, mid)` 或 `[mid + 1, right)`。
 
@@ -846,24 +846,68 @@ class Solution {
 题目：
 
 ```xml
+给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。
+你的算法时间复杂度必须是 O(log n) 级别。
+如果数组中不存在目标值，返回 [-1, -1]。
 
+示例 1:
+输入: nums = [5,7,7,8,8,10], target = 8
+输出: [3,4]
 ```
 
 分析：
 
-***方法一：***
-
-
-
-- 时间复杂度：O()
-- 空间复杂度：O()
+***方法一：[二分查找左右边界](http://www.silince.cn/2020/07/20/LeetSilinceCode/#二分查找)***
 
 
 
 代码：
 
 ```java
+class Solution {
+  public int[] searchRange(int[] nums, int target) {
+    int left = 0;
+    int right = nums.length - 1;
 
+    // 寻找左边界
+    while (left <= right) {
+      int mid = left + (right - left) / 2;
+      if (nums[mid] > target) {
+        right = mid - 1;
+      } else if (nums[mid] < target) {
+        left = mid + 1;
+      } else if (nums[mid] == target) {
+        right = mid - 1;
+      }
+    }
+    // 越界或不存在补丁
+    int res1 = left;
+    if (left >= nums.length || nums[left] != target) {
+      res1 = -1;
+    }
+
+    // 寻找右边界
+    left = 0;
+    right = nums.length - 1;
+    while (left <= right) {
+      int mid = left + (right - left) / 2;
+      if (nums[mid] > target) {
+        right = mid - 1;
+      } else if (nums[mid] < target) {
+        left = mid + 1;
+      } else if (nums[mid] == target) {
+        left = mid + 1;
+      }
+    }
+    // 越界或不存在补丁
+    int res2 = right;
+    if (right < 0 || nums[right] != target) {
+      res2 = -1;
+    }
+
+    return new int[]{res1, res2};
+  }
+}
 ```
 
 ---
@@ -4620,19 +4664,7 @@ nums 的每个元素都将在 [-9999, 9999]之间。
 
 分析：
 
-***方法一：***
-
-
-
-
-
-
-
-代码：
-
-```java
-
-```
+[方法一](http://www.silince.cn/2020/07/20/LeetSilinceCode/#二分查找)
 
 ---
 
