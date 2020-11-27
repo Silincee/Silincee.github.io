@@ -39,7 +39,7 @@ ConfigClient实例都监听MQ中同一个topic（默认是springCloudBus）。�
 
 
 
-# [RabbitMQ环境配置]()
+# [RabbitMQ环境配置](http://www.silince.cn/2020/11/25/mac-rabbitMQ环境配置/)
 
 1.安装Erlang，[下载地址](http://www.erlang.org/download/otp_src_R16B03.tar.gz)
 
@@ -63,7 +63,7 @@ cd /Users/silince/Applications/rabbitmq/rabbitmq_server-3.7.14
 # 关闭服务
 ./rabbitmqctl stop
 # RabbitMQ 启动插件
-cd /Users/lidong/javaEE/rabbitmq_server-3.6.6/sbin
+cd /Users/silince/Applications/rabbitmq/rabbitmq_server-3.7.14/sbin
 sudo ./rabbitmq-plugins enable rabbitmq_management（执行一次以后不用再次执行）
 # RabbitMQ 关闭插件
 sudo ./rabbitmq-plugins disable rabbitmq_management

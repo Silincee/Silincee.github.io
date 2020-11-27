@@ -31,7 +31,7 @@ cd /Users/silince/Applications/rabbitmq/rabbitmq_server-3.7.14
 # 关闭服务
 ./rabbitmqctl stop
 # RabbitMQ 启动插件
-cd /Users/lidong/javaEE/rabbitmq_server-3.6.6/sbin
+cd /Users/silince/Applications/rabbitmq/rabbitmq_server-3.7.14/sbin
 sudo ./rabbitmq-plugins enable rabbitmq_management（执行一次以后不用再次执行）
 # RabbitMQ 关闭插件
 sudo ./rabbitmq-plugins disable rabbitmq_management
