@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "SpringCloud Alibaba"
-date: 2020-11-27 19:18:16 +0800--
+title: "SpringCloud Alibaba Nacos服务注册和配置中心"
+date: 2020-11-28 19:18:16 +0800--
 categories: [Java, 分布式]
 tags: [Java, 分布式, SpringCloud]  
 
