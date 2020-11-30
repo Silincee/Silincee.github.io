@@ -3,7 +3,7 @@ layout: post
 title: "SpringCloud 服务注册中心"
 date: 2020-11-21 19:21:16 +0800--
 categories: [Java, 分布式]
-tags: [Java, 分布式, SpringCloud]  
+tags: [Java, 分布式, SpringCloud, Eurek]  
 
 ---
 
