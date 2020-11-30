@@ -401,7 +401,7 @@ GitHub:https://github.com/spring-cloud/spring-cloud-openfeign
 
 6.业务类
 
-- [新建PaymentFeignService接口并新增注解@FeignClient](https://github.com/Silincee/springcloud2020/blob/main/cloud-consumer-feign-order80/src/main/java/cn/silince/springcloud/service/PaymentFeignService.java)
+- [新建PaymentFeignService接口并新增注解@FeignClient](https://github.com/Silincee/springcloud2020/blob/main/cloud-consumer-feign-order80/src/main/java/cn/silince/springcloud/service/PaymentFeignService.java);需要和[服务提供者方法](https://github.com/Silincee/springcloud2020/blob/main/cloud-provider-payment8001/src/main/java/cn/silince/springcloud/controller/PaymentController.java)保持一致
 - [控制层Controller](https://github.com/Silincee/springcloud2020/blob/main/cloud-consumer-feign-order80/src/main/java/cn/silince/springcloud/controller/OrderFeignController.java)
 
 7.测试
