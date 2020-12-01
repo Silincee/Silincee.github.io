@@ -435,3 +435,7 @@ Simple Extensible Autonomous Transaction Architecture,简单可扩展自治事�
 
 
 ## 补充
+
+![image-20201201093424910](/assets/imgs/image-20201201093424910.png)
+
+![image-20201201093456423](/assets/imgs/image-20201201093456423.png)
