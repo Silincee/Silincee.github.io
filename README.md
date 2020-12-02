@@ -1,17 +1,15 @@
 [Silince的独立博客](http://Silincee.github.io/)
 =================================
 
-一个简洁的、多设备支持的 Jekyll 博客模板，用于搭建[我的独立博客](http://Silincee.github.io/)。  
+一个用于记录学习笔记和心得体会的个人博客。
+
+
+
+#### **使用该博客主题的注意事项：**   
+
 [我的独立博客](http://Silincee.github.io) 主题基于 [oukohou](https://github.com/oukohou/oukohou.github.io) 进行了重新修改和优化，感谢🙏。  
 
-
-
-#### **使用我的博客主题的注意事项：**   
-
-我的博客主题里有一些定制化的内容，其中涉及到一些信息获取的事宜(比如百度统计的代码，你忘记修改的话，我可以直接获取到你的网站的各种访问信息呦🙈)，所以 [oukohou](https://github.com/oukohou/oukohou.github.io)一一都写在了 **[这篇博文](https://www.oukohou.wang/2018/12/18/notices-for-jekyll-themes-fork/ "对没错，就是是这篇超级暖心的博文")**
- 里，敬请访问～～
-
-
+我的博客主题里有一些定制化的内容，其中涉及到一些信息获取的事宜(比如百度统计的代码，你忘记修改的话，我可以直接获取到你的网站的各种访问信息呦🙈)，修改方式详见 **[这篇博文](https://www.oukohou.wang/2018/12/18/notices-for-jekyll-themes-fork/ "对没错，就是是这篇超级暖心的博文")**。
 
 #### **主题安装**
 
