@@ -69,7 +69,15 @@ while (right < s.length()) {
 
 其实困扰大家的，不是算法的思路，而是各种细节问题。比如说如何向窗口中添加新元素，如何缩小窗口，在窗口滑动的哪个阶段更新结果。即便你明白了这些细节，也容易出 bug，找 bug 还不知道怎么找，真的挺让人心烦的。
 
-**所以今天我就写一套滑动窗口算法的代码框架，我连再哪里做输出 debug 都给你写好了，以后遇到相关的问题，你就默写出来如下框架然后改三个地方就行，还不会出 bug**：
+**所以今天我就写一套滑动窗口算法的代码框架，我连再哪里做输出 debug 都给你写好了，以后遇到相关的问题，你就默写出来如下框架然后改三个地方就行，还不会出 bug，只需要思考以下四个问题**：
+
+**1、当移动 `right` 扩大窗口，即加入字符时，应该更新哪些数据？**
+
+**2、什么条件下，窗口应该暂停扩大，开始移动 `left` 缩小窗口？**
+
+**3、当移动 `left` 缩小窗口，即移出字符时，应该更新哪些数据？**
+
+**4、我们要的结果应该在扩大窗口时还是缩小窗口时进行更新？**
 
 ```java
 /* 滑动窗口算法框架 */
@@ -889,25 +897,61 @@ int BFS(Node start, Node target) {
 题目：
 
 ```xml
+给定一个字符串，请你找出其中不含有重复字符的最长子串的长度。
 
+示例 1:
+输入: s = "abcabcbb"
+输出: 3 
+解释: 因为无重复字符的最长子串是 "abc"，所以其长度为 3。
+
+提示：
+0 <= s.length <= 5 * 10^4
+s 由英文字母、数字、符号和空格组成
 ```
 
 分析：
 
-***方法一：***
-
-
-
-- 时间复杂度：O()
-- 空间复杂度：O()
-
-
-
-代码：
+这个题终于有了点新意，不是一套框架就出答案，不过反而更简单了，稍微改一改框架就行了：
 
 ```java
+public int lengthOfLongestSubstring(String s) {
 
+  // window计数器
+  HashMap<Character, Integer> window = new HashMap<>();
+
+  int left = 0;int right = 0;
+  int result = 0; // 记录结果
+
+  char[] sArray = s.toCharArray();
+  while (right < s.length()) {
+    // right扩大
+    Character c = sArray[right];
+    right++;
+    // 进行窗口内数据的一系列更新
+    window.put(c, window.getOrDefault(c, 0) + 1);
+
+    // 何时收缩？ 当前字符计数值大于1时收缩
+    while (window.get(c) > 1) {
+      Character d = sArray[left];
+      left++;
+      // 进行窗口内数据的一系列更新
+      window.put(d, window.get(d) - 1);
+    }
+
+    // 收缩结束 已经没有重复字符(在这里更新答案)
+    result = Math.max(result, right - left);
+  }
+  return result;
+}
 ```
+
+这就是变简单了，连 `need` 和 `valid` 都不需要，而且更新窗口内数据也只需要简单的更新计数器 `window` 即可。
+
+当 `window[c]` 值大于 1 时，说明窗口中存在重复字符，不符合条件，就该移动 `left` 缩小窗口了嘛。
+
+唯一需要注意的是，在哪里更新结果 `res` 呢？我们要的是最长无重复子串，哪一个阶段可以保证窗口中的字符串是没有重复的呢？
+
+**这里和之前不一样，要在收缩窗口完成后更新 `res`，因为窗口收缩的 while 条件是存在重复元素，换句话说收缩完成后一定保证窗口中没有重复嘛。**
 
 ---
 
@@ -1527,13 +1571,13 @@ while (right < s.length()) {
 
 **现在开始套模板，只需要思考以下四个问题**：
 
-1、当移动 `right` 扩大窗口，即加入字符时，应该更新哪些数据？
+**1、当移动 `right` 扩大窗口，即加入字符时，应该更新哪些数据？**
 
-2、什么条件下，窗口应该暂停扩大，开始移动 `left` 缩小窗口？
+**2、什么条件下，窗口应该暂停扩大，开始移动 `left` 缩小窗口？**
 
-3、当移动 `left` 缩小窗口，即移出字符时，应该更新哪些数据？
+**3、当移动 `left` 缩小窗口，即移出字符时，应该更新哪些数据？**
 
-4、我们要的结果应该在扩大窗口时还是缩小窗口时进行更新？
+**4、我们要的结果应该在扩大窗口时还是缩小窗口时进行更新？**
 
 如果一个字符进入窗口，应该增加 `window` 计数器；如果一个字符将移出窗口的时候，应该减少 `window` 计数器；当 `valid` 满足 `need` 时应该收缩窗口；应该在收缩窗口的时候更新最终结果。
 
@@ -3769,24 +3813,87 @@ class Solution {
 题目：
 
 ```xml
+给定一个字符串 s 和一个非空字符串 p，找到 s 中所有是 p 的字母异位词的子串，返回这些子串的起始索引。
+字符串只包含小写英文字母，并且字符串 s 和 p 的长度都不超过 20100。
 
+说明：
+字母异位词指字母相同，但排列不同的字符串。
+不考虑答案输出的顺序。
+
+示例 1:
+输入:
+s: "cbaebabacd" p: "abc"
+输出:
+[0, 6]
+
+解释:
+起始索引等于 0 的子串是 "cba", 它是 "abc" 的字母异位词。
+起始索引等于 6 的子串是 "bac", 它是 "abc" 的字母异位词。
 ```
 
 分析：
 
-***方法一：***
+这个所谓的字母异位词，不就是排列吗，搞个高端的说法就能糊弄人了吗？**相当于，输入一个串** **`S`**，一个串**`T`**，找到 **`S`** **中所有** **`T`** **的排列，返回它们的起始索引**。
 
+直接默写一下框架，明确刚才讲的 4 个问题，即可秒杀这道题：
 
-
-- 时间复杂度：O()
-- 空间复杂度：O()
-
-
+跟寻找字符串的排列一样，只是找到一个合法异位词（排列）之后将起始索引加入 `res` 即可。
 
 代码：
 
 ```java
+public List<Integer> findAnagrams(String s, String p) {
 
+  // 结果列表
+  ArrayList<Integer> result = new ArrayList<>();
+
+  // need window hashMap
+  // 初始化need
+  HashMap<Character, Integer> need = new HashMap<>();
+  HashMap<Character, Integer> window = new HashMap<>();
+  for (char key : p.toCharArray()) {
+    need.put(key, need.getOrDefault(key, 0) + 1);
+  }
+
+  // 窗口指针 统计参数valid
+  int left = 0;
+  int right = 0;
+  int valid = 0;
+
+  // 开始滑动
+  char[] sArray = s.toCharArray();
+  while (right < s.length()) {
+    // right 增加
+    Character c = sArray[right];
+    right++;
+    if (need.containsKey(c)) {
+      window.put(c, window.getOrDefault(c, 0) + 1);
+      if (window.get(c).equals(need.get(c))) {
+        valid++;
+      }
+    }
+
+    // left++ 收缩条件？窗口大小>=p.length()
+    while ((right - left) >= p.length()) {
+      // 处理逻辑
+      if (valid == need.size()) {
+        result.add(left);
+      }
+
+      // 更新参数
+      Character d = sArray[left];
+      left++;
+      if (need.containsKey(d)) {
+        if (window.get(d).equals(need.get(d))) {
+          valid--;
+        }
+        window.put(d, window.get(d) - 1);
+      }
+    }
+
+  }
+  return result;
+}
 ```
 
 ---
@@ -4251,25 +4358,87 @@ class Solution {
 题目：
 
 ```xml
+给定两个字符串 s1 和 s2，写一个函数来判断 s2 是否包含 s1 的排列。
+换句话说，第一个字符串的排列之一是第二个字符串的子串。
 
+示例1:
+输入: s1 = "ab" s2 = "eidbaooo"
+输出: True
+解释: s2 包含 s1 的排列之一 ("ba").
+ 
+注意：
+输入的字符串只包含小写字母
+两个字符串的长度都在 [1, 10,000] 之间
 ```
 
 分析：
 
-***方法一：***
+注意哦，输入的 `s1` 是可以包含重复字符的，所以这个题难度不小。
 
+这种题目，是明显的滑动窗口算法，**相当给你一个** **`S`** **和一个** **`T`**，请问你 **`S`** **中是否存在一个子串，包含** **`T`** **中所有字符且不包含其他字符**？
 
-
-- 时间复杂度：O()
-- 空间复杂度：O()
-
-
-
-代码：
+首先，先复制粘贴之前的算法框架代码，然后明确刚才提出的 4 个问题，即可写出这道题的答案：
 
 ```java
+public boolean checkInclusion(String s1, String s2) {
 
+  // need 和 window 散列表 初始化need
+  HashMap<Character, Integer> need = new HashMap<>();
+  for (char key : s1.toCharArray()) {
+    need.put(key, need.getOrDefault(key, 0) + 1);
+  }
+
+  HashMap<Character, Integer> window = new HashMap<>();
+
+  // 滑动窗口指针 left/right 统计参数valid
+  int left = 0;
+  int right = 0;
+  int valid = 0;
+
+  // 开始滑动
+  char[] sArray = s2.toCharArray();
+  while (right < sArray.length) {
+    // right 增加
+    Character c = sArray[right];
+    right++;
+    // 进行一系列的更新
+    if (need.containsKey(c)) {
+      window.put(c, window.getOrDefault(c, 0) + 1);
+      // 更新valid
+      if (window.get(c).equals(need.get(c))) {
+        valid++;
+      }
+    }
+
+    // 缩小窗口的时机： 窗口大小>=s1.length,因为排列必须保持长度一致
+    while ((right - left) >= s1.length()) {
+      // 当发现 valid == need.size() 时，就说明窗口中就是一个合法的排列，所以立即返回 true
+      // 注意 need.size()和s1.length() 是不相等的，因为s1中可能有重复字符
+      if (valid == need.size()) return true;
+
+      Character d = sArray[left];
+      left++;
+      // 进行一系列的更新
+      if (need.containsKey(d)) {
+        // 更新valid
+        if (window.get(d).equals(need.get(d))) {
+          valid--;
+        }
+        window.put(d, window.get(d) - 1);
+      }
+    }
+  }
+  return false; //未找到子串
+}
 ```
+
+对于这道题的解法代码，基本上和最小覆盖子串一模一样，只需要改变两个地方：
+
+1、本题移动 `left` 缩小窗口的时机是窗口大小大于等于 `t.size()` 时，应为排列嘛，显然长度应该是一样的。
+
+2、当发现 `valid == need.size()` 时，就说明窗口中就是一个合法的排列，所以立即返回 `true`。
+
+至于如何处理窗口的扩大和缩小，和最小覆盖子串完全相同。
 
 ---
 
