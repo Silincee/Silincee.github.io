@@ -84,11 +84,11 @@ while (right < s.length()) {
 public String slidingWindow(String s, String t) {
   
     // 需要的字符散列表 全部初始化为1(表示需要)
-		HashMap<Character, Integer> need = new HashMap<>();
-		for (char key : t.toCharArray()) {
-			need.put(key, need.getOrDefault(key, 0) + 1);
-		}
-		HashMap<Character, Integer> window = new HashMap<>();// 用于记录「窗口」中的相应字符的出现次数
+    HashMap<Character, Integer> need = new HashMap<>();
+    for (char key : t.toCharArray()) {
+      need.put(key, need.getOrDefault(key, 0) + 1);
+    }
+    HashMap<Character, Integer> window = new HashMap<>();// 用于记录「窗口」中的相应字符的出现次数
 
     int left = 0, right = 0;
     int valid = 0; // 表示窗口中满足need条件的字符个数
@@ -1586,61 +1586,61 @@ while (right < s.length()) {
 ```java
 public String minWindow(String s, String t) {
 
-		// 需要的字符散列表 全部初始化为1(表示需要)
-		HashMap<Character, Integer> need = new HashMap<>();
-		for (char key : t.toCharArray()) {
-			// Map集合中有这个key时，就使用这个key对应的value值，如果没有就使用默认值defaultValue
-			need.put(key, need.getOrDefault(key, 0) + 1);
-		}
+  // 需要的字符散列表 全部初始化为1(表示需要)
+  HashMap<Character, Integer> need = new HashMap<>();
+  for (char key : t.toCharArray()) {
+    // Map集合中有这个key时，就使用这个key对应的value值，如果没有就使用默认值defaultValue
+    need.put(key, need.getOrDefault(key, 0) + 1);
+  }
 
-		HashMap<Character, Integer> window = new HashMap<>();// 用于记录「窗口」中的相应字符的出现次数
+  HashMap<Character, Integer> window = new HashMap<>();// 用于记录「窗口」中的相应字符的出现次数
 
-		int left = 0;
-		int right = 0;
-		int valid = 0; // 表示窗口中满足need条件的字符个数
+  int left = 0;
+  int right = 0;
+  int valid = 0; // 表示窗口中满足need条件的字符个数
 
-		// 记录最小覆盖子串的起始索引及长度
-		int start = 0;
-		int len = Integer.MAX_VALUE;
+  // 记录最小覆盖子串的起始索引及长度
+  int start = 0;
+  int len = Integer.MAX_VALUE;
 
-		char[] sArray = s.toCharArray();
-		// 开始滑动
-		while(right<sArray.length){
-			// c 是将移入窗口的字符
-			char c = sArray[right];
-			// 右移窗口
-			right++;
-			// 进行窗口内数据的一系列更新
-			if (need.containsKey(c)){
-				window.put(c,window.getOrDefault(c,0)+1);
-				// ⚠️ 这个好像是 Java 包装类的原因，不能用等号而要用 equals 方法
-				if (window.get(c).equals(need.get(c))){
-					valid++;
-				}
-			}
+  char[] sArray = s.toCharArray();
+  // 开始滑动
+  while(right<sArray.length){
+    // c 是将移入窗口的字符
+    char c = sArray[right];
+    // 右移窗口
+    right++;
+    // 进行窗口内数据的一系列更新
+    if (need.containsKey(c)){
+      window.put(c,window.getOrDefault(c,0)+1);
+      // ⚠️ 这个好像是 Java 包装类的原因，不能用等号而要用 equals 方法
+      if (window.get(c).equals(need.get(c))){
+        valid++;
+      }
+    }
 
-			// 判断左侧窗口是否要收缩
-			while(valid==need.size()){
-				// 在这里更新最小覆盖子串
-				if (right-left<len){
-					start = left;
-					len = right-left;
-				}
-				// d 是将移出窗口的字符
-				char d = sArray[left];
-				// 左移窗口
-				left++;
-				// 进行窗口内数据的一系列更新
-				if (need.containsKey(d)){
-					if (window.get(d).equals(need.get(d))){
-						valid--;
-					}
-					window.put(d,window.get(d)-1);
-				}
-			}
-		}
-		// 返回最小覆盖子串
-		return len==Integer.MAX_VALUE?"":s.substring(start,start+len);
+    // 判断左侧窗口是否要收缩
+    while(valid==need.size()){
+      // 在这里更新最小覆盖子串
+      if (right-left<len){
+        start = left;
+        len = right-left;
+      }
+      // d 是将移出窗口的字符
+      char d = sArray[left];
+      // 左移窗口
+      left++;
+      // 进行窗口内数据的一系列更新
+      if (need.containsKey(d)){
+        if (window.get(d).equals(need.get(d))){
+          valid--;
+        }
+        window.put(d,window.get(d)-1);
+      }
+    }
+  }
+  // 返回最小覆盖子串
+  return len==Integer.MAX_VALUE?"":s.substring(start,start+len);
 
 	}
 ```
