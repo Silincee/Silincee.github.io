@@ -36,6 +36,94 @@ tags: [LeetCode,数据结构 ]
 
 
 
+## 滑动窗口
+
+> [滑动窗口算法框架](https://labuladong.gitbook.io/algo/di-ling-zhang-bi-du-xi-lie/hua-dong-chuang-kou-ji-qiao-jin-jie)
+
+| 题目                                                         | 算法思想 | 正确率 |
+| ------------------------------------------------------------ | -------- | ------ |
+| [\#3 无重复字符的最长子串](http://www.silince.cn/2020/07/20/LeetSilinceCode/#3-无重复字符的最长子串) | 滑动窗口 | 0%     |
+| [\#76 最小覆盖子串](http://www.silince.cn/2020/07/20/LeetSilinceCode/#76-最小覆盖子串) | 滑动窗口 |        |
+| [\#438 找到字符串中所有字母异位词](http://www.silince.cn/2020/07/20/LeetSilinceCode/#438-找到字符串中所有字母异位词) | 滑动窗口 |        |
+| [\#567 字符串的排列](http://www.silince.cn/2020/07/20/LeetSilinceCode/#567-字符串的排列) | 滑动窗口 |        |
+
+滑动窗口算法的思路非常简单，就是维护一个窗口，不断滑动，然后更新答案么。LeetCode 上有起码 10 道运用滑动窗口算法的题目，难度都是中等和困难。该算法的大致逻辑如下：
+
+```java
+int left = 0, right = 0;
+
+while (right < s.length()) {
+    // 增大窗口
+    window.add(s[right]);
+    right++;
+
+    while (window needs shrink) {
+        // 缩小窗口
+        window.remove(s[left]);
+        left++;
+    }
+}
+```
+
+这个算法技巧的时间复杂度是 O(N)，比字符串暴力算法要高效得多。
+
+其实困扰大家的，不是算法的思路，而是各种细节问题。比如说如何向窗口中添加新元素，如何缩小窗口，在窗口滑动的哪个阶段更新结果。即便你明白了这些细节，也容易出 bug，找 bug 还不知道怎么找，真的挺让人心烦的。
+
+**所以今天我就写一套滑动窗口算法的代码框架，我连再哪里做输出 debug 都给你写好了，以后遇到相关的问题，你就默写出来如下框架然后改三个地方就行，还不会出 bug**：
+
+```java
+/* 滑动窗口算法框架 */
+public String slidingWindow(String s, String t) {
+  
+    // 需要的字符散列表 全部初始化为1(表示需要)
+		HashMap<Character, Integer> need = new HashMap<>();
+		for (char key : t.toCharArray()) {
+			need.put(key, need.getOrDefault(key, 0) + 1);
+		}
+		HashMap<Character, Integer> window = new HashMap<>();// 用于记录「窗口」中的相应字符的出现次数
+
+    int left = 0, right = 0;
+    int valid = 0; // 表示窗口中满足need条件的字符个数
+  	char[] sArray = s.toCharArray();
+    while (right < sArray.length) {
+        // c 是将移入窗口的字符
+        char c = sArray[right];
+        // 右移窗口
+        right++;
+        // 进行窗口内数据的一系列更新
+        ...
+
+        /*** debug 输出的位置 ***/
+        System.out.println("window: [" + left + "," + right + "]\n");
+        /********************/
+
+        // 判断左侧窗口是否要收缩
+        while (valid==need.size()) {
+            // d 是将移出窗口的字符
+            char d = sArray[left];
+            // 左移窗口
+            left++;
+            // 进行窗口内数据的一系列更新
+            ...
+        }
+    }
+}
+```
+
+**其中两处** **`...`** **表示的更新窗口数据的地方，到时候你直接往里面填就行了**。
+
+而且，这两个 `...` 处的操作分别是右移和左移窗口更新操作，等会你会发现它们操作是完全对称的。
+
+说句题外话，我发现很多人喜欢执着于表象，不喜欢探求问题的本质。比如说有很多人评论我这个框架，说什么散列表速度慢，不如用数组代替散列表；还有很多人喜欢把代码写得特别短小，说我这样代码太多余，影响编译速度，LeetCode 上速度不够快。
+
+我服了。算法看的是时间复杂度，你能确保自己的时间复杂度最优，就行了。至于 LeetCode 所谓的运行速度，那个都是玄学，只要不是慢的离谱就没啥问题，根本不值得你从编译层面优化，不要舍本逐末……
+
+言归正传，下面就直接上**四道** LeetCode 原题来套这个框架，其中[第一道题](http://www.silince.cn/2020/07/20/LeetSilinceCode/#76-最小覆盖子串)第一道题会详细说明其原理，后面四道就直接闭眼睛秒杀了。
+
+
+
+
+
 ## 排序算法
 
 | 题目                                                         | 算法思想 | 正确率 |
@@ -533,21 +621,6 @@ int right_bound(int[] nums, int target) {
 ```
 
 如果以上内容你都能理解，那么恭喜你，二分查找算法的细节不过如此。
-
-
-
-
-
-## 滑动窗口
-
-> [滑动窗口算法框架](https://labuladong.gitbook.io/algo/di-ling-zhang-bi-du-xi-lie/hua-dong-chuang-kou-ji-qiao-jin-jie)
-
-| 题目                                 | 算法思想 | 正确率 |
-| ------------------------------------ | -------- | ------ |
-| [\#3 无重复字符的最长子串]()         | 滑动窗口 | 0%     |
-| [\#76 最小覆盖子串]()                | 滑动窗口 |        |
-| [\#438 找到字符串中所有字母异位词]() | 滑动窗口 |        |
-| [\#567 字符串的排列]()               | 滑动窗口 |        |
 
 
 
@@ -1378,25 +1451,163 @@ bool backtrack(vector<string>& board, int row) {
 题目：
 
 ```xml
+给你一个字符串 s 、一个字符串 t 。返回 s 中涵盖 t 所有字符的最小子串。如果 s 中不存在涵盖 t 所有字符的子串，则返回空字符串 "" 。
+注意：如果 s 中存在这样的子串，我们保证它是唯一的答案。
 
+示例 1：
+输入：s = "ADOBECODEBANC", t = "ABC"
+输出："BANC"
+
+提示：
+1) 1 <= s.length, t.length <= 105
+2) s 和 t 由英文字母组成
 ```
 
 分析：
 
-***方法一：***
+***方法一：滑动窗口***
 
+**滑动窗口算法的思路是这样**：
 
+1、我们在字符串 `S` 中使用双指针中的左右指针技巧，初始化 `left = right = 0`，把索引**左闭右开**区间 `[left, right)` 称为一个「窗口」。
 
-- 时间复杂度：O()
-- 空间复杂度：O()
+2、我们先不断地增加 `right` 指针扩大窗口 `[left, right)`，直到窗口中的字符串符合要求（包含了 `T` 中的所有字符）。
 
+3、此时，我们停止增加 `right`，转而不断增加 `left` 指针缩小窗口 `[left, right)`，直到窗口中的字符串不再符合要求（不包含 `T` 中的所有字符了）。同时，每次增加 `left`，我们都要更新一轮结果。
 
+4、重复第 2 和第 3 步，直到 `right` 到达字符串 `S` 的尽头。
 
-代码：
+这个思路其实也不难，**第 2 步相当于在寻找一个「可行解」，然后第 3 步在优化这个「可行解」，最终找到最优解，**也就是最短的覆盖子串。左右指针轮流前进，窗口大小增增减减，窗口不断向右滑动，这就是「滑动窗口」这个名字的来历。
+
+下面画图理解一下，`needs` 和 `window` 相当于计数器，分别记录 `T` 中字符出现次数和「窗口」中的相应字符的出现次数。
+
+初始状态：
+
+![image-20201202140205515](/assets/imgs/image-20201202140205515.png)
+
+增加 `right`，直到窗口 `[left, right]` 包含了 `T` 中所有字符：
+
+![image-20201202140247893](/assets/imgs/image-20201202140247893.png)
+
+现在开始增加 `left`，缩小窗口 `[left, right]`。
+
+![image-20201202140313665](/assets/imgs/image-20201202140313665.png)
+
+直到窗口中的字符串不再符合要求，`left` 不再继续移动。
+
+![image-20201202140330586](/assets/imgs/image-20201202140330586.png)
+
+之后重复上述过程，先移动 `right`，再移动 `left`…… 直到 `right` 指针到达字符串 `S` 的末端，算法结束。
+
+如果你能够理解上述过程，恭喜，你已经完全掌握了滑动窗口算法思想。**现在我们来看看这个滑动窗口代码框架怎么用**：
+
+首先，初始化 `window` 和 `need` 两个哈希表，记录窗口中的字符和需要凑齐的字符：
 
 ```java
+HashMap<Character, Integer> need = new HashMap<>();
+for (char key : t.toCharArray()) {
+  // Map集合中有这个key时，就使用这个key对应的value值，如果没有就使用默认值defaultValue
+  need.put(key, need.getOrDefault(key, 0) + 1);
+}
 
+HashMap<Character, Integer> window = new HashMap<>();// 用于记录「窗口」中的相应字符的出现次数
 ```
+
+然后，使用 `left` 和 `right` 变量初始化窗口的两端，不要忘了，区间 `[left, right)` 是左闭右开的，所以初始情况下窗口没有包含任何元素：
+
+```java
+int left = 0, right = 0;
+int valid = 0; 
+while (right < s.length()) {
+    // 开始滑动
+}
+```
+
+**其中** **`valid`** **变量表示窗口中满足** **`need`** **条件的字符个数**，如果 `valid` 和 `need.size` 的大小相同，则说明窗口已满足条件，已经完全覆盖了串 `T`。
+
+**现在开始套模板，只需要思考以下四个问题**：
+
+1、当移动 `right` 扩大窗口，即加入字符时，应该更新哪些数据？
+
+2、什么条件下，窗口应该暂停扩大，开始移动 `left` 缩小窗口？
+
+3、当移动 `left` 缩小窗口，即移出字符时，应该更新哪些数据？
+
+4、我们要的结果应该在扩大窗口时还是缩小窗口时进行更新？
+
+如果一个字符进入窗口，应该增加 `window` 计数器；如果一个字符将移出窗口的时候，应该减少 `window` 计数器；当 `valid` 满足 `need` 时应该收缩窗口；应该在收缩窗口的时候更新最终结果。
+
+下面是完整代码：
+
+```java
+public String minWindow(String s, String t) {
+
+		// 需要的字符散列表 全部初始化为1(表示需要)
+		HashMap<Character, Integer> need = new HashMap<>();
+		for (char key : t.toCharArray()) {
+			// Map集合中有这个key时，就使用这个key对应的value值，如果没有就使用默认值defaultValue
+			need.put(key, need.getOrDefault(key, 0) + 1);
+		}
+
+		HashMap<Character, Integer> window = new HashMap<>();// 用于记录「窗口」中的相应字符的出现次数
+
+		int left = 0;
+		int right = 0;
+		int valid = 0; // 表示窗口中满足need条件的字符个数
+
+		// 记录最小覆盖子串的起始索引及长度
+		int start = 0;
+		int len = Integer.MAX_VALUE;
+
+		char[] sArray = s.toCharArray();
+		// 开始滑动
+		while(right<sArray.length){
+			// c 是将移入窗口的字符
+			char c = sArray[right];
+			// 右移窗口
+			right++;
+			// 进行窗口内数据的一系列更新
+			if (need.containsKey(c)){
+				window.put(c,window.getOrDefault(c,0)+1);
+				// ⚠️ 这个好像是 Java 包装类的原因，不能用等号而要用 equals 方法
+				if (window.get(c).equals(need.get(c))){
+					valid++;
+				}
+			}
+
+			// 判断左侧窗口是否要收缩
+			while(valid==need.size()){
+				// 在这里更新最小覆盖子串
+				if (right-left<len){
+					start = left;
+					len = right-left;
+				}
+				// d 是将移出窗口的字符
+				char d = sArray[left];
+				// 左移窗口
+				left++;
+				// 进行窗口内数据的一系列更新
+				if (need.containsKey(d)){
+					if (window.get(d).equals(need.get(d))){
+						valid--;
+					}
+					window.put(d,window.get(d)-1);
+				}
+			}
+		}
+		// 返回最小覆盖子串
+		return len==Integer.MAX_VALUE?"":s.substring(start,start+len);
+
+	}
+```
+
+需要注意的是，当我们发现某个字符在 `window` 的数量满足了 `need` 的需要，就要更新 `valid`，表示有一个字符已经满足要求。而且，你能发现，两次对窗口内数据的更新操作是完全对称的。
+
+当 `valid == need.size()` 时，说明 `T` 中所有字符已经被覆盖，已经得到一个可行的覆盖子串，现在应该开始收缩窗口了，以便得到「最小覆盖子串」。
+
+移动 `left` 收缩窗口时，窗口内的字符都是可行解，所以应该在收缩窗口的阶段进行最小覆盖子串的更新，以便从可行解中找到长度最短的最终结果。
+
+至此，应该可以完全理解这套框架了，滑动窗口算法又不难，就是细节问题让人烦得很。**以后遇到滑动窗口算法，你就按照这框架写代码，保准没有 bug，还省事儿**。
 
 ---
 
