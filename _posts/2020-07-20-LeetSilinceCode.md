@@ -536,6 +536,23 @@ int right_bound(int[] nums, int target) {
 
 
 
+
+
+## 滑动窗口
+
+> [滑动窗口算法框架](https://labuladong.gitbook.io/algo/di-ling-zhang-bi-du-xi-lie/hua-dong-chuang-kou-ji-qiao-jin-jie)
+
+| 题目                                 | 算法思想 | 正确率 |
+| ------------------------------------ | -------- | ------ |
+| [\#3 无重复字符的最长子串]()         | 滑动窗口 | 0%     |
+| [\#76 最小覆盖子串]()                | 滑动窗口 |        |
+| [\#438 找到字符串中所有字母异位词]() | 滑动窗口 |        |
+| [\#567 字符串的排列]()               | 滑动窗口 |        |
+
+
+
+
+
 ## 分治
 
 ## 搜索
@@ -789,6 +806,42 @@ int BFS(Node start, Node target) {
 
 # 题
 
+
+
+## [\#3. 无重复字符的最长子串](https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/)
+
+- 中等
+- 2020.12.02：😭  
+
+题目：
+
+```xml
+
+```
+
+分析：
+
+***方法一：***
+
+
+
+- 时间复杂度：O()
+- 空间复杂度：O()
+
+
+
+代码：
+
+```java
+
+```
+
+---
+
+
+
+
+
 ## [\#11. 盛最多水的容器](https://leetcode-cn.com/problems/container-with-most-water/)
 
 - medium
@@ -835,6 +888,51 @@ class Solution {
 ```
 
 ---
+
+
+
+## [#26. 删除排序数组中的重复项](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/) 
+
+- Easy
+- 2019.08.30：😭 
+
+题目：
+
+```xml
+给定一个排序数组，你需要在 原地 删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。
+不要使用额外的数组空间，你必须在 原地 修改输入数组 并在使用 O(1) 额外空间的条件下完成。
+```
+
+分析：双指针法
+
+```xml
+数组完成排序后，我们可以放置两个指针 i 和 j，其中 i 是慢指针，而 j 是快指针。慢指针 i 用于记录最后一次出现的数字，快指针 j 用于遍历数组的每一个元素，并把未出现过的数赋值给第 i+1 个元素。
+
+只要 nums[i] = nums[j]，我们就增加 j 以跳过重复项。当我们遇到 nums[j] 不等于 nums[i]，跳过重复项的运行已经结束，因此我们必须把它（nums[j]）的值复制到 nums[i + 1]。然后递增 i，接着我们将再次重复相同的过程，直到 j 到达数组的末尾为止。
+
+复杂度分析
+时间复杂度：O(n)O(n)，假设数组的长度是 n，那么 i 和 j 分别最多遍历 n 步。
+空间复杂度：O(1)O(1)。
+```
+
+代码：
+
+```java
+public int removeDuplicates(int[] nums) {
+    if (nums.length == 0) return 0;
+    int i = 0;
+    for (int j = 1; j < nums.length; j++) {
+        if (nums[j] != nums[i]) {
+            nums[++i]=nums[j];
+        }
+    }
+    return i + 1;
+}
+```
+
+---
+
+
 
 
 
@@ -1243,47 +1341,6 @@ bool backtrack(vector<string>& board, int row) {
 
 
 
-## [#26. 删除排序数组中的重复项](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/) 
-
-- Easy
-- 2019.08.30：😭 
-
-题目：
-
-```xml
-给定一个排序数组，你需要在 原地 删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。
-不要使用额外的数组空间，你必须在 原地 修改输入数组 并在使用 O(1) 额外空间的条件下完成。
-```
-
-分析：双指针法
-
-```xml
-数组完成排序后，我们可以放置两个指针 i 和 j，其中 i 是慢指针，而 j 是快指针。慢指针 i 用于记录最后一次出现的数字，快指针 j 用于遍历数组的每一个元素，并把未出现过的数赋值给第 i+1 个元素。
-
-只要 nums[i] = nums[j]，我们就增加 j 以跳过重复项。当我们遇到 nums[j] 不等于 nums[i]，跳过重复项的运行已经结束，因此我们必须把它（nums[j]）的值复制到 nums[i + 1]。然后递增 i，接着我们将再次重复相同的过程，直到 j 到达数组的末尾为止。
-
-复杂度分析
-时间复杂度：O(n)O(n)，假设数组的长度是 n，那么 i 和 j 分别最多遍历 n 步。
-空间复杂度：O(1)O(1)。
-```
-
-代码：
-
-```java
-public int removeDuplicates(int[] nums) {
-    if (nums.length == 0) return 0;
-    int i = 0;
-    for (int j = 1; j < nums.length; j++) {
-        if (nums[j] != nums[i]) {
-            nums[++i]=nums[j];
-        }
-    }
-    return i + 1;
-}
-```
-
----
-
 
 
 ## [\#75. 颜色分类](https://leetcode-cn.com/problems/sort-colors/)
@@ -1308,6 +1365,40 @@ public int removeDuplicates(int[] nums) {
 ```java
 
 ```
+
+
+
+
+
+## [\#76. 最小覆盖子串](https://leetcode-cn.com/problems/minimum-window-substring/)
+
+- 困难
+- 2020.12.02：😭  
+
+题目：
+
+```xml
+
+```
+
+分析：
+
+***方法一：***
+
+
+
+- 时间复杂度：O()
+- 空间复杂度：O()
+
+
+
+代码：
+
+```java
+
+```
+
+---
 
 
 
@@ -3459,6 +3550,40 @@ class Solution {
 
 
 
+## [\#438. 找到字符串中所有字母异位词](https://leetcode-cn.com/problems/find-all-anagrams-in-a-string/)
+
+- 中等
+- 2020.12.02：😭  
+
+题目：
+
+```xml
+
+```
+
+分析：
+
+***方法一：***
+
+
+
+- 时间复杂度：O()
+- 空间复杂度：O()
+
+
+
+代码：
+
+```java
+
+```
+
+---
+
+
+
+
+
 ## [\#451. 根据字符出现频率排序](https://leetcode-cn.com/problems/sort-characters-by-frequency/)
 
 - easy
@@ -3904,6 +4029,40 @@ class Solution {
 ```
 
 ---
+
+
+
+## [\#567. 字符串的排列](https://leetcode-cn.com/problems/permutation-in-string/)
+
+- 中等
+- 2020.12.02：😭  
+
+题目：
+
+```xml
+
+```
+
+分析：
+
+***方法一：***
+
+
+
+- 时间复杂度：O()
+- 空间复杂度：O()
+
+
+
+代码：
+
+```java
+
+```
+
+---
+
+
 
 
 
@@ -5071,7 +5230,7 @@ int[] count(String word) {
 ### 题号 
 
 - 中等
-- 2020.11.25：😭  
+- 2020.12.02：😭  
 
 题目：
 
