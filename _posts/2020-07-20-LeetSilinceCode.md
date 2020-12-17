@@ -11,7 +11,7 @@ tags: [LeetCode,数据结构 ]
 
 > [labuladong 的算法小抄 技巧模版总结](https://labuladong.gitbook.io/algo/)   [repo](https://github.com/labuladong/fucking-algorithm)    [公众号完整文章](https://mp.weixin.qq.com/s/AWsL7G89RtaHyHjRPNJENA)
 >
-> now: 信封嵌套问题
+> now: 背包类型问题
 >
 > [刷题目录](https://github.com/CyC2018/CS-Notes/blob/master/notes/Leetcode%20%E9%A2%98%E8%A7%A3%20-%20%E7%9B%AE%E5%BD%95.md)
 >
@@ -641,13 +641,21 @@ int right_bound(int[] nums, int target) {
 ## 动态规划
 
 > [动态规划解题套路框架](https://labuladong.gitbook.io/algo/di-ling-zhang-bi-du-xi-lie/dong-tai-gui-hua-xiang-jie-jin-jie)
+>
+> [子序列解题模板：最长回文子序列](https://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484666&idx=1&sn=e3305be9513eaa16f7f1568c0892a468&chksm=9bd7faf2aca073e4f08332a706b7c10af877fee3993aac4dae86d05783d3d0df31844287104e&scene=21#wechat_redirect)
 
-| 题目                                                         | 算法思想          | 正确率 |
-| ------------------------------------------------------------ | ----------------- | ------ |
-| [\#509 斐波那契数](http://www.silince.cn/2020/07/20/LeetSilinceCode/#509-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0) | 动态规划          | 0%     |
-| [\#322 零钱兑换](http://www.silince.cn/2020/07/20/LeetSilinceCode/#322-零钱兑换) | 动态规划          |        |
-| [\#494. 目标和](http://www.silince.cn/2020/07/20/LeetSilinceCode/#494-%E7%9B%AE%E6%A0%87%E5%92%8C) | 动态规划/背包问题 |        |
-| [\#72. 编辑距离](https://labuladong.gitbook.io/algo/dong-tai-gui-hua-xi-lie/1.2-zi-xu-lie-lei-xing-wen-ti/bian-ji-ju-li) | 动态规划          |        |
+| 题目                                                         | 算法思想                    | 正确率 |
+| ------------------------------------------------------------ | --------------------------- | ------ |
+| [\#509 斐波那契数](http://www.silince.cn/2020/07/20/LeetSilinceCode/#509-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0) | 动态规划                    | 0%     |
+| [\#322 零钱兑换](http://www.silince.cn/2020/07/20/LeetSilinceCode/#322-零钱兑换) | 动态规划                    |        |
+| [\#494. 目标和](http://www.silince.cn/2020/07/20/LeetSilinceCode/#494-%E7%9B%AE%E6%A0%87%E5%92%8C) | 动态规划/背包问题           |        |
+| [\#72. 编辑距离](https://labuladong.gitbook.io/algo/dong-tai-gui-hua-xi-lie/1.2-zi-xu-lie-lei-xing-wen-ti/bian-ji-ju-li) | 子序列类型问题/动态规划     |        |
+| [\#300. 最长递增子序列]()                                    | 子序列类型问题/动态规划     |        |
+| [\#354. 俄罗斯套娃信封问题]()                                | 子序列类型问题/动态规划     |        |
+| [\#53. 最大子序和]()                                         | 子序列类型问题/动态规划     |        |
+| [\#1143. 最长公共子序列]()                                   | 最长公共子序列问题/动态规划 |        |
+| [\#583. 两个字符串的删除操作]()                              | 最长公共子序列问题/动态规划 |        |
+| [\#712. 两个字符串的最小ASCII删除和]()                       | 最长公共子序列问题/动态规划 |        |
 
 **首先，动态规划问题的一般形式就是求最值**。动态规划其实是运筹学的一种最优化方法，只不过在计算机问题上应用比较多，比如说让你求**最长**递增子序列呀，**最小**编辑距离呀等等。
 
@@ -1523,20 +1531,125 @@ bool backtrack(vector<string>& board, int row) {
 
 这样修改后，只要找到一个答案，for 循环的后续递归穷举都会被阻断。
 
+---
 
 
 
 
 
+## [\#53. 最大子序和](https://leetcode-cn.com/problems/maximum-subarray/)
 
+- 简单
+- 2020.12.15：  
 
+题目：
 
+```xml
+给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
 
+示例:
+输入: [-2,1,-3,4,-1,2,1,-5,4]
+输出: 6
+解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。
 
-代码：
+进阶:
+如果你已经实现复杂度为 O(n) 的解法，尝试使用更为精妙的分治法求解。
+```
+
+分析：
+
+其实第一次看到这道题，我首先想到的是滑动窗口算法，因为我们前文说过嘛，滑动窗口算法就是专门处理子串/子数组问题的，这里不就是子数组问题么？
+
+但是，稍加分析就发现，**这道题还不能用滑动窗口算法，因为数组中的数字可以是负数**。
+
+滑动窗口算法无非就是双指针形成的窗口扫描整个数组/子串，但关键是，你得清楚地知道什么时候应该移动右侧指针来扩大窗口，什么时候移动左侧指针来减小窗口。
+
+而对于这道题目，你想想，当窗口扩大的时候可能遇到负数，窗口中的值也就可能增加也可能减少，这种情况下不知道什么时机去收缩左侧窗口，也就无法求出「最大子数组和」。
+
+解决这个问题需要动态规划技巧，但是 `dp` 数组的定义比较特殊。按照我们常规的动态规划思路，一般是这样定义 `dp` 数组：
+
+**`nums[0..i]`** **中的「最大的子数组和」为** **`dp[i]`**。
+
+如果这样定义的话，整个 `nums` 数组的「最大子数组和」就是 `dp[n-1]`。如何找状态转移方程呢？按照数学归纳法，假设我们知道了 `dp[i-1]`，如何推导出 `dp[i]` 呢？
+
+如下图，按照我们刚才对 `dp` 数组的定义，`dp[i] = 5` ，也就是等于 `nums[0..i]` 中的最大子数组和
+
+![image-20201215114104037](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201215114104037.png)
+
+那么在上图这种情况中，利用数学归纳法，你能用 `dp[i]` 推出 `dp[i+1]` 吗？
+
+**实际上是不行的，因为子数组一定是连续的，按照我们当前** **`dp`** **数组定义，并不能保证** **`nums[0..i]`** **中的最大子数组与** **`nums[i+1]`** **是相邻的**，也就没办法从 `dp[i]` 推导出 `dp[i+1]`。
+
+所以说我们这样定义 `dp` 数组是不正确的，无法得到合适的状态转移方程。对于这类子数组问题，我们就要重新定义 `dp` 数组的含义：
+
+⚠️ **以** **`nums[i]`** **为结尾的「最大子数组和」为** **`dp[i]`**。
+
+这种定义之下，想得到整个 `nums` 数组的「最大子数组和」，不能直接返回 `dp[n-1]`，而需要遍历整个 `dp` 数组：
 
 ```java
+int res = Integer.MIN_VALUE;
+for (int i = 0; i < n; i++) {
+    res = Math.max(res, dp[i]);
+}
+return res;
+```
 
+依然使用数学归纳法来找状态转移关系：假设我们已经算出了 `dp[i-1]`，如何推导出 `dp[i]` 呢？
+
+可以做到，`dp[i]` 有两种「选择」，要么与前面的相邻子数组连接，形成一个和更大的子数组；要么不与前面的子数组连接，自成一派，自己作为一个子数组。
+
+如何选择？既然要求「最大子数组和」，当然选择结果更大的那个啦：
+
+```java
+// 要么自成一派，要么和前面的子数组合并
+dp[i] = Math.max(nums[i], nums[i] + dp[i - 1]);
+```
+
+综上，我们已经写出了状态转移方程，就可以直接写出解法了：
+
+```java
+int maxSubArray(int[] nums) {
+    int n = nums.length;
+    if (n == 0) return 0;
+    int[] dp = new int[n];
+    // base case
+    // 第一个元素前面没有子数组
+    dp[0] = nums[0];
+    // 状态转移方程
+    for (int i = 1; i < n; i++) {
+        dp[i] = Math.max(nums[i], nums[i] + dp[i - 1]);
+    }
+    // 得到 nums 的最大子数组
+    int res = Integer.MIN_VALUE;
+    for (int i = 0; i < n; i++) {
+        res = Math.max(res, dp[i]);
+    }
+    return res;
+}
+```
+
+以上解法时间复杂度是 O(N)，空间复杂度也是 O(N)，较暴力解法已经很优秀了，不过**注意到** **`dp[i]`** **仅仅和** **`dp[i-1]`** **的状态有关**，那么我们可以进行「状态压缩」，将空间复杂度降低：
+
+```java
+int maxSubArray(int[] nums) {
+    int n = nums.length;
+    if (n == 0) return 0;
+    // base case
+    int dp_0 = nums[0];
+    int dp_1 = 0, res = dp_0;
+
+
+    for (int i = 1; i < n; i++) {
+        // dp[i] = max(nums[i], nums[i] + dp[i-1])
+        dp_1 = Math.max(nums[i], nums[i] + dp_0);
+        dp_0 = dp_1;
+        // 顺便计算最大的结果
+        res = Math.max(res, dp_1);
+    }
+
+
+    return res;
+}
 ```
 
 ---
@@ -1544,6 +1657,8 @@ bool backtrack(vector<string>& board, int row) {
 
 
 ## [\#72. 编辑距离](https://labuladong.gitbook.io/algo/dong-tai-gui-hua-xi-lie/1.2-zi-xu-lie-lei-xing-wen-ti/bian-ji-ju-li)
+
+[详解](https://labuladong.gitbook.io/algo/dong-tai-gui-hua-xi-lie/1.2-zi-xu-lie-lei-xing-wen-ti/bian-ji-ju-li)
 
 ```java
 class Solution {
@@ -3442,6 +3557,124 @@ class Solution {
 
 
 
+
+
+## [\#300. 最长递增子序列](https://leetcode-cn.com/problems/longest-increasing-subsequence/)
+
+- 中等
+- 2020.12.02：😭  
+
+题目：
+
+```xml
+给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。
+子序列是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，[3,6,2,7] 是数组 [0,3,1,6,2,2,7] 的子序列。
+ 
+示例 1：
+输入：nums = [10,9,2,5,3,7,101,18]
+输出：4
+解释：最长递增子序列是 [2,3,7,101]，因此长度为 4 。
+```
+
+分析：
+
+******
+
+最长递增子序列（Longest Increasing Subsequence，简写 LIS）是比较经典的一个问题，比较容易想到的是动态规划解法，时间复杂度 O(N^2)，我们借这个问题来由浅入深讲解如何写动态规划。
+
+比较难想到的是利用[二分查找](https://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484498&idx=1&sn=df58ef249c457dd50ea632f7c2e6e761&source=41#wechat_redirect)，时间复杂度是 O(NlogN)，我们通过一种简单的纸牌游戏来辅助理解这种巧妙的解法。
+
+我们设计动态规划算法，不是需要一个 dp 数组吗？我们可以假设 `dp[0...i−1]` 都已经被算出来了，然后问自己：怎么通过这些结果算出`dp[i]` ?
+
+直接拿最长递增子序列这个问题举例你就明白了。不过，首先要定义清楚 dp 数组的含义，即 dp[i] 的值到底代表着什么？
+
+**我们的定义是这样的：dp[i] 表示以 nums[i] 这个数结尾的最长递增子序列的长度。**
+
+举个例子：
+
+![image-20201215094712388](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201215094712388.png)
+
+![image-20201215094729199](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201215094729199.png)
+
+算法演进的过程是这样的：
+
+![Image](/Users/silince/Develop/博客/blog_to_git/assets/imgs/640.gif)
+
+根据这个定义，我们的最终结果（子序列的最大长度）应该是 dp 数组中的最大值。
+
+```java
+int res = 0;
+for (int i = 0; i < dp.length; i++) {
+    res = Math.max(res, dp[i]);
+}
+return res;
+```
+
+读者也许会问，刚才这个过程中每个 dp[i] 的结果是我们肉眼看出来的，我们应该怎么设计算法逻辑来正确计算每个 dp[i] 呢？
+
+这就是动态规划的重头戏了，要思考如何进行状态转移，这里就可以使用数学归纳的思想：
+
+我们已经知道了` dp[0...4]` 的所有结果，我们如何通过这些已知结果推出` dp[5] `呢？
+
+![image-20201215094913042](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201215094913042.png)
+
+根据刚才我们对 dp 数组的定义，现在想求 dp[5] 的值，也就是想求以 nums[5] 为结尾的最长递增子序列。
+
+nums[5] = 3，既然是递增子序列，我们只要找到前面那些结尾比 3 小的子序列，然后把 3 接到最后，就可以形成一个新的递增子序列，而且这个新的子序列长度加一。
+
+当然，可能形成很多种新的子序列，但是我们只要最长的，把最长子序列的长度作为 dp[5] 的值即可。
+
+![Image](/Users/silince/Develop/博客/blog_to_git/assets/imgs/640-20201215094958703.gif)
+
+![Image](/Users/silince/Develop/博客/blog_to_git/assets/imgs/640.png)
+
+
+
+这段代码的逻辑就可以算出 dp[5]。到这里，这道算法题我们就基本做完了。读者也许会问，我们刚才只是算了 dp[5] 呀，dp[4], dp[3] 这些怎么算呢？
+
+类似数学归纳法，你已经可以通过 dp[0...4] 算出 dp[5] 了，那么任意 dp[i] 你肯定都可以算出来：
+
+![Image](/Users/silince/Develop/博客/blog_to_git/assets/imgs/640-7997035..png)
+
+
+
+还有一个细节问题，就是 base case ;dp 数组应该全部初始化为 1，因为子序列最少也要包含自己，所以长度最小为 1。下面我们看一下完整代码：
+
+```java
+class Solution {
+    public int lengthOfLIS(int[] nums) {
+		int[] dp = new int[nums.length];
+		Arrays.fill(dp, 1); // base case ;dp 数组应该全部初始化为 1，因为子序列最少也要包含自己，所以长度最小为 1
+		for (int i = 0; i < nums.length; i++) { // 根据当前位置i的前几项推出dp[i]的值
+			for (int j = 0; j < i; j++) {
+				if (nums[j]<nums[i]) {
+					dp[i]=Math.max(dp[i],dp[j]+1);
+				}
+			}
+		}
+		int res = 0;
+		for (int i = 0; i < dp.length; i++) {
+			res = Math.max(res,dp[i]);
+		}
+		return res;
+    }
+}
+```
+
+至此，这道题就解决了，时间复杂度 O(N^2)。总结一下动态规划的设计流程：
+
+首先明确 dp 数组所存数据的含义。这步很重要，如果不得当或者不够清晰，会阻碍之后的步骤。
+
+然后根据 dp 数组的定义，运用数学归纳法的思想，假设 *d**p*[0...*i*−1] 都已知，想办法求出 *d**p*[*i*]，一旦这一步完成，整个题目基本就解决了。
+
+但如果无法完成这一步，很可能就是 dp 数组的定义不够恰当，需要重新定义 dp 数组的含义；或者可能是 dp 数组存储的信息还不够，不足以推出下一步的答案，需要把 dp 数组扩大成二维数组甚至三维数组。
+
+---
+
+
+
+
+
 ## [\#322. 零钱兑换](https://leetcode-cn.com/problems/coin-change/)
 
 - 中等
@@ -3856,6 +4089,101 @@ class Solution {
     }
 }
 ```
+
+
+
+## [\#354. 俄罗斯套娃信封问题](https://leetcode-cn.com/problems/russian-doll-envelopes/)
+
+- 中等
+- 2020.12.02：😭  
+
+题目：
+
+```xml
+给定一些标记了宽度和高度的信封，宽度和高度以整数对形式 (w, h) 出现。当另一个信封的宽度和高度都比这个信封大的时候，这个信封就可以放进另一个信封里，如同俄罗斯套娃一样。
+请计算最多能有多少个信封能组成一组“俄罗斯套娃”信封（即可以把一个信封放到另一个信封里面）。
+
+说明:
+不允许旋转信封。
+示例:
+输入: envelopes = [[5,4],[6,4],[6,7],[2,3]]
+输出: 3 
+解释: 最多信封的个数为 3, 组合为: [2,3] => [5,4] => [6,7]。
+
+```
+
+分析：
+
+这道题目其实是最长递增子序列（Longes Increasing Subsequence，简写为 LIS）的一个变种，因为很显然，每次合法的嵌套是大的套小的，相当于找一个最长递增的子序列，其长度就是最多能嵌套的信封个数。
+
+但是难点在于，标准的 LIS 算法只能在数组中寻找最长子序列，而我们的信封是由 `(w, h)` 这样的二维数对形式表示的，如何把 LIS 算法运用过来呢？
+
+![image-20201215103301179](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201215103301179.png)
+
+读者也许会想，通过 `w × h` 计算面积，然后对面积进行标准的 LIS 算法。但是稍加思考就会发现这样不行，比如 `1 × 10` 大于 `3 × 3`，但是显然这样的两个信封是无法互相嵌套的。
+
+这道题的解法是比较巧妙的：
+
+**先对宽度** **`w`** **进行升序排序，如果遇到** **`w`** **相同的情况，则按照高度** **`h`** **降序排序。之后把所有的** **`h`** **作为一个数组，在这个数组上计算 LIS 的长度就是答案。**
+
+画个图理解一下，先对这些数对进行排序：
+
+![image-20201215103334490](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201215103334490.png)
+
+然后在 `h` 上寻找最长递增子序列：
+
+![image-20201215103349726](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201215103349726.png)
+
+这个子序列就是最优的嵌套方案。
+
+这个解法的关键在于，对于宽度 `w` 相同的数对，要对其高度 `h` 进行降序排序。因为两个宽度相同的信封不能相互包含的，逆序排序保证在 `w` 相同的数对中最多只选取一个。
+
+下面看代码：
+
+```java
+// envelopes = [[w, h], [w, h]...]
+public int maxEnvelopes(int[][] envelopes) {
+    int n = envelopes.length;
+    // 按宽度升序排列，如果宽度一样，则按高度降序排列
+    // [5,4],[6,4],[6,7],[2,3] --> [2,3],[5,4],[6,4],[6,7]
+    // w相等则比较h(h小在后)，不想等直接比较w(w小在前)
+    Arrays.sort(envelopes, (a, b) -> a[0] == b[0] ? b[1] - a[1] : a[0] - b[0]);
+
+    // 对高度数组寻找 LIS
+    int[] height = new int[n];
+    for (int i = 0; i < n; i++)
+        height[i] = envelopes[i][1];
+
+    return lengthOfLIS(height);
+```
+
+关于最长递增子序列的寻找方法，在前文中详细介绍了动态规划解法,直接套用算法模板：
+
+```java
+/* 返回 nums 中 LIS 的长度 */
+public int lengthOfLIS(int[] height) {
+		int[] dp = new int[height.length];
+		Arrays.fill(dp, 1); // base case ;dp 数组应该全部初始化为 1，因为子序列最少也要包含自己，所以长度最小为 1
+		for (int i = 0; i < nums.length; i++) { // 根据当前位置i的前几项推出dp[i]的值
+			for (int j = 0; j < i; j++) {
+				if (height[j]<height[i]) {
+					dp[i]=Math.max(dp[i],dp[j]+1);
+				}
+			}
+		}
+		int res = 0;
+		for (int i = 0; i < dp.length; i++) {
+			res = Math.max(res,dp[i]);
+		}
+		return res;
+	}
+```
+
+为了清晰，我将代码分为了两个函数， 你也可以合并，这样可以节省下 `height` 数组的空间。
+
+---
+
+
 
 
 
@@ -4891,6 +5219,51 @@ public boolean checkInclusion(String s1, String s2) {
 
 
 
+## [\#583. 两个字符串的删除操作](https://leetcode-cn.com/problems/delete-operation-for-two-strings/)
+
+- 中等
+- 2020.12.02：😭  
+
+题目：
+
+```xml
+给定两个单词 word1 和 word2，找到使得 word1 和 word2 相同所需的最小步数，每步可以删除任意一个字符串中的一个字符。
+
+示例：
+输入: "sea", "eat"
+输出: 2
+解释: 第一步将"sea"变为"ea"，第二步将"eat"变为"ea"
+ 
+提示：
+给定单词的长度不超过500。
+给定单词中的字符只含有小写字母。
+```
+
+分析：
+
+***方法一：***
+
+
+
+- 时间复杂度：O()
+- 空间复杂度：O()
+
+
+
+代码：
+
+```java
+
+```
+
+---
+
+
+
+
+
+
+
 
 
 ## [\#617. 合并二叉树](https://leetcode-cn.com/problems/merge-two-binary-trees/)
@@ -5624,6 +5997,59 @@ nums 的每个元素都将在 [-9999, 9999]之间。
 
 
 
+## [\#712. 两个字符串的最小ASCII删除和](https://leetcode-cn.com/problems/minimum-ascii-delete-sum-for-two-strings/)
+
+- 中等
+- 2020.12.02：😭  
+
+题目：
+
+```xml
+给定两个字符串s1, s2，找到使两个字符串相等所需删除字符的ASCII值的最小和。
+
+示例 1:
+输入: s1 = "sea", s2 = "eat"
+输出: 231
+解释: 在 "sea" 中删除 "s" 并将 "s" 的值(115)加入总和。
+在 "eat" 中删除 "t" 并将 116 加入总和。
+结束时，两个字符串相等，115 + 116 = 231 就是符合条件的最小和。
+
+示例 2:
+输入: s1 = "delete", s2 = "leet"
+输出: 403
+解释: 在 "delete" 中删除 "dee" 字符串变成 "let"，
+将 100[d]+101[e]+101[e] 加入总和。在 "leet" 中删除 "e" 将 101[e] 加入总和。
+结束时，两个字符串都等于 "let"，结果即为 100+101+101+101 = 403 。
+如果改为将两个字符串转换为 "lee" 或 "eet"，我们会得到 433 或 417 的结果，比答案更大。
+
+注意:
+0 < s1.length, s2.length <= 1000。
+所有字符串中的字符ASCII值在[97, 122]之间。
+```
+
+分析：
+
+***方法一：***
+
+
+
+- 时间复杂度：O()
+- 空间复杂度：O()
+
+
+
+代码：
+
+```java
+
+```
+
+---
+
+
+
+
+
 ## [\#752. 打开转盘锁](https://leetcode-cn.com/problems/open-the-lock/)
 
 - 中等
@@ -5949,6 +6375,80 @@ public int heightChecker(int[] heights) {
 ```
 
 ---
+
+
+
+## [\#1143. 最长公共子序列](https://leetcode-cn.com/problems/longest-common-subsequence/)
+
+- 中等
+- 2020.12.02：😭  
+
+题目：
+
+```xml
+给定两个字符串 text1 和 text2，返回这两个字符串的最长公共子序列的长度。
+一个字符串的 子序列 是指这样一个新的字符串：它是由原字符串在不改变字符的相对顺序的情况下删除某些字符（也可以不删除任何字符）后组成的新字符串。
+例如，"ace" 是 "abcde" 的子序列，但 "aec" 不是 "abcde" 的子序列。两个字符串的「公共子序列」是这两个字符串所共同拥有的子序列。
+若这两个字符串没有公共子序列，则返回 0。
+
+示例 1:
+输入：text1 = "abcde", text2 = "ace" 
+输出：3  
+解释：最长公共子序列是 "ace"，它的长度为 3。
+```
+
+分析：
+
+一个最简单的暴力算法就是，把`s1`和`s2`的所有子序列都穷举出来，然后看看有没有公共的，然后在所有公共子序列里面再寻找一个长度最大的。
+
+显然，这种思路的复杂度非常高，你要穷举出所有子序列，这个复杂度就是指数级的，肯定不实际。
+
+正确的思路是不要考虑整个字符串，而是细化到`s1`和`s2`的每个字符。前文 子序列解题模板 中总结的一个规律：
+
+**对于两个字符串求子序列的问题，都是用两个指针`i`和`j`分别在两个字符串上移动，大概率是动态规划思路**。
+
+最长公共子序列的问题也可以遵循这个规律，我们可以先写一个`dp`函数：
+
+```
+// 定义：计算 s1[i..] 和 s2[j..] 的最长公共子序列长度
+int dp(String s1, int i, String s2, int j)
+```
+
+这个`dp`函数的定义是：**`dp(s1, i, s2, j)`计算`s1[i..]`和`s2[j..]`的最长公共子序列长度**。
+
+根据这个定义，那么我们想要的答案就是`dp(s1, 0, s2, 0)`，且 base case 就是`i == len(s1)`或`j == len(s2)`时，因为这时候`s1[i..]`或`s2[j..]`就相当于空串了，最长公共子序列的长度显然是 0：
+
+```
+int longestCommonSubsequence(String s1, String s2) {
+    return dp(s1, 0, s2, 0);
+}
+
+/* 主函数 */
+int dp(String s1, int i, String s2, int j) {
+    // base case
+    if (i == s1.length() || j == s2.length()) {
+        return 0;
+    }
+    // ...
+```
+
+**接下来，咱不要看`s1`和`s2`两个字符串，而是要具体到每一个字符，思考每个字符该做什么**。
+
+
+
+代码：
+
+```java
+
+```
+
+---
+
+
+
+
+
+
 
 ## [#1160. 拼写单词](https://leetcode-cn.com/problems/find-words-that-can-be-formed-by-characters/) 
 
