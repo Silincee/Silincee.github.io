@@ -41,7 +41,7 @@ public class SpinLock {
 
 缺点：耗费CPU资源，没有竞争到锁的线程会一直占用CPU资源进行CAS操作。
 
-## 方法二：改进为**park+自旋**实现锁：
+## 方法二：改进为**park+自旋**实现锁（LockSupport）：
 
 Java提供了一个较为底层的并发工具类：**LockSupport**，可以让线程停止下来(**阻塞**)，还可以唤醒线程。
 

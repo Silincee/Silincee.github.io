@@ -144,6 +144,37 @@ public String slidingWindow(String s, String t) {
 |                                                              |          |        |
 |                                                              |          |        |
 
+```java
+// 快速排序
+public static void quickSort(int[] arr, int start, int end) {
+  if (end <= start) { // 只有一个元素时终止
+    return;
+  }
+  int low = start;
+  int high = end;
+  int pivot = arr[low]; // 枢纽点pivot选取第一个元素
+  while (low < high) {
+    // high指针往左寻找一个小于 pivot的数
+    while (low < high && arr[high] >= pivot) {
+      high--;
+    }
+    arr[low] = arr[high]; // 将小于 pivot 的数放在低位
+
+    // low指针往右寻找一个大于 pivot 的数
+    while (low < high && arr[low] <= pivot) {
+      low++;
+    }
+    arr[high] = arr[low]; // 将大于 pivot 的数放在高位
+  }
+  // 复原 pivot的值
+  arr[low] = pivot;
+  quickSort(arr, start, low - 1); // 递归排序左半部分
+  quickSort(arr, low + 1, end); // 递归排序右半部分
+}
+```
+
+
+
 
 
 ![image-20200720125956366](/assets/imgs/image-20200720125956366-9188642.png)
@@ -1575,7 +1606,7 @@ bool backtrack(vector<string>& board, int row) {
 
 如下图，按照我们刚才对 `dp` 数组的定义，`dp[i] = 5` ，也就是等于 `nums[0..i]` 中的最大子数组和
 
-![image-20201215114104037](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201215114104037.png)
+![image-20201215114104037](/assets/imgs/image-20201215114104037.png)
 
 那么在上图这种情况中，利用数学归纳法，你能用 `dp[i]` 推出 `dp[i+1]` 吗？
 
@@ -4831,12 +4862,13 @@ class Solution {
 class Solution {
   public int fib(int N) {
     if (N==0) return 0;
-    if (N == 2 || N == 1) return 1;  
+    if (N == 1) return 1;  
       
 		int[] dp = new int[N+1];
 		// base case
-		dp[1] = dp[2]=1;
-		for (int i = 3; i <=N ; i++) {
+		dp[0] = 0;
+    dp[1] = 1;
+		for (int i = 2; i <=N ; i++) {
 			dp[i]=dp[i-1]+dp[i-2];
 		}
 		return dp[N];
