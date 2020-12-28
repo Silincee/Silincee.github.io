@@ -1642,6 +1642,7 @@ dp[i] = Math.max(nums[i], nums[i] + dp[i - 1]);
 ```java
 int maxSubArray(int[] nums) {
     int n = nums.length;
+    int res = nums[0];
     if (n == 0) return 0;
     int[] dp = new int[n];
     // base case
@@ -1650,10 +1651,6 @@ int maxSubArray(int[] nums) {
     // 状态转移方程
     for (int i = 1; i < n; i++) {
         dp[i] = Math.max(nums[i], nums[i] + dp[i - 1]);
-    }
-    // 得到 nums 的最大子数组
-    int res = Integer.MIN_VALUE;
-    for (int i = 0; i < n; i++) {
         res = Math.max(res, dp[i]);
     }
     return res;
@@ -2616,41 +2613,38 @@ class Solution {
 
 ```java
 // ⭐️ 方法一
-class Solution {
-	// 对二叉树做先序遍历，从底至顶返回子树最大高度，若判定某子树不是平衡树则 “剪枝” ，直接向上返回
-	public boolean isBalanced(TreeNode root) {
-		return recur(root) != -1;
-	}
-
-	private int recur(TreeNode root) {
-		if (root == null) return 0;
-		int left = recur(root.left);
-		// 当左（右）子树高度 left== -1 时，代表此子树的 左（右）子树 不是平衡树，因此直接返回 -1 ；
-		if(left == -1) return -1;
-		int right = recur(root.right);
-		if(right == -1) return -1;
-		// 当 左/右 子树深度差大于 1 时，返回 -1 ；否则，返回 左/右子树深度最大值 + 1
-		// max(left, right) + 1 为当前子树的深度;以此作为返回值，才能判断树是否是"平衡二叉树"，即 abs(left - right) <=1 是否成立
-		return Math.abs(left - right) <=1 ? Math.max(left, right) + 1 : -1;
-	}
+// 对二叉树做先序遍历，从底至顶返回子树最大高度，若判定某子树不是平衡树则 “剪枝” ，直接向上返回
+public boolean isBalanced(TreeNode root) {
+  return recur(root) != -1;
 }
 
-// 方法二
-class Solution {
-    public boolean isBalanced(TreeNode root) {
-		if(root==null) return true;
-		// 比较此子树的左右子树的最大高度差
-		return (Math.abs(depth(root.left)-depth(root.right))<=1)
-				&& isBalanced(root.left)
-				&& isBalanced(root.right);
-    }
+private int recur(TreeNode root) {
+  if (root == null) return 0;
+  int left = recur(root.left);
+  // 当左（右）子树高度 left== -1 时，代表此子树的 左（右）子树 不是平衡树，因此直接返回 -1 ；
+  if(left == -1) return -1;
+  int right = recur(root.right);
+  if(right == -1) return -1;
+  // 当 左/右 子树深度差大于 1 时，返回 -1 ；否则，返回 左/右子树深度最大值 + 1
+  // max(left, right) + 1 为当前子树的深度;以此作为返回值，才能判断树是否是"平衡二叉树"，即 abs(left - right) <=1 是否成立
+  return Math.abs(left - right) <=1 ? Math.max(left, right) + 1 : -1;
+}
 
-    // 获取当前节点最大深度
-	  // 终止条件： 当 root 为空，即越过叶子节点，则返回高度 0
-    private int depth(TreeNode root){
-    	if (root ==null) return 0;
-    	return Math.max(depth(root.left),depth(root.right))+1;
-	}
+
+// 方法二
+public boolean isBalanced(TreeNode root) {
+  if(root==null) return true;
+  // 比较此子树的左右子树的最大高度差
+  return (Math.abs(depth(root.left)-depth(root.right))<=1)
+    && isBalanced(root.left)
+    && isBalanced(root.right);
+}
+
+// 获取当前节点最大深度
+// 终止条件： 当 root 为空，即越过叶子节点，则返回高度 0
+private int depth(TreeNode root){
+  if (root ==null) return 0;
+  return Math.max(depth(root.left),depth(root.right))+1;
 }
 ```
 
@@ -2691,29 +2685,27 @@ if (cur.left == null && cur.right == null)
 那么，按照我们上述的框架稍加改造来写解法即可：
 
 ```java
-class Solution {
-  public int minDepth(TreeNode root) {
-    if (root == null) return 0;
-    LinkedList<TreeNode> queue = new LinkedList<>();
-    queue.offer(root);
-    // root 本身就是一层，depth 初始化为1
-    int depth = 1;
+public int minDepth(TreeNode root) {
+  if (root == null) return 0;
+  LinkedList<TreeNode> queue = new LinkedList<>();
+  queue.offer(root);
+  // root 本身就是一层，depth 初始化为1
+  int depth = 1;
 
-    while (!queue.isEmpty()) {
-      int size = queue.size();
-      // 将当前队列中的所有节点向四周扩散
-      for (int i = 0; i < size; i++) {
-        TreeNode cur = queue.poll(); // poll() 检索并删除此列表的头部（第一个元素）
-        // 判断是否达到终点
-        if (cur.left == null && cur.right == null) return depth;
-        if (cur.left != null) queue.offer(cur.left);
-        if (cur.right != null) queue.offer(cur.right);
-      }
-      // 增加步数
-      depth++;
+  while (!queue.isEmpty()) {
+    int size = queue.size();
+    // 将当前队列中的所有节点向四周扩散
+    for (int i = 0; i < size; i++) {
+      TreeNode cur = queue.poll(); // poll() 检索并删除此列表的头部（第一个元素）
+      // 判断是否达到终点
+      if (cur.left == null && cur.right == null) return depth;
+      if (cur.left != null) queue.offer(cur.left);
+      if (cur.right != null) queue.offer(cur.right);
     }
-    return depth;
+    // 增加步数
+    depth++;
   }
+  return depth;
 }
 ```
 
