@@ -320,3 +320,252 @@ transient Object[] elementData;
 private int size;
 ```
 
+
+
+## 构造方法
+
+### 带初始容量的构造方法
+
+- 如果`initialCapacity < 0`，就创建一个新的长度是`initialCapacity`的数组
+- 如果`initialCapacity == 0`，就使用EMPTY_ELEMENTDATA
+- 其他情况，`initialCapacity`不合法，抛出异常
+
+```java
+/**
+ * 带一个初始容量参数的构造方法
+ *
+ * @param  initialCapacity  初始容量
+ * @throws  如果初始容量非法就抛出
+ *          IllegalArgumentException
+ */
+public ArrayList(int initialCapacity) {
+    if (initialCapacity > 0) {
+        this.elementData =
+                new Object[initialCapacity];
+    } else if (initialCapacity == 0) {
+        this.elementData = EMPTY_ELEMENTDATA;
+    } else {
+        throw new IllegalArgumentException(
+                "Illegal Capacity: "+ initialCapacity);
+    }
+}
+```
+
+
+
+### 无参构造方法
+
+```java
+/**
+ * 无参构造方法 将elementData 赋值为
+ *   DEFAULTCAPACITY_EMPTY_ELEMENTDATA
+ */
+public ArrayList() {
+    this.elementData =
+            DEFAULTCAPACITY_EMPTY_ELEMENTDATA;
+}
+```
+
+
+
+### 带一个集合参数的构造方法
+
+- 使用将集合转换为数组的方法
+- 为了防止`c.toArray()`方法不正确的执行，导致没有返回`Object[]`，特殊做了处理
+- 如果数组大小等于`0`，则使用 `EMPTY_ELEMENTDATA`
+
+```java
+/**
+ * 带一个集合参数的构造方法
+ *
+ * @param c 集合，代表集合中的元素会被放到list中
+ * @throws 如果集合为空，抛出NullPointerException
+ */
+public ArrayList(Collection<? extends E> c) {
+    elementData = c.toArray();
+    // 如果 size != 0
+    if ((size = elementData.length) != 0) {
+        // c.toArray 可能不正确的，不返回 Object[]
+        // https://bugs.openjdk.java.net/browse/JDK-6260652
+        if (elementData.getClass() != Object[].class)
+            elementData = Arrays.copyOf(
+                    elementData, size, Object[].class);
+    } else {
+        // size == 0
+        // 将EMPTY_ELEMENTDATA 赋值给 elementData
+        this.elementData = EMPTY_ELEMENTDATA;
+    }
+}
+```
+
+那么问题来了，什么情况下`c.toArray()`会不返回`Object[]`呢？
+
+```java
+public static void main(String[] args) {
+    List<String> list = new ArrayList<>(Arrays.asList("list"));
+    // class java.util.ArrayList
+    System.out.println(list.getClass());
+
+    Object[] listArray = list.toArray();
+    // class [Ljava.lang.Object;
+    System.out.println(listArray.getClass());
+    listArray[0] = new Object();
+
+    System.out.println();
+
+    List<String> asList = Arrays.asList("asList");
+    // class java.util.Arrays$ArrayList
+    System.out.println(asList.getClass());
+
+    Object[] asListArray = asList.toArray();
+    // class [Ljava.lang.String;
+    System.out.println(asListArray.getClass());
+    // java.lang.ArrayStoreException
+    asListArray[0] = new Object();
+}
+```
+
+我们通过这个例子可以看出来，`java.util.ArrayList.toArray()`方法会返回`Object[]`没有问题。
+
+而`java.util.Arrays`的私有内部类ArrayList的`toArray()`方法可能不返回`Object[]`。
+
+***<u>原因：</u>***
+
+我们看ArrayList的`toArray()`方法源码：
+
+```java
+public Object[] toArray() {
+    // ArrayLisy中 elementData是这样定义的
+    // transient Object[] elementData;
+    return Arrays.copyOf(elementData, size);
+}
+```
+
+使用了`Arrays.copyOf()`方法：
+
+```java
+public static <T> T[] copyOf(T[] original, int newLength) {
+    // original.getClass() 是 class [Ljava.lang.Object
+    return (T[]) copyOf(original, newLength, original.getClass());
+}
+```
+
+`copyOf()`的具体实现：
+
+```java
+public static <T,U> T[] copyOf(U[] original, 
+          int newLength, Class<? extends T[]> newType) {
+    @SuppressWarnings("unchecked")
+    /**
+     * 如果newType是Object[] copy 数组 类型就是 Object 
+     * 否则就是 newType 类型
+     */
+    T[] copy = ((Object)newType == (Object)Object[].class)
+        ? (T[]) new Object[newLength]
+        : (T[]) Array.newInstance(newType.getComponentType(), newLength);
+    System.arraycopy(original, 0, copy, 0,
+                     Math.min(original.length, newLength));
+    return copy;
+}
+```
+
+我们知道ArrayList中`elementData`就是`Object[]`类型，所以ArrayList的`toArray()`方法必然会返回`Object[]`。
+
+我们再看一下`java.util.Arrays`的内部ArrayList源码（截取的部分源码）：
+
+```java
+private static class ArrayList<E> extends AbstractList<E>
+        implements RandomAccess, java.io.Serializable {
+
+    // 存储元素的数组
+    private final E[] a;
+
+    ArrayList(E[] array) {
+        // 直接把接收的数组 赋值 给 a
+        a = Objects.requireNonNull(array);
+    }
+
+    /**
+     * obj 为空抛出异常
+     * 不为空 返回 obj
+     */
+    public static <T> T requireNonNull(T obj) {
+        if (obj == null)
+            throw new NullPointerException();
+        return obj;
+    }
+
+    @Override
+    public Object[] toArray() {
+        // 返回 a 的克隆对象
+        return a.clone();
+    }
+
+}
+```
+
+这是`Arrays.asList()`方法源码
+
+```java
+public static <T> List<T> asList(T... a) {
+    return new ArrayList<>(a);
+}
+```
+
+不难看出来`java.util.Arrays`的内部ArrayList的`toArray()`方法，是构造方法接收什么类型的数组，就返回什么类型的数组。
+
+所以，在我们上面的例子中，实际上返回的是String类型的数组，再将其中的元素赋值成`Object`类型的，自然报错。
+
+
+
+
+
+## 插入方法
+
+### 在列表最后添加指定元素
+
+### 在指定位置添加指定元素
+
+### 插入方法调用的其他私有方法
+
+
+
+## 扩容方法
+
+## 移除方法
+
+### 移除指定元素方法
+
+### 私有移除方法
+
+
+
+## 查找方法
+
+### 查找指定元素的所在位置
+
+### 查找指定位置的元素
+
+
+
+## 序列化方法
+
+## 反序列化方法
+
+## 创建子数组
+
+## 迭代器
+
+### 创建迭代器方法
+
+### Itr属性
+
+### Itr的hasNext() 方法
+
+### Itr的next()方法
+
+### Itr的remove()方法
+
+
+
+## ArrayList类注释翻译
