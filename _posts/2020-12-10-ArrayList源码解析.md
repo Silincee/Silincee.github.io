@@ -41,7 +41,7 @@ ArrayList可以通过构造方法在初始化的时候指定底层数组的大�
 
 大家可以分别看下他的无参构造器和有参构造器，无参就是默认大小，有参会判断参数。
 
-![image-20210117122612602](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20210117122612602.png)
+![image-20210117122612602](/assets/imgs/image-20210117122612602.png)
 
 
 
@@ -51,19 +51,19 @@ ArrayList可以通过构造方法在初始化的时候指定底层数组的大�
 
 就比如我们现在有一个长度为10的数组，现在我们要新增一个元素，发现已经满了，那ArrayList会怎么做呢？
 
-![image-20210117123339404](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20210117123339404.png)
+![image-20210117123339404](/assets/imgs/image-20210117123339404.png)
 
 第一步他会重新定义一个长度为**10+10/2**的数组也就是新增一个长度为15的数组。
 
-![image-20210117123353718](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20210117123353718.png)
+![image-20210117123353718](/assets/imgs/image-20210117123353718.png)
 
 然后把原数组的数据，原封不动的复制到新数组中，这个时候再把指向原数组的地址换到新数组，ArrayList就这样完成了一次改头换面。
 
-![image-20210117123406279](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20210117123406279.png)
+![image-20210117123406279](/assets/imgs/image-20210117123406279.png)
 
 ⚠️：因为我们在使用ArrayList的时候一般不会设置初始值的大小，**ArrayList默认的大小就刚好是10。**
 
-![image-20210117123435341](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20210117123435341.png)
+![image-20210117123435341](/assets/imgs/image-20210117123435341.png)
 
 然后你们也可以看到，他的构造方法，如果你传入了初始值大小，那就使用你传入的参数，如果没，那就使用默认的，一切都是有迹可循的。
 
@@ -77,29 +77,29 @@ ArrayList可以通过构造方法在初始化的时候指定底层数组的大�
 
 他有指定index新增，也有直接新增的，**在这之前他会有一步校验长度的判断ensureCapacityInternal**，就是说如果长度不够，是需要扩容的。
 
-![image-20210117135305807](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20210117135305807.png)
+![image-20210117135305807](/assets/imgs/image-20210117135305807.png)
 
 在扩容的时候，老版本的jdk和8以后的版本是有区别的，8之后的效率更高了，**采用了位运算，右移一位，其实就是除以2这个操作。**
 
-![image-20210117135444504](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20210117135444504.png)
+![image-20210117135444504](/assets/imgs/image-20210117135444504.png)
 
 指定位置新增的时候，在校验之后的操作很简单，就是数组的copy，大家可以看下代码：
 
-![image-20210117135536999](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20210117135536999.png)
+![image-20210117135536999](/assets/imgs/image-20210117135536999.png)
 
 不知道大家看懂**arraycopy**的代码没有，我画个图解释下，你可能就明白一点：
 
 比如有下面这样一个数组我需要在index 5的位置去新增一个元素A
 
-![Image](/Users/silince/Develop/博客/blog_to_git/assets/imgs/640-20210117140405307.png)
+![Image](/assets/imgs/640-20210117140405307.png)
 
 那从代码里面我们可以看到，他复制了一个数组，是从index 5的位置开始的，然后把它放在了index 5+1的位置
 
-![Image](/Users/silince/Develop/博客/blog_to_git/assets/imgs/640-20210117140405335.png)
+![Image](/assets/imgs/640-20210117140405335.png)
 
 给我们要新增的元素腾出了位置，然后在index的位置放入元素A就完成了新增的操作了
 
-![Image](/Users/silince/Develop/博客/blog_to_git/assets/imgs/640-20210117140405349.png)
+![Image](/assets/imgs/640-20210117140405349.png)
 
 至于为啥说他效率低，我想我不说你也应该知道了，我这只是在一个这么小的List里面操作，要是我去一个几百几千几万大小的List新增一个元素，**那就需要后面所有的元素都复制**，然后如果再涉及到扩容啥的就更慢了不是嘛。
 
@@ -121,7 +121,7 @@ ArrayList可以通过构造方法在初始化的时候指定底层数组的大�
 
 再结合源码，大家仔细品读一下，这是Java Bug里面的一个经典问题了，还是很有意思的，大家平时可能也不会注意这个点。
 
-![image-20210117141049908](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20210117141049908.png)
+![image-20210117141049908](/assets/imgs/image-20210117141049908.png)
 
 
 
@@ -139,15 +139,15 @@ ArrayList可以通过构造方法在初始化的时候指定底层数组的大�
 
 > 为啥是copy数组呢？
 
-![Image](/Users/silince/Develop/博客/blog_to_git/assets/imgs/640-20210117142859986.png)
+![Image](/assets/imgs/640-20210117142859986.png)
 
 继续打个比方，我们现在要删除下面这个数组中的index5这个位置
 
-![Image](/Users/silince/Develop/博客/blog_to_git/assets/imgs/640-20210117142859957.png)
+![Image](/assets/imgs/640-20210117142859957.png)
 
 那代码他就复制一个index5+1开始到最后的数组，然后把它放到index开始的位置
 
-![Image](/Users/silince/Develop/博客/blog_to_git/assets/imgs/640-20210117142859966.png)
+![Image](/assets/imgs/640-20210117142859966.png)
 
 index5的位置就成功被”删除“了其实就是被覆盖了，给了你被删除的感觉。
 
@@ -161,7 +161,7 @@ index5的位置就成功被”删除“了其实就是被覆盖了，给了你�
 
 Vector的实现很简单，就是把所有的方法统统加上synchronized就完事了。
 
-你也可以不使用Vector，用Collections.synchronizedList把一个普通ArrayList包装成一个线程安全版本的数组容器也可以，原理同Vector是一样的，就是给所有的方法套上一层synchronized。
+你也可以不使用Vector，用`Collections.synchronizedList`把一个普通ArrayList包装成一个线程安全版本的数组容器也可以，原理同Vector是一样的，就是给所有的方法套上一层synchronized。
 
 
 
@@ -169,7 +169,7 @@ Vector的实现很简单，就是把所有的方法统统加上synchronized就�
 
 队列一般是FIFO（先入先出）的，如果用ArrayList做队列，就需要在数组尾部追加数据，数组头部删除数组，反过来也可以。
 
-但是无论如何总会有一个操作会涉及到数组的数据搬迁，这个是比较耗费性能的。
+**但是无论如何总会有一个操作会涉及到数组的数据搬迁，这个是比较耗费性能的。**
 
 **结论：ArrayList不适合做队列。**
 
@@ -177,4 +177,146 @@ Vector的实现很简单，就是把所有的方法统统加上synchronized就�
 
 > 那数组适合用来做队列么？
 
-这个女人是魔鬼么？不过还是得微笑面对！
+**数组是非常合适的。**
+
+比如`ArrayBlockingQueue`内部实现就是一个环形队列，它是一个定长队列，内部是用一个定长数组来实现的。
+
+另外著名的Disruptor开源Library也是用环形数组来实现的超高性能队列，具体原理不做解释，比较复杂。
+
+**简单点说就是使用两个偏移量来标记数组的读位置和写位置，如果超过长度就折回到数组开头，前提是它们是定长数组。**
+
+
+
+以数组作为底层数据结构时，一般讲队列实现为循环队列。这是因为队列在顺序存储上的不足：每次从数组头部删除元素（出队）后，需要将头部以后的所有元素往前移动一个位置，这是一个时间复杂度为O（n）的操作：
+
+![image-20210117144600622](/assets/imgs/image-20210117144600622.png)
+
+可能有人说，把队首标志往后移动不就不用移动元素了吗？的确，但那样会造成数组空间的“流失”。
+
+我们希望队列的插入与删除操作都是O(1)的时间复杂度，同时不会造成数组空间的浪费，我们应该使用**循环队列**。
+
+所谓的循环队列，可以把数组看出一个首尾相连的圆环，删除元素时将队首标志往后移动，**添加元素时若数组尾部已经没有空间，则考虑数组头部的空间是否空闲**，如果是，则在数组头部进行插入。
+
+![image-20210117144626985](/assets/imgs/image-20210117144626985.png)
+
+那么我们如何判断队列是空队列还是已满呢？
+
+1. **栈空： 队首标志=队尾标志时，表示栈空**，即红绿两个标志在图中重叠时为栈空。
+2. **栈满 : 队尾+1 = 队首时，表示栈空**。图三最下面的队列即为一个满队列。尽管还有一个空位，我们不存储元素。
+
+
+
+
+
+> ArrayList的遍历和LinkedList遍历性能比较如何？
+
+**论遍历ArrayList要比LinkedList快得多，ArrayList遍历最大的优势在于内存的连续性，**CPU的内部缓存结构会缓存连续的内存片段，可以大幅降低读取内存的性能开销。
+
+
+
+
+
+# ArrayList常用的方法总结
+
+- `boolean add(E e)` 将指定的元素添加到此列表的尾部。
+
+- `void add(int index, E element)` 将指定的元素插入此列表中的指定位置。
+
+- `boolean addAll(Collection c) `按照指定 collection 的迭代器所返回的元素顺序，将该 collection 中的所有元素添加到此列表的尾部。
+
+- `boolean addAll(int index, Collection c)` 从指定的位置开始，将指定 collection 中的所有元素插入到此列表中。
+
+- `void clear()` 移除此列表中的所有元素。
+
+- `Object clone()` 返回此 ArrayList 实例的浅表副本。
+
+- `boolean contains(Object o)` 如果此列表中包含指定的元素，则返回 true。
+
+- `void ensureCapacity(int minCapacity)` 如有必要，增加此 ArrayList 实例的容量，以确保它至少能够容纳最小容量参数所指定的元素数。
+
+- `E get(int index) `返回此列表中指定位置上的元素。
+
+- `int indexOf(Object o) `返回此列表中首次出现的指定元素的索引，或如果此列表不包含元素，则返回 -1。
+
+- `boolean isEmpty() `如果此列表中没有元素，则返回 true
+
+- `int lastIndexOf(Object o) `返回此列表中最后一次出现的指定元素的索引，或如果此列表不包含索引，则返回 -1。
+
+- `E remove(int index)` 移除此列表中指定位置上的元素。
+
+- `boolean remove(Object o) `移除此列表中首次出现的指定元素（如果存在）。
+
+- `protected void removeRange(int fromIndex, int toIndex)` 移除列表中索引在 fromIndex（包括）和 toIndex（不包括）之间的所有元素。
+
+- `E set(int index, E element) `用指定的元素替代此列表中指定位置上的元素。
+
+- `int size()` 返回此列表中的元素数。
+
+- `Object[] toArray()` 按适当顺序（从第一个到最后一个元素）返回包含此列表中所有元素的数组。
+
+- `T[] toArray(T[] a)` 按适当顺序（从第一个到最后一个元素）返回包含此列表中所有元素的数组；返回数组的运行时类型是指定数组的运行时类型。
+
+- `void trimToSize() `将此 ArrayList 实例的容量调整为列表的当前大小。
+
+
+
+# ArrayList源码解析
+
+## 类图
+
+![image-20210117145422636](/assets/imgs/image-20210117145422636.png)
+
+- 实现了`RandomAccess`接口，可以随机访问
+- 实现了`Cloneable`接口，可以克隆
+- 实现了`Serializable`接口，可以序列化、反序列化
+- 实现了`List`接口，是`List`的实现类之一
+- 实现了`Collection`接口，是`Java Collections Framework`成员之一
+- 实现了`Iterable`接口，可以使用`for-each`迭代
+
+
+
+## 属性
+
+1. 为什么空实例默认数组有的时候是`EMPTY_ELEMENTDATA`，而又有的时候是`DEFAULTCAPACITY_EMPTY_ELEMENTDATA`
+2. 为什么`elementData`要被`transient`修饰
+3. 为什么`elementData`没有被`private`修饰？难道正如注释所写的**non-private to simplify nested class access**
+
+```java
+// 序列化版本UID
+private static final long
+        serialVersionUID = 8683452581122892189L;
+
+/**
+ * 默认的初始容量
+ */
+private static final int
+        DEFAULT_CAPACITY = 10;
+
+/**
+ * 用于空实例的共享空数组实例
+ * new ArrayList(0);
+ */
+private static final Object[]
+        EMPTY_ELEMENTDATA = {};
+
+/**
+ * 用于提供默认大小的实例的共享空数组实例
+ * new ArrayList();
+ */
+private static final Object[]
+        DEFAULTCAPACITY_EMPTY_ELEMENTDATA = {};
+
+/**
+ * 存储ArrayList元素的数组缓冲区
+ * ArrayList的容量，是数组的长度
+ * 
+ * non-private to simplify nested class access
+ */
+transient Object[] elementData;
+
+/**
+ * ArrayList中元素的数量
+ */
+private int size;
+```
+
