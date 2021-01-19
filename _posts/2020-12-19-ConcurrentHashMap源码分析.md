@@ -164,48 +164,48 @@ ConcurrentHashMap 有五种构造函数，但是最终都会调用同一个构�
 ```java
 public ConcurrentHashMap(int initialCapacity,
                              float loadFactor, int concurrencyLevel) {
- //检验参数是否合法。值得说的是，并发级别一定要大于0，否则就没办法实现分段锁了。
- if (!(loadFactor > 0) || initialCapacity < 0 || concurrencyLevel <= 0)
-  throw new IllegalArgumentException();
- //并发级别不能超过最大值
- if (concurrencyLevel > MAX_SEGMENTS)
-  concurrencyLevel = MAX_SEGMENTS;
- // Find power-of-two sizes best matching arguments
- //偏移量，是为了对hash值做位移操作，计算元素所在的Segment下标，put方法详讲
- int sshift = 0;
- //用于设定最终Segment数组的长度，必须是2的n次幂
- int ssize = 1;
- //这里就是计算 sshift 和 ssize 值的过程  1⃣️
- while (ssize < concurrencyLevel) {
-  ++sshift;
-  ssize <<= 1;
- }
- this.segmentShift = 32 - sshift;
- //Segment的掩码
- this.segmentMask = ssize - 1;
- if (initialCapacity > MAXIMUM_CAPACITY)
-  initialCapacity = MAXIMUM_CAPACITY;
- //c用于辅助计算cap的值   2⃣️
- int c = initialCapacity / ssize;
- if (c * ssize < initialCapacity)
-  ++c;
- // cap 用于确定某个Segment的容量，即Segment中HashEntry数组的长度
- int cap = MIN_SEGMENT_TABLE_CAPACITY;
- // 
- while (cap < c)
-  cap <<= 1;
- // create segments and segments[0]
- //这里用 loadFactor做为加载因子，cap乘以加载因子作为扩容阈值，创建长度为cap的HashEntry数组，
- //三个参数，创建一个Segment对象，保存到S0对象中。后边在 ensureSegment 方法会用到S0作为原型对象去创建对应的Segment。
- Segment<K,V> s0 =
-  new Segment<K,V>(loadFactor, (int)(cap * loadFactor),
-       (HashEntry<K,V>[])new HashEntry[cap]);
- //创建出长度为 ssize 的一个 Segment数组
- Segment<K,V>[] ss = (Segment<K,V>[])new Segment[ssize];
- //把S0存到Segment数组中去。在这里，我们就可以发现，此时只是创建了一个Segment数组，
- //但是并没有把数组中的每个Segment对象创建出来，仅仅创建了一个Segment用来作为原型对象。
- UNSAFE.putOrderedObject(ss, SBASE, s0); // ordered write of segments[0]
- this.segments = ss;
+   //检验参数是否合法。值得说的是，并发级别一定要大于0，否则就没办法实现分段锁了。
+   if (!(loadFactor > 0) || initialCapacity < 0 || concurrencyLevel <= 0)
+    	throw new IllegalArgumentException();
+   //并发级别不能超过最大值
+   if (concurrencyLevel > MAX_SEGMENTS)
+    	concurrencyLevel = MAX_SEGMENTS;
+   // Find power-of-two sizes best matching arguments
+   //偏移量，是为了对hash值做位移操作，计算元素所在的Segment下标，put方法详讲
+   int sshift = 0;
+   //用于设定最终Segment数组的长度，必须是2的n次幂
+   int ssize = 1;
+   //这里就是计算 sshift 和 ssize 值的过程  1⃣️
+   while (ssize < concurrencyLevel) {
+      ++sshift;
+      ssize <<= 1;
+   }
+   this.segmentShift = 32 - sshift;
+   //Segment的掩码
+   this.segmentMask = ssize - 1;
+   if (initialCapacity > MAXIMUM_CAPACITY)
+    initialCapacity = MAXIMUM_CAPACITY;
+   //c用于辅助计算cap的值   2⃣️
+   int c = initialCapacity / ssize;
+   if (c * ssize < initialCapacity)
+    	++c;
+   // cap 用于确定某个Segment的容量，即Segment中HashEntry数组的长度
+   int cap = MIN_SEGMENT_TABLE_CAPACITY;
+   // 
+   while (cap < c)
+    cap <<= 1;
+   // create segments and segments[0]
+   //这里用 loadFactor做为加载因子，cap乘以加载因子作为扩容阈值，创建长度为cap的HashEntry数组，
+   //三个参数，创建一个Segment对象，保存到S0对象中。后边在 ensureSegment 方法会用到S0作为原型对象去创建对应的Segment。
+   Segment<K,V> s0 =
+    new Segment<K,V>(loadFactor, (int)(cap * loadFactor),
+         (HashEntry<K,V>[])new HashEntry[cap]);
+   //创建出长度为 ssize 的一个 Segment数组
+   Segment<K,V>[] ss = (Segment<K,V>[])new Segment[ssize];
+   //把S0存到Segment数组中去。在这里，我们就可以发现，此时只是创建了一个Segment数组，
+   //但是并没有把数组中的每个Segment对象创建出来，仅仅创建了一个Segment用来作为原型对象。
+   UNSAFE.putOrderedObject(ss, SBASE, s0); // ordered write of segments[0]
+   this.segments = ss;
 }    
  //须是2的n次幂
  int ssize = 1;
@@ -244,23 +244,97 @@ put 方法的总体流程是：
 4. 找到合适的位置插入元素
 
 ```java
+/********************这是Map的put方法********************/
 public V put(K key, V value) {
- Segment<K,V> s;
- //不支持value为空
- if (value == null)
-  throw new NullPointerException();
- //通过 Wang/Jenkins 算法的一个变种算法，计算出当前key对应的hash值
- int hash = hash(key);
- //上边我们计算出的 segmentShift为28，因此hash值右移28位，说明此时用的是hash的高4位，
- //然后把它和掩码15进行与运算，得到的值一定是一个 0000 ~ 1111 范围内的值，即 0~15 。
- int j = (hash >>> segmentShift) & segmentMask;
- //这里是用Unsafe类的原子操作找到Segment数组中j下标的 Segment 对象
- if ((s = (Segment<K,V>)UNSAFE.getObject          // nonvolatile; recheck
-   (segments, (j << SSHIFT) + SBASE)) == null) //  in ensureSegment
-  //初始化j下标的Segment
-  s = ensureSegment(j);
- //在此Segment中添加元素
- return s.put(key, hash, value, false);
+   Segment<K,V> s;
+   //不支持value为空
+   if (value == null)
+    throw new NullPointerException();
+   //通过 Wang/Jenkins 算法的一个变种算法，计算出当前key对应的hash值
+   int hash = hash(key);
+   //上边我们计算出的 segmentShift为28，因此hash值右移28位，说明此时用的是hash的高4位，
+   //然后把它和掩码15进行与运算，得到的值一定是一个 0000 ~ 1111 范围内的值，即 0~15 。
+   int j = (hash >>> segmentShift) & segmentMask;
+   //这里是用Unsafe类的原子操作找到Segment数组中j下标的 Segment 对象
+   if ((s = (Segment<K,V>)UNSAFE.getObject          // nonvolatile; recheck
+     (segments, (j << SSHIFT) + SBASE)) == null) //  in ensureSegment
+    //初始化j下标的Segment
+    s = ensureSegment(j);
+   //在此Segment中添加元素
+   return s.put(key, hash, value, false);
+}
+```
+
+上边有一个这样的方法， `UNSAFE.getObject (segments, (j << SSHIFT) + SBASE`。它是为了通过Unsafe这个类，找到 j 最新的实际值。这个计算` (j << SSHIFT) + SBASE` ，在后边非常常见，我们只需要知道它代表的是 j 的一个偏移量，通过偏移量，就可以得到 j 的实际值。可以类比，AQS 中的 CAS 操作。Unsafe中的操作，都需要一个偏移量，看下图，
+
+![image-20210119184245176](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20210119184245176.png)
+
+`(j << SSHIFT) + SBASE` 就相当于图中的 stateOffset偏移量。只不过图中是 CAS 设置新值，而我们这里是取 j 的最新值。后边很多这样的计算方式，就不赘述了。接着看 s.put 方法，这才是最终确定元素位置的方法。
+
+```java
+/********************这是Map的put方法********************/
+final V put(K key, int hash, V value, boolean onlyIfAbsent) {
+  //这里通过tryLock尝试加锁，如果加锁成功，返回null，否则执行 scanAndLockForPut方法
+  //这里说明一下，tryLock 和 lock 是 ReentrantLock 中的方法，
+  //区别是 tryLock 不会阻塞，抢锁成功就返回true，失败就立马返回false，
+  //而 lock 方法是，抢锁成功则返回，失败则会进入同步队列，阻塞等待获取锁。
+  HashEntry<K, V> node = tryLock() ? null :
+  scanAndLockForPut(key, hash, value);
+  V oldValue;
+  try {
+    //当前Segment的table数组
+    HashEntry<K, V>[] tab = table;
+    //这里就是通过hash值，与tab数组长度取模，找到其所在HashEntry数组的下标
+    int index = (tab.length - 1) & hash;
+    //当前下标位置的第一个HashEntry节点
+    HashEntry<K, V> first = entryAt(tab, index);
+    for (HashEntry<K, V> e = first; ; ) {
+      //如果第一个节点不为空
+      if (e != null) {
+        K k;
+        //并且第一个节点，就是要插入的节点，则替换value值，否则继续向后查找
+        if ((k = e.key) == key ||
+            (e.hash == hash && key.equals(k))) {
+          //替换旧值
+          oldValue = e.value;
+          if (!onlyIfAbsent) {
+            e.value = value;
+            ++modCount;
+          }
+          break;
+        }
+        e = e.next;
+      }
+      //说明当前index位置不存在任何节点，此时first为null，
+      //或者当前index存在一条链表，并且已经遍历完了还没找到相等的key，此时first就是链表第一个元素
+      else {
+        //如果node不为空，则直接头插
+        if (node != null)
+          node.setNext(first);
+        //否则，创建一个新的node，并头插
+        else
+          node = new HashEntry<K, V>(hash, key, value, first);
+        int c = count + 1;
+        //如果当前Segment中的元素大于阈值，并且tab长度没有超过容量最大值，则扩容
+        if (c > threshold && tab.length < MAXIMUM_CAPACITY)
+          rehash(node);
+        //否则，就把当前node设置为index下标位置新的头结点
+        else
+          setEntryAt(tab, index, node);
+        ++modCount;
+        //更新count值
+        count = c;
+        //这种情况说明旧值肯定为空
+        oldValue = null;
+        break;
+      }
+    }
+  } finally {
+    //需要注意ReentrantLock必须手动解锁
+    unlock();
+  }
+  //返回旧值
+  return oldValue;
 }
 ```
 
