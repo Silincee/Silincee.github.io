@@ -6,6 +6,8 @@ categories: [Java, 并发编程]
 tags: [HashMap, 并发编程, 集合框架, 面试题, ]  
 ---
 
+[ConcurrentHashMap源码分析](http://www.silince.cn/2020/12/19/ConcurrentHashMap源码分析/)
+
 > HashMap在多线程环境下存在线程安全问题，那你一般都是怎么处理这种情况的？
 
 一般在多线程的场景，有以下方式去代替：
