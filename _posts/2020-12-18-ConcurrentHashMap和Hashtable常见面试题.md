@@ -2,8 +2,8 @@
 layout: post
 title:  "ConcurrentHashMap和Hashtable常见面试题"
 date:   2020-12-18 21:21:06 +0800--
-categories: [Java, 高并发]
-tags: [HashMap, 高并发, 集合框架, 面试题, ]  
+categories: [Java, 并发编程]
+tags: [HashMap, 并发编程, 集合框架, 面试题, ]  
 ---
 
 > HashMap在多线程环境下存在线程安全问题，那你一般都是怎么处理这种情况的？
