@@ -226,8 +226,8 @@ c = 16/16 = 1;
 //3⃣️  此时，由于c为1， cap为2 ，因此判断 cap < c 为false，最终cap为2。
 //总结一下，以上三个步骤，最终都是为了确定以下几个关键参数的值，
 //确定 segmentShift ，这个用于后边计算hash值的偏移量，此处即为 32-4=28，
-//确定 ssize，必须是一个大于等于 concurrencyLevel 的一个2的n次幂值
-//确定 cap，必须是一个大于等于2的一个2的n次幂值
+//确定 ssize(Segment数组长度)，必须是一个大于等于 concurrencyLevel 的一个2的n次幂值
+//确定 cap(Segment中HashEntry数组的长度)，必须是一个大于等于2的一个2的n次幂值
 //感兴趣的小伙伴，还可以用另外几组参数来计算上边的参数值，可以加深理解参数的含义。
 //例如initialCapacity和concurrencyLevel分别传入10和5，或者传入33和16
 ```
@@ -265,21 +265,20 @@ public V put(K key, V value) {
 }
 ```
 
-上边有一个这样的方法， `UNSAFE.getObject (segments, (j << SSHIFT) + SBASE`。它是为了通过Unsafe这个类，找到 j 最新的实际值。这个计算` (j << SSHIFT) + SBASE` ，在后边非常常见，我们只需要知道它代表的是 j 的一个偏移量，通过偏移量，就可以得到 j 的实际值。可以类比，AQS 中的 CAS 操作。Unsafe中的操作，都需要一个偏移量，看下图，
+上边有一个这样的方法， `UNSAFE.getObject (segments, (j << SSHIFT) + SBASE)`。它是为了通过Unsafe这个类，找到 j 最新的实际值。这个计算` (j << SSHIFT) + SBASE` ，在后边非常常见，我们只需要知道它代表的是 j 的一个偏移量，通过偏移量，就可以得到 segments[j] 的实际值，判断是否为空来决定要不要初始化。可以类比，AQS 中的 CAS 操作。Unsafe中的操作，都需要一个偏移量，看下图，
 
 ![image-20210119184245176](/assets/imgs/image-20210119184245176.png)
 
-`(j << SSHIFT) + SBASE` 就相当于图中的 stateOffset偏移量。只不过图中是 CAS 设置新值，而我们这里是取 j 的最新值。后边很多这样的计算方式，就不赘述了。接着看 s.put 方法，这才是最终确定元素位置的方法。
+**`(j << SSHIFT) + SBASE` 就相当于图中的 stateOffset偏移量。只不过图中是 CAS 设置新值，而我们这里是取 segments[j] 的最新值。后边很多这样的计算方式，就不赘述了。接着看 s.put() 方法，这才是最终确定元素位置的方法。**
 
 ```java
-/********************这是Map的put方法********************/
+/********************这是Map的put()方法********************/
 final V put(K key, int hash, V value, boolean onlyIfAbsent) {
   //这里通过tryLock尝试加锁，如果加锁成功，返回null，否则执行 scanAndLockForPut方法
   //这里说明一下，tryLock 和 lock 是 ReentrantLock 中的方法，
   //区别是 tryLock 不会阻塞，抢锁成功就返回true，失败就立马返回false，
   //而 lock 方法是，抢锁成功则返回，失败则会进入同步队列，阻塞等待获取锁。
-  HashEntry<K, V> node = tryLock() ? null :
-  scanAndLockForPut(key, hash, value);
+  HashEntry<K, V> node = tryLock() ? null : scanAndLockForPut(key, hash, value);
   V oldValue;
   try {
     //当前Segment的table数组
@@ -350,7 +349,7 @@ final V put(K key, int hash, V value, boolean onlyIfAbsent) {
 
 思考一下，为什么它们的算法不一样呢？计算 Segment 数组下标是用的 hash值高几位（这里以高 4 位为例）和掩码做与运算，而计算 HashEntry 数组下标是直接用的 hash 值和数组长度减1做与运算。
 
-我的理解是，这是为了尽量避免当前 hash 值计算出来的 Segment 数组下标和计算出来的 HashEntry 数组下标趋于相同。简单说，就是为了避免分配到同一个 Segment 中的元素扎堆现象，即避免它们都被分配到同一条链表上，导致链表过长。同时，也是为了减少并发。下面做一个运算，帮助理解一下（假设不用高 4 位运算，而是正常情况都用低位做运算）。
+**我的理解是，这是为了尽量避免当前 hash 值计算出来的 Segment 数组下标和计算出来的 HashEntry 数组下标趋于相同。简单说，就是为了避免分配到同一个 Segment 中的元素扎堆现象，即避免它们都被分配到同一条链表上，导致链表过长。同时，也是为了减少并发。下面做一个运算，帮助理解一下（假设不用高 4 位运算，而是正常情况都用低位做运算）。**
 
 ```java
 //我们以并发级别16，HashEntry数组容量 4 为例，则它们参与运算的掩码分别为 15 和 3
@@ -384,7 +383,7 @@ put 方法比较简单，只要能看懂 HashMap 中的 put 方法，这里也�
 回到 Map的 put 方法，判断 j 下标的 Segment为空后，则需要调用此方法，初始化一个 Segment 对象，以确保拿到的对象一定是不为空的，否则无法执行s.put了。
 
 ```java
-//k为 (hash >>> segmentShift) & segmentMask 算法计算出来的值
+//k为 (hash >>> segmentShift) & segmentMask 算法计算出来的值, 即Segment的下标
 private Segment<K,V> ensureSegment(int k) {
   final Segment<K,V>[] ss = this.segments;
   //u代表 k 的偏移量，用于通过 UNSAFE 获取主内存最新的实际 K 值
@@ -501,7 +500,7 @@ scanAndLockForPut 这个方法可以确保返回时，当前线程一定是获�
 
 ## rehash() 扩容机制
 
-当 put 方法时，发现元素个数超过了阈值，则会扩容。需要注意的是，每个Segment只管它自己的扩容，互相之间并不影响。换句话说，可以出现这个 Segment的长度为2，另一个Segment的长度为4的情况（只要是2的n次幂）。
+当 put 方法时，发现元素个数超过了阈值，则会扩容。需要注意的是，**每个Segment只管它自己的扩容，互相之间并不影响。**换句话说，可以出现这个 Segment的长度为2，另一个Segment的长度为4的情况（只要是2的n次幂）。
 
 ```java
 //node为创建的新节点
@@ -585,7 +584,7 @@ private void rehash(HashEntry<K,V> node) {
 
 另外从头结点到 lastRun 之前的节点，无法统一处理，只能一个一个去复制了。且注意，这里不是直接迁移，而是复制节点到新的数组，旧的节点会在不久的将来，因为没有引用指向，被 JVM 垃圾回收处理掉。
 
-（不知道为啥这个方法名起为 rehash，其实扩容时 hash 值并没有重新计算，变化的只是它们所在的下标而已。我猜测，可能是，借用了 1.7 HashMap 中的说法吧。。。）
+（**不知道为啥这个方法名起为 rehash，其实扩容时 hash 值并没有重新计算，变化的只是它们所在的下标而已。**我猜测，可能是，借用了 1.7 HashMap 中的说法吧。。。）
 
 
 
@@ -758,13 +757,13 @@ public int size() {
 
 # ConcurrentHashMap 1.8 源码解析
 
-需要说明的是，JDK 1.8 的 CHM（ConcurrentHashMap） 实现，完全重构了 1.7 。不再有 Segment 的概念，只是为了兼容 1.7 才申明了一下，并没有用到。因此，不再使用分段锁，而是给数组中的每一个头节点（为了方便，以后都叫桶）都加锁，锁的粒度降低了。并且，用的是 Synchronized 锁。
+需要说明的是，**JDK 1.8 的 CHM（ConcurrentHashMap） 实现，完全重构了 1.7 。不再有 Segment 的概念，只是为了兼容 1.7 才申明了一下，并没有用到。因此，不再使用分段锁，而是给数组中的每一个头节点（为了方便，以后都叫桶）都加锁，锁的粒度降低了。并且，用的是 Synchronized 锁。**
 
 可能有的小伙伴就有疑惑了，不是都说同步锁是重量级锁吗，这样不是会影响并发效率吗？
 
 确实之前同步锁是一个重量级锁，但是在 JDK1.6 之后进行了各种优化之后，它已经不再那么重了。引入了偏向锁，轻量级锁，以及锁升级的概念，而且，据说在更细粒度的代码层面上，同步锁已经可以媲美 Lock 锁，甚至是赶超了。除此之外，它还有很多优点，这里不再展开了。感兴趣的可以自行查阅同步锁的锁升级过程，以及它和 Lock 锁的区别。
 
-在 1.8 CHM 中，底层存储结构和 1.8 的 HashMap 是一样的，都是数组+链表+红黑树。不同的就是，多了一些并发的处理。
+**在 1.8 CHM 中，底层存储结构和 1.8 的 HashMap 是一样的，都是数组+链表+红黑树。不同的就是，多了一些并发的处理。**
 
 文章开头我们提到了，在 1.8 HashMap 中的线程安全问题，就是因为在多个线程同时操作同一个桶的头结点时，会发生值的覆盖情况。那么，顺着这个思路，我们看一下在 CHM 中它是怎么避免这种情况发生的吧。
 
