@@ -23,16 +23,16 @@ tags: [LeetCode,数据结构 ]
 
 ## 双指针 
 
-| 题目                                                         | 算法思想        | 正确率 |
-| ------------------------------------------------------------ | --------------- | ------ |
-| [\#11 盛最多水的容器](http://www.silince.cn/2020/07/20/LeetSilinceCode/#11-盛最多水的容器) | 双指针          | 0%     |
-| [\#167 有序数组的 Two Sum](http://www.silince.cn/2020/07/20/LeetSilinceCode/#167-%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84-two-sum) | 双指针/二分查找 | 50%    |
-| [\#633 两数平方和](http://www.silince.cn/2020/07/20/LeetSilinceCode/#633-%E4%B8%A4%E6%95%B0%E5%B9%B3%E6%96%B9%E5%92%8C) | 双指针          | 50%    |
-| [\#345 反转字符串中的元音字符](http://www.silince.cn/2020/07/20/LeetSilinceCode/#345-%E5%8F%8D%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%85%83%E9%9F%B3%E5%AD%97%E7%AC%A6) | 双指针          | 50%    |
-| [\#680 回文字符串](http://www.silince.cn/2020/07/20/LeetSilinceCode/#680-%E5%9B%9E%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2) | 双指针          | 50%    |
-| [\#88 合并两个有序数组](http://www.silince.cn/2020/07/20/LeetSilinceCode/#88-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84) | 双指针          | 0%     |
-| [\#141 判断链表是否存在环](http://www.silince.cn/2020/07/20/LeetSilinceCode/#141-判断链表是否存在环) | 双指针          | 0%     |
-| [\#524 最长子序列](http://www.silince.cn/2020/07/20/LeetSilinceCode/#542-最长子序列) | 双指针          | 0%     |
+| 题目                                                         | 算法思想        |
+| ------------------------------------------------------------ | --------------- |
+| [\#11 盛最多水的容器](http://www.silince.cn/2020/07/20/LeetSilinceCode/#11-盛最多水的容器) | 双指针          |
+| [\#167 有序数组的 Two Sum](http://www.silince.cn/2020/07/20/LeetSilinceCode/#167-%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84-two-sum) | 双指针/二分查找 |
+| [\#633 两数平方和](http://www.silince.cn/2020/07/20/LeetSilinceCode/#633-两数平方和-) | 双指针          |
+| [\#345 反转字符串中的元音字符](http://www.silince.cn/2020/07/20/LeetSilinceCode/#345-反转字符串中的元音字符) | 双指针          |
+| [\#680 回文字符串](http://www.silince.cn/2020/07/20/LeetSilinceCode/#680-%E5%9B%9E%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2) | 双指针          |
+| [\#88 合并两个有序数组](http://www.silince.cn/2020/07/20/LeetSilinceCode/#88-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84) | 双指针          |
+| [\#141 判断链表是否存在环](http://www.silince.cn/2020/07/20/LeetSilinceCode/#141-判断链表是否存在环) | 双指针          |
+| [\#524 最长子序列](http://www.silince.cn/2020/07/20/LeetSilinceCode/#524-最长子序列) | 双指针          |
 
 
 
@@ -40,12 +40,12 @@ tags: [LeetCode,数据结构 ]
 
 > [滑动窗口算法框架](https://labuladong.gitbook.io/algo/di-ling-zhang-bi-du-xi-lie/hua-dong-chuang-kou-ji-qiao-jin-jie)
 
-| 题目                                                         | 算法思想 | 正确率 |
-| ------------------------------------------------------------ | -------- | ------ |
-| [\#3 无重复字符的最长子串](http://www.silince.cn/2020/07/20/LeetSilinceCode/#3-无重复字符的最长子串) | 滑动窗口 | 0%     |
-| [\#76 最小覆盖子串](http://www.silince.cn/2020/07/20/LeetSilinceCode/#76-最小覆盖子串) | 滑动窗口 |        |
-| [\#438 找到字符串中所有字母异位词](http://www.silince.cn/2020/07/20/LeetSilinceCode/#438-找到字符串中所有字母异位词) | 滑动窗口 |        |
-| [\#567 字符串的排列](http://www.silince.cn/2020/07/20/LeetSilinceCode/#567-字符串的排列) | 滑动窗口 |        |
+| 题目                                                         | 算法思想 |
+| ------------------------------------------------------------ | -------- |
+| [\#3 无重复字符的最长子串](http://www.silince.cn/2020/07/20/LeetSilinceCode/#3-无重复字符的最长子串) | 滑动窗口 |
+| [\#76 最小覆盖子串](http://www.silince.cn/2020/07/20/LeetSilinceCode/#76-最小覆盖子串) | 滑动窗口 |
+| [\#438 找到字符串中所有字母异位词](http://www.silince.cn/2020/07/20/LeetSilinceCode/#438-找到字符串中所有字母异位词) | 滑动窗口 |
+| [\#567 字符串的排列](http://www.silince.cn/2020/07/20/LeetSilinceCode/#567-字符串的排列) | 滑动窗口 |
 
 滑动窗口算法的思路非常简单，就是维护一个窗口，不断滑动，然后更新答案么。LeetCode 上有起码 10 道运用滑动窗口算法的题目，难度都是中等和困难。该算法的大致逻辑如下：
 
@@ -134,15 +134,15 @@ public String slidingWindow(String s, String t) {
 
 ## 排序算法
 
-| 题目                                                         | 算法思想 | 正确率 |
-| ------------------------------------------------------------ | -------- | ------ |
-| [\#215 数组中的第K个最大元素](http://www.silince.cn/2020/07/20/LeetSilinceCode/#215-数组中的第k个最大元素) | 快速排序 | 0%     |
-| [\#347 前 K 个高频元素](https://leetcode-cn.com/problems/top-k-frequent-elements/) | 桶排序   | 0%     |
-| [\#451 根据字符出现频率排序](https://leetcode-cn.com/problems/sort-characters-by-frequency/) | 桶排序   |        |
-| [\#75 颜色分类 ]([http://www.silince.cn/2020/07/20/LeetSilinceCode/#75-%E9%A2%9C%E8%89%B2%E5%88%86%E7%B1%BB](http://www.silince.cn/2020/07/20/LeetSilinceCode/#75-颜色分类)) |          |        |
-|                                                              |          |        |
-|                                                              |          |        |
-|                                                              |          |        |
+| 题目                                                         | 算法思想 |
+| ------------------------------------------------------------ | -------- |
+| [\#215 数组中的第K个最大元素](http://www.silince.cn/2020/07/20/LeetSilinceCode/#215-数组中的第k个最大元素) | 快速排序 |
+| [\#347 前 K 个高频元素](https://leetcode-cn.com/problems/top-k-frequent-elements/) | 桶排序   |
+| [\#451 根据字符出现频率排序](https://leetcode-cn.com/problems/sort-characters-by-frequency/) | 桶排序   |
+| [\#75 颜色分类 ]([http://www.silince.cn/2020/07/20/LeetSilinceCode/#75-%E9%A2%9C%E8%89%B2%E5%88%86%E7%B1%BB](http://www.silince.cn/2020/07/20/LeetSilinceCode/#75-颜色分类)) |          |
+|                                                              |          |
+|                                                              |          |
+|                                                              |          |
 
 ```java
 // 快速排序
@@ -189,10 +189,10 @@ public static void quickSort(int[] arr, int start, int end) {
 
 > [二分查找](https://labuladong.gitbook.io/algo/di-ling-zhang-bi-du-xi-lie/er-fen-cha-zhao-xiang-jie)
 
-| 题目                                                         | 算法思想 | 正确率 |
-| ------------------------------------------------------------ | -------- | ------ |
-| [\#704 二分查找](www.silince.cn/2020/07/20/LeetSilinceCode/#704-二分查找) | 二分查找 | 0%     |
-| [\#34 在排序数组中查找元素的第一个和最后一个位置](http://www.silince.cn/2020/07/20/LeetSilinceCode/#34-在排序数组中查找元素的第一个和最后一个位置) | 二分查找 |        |
+| 题目                                                         | 算法思想 |
+| ------------------------------------------------------------ | -------- |
+| [\#704 二分查找](www.silince.cn/2020/07/20/LeetSilinceCode/#704-二分查找) | 二分查找 |
+| [\#34 在排序数组中查找元素的第一个和最后一个位置](http://www.silince.cn/2020/07/20/LeetSilinceCode/#34-在排序数组中查找元素的第一个和最后一个位置) | 二分查找 |
 
 二分查找并不简单，Knuth 大佬（发明 KMP 算法的那位）都说二分查找：**思路很简单，细节是魔鬼**。很多人喜欢拿整型溢出的 bug 说事儿，但是二分查找真正的坑根本就不是那个细节问题，而是在于到底要给 `mid` 加一还是减一，while 里到底用 `<=` 还是 `<`。
 
@@ -675,19 +675,19 @@ int right_bound(int[] nums, int target) {
 >
 > [子序列解题模板：最长回文子序列](https://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484666&idx=1&sn=e3305be9513eaa16f7f1568c0892a468&chksm=9bd7faf2aca073e4f08332a706b7c10af877fee3993aac4dae86d05783d3d0df31844287104e&scene=21#wechat_redirect)
 
-| 题目                                                         | 算法思想                       | 正确率 |
-| ------------------------------------------------------------ | ------------------------------ | ------ |
-| [\#509 斐波那契数](http://www.silince.cn/2020/07/20/LeetSilinceCode/#509-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0) | 动态规划                       | 0%     |
-| [\#322 零钱兑换](http://www.silince.cn/2020/07/20/LeetSilinceCode/#322-零钱兑换) | 动态规划                       |        |
-| [\#494. 目标和](http://www.silince.cn/2020/07/20/LeetSilinceCode/#494-%E7%9B%AE%E6%A0%87%E5%92%8C) | 动态规划/背包问题              |        |
-| [\#72. 编辑距离](https://labuladong.gitbook.io/algo/dong-tai-gui-hua-xi-lie/1.2-zi-xu-lie-lei-xing-wen-ti/bian-ji-ju-li) | 子序列问题/动态规划            |        |
-| [\#300. 最长递增子序列]()                                    | 子序列问题/动态规划            |        |
-| [\#354. 俄罗斯套娃信封问题]()                                | 子序列问题/动态规划            |        |
-| [\#53. 最大子序和]()                                         | 子序列问题/最大子数组/动态规划 |        |
-| [\#1143. 最长公共子序列]()                                   | 最长公共子序列问题/动态规划    |        |
-| [\#583. 两个字符串的删除操作]()                              | 最长公共子序列问题/动态规划    |        |
-| [\#712. 两个字符串的最小ASCII删除和]()                       | 最长公共子序列问题/动态规划    |        |
-| [\#516. 最长回文子序列]()                                    | **⭐️子序列问题解题模板**        |        |
+| 题目                                                         | 算法思想                       |
+| ------------------------------------------------------------ | ------------------------------ |
+| [\#509 斐波那契数](http://www.silince.cn/2020/07/20/LeetSilinceCode/#509-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0) | 动态规划                       |
+| [\#322 零钱兑换](http://www.silince.cn/2020/07/20/LeetSilinceCode/#322-零钱兑换) | 动态规划                       |
+| [\#494. 目标和](http://www.silince.cn/2020/07/20/LeetSilinceCode/#494-%E7%9B%AE%E6%A0%87%E5%92%8C) | 动态规划/背包问题              |
+| [\#72. 编辑距离](https://labuladong.gitbook.io/algo/dong-tai-gui-hua-xi-lie/1.2-zi-xu-lie-lei-xing-wen-ti/bian-ji-ju-li) | 子序列问题/动态规划            |
+| [\#300. 最长递增子序列]()                                    | 子序列问题/动态规划            |
+| [\#354. 俄罗斯套娃信封问题]()                                | 子序列问题/动态规划            |
+| [\#53. 最大子序和]()                                         | 子序列问题/最大子数组/动态规划 |
+| [\#1143. 最长公共子序列]()                                   | 最长公共子序列问题/动态规划    |
+| [\#583. 两个字符串的删除操作]()                              | 最长公共子序列问题/动态规划    |
+| [\#712. 两个字符串的最小ASCII删除和]()                       | 最长公共子序列问题/动态规划    |
+| [\#516. 最长回文子序列]()                                    | **⭐️子序列问题解题模板**        |
 
 **首先，动态规划问题的一般形式就是求最值**。动态规划其实是运筹学的一种最优化方法，只不过在计算机问题上应用比较多，比如说让你求**最长**递增子序列呀，**最小**编辑距离呀等等。
 
@@ -733,11 +733,11 @@ for 状态1 in 状态1的所有取值：
 
 > [回溯算法解题套路框架](https://labuladong.gitbook.io/algo/di-ling-zhang-bi-du-xi-lie/hui-su-suan-fa-xiang-jie-xiu-ding-ban)
 
-| 题目                                                         | 算法思想          | 正确率 |
-| ------------------------------------------------------------ | ----------------- | ------ |
-| [\#46. 全排列](http://www.silince.cn/2020/07/20/LeetSilinceCode/#46-全排列) | 回溯算法          | 0%     |
-| [\#51. N 皇后](http://www.silince.cn/2020/07/20/LeetSilinceCode/#51-n-皇后) | 回溯算法          | 0%     |
-| [\#494. 目标和](http://www.silince.cn/2020/07/20/LeetSilinceCode/#494-%E7%9B%AE%E6%A0%87%E5%92%8C) | 动态规划/背包问题 | 0%     |
+| 题目                                                         | 算法思想          |
+| ------------------------------------------------------------ | ----------------- |
+| [\#46. 全排列](http://www.silince.cn/2020/07/20/LeetSilinceCode/#46-全排列) | 回溯算法          |
+| [\#51. N 皇后](http://www.silince.cn/2020/07/20/LeetSilinceCode/#51-n-皇后) | 回溯算法          |
+| [\#494. 目标和](http://www.silince.cn/2020/07/20/LeetSilinceCode/#494-%E7%9B%AE%E6%A0%87%E5%92%8C) | 动态规划/背包问题 |
 
 **解决一个回溯问题，实际上就是一个决策树的遍历过程**。你只需要思考 3 个问题：
 
@@ -776,10 +776,10 @@ def backtrack(路径, 选择列表):
 
 > [BFS算法解题套路框架](https://labuladong.gitbook.io/algo/di-ling-zhang-bi-du-xi-lie/bfs-kuang-jia)
 
-| 题目                        | 算法思想 | 正确率 |
-| --------------------------- | -------- | ------ |
-| [\#111. 二叉树的最小深度]() | BFS算法  | 0%     |
-| [\#752. 打开转盘锁]()       | BFS算法  | 0%     |
+| 题目                        | 算法思想 |
+| --------------------------- | -------- |
+| [\#111. 二叉树的最小深度]() | BFS算法  |
+| [\#752. 打开转盘锁]()       | BFS算法  |
 
 首先，你要说 labuladong 没写过 BFS 框架，这话没错，今天写个框架你背住就完事儿了。但要是说没写过 DFS 框架，那你还真是说错了，**其实 DFS 算法就是回溯算法**。
 
@@ -855,14 +855,14 @@ int BFS(Node start, Node target) {
 
 > https://leetcode-cn.com/tag/array/
 
-| 题目                                                         | 算法思想                  | 正确率 |
-| ------------------------------------------------------------ | ------------------------- | ------ |
-| [\#26 删除排序数组中的重复项](http://www.silince.cn/2020/07/20/LeetSilinceCode/#26-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9) | 双指针                    | 0%     |
-| [\#88 合并两个有序数组](http://www.silince.cn/2020/07/20/LeetSilinceCode/#88-合并两个有序数组) | 双指针                    | 0%     |
-| [\#169 多数元素](http://www.silince.cn/2020/07/20/LeetSilinceCode/#169-多数元素) | 哈希表/排序/随机化/投票法 | 0%     |
-| [\#674 最长连续递增序列](http://www.silince.cn/2020/07/20/LeetSilinceCode/#674-最长连续递增序列) | 动态规划                  | 0%     |
-| [\#1051 高度检查器](http://www.silince.cn/2020/07/20/LeetSilinceCode/#1051-高度检查器) | 桶排序                    | 50%    |
-| [\#1160 拼写单词](http://www.silince.cn/2020/07/20/LeetSilinceCode/#1160-拼写单词) | counter方法/HashMap       | 0%     |
+| 题目                                                         | 算法思想                  |
+| ------------------------------------------------------------ | ------------------------- |
+| [\#26 删除排序数组中的重复项](http://www.silince.cn/2020/07/20/LeetSilinceCode/#26-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9) | 双指针                    |
+| [\#88 合并两个有序数组](http://www.silince.cn/2020/07/20/LeetSilinceCode/#88-合并两个有序数组) | 双指针                    |
+| [\#169 多数元素](http://www.silince.cn/2020/07/20/LeetSilinceCode/#169-多数元素) | 哈希表/排序/随机化/投票法 |
+| [\#674 最长连续递增序列](http://www.silince.cn/2020/07/20/LeetSilinceCode/#674-最长连续递增序列) | 动态规划                  |
+| [\#1051 高度检查器](http://www.silince.cn/2020/07/20/LeetSilinceCode/#1051-高度检查器) | 桶排序                    |
+| [\#1160 拼写单词](http://www.silince.cn/2020/07/20/LeetSilinceCode/#1160-拼写单词) | counter方法/HashMap       |
 
 
 
@@ -874,45 +874,45 @@ int BFS(Node start, Node target) {
 
 [目录](https://github.com/CyC2018/CS-Notes/blob/master/notes/Leetcode%20%E9%A2%98%E8%A7%A3%20-%20%E6%A0%91.md#1-%E6%A0%91%E7%9A%84%E9%AB%98%E5%BA%A6)
 
-| 题目                                                         | 算法思想      | 正确率 |
-| ------------------------------------------------------------ | ------------- | ------ |
-| [\#104 树的高度](http://www.silince.cn/2020/07/20/LeetSilinceCode/#104-二叉树的最大深度) | 递归/广度优先 | 50%    |
-| [\#110 平衡二叉树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#110-平衡二叉树) | 递归          | 50%    |
-| [\#543 两节点的最长路径](http://www.silince.cn/2020/07/20/LeetSilinceCode/#543-二叉树的直径) | 递归          | 0%     |
-| [\#226 翻转树 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#226-%E7%BF%BB%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91) | 前序遍历/递归 | 100%   |
-| [\#116 填充每个节点的下一个右侧节点指针 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#116-填充每个节点的下一个右侧节点指针) | 前序遍历/递归 | 0%     |
-| [\#114. 二叉树展开为链表 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#114-二叉树展开为链表) | 后序遍历/递归 | 0%     |
-| [\#617 归并两棵树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#617-%E5%90%88%E5%B9%B6%E4%BA%8C%E5%8F%89%E6%A0%91) | 递归          | 0%     |
-| [\#654. 最大二叉树 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#654-最大二叉树) | 递归          | 50%    |
-| [\#105. 从前序与中序遍历序列构造二叉树 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#105-从前序与中序遍历序列构造二叉树) | 递归          | 0%     |
-| [\#106. 从中序与后序遍历序列构造二叉树 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#106-从中序与后序遍历序列构造二叉树) | 递归          | 100%   |
-| [\#652 寻找重复的子树 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#652-寻找重复的子树) | 递归          | 0%     |
-| [\#112 判断路径和是否等于一个数](http://www.silince.cn/2020/07/20/LeetSilinceCode/#112-%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8C) | 递归          |        |
-| [\#437 统计路径和等于一个数的路径数量](http://www.silince.cn/2020/07/20/LeetSilinceCode/#437-%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8C-iii) | 递归          |        |
-| [\#572 子树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#572-%E5%8F%A6%E4%B8%80%E4%B8%AA%E6%A0%91%E7%9A%84%E5%AD%90%E6%A0%91) | 递归          |        |
-| [\#101 树的对称](http://www.silince.cn/2020/07/20/LeetSilinceCode/#101-%E5%AF%B9%E7%A7%B0%E4%BA%8C%E5%8F%89%E6%A0%91) | 递归          |        |
-| [\#111 最小路径](http://www.silince.cn/2020/07/20/LeetSilinceCode/#111-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%B0%8F%E6%B7%B1%E5%BA%A6) | 递归          |        |
-| [\#404 统计左叶子结点的和](http://www.silince.cn/2020/07/20/LeetSilinceCode/#404-%E5%B7%A6%E5%8F%B6%E5%AD%90%E4%B9%8B%E5%92%8C) | 递归          |        |
-| [\#687 相同节点值的最大路径长度](http://www.silince.cn/2020/07/20/LeetSilinceCode/#687-%E6%9C%80%E9%95%BF%E5%90%8C%E5%80%BC%E8%B7%AF%E5%BE%84) | 递归          |        |
-| [\#337 间隔遍历](http://www.silince.cn/2020/07/20/LeetSilinceCode/#337-%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D-iii) | 递归          |        |
-| [\#671 找出二叉树中第二小的节点](http://www.silince.cn/2020/07/20/LeetSilinceCode/#671-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%AC%AC%E4%BA%8C%E5%B0%8F%E7%9A%84%E8%8A%82%E7%82%B9) | 递归          |        |
-| [\#637 一棵树每层节点的平均数](http://www.silince.cn/2020/07/20/LeetSilinceCode/#637-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%B9%B3%E5%9D%87%E5%80%BC) | 层次遍历      |        |
-| [\#513 得到左下角的节点](http://www.silince.cn/2020/07/20/LeetSilinceCode/#513-%E6%89%BE%E6%A0%91%E5%B7%A6%E4%B8%8B%E8%A7%92%E7%9A%84%E5%80%BC) | 层次遍历      |        |
-| [\#144 非递归实现二叉树的前序遍历](http://www.silince.cn/2020/07/20/LeetSilinceCode/#144-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86) | 前序遍历      |        |
-| [\#145 非递归实现二叉树的后序遍历](http://www.silince.cn/2020/07/20/LeetSilinceCode/#145-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86) | 后序遍历      |        |
-| [\#94 非递归实现二叉树的中序遍历](http://www.silince.cn/2020/07/20/LeetSilinceCode/#94-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86) | 中序遍历      |        |
-| [\#699 修剪二叉查找树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#669-%E4%BF%AE%E5%89%AA%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91) | BST           |        |
-| [\#230 寻找二叉查找树的第 k 个元素](http://www.silince.cn/2020/07/20/LeetSilinceCode/#230-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%AC%ACk%E5%B0%8F%E7%9A%84%E5%85%83%E7%B4%A0) | BST           |        |
-| [\#538 把二叉查找树每个节点的值都加上比它大的节点的值](http://www.silince.cn/2020/07/20/LeetSilinceCode/#538-%E6%8A%8A%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E8%BD%AC%E6%8D%A2%E4%B8%BA%E7%B4%AF%E5%8A%A0%E6%A0%91) | BST           |        |
-| [\#235 二叉查找树的最近公共祖先](http://www.silince.cn/2020/07/20/LeetSilinceCode/#235-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88) | BST           |        |
-| [\#236 二叉树的最近公共祖先](http://www.silince.cn/2020/07/20/LeetSilinceCode/#236-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88) | BST           |        |
-| [\#108 从有序数组中构造二叉查找树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#108-%E5%B0%86%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E8%BD%AC%E6%8D%A2%E4%B8%BA%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91) | BST           |        |
-| [\#109 根据有序链表构造平衡的二叉查找树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#109-%E6%9C%89%E5%BA%8F%E9%93%BE%E8%A1%A8%E8%BD%AC%E6%8D%A2%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91) | BST           |        |
-| [\#653 在二叉查找树中寻找两个节点，使它们的和为一个给定值](http://www.silince.cn/2020/07/20/LeetSilinceCode/#653-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C-iv---%E8%BE%93%E5%85%A5-bst) | BST           |        |
-| [\#530 在二叉查找树中查找两个节点之差的最小绝对值](http://www.silince.cn/2020/07/20/LeetSilinceCode/#530-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%9C%80%E5%B0%8F%E7%BB%9D%E5%AF%B9%E5%B7%AE) | BST           |        |
-| [\#501 寻找二叉查找树中出现次数最多的值](http://www.silince.cn/2020/07/20/LeetSilinceCode/#501-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E4%BC%97%E6%95%B0) | BST           |        |
-| [\# 208 实现-trie-前缀树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#208-%E5%AE%9E%E7%8E%B0-trie-%E5%89%8D%E7%BC%80%E6%A0%91) | Trie          |        |
-| [\# 677 键值映射](http://www.silince.cn/2020/07/20/LeetSilinceCode/#677-%E9%94%AE%E5%80%BC%E6%98%A0%E5%B0%84) | Trie          |        |
+| 题目                                                         | 算法思想      |
+| ------------------------------------------------------------ | ------------- |
+| [\#104 树的高度](http://www.silince.cn/2020/07/20/LeetSilinceCode/#104-二叉树的最大深度) | 递归/广度优先 |
+| [\#110 平衡二叉树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#110-平衡二叉树) | 递归          |
+| [\#543 两节点的最长路径](http://www.silince.cn/2020/07/20/LeetSilinceCode/#543-二叉树的直径) | 递归          |
+| [\#226 翻转树 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#226-%E7%BF%BB%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91) | 前序遍历/递归 |
+| [\#116 填充每个节点的下一个右侧节点指针 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#116-填充每个节点的下一个右侧节点指针) | 前序遍历/递归 |
+| [\#114. 二叉树展开为链表 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#114-二叉树展开为链表) | 后序遍历/递归 |
+| [\#617 归并两棵树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#617-%E5%90%88%E5%B9%B6%E4%BA%8C%E5%8F%89%E6%A0%91) | 递归          |
+| [\#654. 最大二叉树 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#654-最大二叉树) | 递归          |
+| [\#105. 从前序与中序遍历序列构造二叉树 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#105-从前序与中序遍历序列构造二叉树) | 递归          |
+| [\#106. 从中序与后序遍历序列构造二叉树 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#106-从中序与后序遍历序列构造二叉树) | 递归          |
+| [\#652 寻找重复的子树 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#652-寻找重复的子树) | 递归          |
+| [\#112 判断路径和是否等于一个数](http://www.silince.cn/2020/07/20/LeetSilinceCode/#112-%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8C) | 递归          |
+| [\#437 统计路径和等于一个数的路径数量](http://www.silince.cn/2020/07/20/LeetSilinceCode/#437-%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8C-iii) | 递归          |
+| [\#572 子树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#572-%E5%8F%A6%E4%B8%80%E4%B8%AA%E6%A0%91%E7%9A%84%E5%AD%90%E6%A0%91) | 递归          |
+| [\#101 树的对称](http://www.silince.cn/2020/07/20/LeetSilinceCode/#101-%E5%AF%B9%E7%A7%B0%E4%BA%8C%E5%8F%89%E6%A0%91) | 递归          |
+| [\#111 最小路径](http://www.silince.cn/2020/07/20/LeetSilinceCode/#111-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%B0%8F%E6%B7%B1%E5%BA%A6) | 递归          |
+| [\#404 统计左叶子结点的和](http://www.silince.cn/2020/07/20/LeetSilinceCode/#404-%E5%B7%A6%E5%8F%B6%E5%AD%90%E4%B9%8B%E5%92%8C) | 递归          |
+| [\#687 相同节点值的最大路径长度](http://www.silince.cn/2020/07/20/LeetSilinceCode/#687-%E6%9C%80%E9%95%BF%E5%90%8C%E5%80%BC%E8%B7%AF%E5%BE%84) | 递归          |
+| [\#337 间隔遍历](http://www.silince.cn/2020/07/20/LeetSilinceCode/#337-%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D-iii) | 递归          |
+| [\#671 找出二叉树中第二小的节点](http://www.silince.cn/2020/07/20/LeetSilinceCode/#671-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%AC%AC%E4%BA%8C%E5%B0%8F%E7%9A%84%E8%8A%82%E7%82%B9) | 递归          |
+| [\#637 一棵树每层节点的平均数](http://www.silince.cn/2020/07/20/LeetSilinceCode/#637-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%B9%B3%E5%9D%87%E5%80%BC) | 层次遍历      |
+| [\#513 得到左下角的节点](http://www.silince.cn/2020/07/20/LeetSilinceCode/#513-%E6%89%BE%E6%A0%91%E5%B7%A6%E4%B8%8B%E8%A7%92%E7%9A%84%E5%80%BC) | 层次遍历      |
+| [\#144 非递归实现二叉树的前序遍历](http://www.silince.cn/2020/07/20/LeetSilinceCode/#144-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86) | 前序遍历      |
+| [\#145 非递归实现二叉树的后序遍历](http://www.silince.cn/2020/07/20/LeetSilinceCode/#145-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86) | 后序遍历      |
+| [\#94 非递归实现二叉树的中序遍历](http://www.silince.cn/2020/07/20/LeetSilinceCode/#94-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86) | 中序遍历      |
+| [\#699 修剪二叉查找树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#669-%E4%BF%AE%E5%89%AA%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91) | BST           |
+| [\#230 寻找二叉查找树的第 k 个元素](http://www.silince.cn/2020/07/20/LeetSilinceCode/#230-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%AC%ACk%E5%B0%8F%E7%9A%84%E5%85%83%E7%B4%A0) | BST           |
+| [\#538 把二叉查找树每个节点的值都加上比它大的节点的值](http://www.silince.cn/2020/07/20/LeetSilinceCode/#538-%E6%8A%8A%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E8%BD%AC%E6%8D%A2%E4%B8%BA%E7%B4%AF%E5%8A%A0%E6%A0%91) | BST           |
+| [\#235 二叉查找树的最近公共祖先](http://www.silince.cn/2020/07/20/LeetSilinceCode/#235-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88) | BST           |
+| [\#236 二叉树的最近公共祖先](http://www.silince.cn/2020/07/20/LeetSilinceCode/#236-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88) | BST           |
+| [\#108 从有序数组中构造二叉查找树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#108-%E5%B0%86%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E8%BD%AC%E6%8D%A2%E4%B8%BA%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91) | BST           |
+| [\#109 根据有序链表构造平衡的二叉查找树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#109-%E6%9C%89%E5%BA%8F%E9%93%BE%E8%A1%A8%E8%BD%AC%E6%8D%A2%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91) | BST           |
+| [\#653 在二叉查找树中寻找两个节点，使它们的和为一个给定值](http://www.silince.cn/2020/07/20/LeetSilinceCode/#653-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C-iv---%E8%BE%93%E5%85%A5-bst) | BST           |
+| [\#530 在二叉查找树中查找两个节点之差的最小绝对值](http://www.silince.cn/2020/07/20/LeetSilinceCode/#530-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%9C%80%E5%B0%8F%E7%BB%9D%E5%AF%B9%E5%B7%AE) | BST           |
+| [\#501 寻找二叉查找树中出现次数最多的值](http://www.silince.cn/2020/07/20/LeetSilinceCode/#501-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E4%BC%97%E6%95%B0) | BST           |
+| [\# 208 实现-trie-前缀树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#208-%E5%AE%9E%E7%8E%B0-trie-%E5%89%8D%E7%BC%80%E6%A0%91) | Trie          |
+| [\# 677 键值映射](http://www.silince.cn/2020/07/20/LeetSilinceCode/#677-%E9%94%AE%E5%80%BC%E6%98%A0%E5%B0%84) | Trie          |
 
 
 
@@ -930,58 +930,58 @@ int BFS(Node start, Node target) {
 
 # 剑指Offer
 
-| 题目                                                         | 算法思想 | 正确率 |
-| :----------------------------------------------------------- | -------- | ------ |
-| [剑指 Offer 03 数组中重复的数字](https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof) |          |        |
-| [剑指 Offer 04 二维数组中的查找](https://leetcode-cn.com/problems/er-wei-shu-zu-zhong-de-cha-zhao-lcof) |          |        |
-| [剑指 Offer 05 替换空格](https://leetcode-cn.com/problems/ti-huan-kong-ge-lcof) |          |        |
-| [剑指 Offer 06 从尾到头打印链表](https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof) |          |        |
-| [剑指 Offer 07 重建二叉树](https://leetcode-cn.com/problems/zhong-jian-er-cha-shu-lcof) |          |        |
-| [剑指 Offer 09 用两个栈实现队列](https://leetcode-cn.com/problems/yong-liang-ge-zhan-shi-xian-dui-lie-lcof) |          |        |
-| [剑指 Offer 10- I 斐波那契数列](https://leetcode-cn.com/problems/fei-bo-na-qi-shu-lie-lcof) |          |        |
-| [剑指 Offer 10- II 青蛙跳台阶问题](https://leetcode-cn.com/problems/qing-wa-tiao-tai-jie-wen-ti-lcof) |          |        |
-| [剑指 Offer 11 旋转数组的最小数字](https://leetcode-cn.com/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof) |          |        |
-| [剑指 Offer 12 矩阵中的路径](https://leetcode-cn.com/problems/ju-zhen-zhong-de-lu-jing-lcof) |          |        |
-| [剑指 Offer 13 机器人的运动范围](https://leetcode-cn.com/problems/ji-qi-ren-de-yun-dong-fan-wei-lcof) |          |        |
-| [剑指 Offer 14- I 剪绳子](https://leetcode-cn.com/problems/jian-sheng-zi-lcof) |          |        |
-| [剑指 Offer 14- II 剪绳子 II](https://leetcode-cn.com/problems/jian-sheng-zi-ii-lcof) |          |        |
-| [剑指 Offer 15 二进制中1的个数](https://leetcode-cn.com/problems/er-jin-zhi-zhong-1de-ge-shu-lcof) |          |        |
-| [剑指 Offer 16 数值的整数次方](https://leetcode-cn.com/problems/shu-zhi-de-zheng-shu-ci-fang-lcof) |          |        |
-| [剑指 Offer 17 打印从1到最大的n位数](https://leetcode-cn.com/problems/da-yin-cong-1dao-zui-da-de-nwei-shu-lcof) |          |        |
-| [剑指 Offer 18 删除链表的节点](https://leetcode-cn.com/problems/shan-chu-lian-biao-de-jie-dian-lcof) |          |        |
-| [剑指 Offer 19 正则表达式匹配](https://leetcode-cn.com/problems/zheng-ze-biao-da-shi-pi-pei-lcof) |          |        |
-| [剑指 Offer 20 表示数值的字符串](https://leetcode-cn.com/problems/biao-shi-shu-zhi-de-zi-fu-chuan-lcof) |          |        |
-| [剑指 Offer 21 调整数组顺序使奇数位于偶数前面](https://leetcode-cn.com/problems/diao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof) |          |        |
-| [剑指 Offer 22 链表中倒数第k个节点](https://leetcode-cn.com/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof) |          |        |
-| [剑指 Offer 24 反转链表](https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof) |          |        |
-| [剑指 Offer 25 合并两个排序的链表](https://leetcode-cn.com/problems/he-bing-liang-ge-pai-xu-de-lian-biao-lcof) |          |        |
-| [剑指 Offer 26 树的子结构](https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof) |          |        |
-| [剑指 Offer 27 二叉树的镜像](https://leetcode-cn.com/problems/er-cha-shu-de-jing-xiang-lcof) |          |        |
-| [剑指 Offer 28 对称的二叉树](https://leetcode-cn.com/problems/dui-cheng-de-er-cha-shu-lcof) |          |        |
-| [剑指 Offer 29 顺时针打印矩阵](https://leetcode-cn.com/problems/shun-shi-zhen-da-yin-ju-zhen-lcof) |          |        |
-| [剑指 Offer 30 包含min函数的栈](https://leetcode-cn.com/problems/bao-han-minhan-shu-de-zhan-lcof) |          |        |
-| [剑指 Offer 31 栈的压入、弹出序列](https://leetcode-cn.com/problems/zhan-de-ya-ru-dan-chu-xu-lie-lcof) |          |        |
-| [剑指 Offer 32 - I 从上到下打印二叉树](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-lcof) |          |        |
-| [剑指 Offer 32 - II 从上到下打印二叉树 II](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-ii-lcof) |          |        |
-| [剑指 Offer 32 - III 从上到下打印二叉树 III](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-iii-lcof) |          |        |
-| [剑指 Offer 33 二叉搜索树的后序遍历序列](https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-hou-xu-bian-li-xu-lie-lcof) |          |        |
-| [剑指 Offer 34 二叉树中和为某一值的路径](https://leetcode-cn.com/problems/er-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof) |          |        |
-| [剑指 Offer 35 复杂链表的复制](https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof) |          |        |
-| [剑指 Offer 36 二叉搜索树与双向链表](https://leetcode-cn.com/problems/er-cha-sou-suo-shu-yu-shuang-xiang-lian-biao-lcof) |          |        |
-| [剑指 Offer 37 序列化二叉树](https://leetcode-cn.com/problems/xu-lie-hua-er-cha-shu-lcof) |          |        |
-| [剑指 Offer 38 字符串的排列](https://leetcode-cn.com/problems/zi-fu-chuan-de-pai-lie-lcof) |          |        |
-| [剑指 Offer 39 数组中出现次数超过一半的数字](https://leetcode-cn.com/problems/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof) |          |        |
-| [剑指 Offer 40 最小的k个数](https://leetcode-cn.com/problems/zui-xiao-de-kge-shu-lcof) |          |        |
-| [剑指 Offer 41 数据流中的中位数](https://leetcode-cn.com/problems/shu-ju-liu-zhong-de-zhong-wei-shu-lcof) |          |        |
-| [剑指 Offer 42 连续子数组的最大和](https://leetcode-cn.com/problems/lian-xu-zi-shu-zu-de-zui-da-he-lcof) |          |        |
-| [剑指 Offer 43 1～n 整数中 1 出现的次数](https://leetcode-cn.com/problems/1nzheng-shu-zhong-1chu-xian-de-ci-shu-lcof) |          |        |
-| [剑指 Offer 44 数字序列中某一位的数字](https://leetcode-cn.com/problems/shu-zi-xu-lie-zhong-mou-yi-wei-de-shu-zi-lcof) |          |        |
-| [剑指 Offer 45 把数组排成最小的数](https://leetcode-cn.com/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof) |          |        |
-| [剑指 Offer 46 把数字翻译成字符串](https://leetcode-cn.com/problems/ba-shu-zi-fan-yi-cheng-zi-fu-chuan-lcof) |          |        |
-| [剑指 Offer 47 礼物的最大价值](https://leetcode-cn.com/problems/li-wu-de-zui-da-jie-zhi-lcof) |          |        |
-| [剑指 Offer 48 最长不含重复字符的子字符串](https://leetcode-cn.com/problems/zui-chang-bu-han-zhong-fu-zi-fu-de-zi-zi-fu-chuan-lcof) |          |        |
-| [剑指 Offer 49 丑数](https://leetcode-cn.com/problems/chou-shu-lcof) |          |        |
-| [剑指 Offer 50  第一个只出现一次的字符](https://leetcode-cn.com/problems/di-yi-ge-zhi-chu-xian-yi-ci-de-zi-fu-lcof) |          |        |
+| 题目                                                         | 算法思想 |
+| :----------------------------------------------------------- | -------- |
+| [剑指 Offer 03 数组中重复的数字](https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof) |          |
+| [剑指 Offer 04 二维数组中的查找](https://leetcode-cn.com/problems/er-wei-shu-zu-zhong-de-cha-zhao-lcof) |          |
+| [剑指 Offer 05 替换空格](https://leetcode-cn.com/problems/ti-huan-kong-ge-lcof) |          |
+| [剑指 Offer 06 从尾到头打印链表](https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof) |          |
+| [剑指 Offer 07 重建二叉树](https://leetcode-cn.com/problems/zhong-jian-er-cha-shu-lcof) |          |
+| [剑指 Offer 09 用两个栈实现队列](https://leetcode-cn.com/problems/yong-liang-ge-zhan-shi-xian-dui-lie-lcof) |          |
+| [剑指 Offer 10- I 斐波那契数列](https://leetcode-cn.com/problems/fei-bo-na-qi-shu-lie-lcof) |          |
+| [剑指 Offer 10- II 青蛙跳台阶问题](https://leetcode-cn.com/problems/qing-wa-tiao-tai-jie-wen-ti-lcof) |          |
+| [剑指 Offer 11 旋转数组的最小数字](https://leetcode-cn.com/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof) |          |
+| [剑指 Offer 12 矩阵中的路径](https://leetcode-cn.com/problems/ju-zhen-zhong-de-lu-jing-lcof) |          |
+| [剑指 Offer 13 机器人的运动范围](https://leetcode-cn.com/problems/ji-qi-ren-de-yun-dong-fan-wei-lcof) |          |
+| [剑指 Offer 14- I 剪绳子](https://leetcode-cn.com/problems/jian-sheng-zi-lcof) |          |
+| [剑指 Offer 14- II 剪绳子 II](https://leetcode-cn.com/problems/jian-sheng-zi-ii-lcof) |          |
+| [剑指 Offer 15 二进制中1的个数](https://leetcode-cn.com/problems/er-jin-zhi-zhong-1de-ge-shu-lcof) |          |
+| [剑指 Offer 16 数值的整数次方](https://leetcode-cn.com/problems/shu-zhi-de-zheng-shu-ci-fang-lcof) |          |
+| [剑指 Offer 17 打印从1到最大的n位数](https://leetcode-cn.com/problems/da-yin-cong-1dao-zui-da-de-nwei-shu-lcof) |          |
+| [剑指 Offer 18 删除链表的节点](https://leetcode-cn.com/problems/shan-chu-lian-biao-de-jie-dian-lcof) |          |
+| [剑指 Offer 19 正则表达式匹配](https://leetcode-cn.com/problems/zheng-ze-biao-da-shi-pi-pei-lcof) |          |
+| [剑指 Offer 20 表示数值的字符串](https://leetcode-cn.com/problems/biao-shi-shu-zhi-de-zi-fu-chuan-lcof) |          |
+| [剑指 Offer 21 调整数组顺序使奇数位于偶数前面](https://leetcode-cn.com/problems/diao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof) |          |
+| [剑指 Offer 22 链表中倒数第k个节点](https://leetcode-cn.com/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof) |          |
+| [剑指 Offer 24 反转链表](https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof) |          |
+| [剑指 Offer 25 合并两个排序的链表](https://leetcode-cn.com/problems/he-bing-liang-ge-pai-xu-de-lian-biao-lcof) |          |
+| [剑指 Offer 26 树的子结构](https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof) |          |
+| [剑指 Offer 27 二叉树的镜像](https://leetcode-cn.com/problems/er-cha-shu-de-jing-xiang-lcof) |          |
+| [剑指 Offer 28 对称的二叉树](https://leetcode-cn.com/problems/dui-cheng-de-er-cha-shu-lcof) |          |
+| [剑指 Offer 29 顺时针打印矩阵](https://leetcode-cn.com/problems/shun-shi-zhen-da-yin-ju-zhen-lcof) |          |
+| [剑指 Offer 30 包含min函数的栈](https://leetcode-cn.com/problems/bao-han-minhan-shu-de-zhan-lcof) |          |
+| [剑指 Offer 31 栈的压入、弹出序列](https://leetcode-cn.com/problems/zhan-de-ya-ru-dan-chu-xu-lie-lcof) |          |
+| [剑指 Offer 32 - I 从上到下打印二叉树](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-lcof) |          |
+| [剑指 Offer 32 - II 从上到下打印二叉树 II](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-ii-lcof) |          |
+| [剑指 Offer 32 - III 从上到下打印二叉树 III](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-iii-lcof) |          |
+| [剑指 Offer 33 二叉搜索树的后序遍历序列](https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-hou-xu-bian-li-xu-lie-lcof) |          |
+| [剑指 Offer 34 二叉树中和为某一值的路径](https://leetcode-cn.com/problems/er-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof) |          |
+| [剑指 Offer 35 复杂链表的复制](https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof) |          |
+| [剑指 Offer 36 二叉搜索树与双向链表](https://leetcode-cn.com/problems/er-cha-sou-suo-shu-yu-shuang-xiang-lian-biao-lcof) |          |
+| [剑指 Offer 37 序列化二叉树](https://leetcode-cn.com/problems/xu-lie-hua-er-cha-shu-lcof) |          |
+| [剑指 Offer 38 字符串的排列](https://leetcode-cn.com/problems/zi-fu-chuan-de-pai-lie-lcof) |          |
+| [剑指 Offer 39 数组中出现次数超过一半的数字](https://leetcode-cn.com/problems/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof) |          |
+| [剑指 Offer 40 最小的k个数](https://leetcode-cn.com/problems/zui-xiao-de-kge-shu-lcof) |          |
+| [剑指 Offer 41 数据流中的中位数](https://leetcode-cn.com/problems/shu-ju-liu-zhong-de-zhong-wei-shu-lcof) |          |
+| [剑指 Offer 42 连续子数组的最大和](https://leetcode-cn.com/problems/lian-xu-zi-shu-zu-de-zui-da-he-lcof) |          |
+| [剑指 Offer 43 1～n 整数中 1 出现的次数](https://leetcode-cn.com/problems/1nzheng-shu-zhong-1chu-xian-de-ci-shu-lcof) |          |
+| [剑指 Offer 44 数字序列中某一位的数字](https://leetcode-cn.com/problems/shu-zi-xu-lie-zhong-mou-yi-wei-de-shu-zi-lcof) |          |
+| [剑指 Offer 45 把数组排成最小的数](https://leetcode-cn.com/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof) |          |
+| [剑指 Offer 46 把数字翻译成字符串](https://leetcode-cn.com/problems/ba-shu-zi-fan-yi-cheng-zi-fu-chuan-lcof) |          |
+| [剑指 Offer 47 礼物的最大价值](https://leetcode-cn.com/problems/li-wu-de-zui-da-jie-zhi-lcof) |          |
+| [剑指 Offer 48 最长不含重复字符的子字符串](https://leetcode-cn.com/problems/zui-chang-bu-han-zhong-fu-zi-fu-de-zi-zi-fu-chuan-lcof) |          |
+| [剑指 Offer 49 丑数](https://leetcode-cn.com/problems/chou-shu-lcof) |          |
+| [剑指 Offer 50  第一个只出现一次的字符](https://leetcode-cn.com/problems/di-yi-ge-zhi-chu-xian-yi-ci-de-zi-fu-lcof) |          |
 
 | [剑指 Offer 51 数组中的逆序对](https://leetcode-cn.com/problems/shu-zu-zhong-de-ni-xu-dui-lcof) |      |      |
 | ------------------------------------------------------------ | ---- | ---- |
@@ -1929,6 +1929,7 @@ public String minWindow(String s, String t) {
 
 - Easy
 - 2019.08.30：😭 
+- 2021.03.05 ：😭  循环终止条件想不出(双指针 / 从后往前  )
 
 题目：
 
@@ -2937,6 +2938,7 @@ class Solution {
 
 - Easy
 - 2019.09.13：😭 
+- 2021.03.05: 😎  
 
 题目：
 
@@ -2974,35 +2976,34 @@ class Solution {
 
 ```java
 // 方法一
-public boolean hasCycle(ListNode head) {
-    Set<ListNode> nodesSeen = new HashSet<>();
-    while (head != null) {
-        if (nodesSeen.contains(head)) {
-            return true;
-        } else {
-            nodesSeen.add(head);
-        }
-        head = head.next;
+public class Solution {
+  public boolean hasCycle(ListNode head) {
+    HashSet<ListNode> set = new HashSet<>();
+
+    while(head!=null){
+      if(set.contains(head)){
+        return true;
+      }
+      set.add(head);
+      head=head.next;
     }
     return false;
+  }
 }
 
 // 方法二 ⭐️
 public boolean hasCycle(ListNode head) {
-    if (head == null || head.next == null) {
-        return false;
-    }
-    ListNode slow = head; // 慢指针
-    ListNode fast = head.next; // 快指针
-  	// 直到两个指针相遇都没有指向null则返回true
-    while (slow != fast) {
-        if (fast == null || fast.next == null) { //fast.next == null 防止fast.next.next空指针异常
-            return false;
-        }
-        slow = slow.next;
-        fast = fast.next.next;
-    }
-    return true;
+  if(head==null || head.next==null) return false;
+
+  ListNode slow = head; // 慢指针 一次1
+  ListNode quick = head.next; // 快指针 一次2
+
+  while(true){
+    if(quick.next==null||quick.next.next==null) return false;
+    if(quick==slow) return true;
+    slow=slow.next;
+    quick=quick.next.next;
+  }
 }
 ```
 
@@ -3081,6 +3082,7 @@ public boolean hasCycle(ListNode head) {
 - easy
 - 2019.09.15：😭  
 - 2019.09.16：😎
+- 2021.03.05：😎
 
 题目：
 
@@ -3936,6 +3938,7 @@ class Solution {
 - Easy
 - 2019.09.11：😎  
 - 2019.09.12：😭 temp变量没定义，判断写成了`chars.indexOf(s[i]!=-1);`
+- 2021.03.05：😎  
 
 题目：
 
@@ -3960,25 +3963,35 @@ class Solution {
 ```java
 class Solution {
   public String reverseVowels(String s) {
-    String str = "aeuioAEUIO";
-    int i = 0;
-    int j = s.length() - 1;
-    char[] chars = s.toCharArray();
 
-    while (i < j) {
-      if (str.indexOf(chars[i]) != -1) { // 判断元音 str.indexOf(ch)!=-1
-        if (str.indexOf(chars[j]) != -1) {
-          char temp = chars[i]; // 变量忘记定义，python写习惯了
-          chars[i] = chars[j];
-          chars[j] = temp;
-          i++;
-          j--;
-        }else {
-          j--; //j 不是元音 ++
-        }
-      } else {i++;} // i 不是元音 ++
+    String targetStr = "aeuioAEUIO";
+    char[] strArr = s.toCharArray();
+
+    int low = 0;int high = strArr.length-1;
+
+    while(low<high){
+
+      // 左指针找到第一个元音字母 注意一定要保持low<high
+      while(targetStr.indexOf(strArr[low])==-1 && low<high){
+        low++;
+      }
+      // 右指针找到第一个元音字母
+      while(targetStr.indexOf(strArr[high])==-1&&low<high){
+        high--;
+      }
+
+      // 如果在low<high的情况下找到了两个元音字母便交换
+      if(low<high){
+        char temp = strArr[low];
+        strArr[low]=strArr[high];
+        strArr[high]=temp;
+        low++;
+        high--;
+      }
     }
-    return new String(chars);
+
+    return new String(strArr);
+
   }
 }
 ```
@@ -5352,6 +5365,7 @@ public int longestCommonSubsequence(String s1,String s2,int m,int n){
 - Easy
 - 2019.09.10：😭 
 - 2019.09.11：😎 
+- 2021.03.05：😎 
 
 题目：
 
@@ -5913,6 +5927,7 @@ class Solution {
 - Easy
 - 2019.09.12：😭  
 - 2019.10.13：😎
+- 2021.03.05：😎
 
 题目：
 
