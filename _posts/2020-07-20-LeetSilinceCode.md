@@ -147,30 +147,39 @@ public String slidingWindow(String s, String t) {
 
 ```java
 // 快速排序
-public static void quickSort(int[] arr, int start, int end) {
-  if (end <= start) { // 只有一个元素时终止
-    return;
-  }
-  int low = start;
-  int high = end;
-  int pivot = arr[low]; // 枢纽点pivot选取第一个元素
-  while (low < high) {
+Random random = new Random();
+public static void quickSort(int[] nums, int start, int end) {
+  
+  if(start>=end) return; // 只有一个元素时终止
+
+  int left = start;
+  int right = end;
+  
+  // 随机选择枢纽点
+  int i =random.nextInt(end - start + 1)+start;
+  int temp = nums[left];
+  nums[left]=nums[i];
+  nums[i]=temp;
+  
+  int pivot = nums[left]; // 枢纽点pivot选取第一个元素
+  
+  while (left < right) {
     // high指针往左寻找一个小于 pivot的数
-    while (low < high && arr[high] >= pivot) {
-      high--;
+    while (left<right&&nums[right]>=pivot) {
+      right--;
     }
-    arr[low] = arr[high]; // 将小于 pivot 的数放在低位
+    nums[left]=nums[right]; // 将小于 pivot 的数放在低位
 
     // low指针往右寻找一个大于 pivot 的数
-    while (low < high && arr[low] <= pivot) {
-      low++;
+    while (left<right&&nums[left]<=pivot) {
+      left++;
     }
-    arr[high] = arr[low]; // 将大于 pivot 的数放在高位
+    nums[right]=nums[left]; // 将大于 pivot 的数放在高位
   }
   // 复原 pivot的值
-  arr[low] = pivot;
-  quickSort(arr, start, low - 1); // 递归排序左半部分
-  quickSort(arr, low + 1, end); // 递归排序右半部分
+  nums[left] = pivot;
+  quickSort(nums, start, left - 1); // 递归排序左半部分
+  quickSort(nums, left + 1, end); // 递归排序右半部分
 }
 ```
 
@@ -3322,6 +3331,7 @@ class Solution {
 
 - easy
 - 2019.08.28：😭  
+- 2021.03.06：😎  
 
 题目：
 
