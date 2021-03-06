@@ -84,18 +84,19 @@ while (right < s.length()) {
 public String slidingWindow(String s, String t) {
   
     // 需要的字符散列表 全部初始化为1(表示需要)
+    char[] sArray = s.toCharArray();
     HashMap<Character, Integer> need = new HashMap<>();
-    for (char key : t.toCharArray()) {
+    for (char key : sArray) {
       need.put(key, need.getOrDefault(key, 0) + 1);
     }
     HashMap<Character, Integer> window = new HashMap<>();// 用于记录「窗口」中的相应字符的出现次数
 
     int left = 0, right = 0;
     int valid = 0; // 表示窗口中满足need条件的字符个数
-  	char[] sArray = s.toCharArray();
+  	
     while (right < sArray.length) {
-        // c 是将移入窗口的字符
-        char c = sArray[right];
+        // in 是将移入窗口的字符
+        char in = sArray[right];
         // 右移窗口
         right++;
         // 进行窗口内数据的一系列更新
@@ -107,8 +108,8 @@ public String slidingWindow(String s, String t) {
 
         // 判断左侧窗口是否要收缩
         while (valid==need.size()) {
-            // d 是将移出窗口的字符
-            char d = sArray[left];
+            // out 是将移出窗口的字符
+            char out = sArray[left];
             // 左移窗口
             left++;
             // 进行窗口内数据的一系列更新
@@ -1757,6 +1758,7 @@ class Solution {
 
 - 困难
 - 2020.12.02：😭  
+- 2021.03.06：😭   收缩逻辑混乱，何时更新最小覆盖子串。
 
 题目：
 
@@ -4296,6 +4298,7 @@ public int lengthOfLIS(int[] height) {
 
 - 中等
 - 2020.12.02：😭  
+- 2021.03.06：😭  收缩判断条件错误，window更新值要在valid验证之后。
 
 题目：
 
@@ -4941,6 +4944,7 @@ class Solution {
 
 - easy
 - 2019.09.16：😭  
+- 2021.03.05：😭   字典顺序指的是按顺序比较各个字母。
 
 题目：
 
@@ -5133,6 +5137,7 @@ class Solution {
 
 - 中等
 - 2020.12.02：😭  
+- 2021.03.06：😎 
 
 题目：
 
