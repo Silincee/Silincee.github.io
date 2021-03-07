@@ -138,7 +138,7 @@ public String slidingWindow(String s, String t) {
 | 题目                                                         | 算法思想 |
 | ------------------------------------------------------------ | -------- |
 | [\#215 数组中的第K个最大元素](http://www.silince.cn/2020/07/20/LeetSilinceCode/#215-数组中的第k个最大元素) | 快速排序 |
-| [\#347 前 K 个高频元素](https://leetcode-cn.com/problems/top-k-frequent-elements/) | 桶排序   |
+| [\#347 前 K 个高频元素](http://www.silince.cn/2020/07/20/LeetSilinceCode/#347-前-k-个高频元素) | 桶排序   |
 | [\#451 根据字符出现频率排序](https://leetcode-cn.com/problems/sort-characters-by-frequency/) | 桶排序   |
 | [\#75 颜色分类 ]([http://www.silince.cn/2020/07/20/LeetSilinceCode/#75-%E9%A2%9C%E8%89%B2%E5%88%86%E7%B1%BB](http://www.silince.cn/2020/07/20/LeetSilinceCode/#75-颜色分类)) |          |
 |                                                              |          |
@@ -3332,6 +3332,7 @@ class Solution {
 - easy
 - 2019.08.28：😭  
 - 2021.03.06：😎  
+- 2021.03.07：😎   随机枢纽点
 
 题目：
 
@@ -4073,12 +4074,7 @@ class Solution {
              }
         }
         // 遍历map，用最小堆保存频率最大的k个元素
-        PriorityQueue<Integer> pq = new PriorityQueue<>(new Comparator<Integer>() {
-            @Override
-            public int compare(Integer a, Integer b) {
-                return map.get(a) - map.get(b);
-            }
-        });
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> map.get(a) - map.get(b));
         for (Integer key : map.keySet()) {
             if (pq.size() < k) {
                 pq.add(key);
@@ -4102,13 +4098,9 @@ class Solution {
 		List<Integer> res = new ArrayList();
 		// 使用字典，统计每个元素出现的次数，元素为键，元素出现的次数为值
 		HashMap<Integer, Integer> map = new HashMap<>();
-		for (int num : nums) {
-			if (map.containsKey(num)){
-				map.put(num,map.get(num)+1);
-			}else{
-				map.put(num,1);
-			}
-		}
+    for(int key:nums){
+      map.put(key,map.getOrDefault(key,0)+1);
+    }
 
 		// 桶排序 将频率作为数组下标，对于出现频率不同的数字集合，存入对应的数组下标
 		// 把频率作为桶/数组下标，再存入对应的数
@@ -4129,8 +4121,8 @@ class Solution {
 		}
 
 		// list转数组
-		int[] arr = new int[res.size()];
-		for (int i = 0; i < res.size(); i++) {
+		int[] arr = new int[k];
+		for (int i = 0; i < k); i++) {
 			arr[i]=res.get(i);
 		}
 
