@@ -201,7 +201,7 @@ public static void quickSort(int[] nums, int start, int end) {
 
 | 题目                                                         | 算法思想 |
 | ------------------------------------------------------------ | -------- |
-| [\#704 二分查找](www.silince.cn/2020/07/20/LeetSilinceCode/#704-二分查找) | 二分查找 |
+| [\#704 二分查找](http://www.silince.cn/2020/07/20/LeetSilinceCode/#704-二分查找) | 二分查找 |
 | [\#34 在排序数组中查找元素的第一个和最后一个位置](http://www.silince.cn/2020/07/20/LeetSilinceCode/#34-在排序数组中查找元素的第一个和最后一个位置) | 二分查找 |
 
 二分查找并不简单，Knuth 大佬（发明 KMP 算法的那位）都说二分查找：**思路很简单，细节是魔鬼**。很多人喜欢拿整型溢出的 bug 说事儿，但是二分查找真正的坑根本就不是那个细节问题，而是在于到底要给 `mid` 加一还是减一，while 里到底用 `<=` 还是 `<`。
@@ -327,7 +327,7 @@ int left_bound(int[] nums, int target) {
         } else if (nums[mid] < target) {
             left = mid + 1;
         } else if (nums[mid] > target) {
-            right = mid; // 注意
+            right = mid; // 为什么不需要减1 因为搜索区间是[low,high)
         }
     }
     return left;
@@ -846,10 +846,21 @@ int BFS(Node start, Node target) {
 
 
 
+## LRU/LFU
+
+| 题目                   | 算法思想             |
+| ---------------------- | -------------------- |
+| [\#146. LRU缓存机制]() | 最近最久未使用 LRU   |
+| [\#460. LFU缓存]()     | 最近最少使用页面 LFU |
+
+
+
 
 
 
 ## 数学
+
+
 
 
 
@@ -3088,6 +3099,160 @@ public boolean hasCycle(ListNode head) {
 
 
 
+
+
+## [\#146. LRU 缓存机制](https://leetcode-cn.com/problems/lru-cache/)
+
+- Medium
+- 2020.10.01：😭  
+
+题目：
+
+```xml
+运用你所掌握的数据结构，设计和实现一个  LRU (最近最少使用) 缓存机制 。
+实现 LRUCache 类：
+LRUCache(int capacity) 以正整数作为容量 capacity 初始化 LRU 缓存
+int get(int key) 如果关键字 key 存在于缓存中，则返回关键字的值，否则返回 -1 。
+void put(int key, int value) 如果关键字已经存在，则变更其数据值；如果关键字不存在，则插入该组「关键字-值」。当缓存容量达到上限时，它应该在写入新数据之前删除最久未使用的数据值，从而为新的数据值留出空间。
+ 
+进阶：你是否可以在 O(1) 时间复杂度内完成这两种操作？
+
+示例：
+输入
+["LRUCache", "put", "put", "get", "put", "get", "put", "get", "get", "get"]
+[[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]]
+输出
+[null, null, null, 1, null, -1, null, -1, 3, 4]
+解释
+LRUCache lRUCache = new LRUCache(2);
+lRUCache.put(1, 1); // 缓存是 {1=1}
+lRUCache.put(2, 2); // 缓存是 {1=1, 2=2}
+lRUCache.get(1);    // 返回 1
+lRUCache.put(3, 3); // 该操作会使得关键字 2 作废，缓存是 {1=1, 3=3}
+lRUCache.get(2);    // 返回 -1 (未找到)
+lRUCache.put(4, 4); // 该操作会使得关键字 1 作废，缓存是 {4=4, 3=3}
+lRUCache.get(1);    // 返回 -1 (未找到)
+lRUCache.get(3);    // 返回 3
+lRUCache.get(4);    // 返回 4
+```
+
+分析：
+
+***方法一：***LinkedHashMap  JDK实现
+
+***方法二：***HashMap + 自己实现双向链表
+
+- 在双向链表的实现中，使用一个伪头部（dummy head）和伪尾部（dummy tail）标记界限，这样在添加节点和删除节点的时候就不需要检查相邻的节点是否存在。
+
+  ![image-20210313094931978](/Users/silince/Pictures/Typora/image-20210313094931978.png)
+
+
+
+
+
+- 时间复杂度：O(1)
+- 空间复杂度：O(1)
+
+
+
+代码：
+
+```java
+// 方法二 HashMap + 自己实现双向链表
+class LRUCache {
+    private HashMap<Integer,DLinkedNode> cache = new HashMap<>();
+    private int size; // 链表当前当长度(排除伪节点)
+    private int capacity; // LRU容量
+    private DLinkedNode dummyHead; // 伪头部
+    private DLinkedNode dummyTail; // 伪尾部
+
+    public LRUCache(int capacity) {
+        this.size = 0;
+        this.capacity = capacity;
+        // 初始化伪节点并且建立引用
+        this.dummyHead = new DLinkedNode();
+        this.dummyTail = new DLinkedNode();
+        this.dummyHead.next = this.dummyTail;
+        this.dummyTail.prev = this.dummyHead;
+    }
+
+    public int get(int key) {
+        DLinkedNode node = cache.get(key);
+        if (node==null){
+            return -1;
+        }
+        // 如果缓存存在，将它移动到链表头部
+        moveToHead(node);
+        return node.value;
+    }
+
+
+    // 插入逻辑
+    public void put(int key, int value) {
+        // 如果存在就通过cache快速找到node，更新值后移动到链表的头部
+        DLinkedNode node = this.cache.get(key);
+        if (node!=null){
+            node.value = value;
+            moveToHead(node);
+        }else {
+            // 不存在则创建节点放入链表的头部并放入cache，然后判断列表容量是否已满，满了的话需要删除链表中的尾节点和cache
+            node = new DLinkedNode(key,value);
+            addToHead(node);
+            size++;
+            cache.put(key,node);
+            if (size>capacity){
+                // 删除链表中的尾节点和cache
+                DLinkedNode tailNode = this.dummyTail.prev;
+                removeNode(tailNode);
+                this.cache.remove(tailNode.key);
+                size--;
+            }
+        }
+    }
+
+    // 将该节点移动到头部
+    private void moveToHead(DLinkedNode node) {
+        // 先删除该节点 让它的前驱节点指向后继节点
+        removeNode(node);
+        // 将该节点插入到伪头部之后
+        addToHead(node);
+    }
+
+    private void addToHead(DLinkedNode node) {
+        node.prev = this.dummyHead;
+        node.next = this.dummyHead.next;
+        this.dummyHead.next.prev = node;
+        this.dummyHead.next = node;
+    }
+
+    private void removeNode(DLinkedNode node) {
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+    }
+
+    class DLinkedNode {
+        int key;
+        int value;
+        DLinkedNode prev;
+        DLinkedNode next;
+
+        public DLinkedNode() {
+        }
+
+        public DLinkedNode(int key, int value) {
+            this.key = key;
+            this.value = value;
+        }
+    }
+}
+```
+
+---
+
+
+
+
+
 ## [\#167. 有序数组的 Two Sum](https://leetcode-cn.com/problems/two-sum-ii-input-array-is-sorted/description/)
 
 - easy
@@ -4402,20 +4567,143 @@ public List<Integer> findAnagrams(String s, String p) {
 题目：
 
 ```xml
+给定一个字符串，请将字符串里的字符按照出现的频率降序排列。
 
+示例 1:
+输入:
+"tree"
+输出:
+"eert"
+解释:
+'e'出现两次，'r'和't'都只出现一次。
+因此'e'必须出现在'r'和't'之前。此外，"eetr"也是一个有效的答案。
 ```
 
 分析：
 
 ```xml
-
+桶排序
 ```
+
+代码：
+
+```java
+class Solution {
+    public String frequencySort(String s) {
+        if (s.isEmpty() || s.length() == 1) {
+            return s;
+        }
+
+        // 桶排序
+        // 散列表统计各个字符的频率
+        HashMap<Character,Integer> map  = new HashMap<>();
+        for(char ch: s.toCharArray()){
+            map.put(ch,map.getOrDefault(ch,0)+1);
+        }
+
+        // 根据频率放入对应的桶  最大频率为s.length()
+        List<Character>[] bucket = new ArrayList[s.length()+1]; // 0号桶不用
+        for(char key:map.keySet()){
+            int value = map.get(key);
+            if(bucket[value]==null) bucket[value] = new ArrayList<Character>();
+            
+            bucket[map.get(key)].add(key);
+             
+        }
+
+        // 从后往前取出
+        StringBuilder res = new StringBuilder();
+        for(int i=s.length();i>0;i--){
+            if(bucket[i]!=null){
+                for(char ch:bucket[i]){
+                   for (int k = i; k > 0; k--) {
+                        // 字符出现了几次就向 res 中添加几次该字符
+                        res.append(ch);
+                    }
+                }
+            }
+        }
+
+        return res.toString();
+    }
+}
+```
+
+
+
+
+
+## [\#460.LFU 缓存](https://leetcode-cn.com/problems/lfu-cache/)
+
+- 苦难
+- 2021.03.13：😭  
+
+题目：
+
+```xml
+请你为 最不经常使用（LFU）缓存算法设计并实现数据结构。
+
+实现 LFUCache 类：
+- LFUCache(int capacity) - 用数据结构的容量 capacity 初始化对象
+- int get(int key) - 如果键存在于缓存中，则获取键的值，否则返回 -1。
+- void put(int key, int value) - 如果键已存在，则变更其值；如果键不存在，请插入键值对。当缓存达到其容量时，则应该在插入新项之前，使最不经常使用的项无效。在此问题中，当存在平局（即两个或更多个键具有相同使用频率）时，应该去除 最久未使用 的键。
+
+注意「项的使用次数」就是自插入该项以来对其调用 get 和 put 函数的次数之和。使用次数会在对应项被移除后置为 0 。
+为了确定最不常使用的键，可以为缓存中的每个键维护一个 使用计数器 。使用计数最小的键是最久未使用的键。
+当一个键首次插入到缓存中时，它的使用计数器被设置为 1 (由于 put 操作)。对缓存中的键执行 get 或 put 操作，使用计数器的值将会递增。
+
+示例：
+
+输入：
+["LFUCache", "put", "put", "get", "put", "get", "get", "put", "get", "get", "get"]
+[[2], [1, 1], [2, 2], [1], [3, 3], [2], [3], [4, 4], [1], [3], [4]]
+输出：
+[null, null, null, 1, null, -1, 3, null, -1, 3, 4]
+
+解释：
+// cnt(x) = 键 x 的使用计数
+// cache=[] 将显示最后一次使用的顺序（最左边的元素是最近的）
+LFUCache lFUCache = new LFUCache(2);
+lFUCache.put(1, 1);   // cache=[1,_], cnt(1)=1
+lFUCache.put(2, 2);   // cache=[2,1], cnt(2)=1, cnt(1)=1
+lFUCache.get(1);      // 返回 1
+                      // cache=[1,2], cnt(2)=1, cnt(1)=2
+lFUCache.put(3, 3);   // 去除键 2 ，因为 cnt(2)=1 ，使用计数最小
+                      // cache=[3,1], cnt(3)=1, cnt(1)=2
+lFUCache.get(2);      // 返回 -1（未找到）
+lFUCache.get(3);      // 返回 3
+                      // cache=[3,1], cnt(3)=2, cnt(1)=2
+lFUCache.put(4, 4);   // 去除键 1 ，1 和 3 的 cnt 相同，但 1 最久未使用
+                      // cache=[4,3], cnt(4)=1, cnt(3)=2
+lFUCache.get(1);      // 返回 -1（未找到）
+lFUCache.get(3);      // 返回 3
+                      // cache=[3,4], cnt(4)=1, cnt(3)=3
+lFUCache.get(4);      // 返回 4
+                      // cache=[3,4], cnt(4)=2, cnt(3)=3
+```
+
+分析：
+
+
+
+
+
+- 时间复杂度：O()
+- 空间复杂度：O()
+
+
 
 代码：
 
 ```java
 
 ```
+
+---
+
+
+
+
 
 
 
