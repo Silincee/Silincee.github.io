@@ -897,7 +897,8 @@ int BFS(Node start, Node target) {
 
 | 题目                                                         | 算法思想      |
 | ------------------------------------------------------------ | ------------- |
-| [\#104 树的高度](http://www.silince.cn/2020/07/20/LeetSilinceCode/#104-二叉树的最大深度) | 递归/广度优先 |
+| [\#104 树的高度⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#104-二叉树的最大深度) | 递归/广度优先 |
+| [#二叉树的最小深度](https://blog.csdn.net/abcdef314159/article/details/106489263?utm_medium=distribute.pc_relevant.none-task-blog-OPENSEARCH-3.control&dist_request_id=1328656.9813.16158659210859633&depth_1-utm_source=distribute.pc_relevant.none-task-blog-OPENSEARCH-3.control) | 递归/广度优先 |
 | [\#110 平衡二叉树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#110-平衡二叉树) | 递归          |
 | [\#543 两节点的最长路径](http://www.silince.cn/2020/07/20/LeetSilinceCode/#543-二叉树的直径) | 递归          |
 | [\#226 翻转树 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#226-%E7%BF%BB%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91) | 前序遍历/递归 |
