@@ -884,12 +884,39 @@ int BFS(Node start, Node target) {
 | [\#674 最长连续递增序列](http://www.silince.cn/2020/07/20/LeetSilinceCode/#674-最长连续递增序列) | 动态规划                  |
 | [\#1051 高度检查器](http://www.silince.cn/2020/07/20/LeetSilinceCode/#1051-高度检查器) | 桶排序                    |
 | [\#1160 拼写单词](http://www.silince.cn/2020/07/20/LeetSilinceCode/#1160-拼写单词) | counter方法/HashMap       |
+| [\#283. 移动零](https://leetcode-cn.com/problems/move-zeroes/) |                           |
+| [\#566. 重塑矩阵](https://leetcode-cn.com/problems/reshape-the-matrix/) |                           |
+| [\#485. 最大连续 1 的个数](https://leetcode-cn.com/problems/max-consecutive-ones/) |                           |
+| [\#240. 搜索二维矩阵 II](https://leetcode-cn.com/problems/search-a-2d-matrix-ii/) |                           |
+| [\#378. 有序矩阵中第 K 小的元素](https://leetcode-cn.com/problems/kth-smallest-element-in-a-sorted-matrix/) |                           |
+| [\#645. 错误的集合](https://leetcode-cn.com/problems/set-mismatch/) |                           |
+| [\#287. 寻找重复数](https://leetcode-cn.com/problems/find-the-duplicate-number/) |                           |
+| [\#667. 优美的排列 II](https://leetcode-cn.com/problems/beautiful-arrangement-ii/) |                           |
+| [\#697. 数组的度](https://leetcode-cn.com/problems/degree-of-an-array/) |                           |
+| [\#766. 托普利茨矩阵](https://leetcode-cn.com/problems/toeplitz-matrix/) |                           |
+| [\#565. 数组嵌套](https://leetcode-cn.com/problems/array-nesting/) |                           |
+| [\#769. 最多能完成排序的块](https://leetcode-cn.com/problems/max-chunks-to-make-sorted/) |                           |
 
 
 
 
 
 ## 链表
+
+| 题目                                                         | 算法思想 |
+| ------------------------------------------------------------ | -------- |
+| [\#160. 相交链表](https://leetcode-cn.com/problems/intersection-of-two-linked-lists/) |          |
+| [\#206. 反转链表](https://leetcode-cn.com/problems/reverse-linked-list/) |          |
+| [\#21.合并两个有序链表](https://leetcode-cn.com/problems/merge-two-sorted-lists/) |          |
+| [\#83.删除排序链表中的重复元素](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/) |          |
+| [\#19.删除链表的倒数第 N 个结点](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/) |          |
+| [\#24.两两交换链表中的节点](https://leetcode-cn.com/problems/swap-nodes-in-pairs/) |          |
+| [\#445. 两数相加 II](https://leetcode-cn.com/problems/add-two-numbers-ii/) |          |
+| [\#234. 回文链表](https://leetcode-cn.com/problems/palindrome-linked-list/) |          |
+| [\#725. 分隔链表](https://leetcode-cn.com/problems/split-linked-list-in-parts/) |          |
+| [\#328. 奇偶链表](https://leetcode-cn.com/problems/odd-even-linked-list/) |          |
+
+
 
 ## 二叉树
 
@@ -899,16 +926,16 @@ int BFS(Node start, Node target) {
 | ------------------------------------------------------------ | ------------- |
 | [\#104 树的高度 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#104-二叉树的最大深度) | 递归/广度优先 |
 | [#二叉树的最小深度 ⭐️](https://blog.csdn.net/abcdef314159/article/details/106489263?utm_medium=distribute.pc_relevant.none-task-blog-OPENSEARCH-3.control&dist_request_id=1328656.9813.16158659210859633&depth_1-utm_source=distribute.pc_relevant.none-task-blog-OPENSEARCH-3.control) | 递归/广度优先 |
-| [\#110 平衡二叉树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#110-平衡二叉树) | 递归          |
-| [\#543 两节点的最长路径](http://www.silince.cn/2020/07/20/LeetSilinceCode/#543-二叉树的直径) | 递归          |
+| [\#110 平衡二叉树 ](http://www.silince.cn/2020/07/20/LeetSilinceCode/#110-平衡二叉树) | 递归          |
+| [\#543 两节点的最长路径 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#543-二叉树的直径) | 递归          |
 | [\#226 翻转树 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#226-%E7%BF%BB%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91) | 前序遍历/递归 |
 | [\#116 填充每个节点的下一个右侧节点指针 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#116-填充每个节点的下一个右侧节点指针) | 前序遍历/递归 |
-| [\#114. 二叉树展开为链表 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#114-二叉树展开为链表) | 后序遍历/递归 |
+| [\#114. 二叉树展开为链表 ](http://www.silince.cn/2020/07/20/LeetSilinceCode/#114-二叉树展开为链表) | 后序遍历/递归 |
 | [\#617 归并两棵树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#617-%E5%90%88%E5%B9%B6%E4%BA%8C%E5%8F%89%E6%A0%91) | 递归          |
 | [\#654. 最大二叉树 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#654-最大二叉树) | 递归          |
 | [\#105. 从前序与中序遍历序列构造二叉树 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#105-从前序与中序遍历序列构造二叉树) | 递归          |
 | [\#106. 从中序与后序遍历序列构造二叉树 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#106-从中序与后序遍历序列构造二叉树) | 递归          |
-| [\#652 寻找重复的子树 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#652-寻找重复的子树) | 递归          |
+| [\#652 寻找重复的子树 ](http://www.silince.cn/2020/07/20/LeetSilinceCode/#652-寻找重复的子树) | 递归          |
 | [\#112 判断路径和是否等于一个数](http://www.silince.cn/2020/07/20/LeetSilinceCode/#112-%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8C) | 递归          |
 | [\#437 统计路径和等于一个数的路径数量](http://www.silince.cn/2020/07/20/LeetSilinceCode/#437-%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8C-iii) | 递归          |
 | [\#572 子树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#572-%E5%8F%A6%E4%B8%80%E4%B8%AA%E6%A0%91%E7%9A%84%E5%AD%90%E6%A0%91) | 递归          |
@@ -942,11 +969,57 @@ int BFS(Node start, Node target) {
 
 ## 栈和队列
 
+| 题目                                                         | 算法思想 |
+| ------------------------------------------------------------ | -------- |
+| [\#232. 用栈实现队列](https://leetcode-cn.com/problems/implement-queue-using-stacks/) |          |
+| [\#225. 用队列实现栈](https://leetcode-cn.com/problems/implement-stack-using-queues/) |          |
+| [\#155. 最小栈](https://leetcode-cn.com/problems/min-stack/) |          |
+| [\#20. 有效的括号](https://leetcode-cn.com/problems/valid-parentheses/) |          |
+| [\#739. 每日温度](https://leetcode-cn.com/problems/daily-temperatures/) |          |
+| [\#503. 下一个更大元素 II](https://leetcode-cn.com/problems/next-greater-element-ii/) |          |
+
+
+
 ## 哈希表
+
+| 题目                                                         | 算法思想 |
+| ------------------------------------------------------------ | -------- |
+| [\#1. 两数之和](https://leetcode-cn.com/problems/two-sum/)   |          |
+| [\#217. 存在重复元素](https://leetcode-cn.com/problems/contains-duplicate/) |          |
+| [\#594. 最长和谐子序列](https://leetcode-cn.com/problems/longest-harmonious-subsequence/) |          |
+| [\#128. 最长连续序列](https://leetcode-cn.com/problems/longest-consecutive-sequence/) |          |
+
+
 
 ## 字符串
 
-## 图
+| 题目                                                         | 算法思想 |
+| ------------------------------------------------------------ | -------- |
+| [\#242. 有效的字母异位词](https://leetcode-cn.com/problems/valid-anagram/) |          |
+| [\#409. 最长回文串](https://leetcode-cn.com/problems/longest-palindrome/) |          |
+| [\#205. 同构字符串](https://leetcode-cn.com/problems/isomorphic-strings/) |          |
+| [\#647. 回文子串](https://leetcode-cn.com/problems/palindromic-substrings/) |          |
+| [\#9. 回文数](https://leetcode-cn.com/problems/palindrome-number/) |          |
+| [\#696. 计数二进制子串](https://leetcode-cn.com/problems/count-binary-substrings/) |          |
+
+
+
+## 位运算
+
+| 题目                                                         | 算法思想 |
+| ------------------------------------------------------------ | -------- |
+| [461. 汉明距离](https://leetcode-cn.com/problems/hamming-distance/) |          |
+| [136. 只出现一次的数字](https://leetcode-cn.com/problems/single-number/) |          |
+| [268. 丢失的数字](https://leetcode-cn.com/problems/missing-number/) |          |
+| [260. 只出现一次的数字 III](https://leetcode-cn.com/problems/single-number-iii/) |          |
+| [190. 颠倒二进制位](https://leetcode-cn.com/problems/reverse-bits/) |          |
+| [231. 2的幂](https://leetcode-cn.com/problems/power-of-two/) |          |
+| [342. 4的幂](https://leetcode-cn.com/problems/power-of-four/) |          |
+| [693. 交替位二进制数](https://leetcode-cn.com/problems/binary-number-with-alternating-bits/) |          |
+| [476. 数字的补数](https://leetcode-cn.com/problems/number-complement/) |          |
+| [371. 两整数之和](https://leetcode-cn.com/problems/sum-of-two-integers/) |          |
+| [318. 最大单词长度乘积](https://leetcode-cn.com/problems/maximum-product-of-word-lengths/) |          |
+| [338. 比特位计数](https://leetcode-cn.com/problems/counting-bits/) |          |
 
 
 
@@ -2584,7 +2657,7 @@ class Solution {
 
 分析：
 
-***方法一***：从底至顶（提前阻断） ⭐️
+***方法一***：从底至顶（提前阻断），返现不对劲马上返回-1. ⭐️
 
 > 此方法为本题的最优解法，但“从底至顶”的思路不易第一时间想到。
 
@@ -5360,6 +5433,7 @@ class Solution {
 
 - easy
 - 2020.10.14：😭  
+- 2021.03.17：😎 不就是左子树高度+右子树高度
 
 题目：
 
@@ -5627,27 +5701,50 @@ public int longestCommonSubsequence(String s1,String s2,int m,int n){
 - easy
 - 2020.10.01：😭  
 
-题目：
+> 题目：
+>
 
 ```xml
+给定两个二叉树，想象当你将它们中的一个覆盖到另一个上时，两个二叉树的一些节点便会重叠。
 
+你需要将他们合并为一个新的二叉树。合并的规则是如果两个节点重叠，那么将他们的值相加作为节点合并后的新值，否则不为 NULL 的节点将直接作为新二叉树的节点。
 ```
 
-分析：
+> 分析：
+>
 
-***方法一：***递归
-
-
-
-- 时间复杂度：O()
-- 空间复杂度：O()
+需要注意：这两颗树并不是长得完全一样，有的树可能有左节点，但有的树没有。
+对于这种情况，我们统一的都把他们挂到树 1 上面就可以了，对于上面例子中的两颗树，合并起来的结果如下：
 
 
+	     3
+	    / \
+	   4   5
+	  / \   \ 
+	 5   4   7
+**相当于树1少了一条腿，而树 2 有这条腿，那就把树 2 的拷贝过来。**
+总结下递归的条件：
 
-代码：
+终止条件：树 1 的节点为 null，或者树 2 的节点为 null
+递归函数内：将两个树的节点相加后，再赋给树 1 的节点。再递归的执行两个树的左节点，递归执行两个树的右节点
+
+> 代码：
+>
 
 ```java
-
+class Solution {
+    public TreeNode mergeTrees(TreeNode r1, TreeNode r2) {
+		// 如果 r1和r2中，只要有一个是null，函数就直接返回
+		if(r1==null || r2==null) {
+			return r1==null? r2 : r1;
+		}
+		//让r1的值 等于  r1和r2的值累加，再递归的计算两颗树的左节点、右节点
+		r1.val += r2.val;
+		r1.left = mergeTrees(r1.left,r2.left);
+		r1.right = mergeTrees(r1.right,r2.right);
+		return r1;
+	}
+}
 ```
 
 ---
@@ -5881,35 +5978,35 @@ String traverse(TreeNode root) {
 ```java
 class Solution {
 
-	// 记录所有子树以及出现的次数
-	HashMap<String, Integer> memo = new HashMap<>();
-	// 记录重复的子树根节点
-	LinkedList<TreeNode> res = new LinkedList<>();
+  // 记录所有子树以及出现的次数
+  HashMap<String, Integer> memo = new HashMap<>();
+  // 记录重复的子树根节点
+  LinkedList<TreeNode> res = new LinkedList<>();
 
   public List<TreeNode> findDuplicateSubtrees(TreeNode root) {
     traverse(root);
     return res;
   }
 
-		/* 辅助函数 */
-    public String traverse(TreeNode root){
-		// 对于空节点，可以用一个特殊字符表示
-		if (root==null) return "#";
-		// 将左右子树序列化成字符串
-		String left = traverse(root.left);
-		String right = traverse(root.right);
-		/* 后序遍历代码位置 */
-		// 左右子树加上自己，就是以自己为根的二叉树序列化结果
-		String subTree=left + "," + right + "," + root.val; // 描述以该节点为根的二叉树。
+  /* 辅助函数 */
+  public String traverse(TreeNode root){
+    // 对于空节点，可以用一个特殊字符表示
+    if (root==null) return "#";
+    // 将左右子树序列化成字符串
+    String left = traverse(root.left);
+    String right = traverse(root.right);
+    /* 后序遍历代码位置 */
+    // 左右子树加上自己，就是以自己为根的二叉树序列化结果
+    String subTree=left + "," + right + "," + root.val; // 描述以该节点为根的二叉树。
 
-		int freq = memo.getOrDefault(subTree,0);
-		// 多次重复也只会被加入结果集一次
-		if (freq==1) res.add(root);
+    int freq = memo.getOrDefault(subTree,0);
+    // 多次重复也只会被加入结果集一次
+    if (freq==1) res.add(root);
 
-		// 对子树对应的出现次数加1
-		memo.put(subTree,freq+1);
-		return subTree;
-	}
+    // 对子树对应的出现次数加1
+    memo.put(subTree,freq+1);
+    return subTree;
+  }
 }
 ```
 
