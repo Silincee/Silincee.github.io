@@ -689,7 +689,6 @@ int right_bound(int[] nums, int target) {
 | ------------------------------------------------------------ | ------------------------------ |
 | [\#509 斐波那契数](http://www.silince.cn/2020/07/20/LeetSilinceCode/#509-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0) | 动态规划                       |
 | [\#322 零钱兑换](http://www.silince.cn/2020/07/20/LeetSilinceCode/#322-零钱兑换) | 动态规划                       |
-| [\#494. 目标和](http://www.silince.cn/2020/07/20/LeetSilinceCode/#494-%E7%9B%AE%E6%A0%87%E5%92%8C) | 动态规划/背包问题              |
 | [\#72. 编辑距离](https://labuladong.gitbook.io/algo/dong-tai-gui-hua-xi-lie/1.2-zi-xu-lie-lei-xing-wen-ti/bian-ji-ju-li) | 子序列问题/动态规划            |
 | [\#300. 最长递增子序列]()                                    | 子序列问题/动态规划            |
 | [\#354. 俄罗斯套娃信封问题]()                                | 子序列问题/动态规划            |
@@ -739,6 +738,99 @@ for 状态1 in 状态1的所有取值：
 
 
 
+## 背包问题
+
+| 题目                                                         | 算法思想          |
+| ------------------------------------------------------------ | ----------------- |
+| [\#494. 目标和](http://www.silince.cn/2020/07/20/LeetSilinceCode/#494-%E7%9B%AE%E6%A0%87%E5%92%8C) | 动态规划/背包问题 |
+| [\#416. 分割等和子集](https://leetcode-cn.com/problems/partition-equal-subset-sum/) | 0-1背包问题的变体 |
+| [\#518. 零钱兑换 II](https://leetcode-cn.com/problems/coin-change-2/) | 完全背包问题      |
+
+> 经典动态规划：0-1 背包问题
+
+今天就来说一下背包问题吧，就讨论最常说的 0-1 背包问题。描述：
+
+给你一个可装载重量为 `W` 的背包和 `N` 个物品，每个物品有重量和价值两个属性。其中第 `i` 个物品的重量为 `wt[i]`，价值为 `val[i]`，现在让你用这个背包装物品，最多能装的价值是多少？
+
+<img src="/Users/silince/Pictures/Typora/image-20210318111553983.png" alt="image-20210318111553983" style="zoom:67%;" />
+
+举个简单的例子，输入如下：
+
+```java
+N = 3, W = 4
+wt = [2, 1, 3]
+val = [4, 2, 3]
+```
+
+算法返回 6，选择前两件物品装进背包，总重量 3 小于 `W`，可以获得最大价值 6。
+
+题目就是这么简单，一个典型的动态规划问题。这个题目中的物品不可以分割，要么装进包里，要么不装，不能说切成两块装一半。这就是 0-1 背包这个名词的来历。
+
+解决这个问题没有什么排序之类巧妙的方法，只能穷举所有可能，根据我们「动态规划详解」中的套路，直接走流程就行了。
+
+- 明确状态和选择：只要给定几个可选物品和一个背包的容量限制，就形成了一个背包问题，对不对？**所以状态有两个，就是「背包的容量」和「可选择的物品」**。再说选择，也很容易想到啊，对于每件物品，你能选择什么？**选择就是「装进背包」或者「不装进背包」嘛**。
+
+```java
+for 状态1 in 状态1的所有取值：
+    for 状态2 in 状态2的所有取值：
+        for ...
+            dp[状态1][状态2][...] = 择优(选择1，选择2...)
+```
+
+- 明确**`dp`数组的定义**  :**`dp[i][w]`的定义如下：对于前`i`个物品，当前背包的容量为`w`，这种情况下可以装的最大价值是`dp[i][w]`。**
+
+```java
+int dp[N+1][W+1]
+dp[0][..] = 0
+dp[..][0] = 0
+
+for i in [1..N]:
+    for w in [1..W]:
+        dp[i][w] = max(
+            把物品 i 装进背包,
+            不把物品 i 装进背包
+        )
+return dp[N][W]
+```
+
+- **根据「选择」，思考状态转移的逻辑**。**如果你没有把这第****`i`个物品装入背包**，那么很显然，最大价值`dp[i][w]`应该等于`dp[i-1][w]`。你不装嘛，那就继承之前的结果。**如果你把这第**`i`个物品装入了背包**，那么`dp[i][w]`应该等于`dp[i-1][w-wt[i-1]] + val[i-1]`。
+
+```java
+for i in [1..N]:
+    for w in [1..W]:
+        dp[i][w] = max(
+            dp[i-1][w],
+            dp[i-1][w - wt[i-1]] + val[i-1]
+        )
+return dp[N][W]
+```
+
+- **把伪码翻译成代码，处理一些边界情况**。
+
+```java
+int knapsack(int W, int N, vector<int>& wt, vector<int>& val) {
+    // vector 全填入 0，base case 已初始化
+    vector<vector<int>> dp(N + 1, vector<int>(W + 1, 0));
+    for (int i = 1; i <= N; i++) {
+        for (int w = 1; w <= W; w++) {
+            if (w - wt[i-1] < 0) {
+                // 当前背包容量装不下，只能选择不装入背包
+                dp[i][w] = dp[i - 1][w];
+            } else {
+                // 装入或者不装入背包，择优
+                dp[i][w] = max(dp[i - 1][w - wt[i-1]] + val[i-1], 
+                               dp[i - 1][w]);
+            }
+        }
+    }
+    return dp[N][W];
+}
+```
+
+
+
+
+
 ## 回溯算法
 
 > [回溯算法解题套路框架](https://labuladong.gitbook.io/algo/di-ling-zhang-bi-du-xi-lie/hui-su-suan-fa-xiang-jie-xiu-ding-ban)
@@ -762,10 +854,10 @@ for 状态1 in 状态1的所有取值：
 - **写** **`backtrack`** **函数时，需要维护走过的「路径」和当前可以做的「选择列表」，当触发「结束条件」时，将「路径」记入结果集**。
 - **其核心就是 for 循环里面的递归，在递归调用之前「做选择」，在递归调用之后「撤销选择」**，特别简单。
 
-```
+```python
 result = []
 def backtrack(路径, 选择列表):
-    if 满足结束条件:
+    if 满足结束条件: # 递归出口
         result.add(路径)
         return
 
@@ -786,10 +878,10 @@ def backtrack(路径, 选择列表):
 
 > [BFS算法解题套路框架](https://labuladong.gitbook.io/algo/di-ling-zhang-bi-du-xi-lie/bfs-kuang-jia)
 
-| 题目                        | 算法思想 |
-| --------------------------- | -------- |
-| [\#111. 二叉树的最小深度]() | BFS算法  |
-| [\#752. 打开转盘锁]()       | BFS算法  |
+| 题目                                                         | 算法思想 |
+| ------------------------------------------------------------ | -------- |
+| [\#111. 二叉树的最小深度](www.silince.cn/2020/07/20/LeetSilinceCode/#111-二叉树的最小深度) | BFS算法  |
+| [\#752. 打开转盘锁](www.silince.cn/2020/07/20/LeetSilinceCode/#752-打开转盘锁) | BFS算法  |
 
 首先，你要说 labuladong 没写过 BFS 框架，这话没错，今天写个框架你背住就完事儿了。但要是说没写过 DFS 框架，那你还真是说错了，**其实 DFS 算法就是回溯算法**。
 
@@ -908,6 +1000,7 @@ int BFS(Node start, Node target) {
 | [\#160. 相交链表](https://leetcode-cn.com/problems/intersection-of-two-linked-lists/) |          |
 | [\#206. 反转链表](https://leetcode-cn.com/problems/reverse-linked-list/) |          |
 | [\#21.合并两个有序链表](https://leetcode-cn.com/problems/merge-two-sorted-lists/) |          |
+| [\#143. 重排链表](https://leetcode-cn.com/problems/reorder-list/) |          |
 | [\#83.删除排序链表中的重复元素](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/) |          |
 | [\#19.删除链表的倒数第 N 个结点](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/) |          |
 | [\#24.两两交换链表中的节点](https://leetcode-cn.com/problems/swap-nodes-in-pairs/) |          |
@@ -924,8 +1017,8 @@ int BFS(Node start, Node target) {
 
 | 题目                                                         | 算法思想      |
 | ------------------------------------------------------------ | ------------- |
-| [\#104 树的高度 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#104-二叉树的最大深度) | 递归/广度优先 |
-| [#二叉树的最小深度 ⭐️](https://blog.csdn.net/abcdef314159/article/details/106489263?utm_medium=distribute.pc_relevant.none-task-blog-OPENSEARCH-3.control&dist_request_id=1328656.9813.16158659210859633&depth_1-utm_source=distribute.pc_relevant.none-task-blog-OPENSEARCH-3.control) | 递归/广度优先 |
+| [\#104.树的高度 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#104-二叉树的最大深度) | 递归/广度优先 |
+| [#111.二叉树的最小深度 ⭐️](www.silince.cn/2020/07/20/LeetSilinceCode/#111-二叉树的最小深度) | 递归/广度优先 |
 | [\#110 平衡二叉树 ](http://www.silince.cn/2020/07/20/LeetSilinceCode/#110-平衡二叉树) | 递归          |
 | [\#543 两节点的最长路径 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#543-二叉树的直径) | 递归          |
 | [\#226 翻转树 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#226-%E7%BF%BB%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91) | 前序遍历/递归 |
@@ -936,6 +1029,7 @@ int BFS(Node start, Node target) {
 | [\#105. 从前序与中序遍历序列构造二叉树 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#105-从前序与中序遍历序列构造二叉树) | 递归          |
 | [\#106. 从中序与后序遍历序列构造二叉树 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#106-从中序与后序遍历序列构造二叉树) | 递归          |
 | [\#652 寻找重复的子树 ](http://www.silince.cn/2020/07/20/LeetSilinceCode/#652-寻找重复的子树) | 递归          |
+| [\#103. 二叉树的锯齿形层序遍历](https://leetcode-cn.com/problems/binary-tree-zigzag-level-order-traversal/) | 递归          |
 | [\#112 判断路径和是否等于一个数](http://www.silince.cn/2020/07/20/LeetSilinceCode/#112-%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8C) | 递归          |
 | [\#437 统计路径和等于一个数的路径数量](http://www.silince.cn/2020/07/20/LeetSilinceCode/#437-%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8C-iii) | 递归          |
 | [\#572 子树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#572-%E5%8F%A6%E4%B8%80%E4%B8%AA%E6%A0%91%E7%9A%84%E5%AD%90%E6%A0%91) | 递归          |
@@ -1025,6 +1119,8 @@ int BFS(Node start, Node target) {
 
 # 剑指Offer
 
+> code：https://github.com/Silincee/LeetRinCode/tree/master/src/leetcode/editor/cn
+
 | 题目                                                         | 算法思想 |
 | :----------------------------------------------------------- | -------- |
 | [剑指 Offer 03 数组中重复的数字](https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof) |          |
@@ -1109,7 +1205,41 @@ int BFS(Node start, Node target) {
 
 
 
-# 题
+# 题目详解
+
+## Template
+
+- 中等
+- 2020.12.02：😭  
+
+> 题目：
+
+```xml
+
+```
+
+> 分析：
+
+***方法一：***
+
+
+
+- 时间复杂度：O()
+- 空间复杂度：O()
+
+
+
+> 代码：
+
+```java
+
+```
+
+---
+
+
+
+
 
 ## [\#3. 无重复字符的最长子串](https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/)
 
@@ -2186,6 +2316,101 @@ class Solution {
 ```
 
 ---
+
+
+
+
+
+## [\#103. 二叉树的锯齿形层序遍历](https://leetcode-cn.com/problems/binary-tree-zigzag-level-order-traversal/)
+
+- 中等
+- 2020.12.02：😭  
+
+> 题目：
+
+```xml
+
+```
+
+> 分析：
+
+***方法一：*** 广度优先 + 队列反转
+
+方法二： 双端队列
+
+
+
+> 代码：
+
+```java
+// BFS + reverse list
+public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+  Queue<TreeNode> queue = new LinkedList<>();
+  List<List<Integer>> res = new ArrayList<>();
+  if (root != null) {
+    queue.offer(root);
+  }
+  List<Integer> list ;
+  while (!queue.isEmpty()) {
+    int size = queue.size(); //当前层，元素的数量
+    list = new ArrayList<>();
+    for (int i = 0; i < size; i++) {
+      TreeNode node = queue.poll(); //按顺序弹出队列元素，加入集合
+      list.add(node.val);
+      if (node.left != null) {
+        queue.offer(node.left); //当前元素的左子树入队，即把下一层的元素加入队列
+      }
+      if (node.right != null) {
+        queue.offer(node.right); //当前元素的右子树入队，即把下一层的元素加入队列
+      }
+    }
+    if (res.size() % 2 == 1) { //本题中奇数层要翻转下
+      Collections.reverse(list);
+    }
+    res.add(list);
+  }
+  return res;
+}
+
+// 双端队列
+public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+  List<List<Integer>> ans = new LinkedList<List<Integer>>();
+  if (root == null) {
+    return ans;
+  }
+
+  Queue<TreeNode> nodeQueue = new LinkedList<TreeNode>();
+  nodeQueue.offer(root);
+  boolean isOrderLeft = true;
+
+  while (!nodeQueue.isEmpty()) {
+    Deque<Integer> levelList = new LinkedList<Integer>();
+    int size = nodeQueue.size();
+    for (int i = 0; i < size; i++) {
+      TreeNode curNode = nodeQueue.poll();
+      if (isOrderLeft) {
+        levelList.offerLast(curNode.val);
+      } else {
+        levelList.offerFirst(curNode.val);
+      }
+      if (curNode.left != null) {
+        nodeQueue.offer(curNode.left);
+      }
+      if (curNode.right != null) {
+        nodeQueue.offer(curNode.right);
+      }
+    }
+    ans.add(new LinkedList<Integer>(levelList));
+    isOrderLeft = !isOrderLeft;
+  }
+
+  return ans;
+}
+```
+
+---
+
+
 
 
 
@@ -4499,6 +4724,71 @@ public int lengthOfLIS(int[] height) {
 
 
 
+## [\#416. 分割等和子集](https://leetcode-cn.com/problems/partition-equal-subset-sum/)
+
+- 中等
+
+> 题目：
+
+```xml
+给定一个只包含正整数的非空数组。是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。
+
+输入: [1, 5, 11, 5]
+输出: true
+解释: 数组可以分割成 [1, 5, 5] 和 [11].
+```
+
+> 分析：
+
+对于这个问题，我们可以先对集合求和，得出`sum`，把问题转化为背包问题：
+
+**给一个可装载重量为`sum/2`的背包和`N`个物品，每个物品的重量为`nums[i]`。现在让你装物品，是否存在一种装法，能够恰好将背包装满**？
+
+具体实现参考 [\#494-目标和](http://www.silince.cn/2020/07/20/LeetSilinceCode/#494-目标和)
+
+
+
+> 代码：
+
+```java
+public boolean canPartition(int[] nums) {
+  int sum = Arrays.stream(nums).sum();
+  if(sum%2==1) return false;
+  return dp(nums,sum/2);
+}
+
+// 有几种方法可以到达target
+boolean dp(int[] nums,int target){
+  // 初始化
+  int n = nums.length;
+  int[][] dp = new int[n+1][target+1];
+  for(int i=0;i<=n;i++){
+    dp[i][0] = 1;
+  }
+
+  // dp公式 dp[i][j] = dp[i-1][j] + dp[i-1][j-nums[i-1]];
+  for(int i = 1;i<=n;i++){
+    for(int j=0;j<=target;j++){
+      // 放得下
+      if(j>=nums[i-1]){
+        dp[i][j] = dp[i-1][j] + dp[i-1][j-nums[i-1]];
+      }else{
+        dp[i][j] = dp[i-1][j];
+      }
+    }
+  }
+
+  return dp[n][target]!=0?true:false;
+
+}
+
+// 状态压缩
+```
+
+---
+
+
+
 
 
 ## [\#437. 路径总和 III](https://leetcode-cn.com/problems/path-sum-iii/)
@@ -4890,7 +5180,7 @@ void backtrack(int[] nums, int i, int sum, int target) {
 
 因此，如果我们给 `nums[i]` 选择 `+` 号，就要让 `rest - nums[i]`，反之亦然。
 
-以上回溯算法可以解决这个问题，时间复杂度为 `O(2^N)`，`N` 为 `nums` 的大小。这个复杂度怎么算的？回忆前文 [学习数据结构和算法的框架思维]()，发现这个回溯算法就是个二叉树的遍历问题：
+以上回溯算法可以解决这个问题，时间复杂度为 `O(2^N)`，`N` 为 `nums` 的大小，这个回溯算法就是个二叉树的遍历问题：
 
 ```java
 public int result = 0; // 方法数
@@ -4937,7 +5227,7 @@ sum(A) + sum(A) = target + sum(B) + sum(A) // 2式两边都加上Sum(A)
 
 综上，可以推出 `sum(A) = (target + sum(nums)) / 2`，也就是把原问题转化成：**`nums`** **中存在几个子集** **`A`**，使得 **`A`** **中元素的和为** **`(target + sum(nums)) / 2`**？
 
-类似的子集划分问题我们前文 [经典背包问题：子集划分]() 讲过，现在实现这么一个函数：
+类似的子集划分问题，实现这么一个函数：
 
 ```java
 /* 计算 nums 中有几个子集的和为 sum */
@@ -5297,6 +5587,151 @@ class Solution {
 ```java
 
 ```
+
+---
+
+## [\#518. 零钱兑换 II](https://leetcode-cn.com/problems/coin-change-2/)
+
+> 题目：
+
+```xml
+给定不同面额的硬币和一个总金额。写出函数来计算可以凑成总金额的硬币组合数。假设每一种面额的硬币有无限个。 
+
+示例 1:
+输入: amount = 5, coins = [1, 2, 5]
+输出: 4
+解释: 有四种方式可以凑成总金额:
+5=5
+5=2+2+1
+5=2+1+1+1
+5=1+1+1+1+1
+```
+
+> 分析：
+
+**方法一：**我们可以把这个问题转化为背包问题的描述形式**：
+
+有一个背包，最大容量为`amount`，有一系列物品`coins`，每个物品的重量为`coins[i]`，**每个物品的数量无限**。请问有多少种方法，能够把背包恰好装满？
+
+这个问题和我们前面讲过的两个背包问题，**有一个最大的区别就是，每个物品的数量是无限的**，这也就是传说中的「**完全背包问题**」，没啥高大上的，无非就是状态转移方程有一点变化而已。
+
+下面就以背包问题的描述形式，继续按照流程来分析。
+
+**第一步要明确两点，「状态」和「选择」**。
+
+这部分都是背包问题的老套路了，我还是啰嗦一下吧：
+
+状态有两个，就是「背包的容量」和「可选择的物品」，选择就是「装进背包」或者「不装进背包」。
+
+明白了状态和选择，动态规划问题基本上就解决了，只要往这个框架套就完事儿了：
+
+```
+for 状态1 in 状态1的所有取值：
+    for 状态2 in 状态2的所有取值：
+        for ...
+            dp[状态1][状态2][...] = 计算(选择1，选择2...)
+```
+
+**第二步要明确**`dp`数组的定义。
+
+首先看看刚才找到的「状态」，有两个，也就是说我们需要一个二维`dp`数组。
+
+`dp[i][j]`的定义如下：
+
+**若只使用前`i`个物品，当背包容量为`j`时，有`dp[i][j]`种方法可以装满背包。**
+
+换句话说，翻译回我们题目的意思就是：
+
+**若只使用`coins`中的前`i`个硬币的面值，若想凑出金额`j`，有`dp[i][j]`种凑法**。
+
+经过以上的定义，可以得到：
+
+base case 为`dp[0][..] = 0， dp[..][0] = 1`。因为如果不使用任何硬币面值，就无法凑出任何金额；如果凑出的目标金额为 0，那么“无为而治”就是唯一的一种凑法。
+
+我们最终想得到的答案就是`dp[N][amount]`，其中`N`为`coins`数组的大小。
+
+大致的伪码思路如下：
+
+```java
+int dp[N+1][amount+1]
+dp[0][..] = 0
+dp[..][0] = 1
+
+for i in [1..N]:
+    for j in [1..amount]:
+        把物品 i 装进背包,
+        不把物品 i 装进背包
+return dp[N][amount]
+```
+
+**第三步，根据「选择」，思考状态转移的逻辑**。
+
+注意，<u>我们这个问题的特殊点在于物品的数量是无限的</u>，所以这里和之前写的背包问题文章有所不同。
+
+**如果你不把这第`i`个物品装入背包**，也就是说你不使用`coins[i]`这个面值的硬币，那么凑出面额`j`的方法数`dp[i][j]`应该等于`dp[i-1][j]`，继承之前的结果。
+
+**如果你把这第`i`个物品装入了背包**，也就是说你使用`coins[i]`这个面值的硬币，<u>那么`dp[i][j]`应该等于`dp[i][j-coins[i-1]]`</u>。
+
+首先由于`i`是从 1 开始的，所以`coins`的索引是`i-1`时表示第`i`个硬币的面值。
+
+`dp[i][j-coins[i-1]]`也不难理解，如果你决定使用这个面值的硬币，那么就应该关注如何凑出金额`j - coins[i-1]`。
+
+比如说，你想用面值为 2 的硬币凑出金额 5，那么如果你知道了凑出金额 3 的方法，再加上一枚面额为 2 的硬币，不就可以凑出 5 了嘛。
+
+**综上就是两种选择，而我们想求的`dp[i][j]`是「共有多少种凑法」，所以`dp[i][j]`的值应该是以上两种选择的结果之和**：
+
+```java
+for (int i = 1; i <= n; i++) {
+    for (int j = 1; j <= amount; j++) {
+        if (j - coins[i-1] >= 0)
+            dp[i][j] = dp[i - 1][j] 
+                     + dp[i][j-coins[i-1]];
+return dp[N][W]
+```
+
+**最后一步，把伪码翻译成代码，处理一些边界情况**。
+
+我用 Java 写的代码，把上面的思路完全翻译了一遍，并且处理了一些边界问题：
+
+```java
+int change(int amount, int[] coins) {
+    int n = coins.length;
+    int[][] dp = amount int[n + 1][amount + 1];
+    // base case
+    for (int i = 0; i <= n; i++) 
+        dp[i][0] = 1;
+
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= amount; j++)
+            if (j - coins[i-1] >= 0)
+                dp[i][j] = dp[i - 1][j] 
+                         + dp[i][j - coins[i-1]];
+            else 
+                dp[i][j] = dp[i - 1][j];
+    }
+    return dp[n][amount];
+}
+```
+
+而且，我们通过观察可以发现，`dp`数组的转移只和`dp[i][..]`和`dp[i-1][..]`有关，所以可以压缩状态，进一步降低算法的空间复杂度：
+
+```java
+int change(int amount, int[] coins) {
+    int n = coins.length;
+    int[] dp = new int[amount + 1];
+    dp[0] = 1; // base case
+    for (int i = 0; i < n; i++)
+        for (int j = 1; j <= amount; j++)
+            if (j - coins[i] >= 0)
+                dp[j] = dp[j] + dp[j-coins[i]];
+
+    return dp[amount];
+}
+```
+
+这个解法和之前的思路完全相同，将二维`dp`数组压缩为一维，时间复杂度 O(N*amount)，空间复杂度 O(amount)。
+
+至此，这道零钱兑换问题也通过背包问题的框架解决了
 
 ---
 
@@ -7145,36 +7580,4 @@ int[] count(String word) {
 ```
 
 
-
-# 模版.
-
-### 题号 
-
-- 中等
-- 2020.12.02：😭  
-
-题目：
-
-```xml
-
-```
-
-分析：
-
-***方法一：***
-
-
-
-- 时间复杂度：O()
-- 空间复杂度：O()
-
-
-
-代码：
-
-```java
-
-```
-
----
 
