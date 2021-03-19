@@ -5661,7 +5661,7 @@ for i in [1..N]:
     for j in [1..amount]:
         把物品 i 装进背包,
         不把物品 i 装进背包
-return dp[N][amount]
+return dp[N][amount]  
 ```
 
 **第三步，根据「选择」，思考状态转移的逻辑**。
