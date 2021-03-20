@@ -1017,6 +1017,9 @@ int BFS(Node start, Node target) {
 
 | 题目                                                         | 算法思想      |
 | ------------------------------------------------------------ | ------------- |
+| [\#144 非递归实现二叉树的前序遍历](http://www.silince.cn/2020/07/20/LeetSilinceCode/#144-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86) | 前序遍历      |
+| [\#145 非递归实现二叉树的后序遍历](http://www.silince.cn/2020/07/20/LeetSilinceCode/#145-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86) | 后序遍历      |
+| [\#94 非递归实现二叉树的中序遍历](http://www.silince.cn/2020/07/20/LeetSilinceCode/#94-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86) | 中序遍历      |
 | [\#104.树的高度 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#104-二叉树的最大深度) | 递归/广度优先 |
 | [#111.二叉树的最小深度 ⭐️](www.silince.cn/2020/07/20/LeetSilinceCode/#111-二叉树的最小深度) | 递归/广度优先 |
 | [\#110 平衡二叉树 ](http://www.silince.cn/2020/07/20/LeetSilinceCode/#110-平衡二叉树) | 递归          |
@@ -1041,9 +1044,6 @@ int BFS(Node start, Node target) {
 | [\#671 找出二叉树中第二小的节点](http://www.silince.cn/2020/07/20/LeetSilinceCode/#671-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%AC%AC%E4%BA%8C%E5%B0%8F%E7%9A%84%E8%8A%82%E7%82%B9) | 递归          |
 | [\#637 一棵树每层节点的平均数](http://www.silince.cn/2020/07/20/LeetSilinceCode/#637-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%B9%B3%E5%9D%87%E5%80%BC) | 层次遍历      |
 | [\#513 得到左下角的节点](http://www.silince.cn/2020/07/20/LeetSilinceCode/#513-%E6%89%BE%E6%A0%91%E5%B7%A6%E4%B8%8B%E8%A7%92%E7%9A%84%E5%80%BC) | 层次遍历      |
-| [\#144 非递归实现二叉树的前序遍历](http://www.silince.cn/2020/07/20/LeetSilinceCode/#144-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86) | 前序遍历      |
-| [\#145 非递归实现二叉树的后序遍历](http://www.silince.cn/2020/07/20/LeetSilinceCode/#145-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86) | 后序遍历      |
-| [\#94 非递归实现二叉树的中序遍历](http://www.silince.cn/2020/07/20/LeetSilinceCode/#94-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86) | 中序遍历      |
 | [\#699 修剪二叉查找树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#669-%E4%BF%AE%E5%89%AA%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91) | BST           |
 | [\#230 寻找二叉查找树的第 k 个元素](http://www.silince.cn/2020/07/20/LeetSilinceCode/#230-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%AC%ACk%E5%B0%8F%E7%9A%84%E5%85%83%E7%B4%A0) | BST           |
 | [\#538 把二叉查找树每个节点的值都加上比它大的节点的值](http://www.silince.cn/2020/07/20/LeetSilinceCode/#538-%E6%8A%8A%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E8%BD%AC%E6%8D%A2%E4%B8%BA%E7%B4%AF%E5%8A%A0%E6%A0%91) | BST           |
@@ -1071,6 +1071,20 @@ int BFS(Node start, Node target) {
 | [\#20. 有效的括号](https://leetcode-cn.com/problems/valid-parentheses/) |          |
 | [\#739. 每日温度](https://leetcode-cn.com/problems/daily-temperatures/) |          |
 | [\#503. 下一个更大元素 II](https://leetcode-cn.com/problems/next-greater-element-ii/) |          |
+
+
+
+## 堆
+
+| 题目 | 算法思想 |
+| ---- | -------- |
+|      |          |
+|      |          |
+|      |          |
+
+
+
+
 
 
 
@@ -2261,24 +2275,41 @@ class Solution {
 题目：
 
 ```xml
-
+给定一个二叉树的根节点 root ，返回它的 中序 遍历。
 ```
 
 分析：
 
 ***方法一：***递归
 
+***方法二：***[迭代实现(使用栈)](https://leetcode-cn.com/problems/binary-tree-postorder-traversal/solution/16xing-dai-ma-mo-ban-qing-song-gao-ding-qian-xu-zh/)
+主要思想：先遍历左子树，再取根节点的值，再遍历右子树
 
-
-- 时间复杂度：O()
-- 空间复杂度：O()
+- 步骤一：遍历左子树
+- 步骤二：取根节点的值
+- 步骤三：遍历右子树
 
 
 
 代码：
 
 ```java
+public List<Integer> inorderTraversal(TreeNode root) {
+  List<Integer> list=new ArrayList<>();
+  Stack<TreeNode> stack=new Stack<>();
+  while(root!=null||(!stack.empty())){
+    if(root!=null){
+      stack.push(root);//把根节点放入栈中
+      root=root.left;//步骤一，遍历左子树
+    }else{
+      TreeNode tem=stack.pop();
 
+      list.add(tem.val);//步骤二，取根结点的值
+      root=tem.right;//步骤三，遍历右子树
+    }
+  }
+  return list;
+}
 ```
 
 ---
@@ -3338,24 +3369,42 @@ public boolean hasCycle(ListNode head) {
 题目：
 
 ```xml
-
+给你二叉树的根节点 root ，返回它节点值的 前序 遍历。
 ```
 
 分析：
 
 ***方法一：***递归
 
+***方法二：***[迭代实现(使用栈)](https://leetcode-cn.com/problems/binary-tree-postorder-traversal/solution/16xing-dai-ma-mo-ban-qing-song-gao-ding-qian-xu-zh/)
+先取根节点的值，再遍历左子树，再遍历右子树。步骤：
 
-
-- 时间复杂度：O()
-- 空间复杂度：O()
+- 步骤一：取根节点的值
+- 步骤二：遍历左子树
+- 步骤三：遍历右子树
 
 
 
 代码：
 
 ```java
+public List<Integer> preorderTraversal(TreeNode root) {
+  List<Integer> list=new ArrayList<>();
+  Stack<TreeNode> stack=new Stack<>();
+  while(root!=null||(!stack.isEmpty())){
+    if(root!=null){
+      list.add(root.val);//步骤一，取根节点的值
+      stack.push(root);//把根节点放入栈中
+      root=root.left;//步骤二，遍历左子树
+    }
+    else{
+      TreeNode tem=stack.pop();
 
+      root=tem.right;//步骤三，遍历右子树
+    }
+  }
+  return list;
+}
 ```
 
 ---
@@ -3372,24 +3421,71 @@ public boolean hasCycle(ListNode head) {
 题目：
 
 ```xml
+给定一个二叉树，返回它的 后序 遍历。
 
+示例:
+输入: [1,null,2,3]  
+   1
+    \
+     2
+    /
+   3 
+
+输出: [3,2,1]
 ```
 
 分析：
 
 ***方法一：***递归
 
+***方法二：***[迭代实现(使用栈)](https://leetcode-cn.com/problems/binary-tree-postorder-traversal/solution/16xing-dai-ma-mo-ban-qing-song-gao-ding-qian-xu-zh/)   **后序遍历，可以看成将一颗树左右反转，然后先序遍历，左后的结果取反。**
 
+我们也可以用迭代的方式实现方法一的递归函数，两种方式是等价的，区别在于递归的时候隐式地维护了一个栈，而我们在迭代的时候需要显式地将这个栈模拟出来，其余的实现与细节都相同，具体可以参考下面的代码。
 
-- 时间复杂度：O()
-- 空间复杂度：O()
+主要思想：先遍历左子树，再遍历右子树，最后取根节点的值。步骤：(对主要思想里边的步骤逆序处理 左右根-->根右左 )
+
+- 步骤一：取根节点的值，插入list最后边
+- 步骤二：遍历右子树
+- 步骤三：遍历左子树
 
 
 
 代码：
 
 ```java
+// 递归实现
+public List<Integer> postorderTraversal(TreeNode root) {
+  List<Integer> res = new ArrayList<Integer>();
+  postorder(root, res);
+  return res;
+}
 
+public void postorder(TreeNode root, List<Integer> res) {
+  if (root == null) {
+    return;
+  }
+  postorder(root.left, res);
+  postorder(root.right, res);
+  res.add(root.val);
+}
+// 迭代实现  后序遍历，可以看成将一颗树左右反转，然后先序遍历，左后的结果取反。
+public List<Integer> postorderTraversal(TreeNode root) {
+  List<Integer> list=new ArrayList<>();
+  Stack<TreeNode> stack=new Stack<>();
+  while(root!=null||(!stack.isEmpty())){
+    if(root!=null){
+      stack.push(root);//把根节点放入栈中
+      list.add(0,root.val);//步骤一，在index=0处插入根结点的值
+      root=root.right;//步骤二，遍历右子树
+    }
+    else{
+      TreeNode tem=stack.pop();
+
+      root=tem.left;//步骤三，遍历左子树
+    }
+  }
+  return list;
+}
 ```
 
 ---
@@ -5720,10 +5816,13 @@ int change(int amount, int[] coins) {
     int n = coins.length;
     int[] dp = new int[amount + 1];
     dp[0] = 1; // base case
-    for (int i = 0; i < n; i++)
+    for (int i = 1; i <= n; i++)
         for (int j = 1; j <= amount; j++)
-            if (j - coins[i] >= 0)
-                dp[j] = dp[j] + dp[j-coins[i]];
+            if (j - coins[i-1] >= 0){
+                dp[j] = dp[j] + dp[j-coins[i-1]];
+            }else{
+                dp[j] = dp[j];
+            }
 
     return dp[amount];
 }
