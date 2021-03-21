@@ -1418,12 +1418,11 @@ class Solution {
 
 ```java
 public boolean isValid(String s) {
-  Map<Character, Character> map = new HashMap<Character, Character>() {{
-    put('{', '}');
-    put('[', ']');
-    put('(', ')');
-    put('?', '?');
-  }};
+  Map<Character, Character> map = new HashMap<Character, Character>();
+  map.put('{', '}');
+  map.put('[', ']');
+  map.put('(', ')');
+  map.put('?', '?');
 
   LinkedList<Character> stack = new LinkedList<Character>() {{
     add('?');
