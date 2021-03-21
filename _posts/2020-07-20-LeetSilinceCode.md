@@ -839,7 +839,7 @@ int knapsack(int W, int N, vector<int>& wt, vector<int>& val) {
 | [\#46. 全排列](http://www.silince.cn/2020/07/20/LeetSilinceCode/#46-全排列) | 回溯算法          |
 | [\#51. N 皇后](http://www.silince.cn/2020/07/20/LeetSilinceCode/#51-n-皇后) | 回溯算法          |
 | [\#494. 目标和](http://www.silince.cn/2020/07/20/LeetSilinceCode/#494-%E7%9B%AE%E6%A0%87%E5%92%8C) | 动态规划/背包问题 |
-| [\#22. 括号生成](https://leetcode-cn.com/problems/generate-parentheses/) | 回溯算法          |
+| [\#22. 括号生成](https://www.silince.cn/2020/07/20/LeetSilinceCode/#22-括号生成) | 回溯算法          |
 
 **解决一个回溯问题，实际上就是一个决策树的遍历过程**。你只需要思考 3 个问题：
 
@@ -948,9 +948,6 @@ int BFS(Node start, Node target) {
 
 
 
-
-
-## 数学
 
 
 
@@ -1068,8 +1065,8 @@ int BFS(Node start, Node target) {
 | [\#232. 用栈实现队列](https://leetcode-cn.com/problems/implement-queue-using-stacks/) |             |
 | [\#225. 用队列实现栈](https://leetcode-cn.com/problems/implement-stack-using-queues/) |             |
 | [\#155. 最小栈](https://leetcode-cn.com/problems/min-stack/) |             |
-| [\#20. 有效的括号](https://leetcode-cn.com/problems/valid-parentheses/) | 辅助栈      |
-| [\#32. 最长有效括号](https://leetcode-cn.com/problems/longest-valid-parentheses/) | 栈/动态规划 |
+| [\#20. 有效的括号](https://www.silince.cn/2020/07/20/LeetSilinceCode/#20-有效的括号) | 辅助栈      |
+| [\#32. 最长有效括号](https://www.silince.cn/2020/07/20/LeetSilinceCode/#32-最长有效括号) | 栈/动态规划 |
 | [\#739. 每日温度](https://leetcode-cn.com/problems/daily-temperatures/) |             |
 | [\#503. 下一个更大元素 II](https://leetcode-cn.com/problems/next-greater-element-ii/) |             |
 
@@ -1117,6 +1114,7 @@ int BFS(Node start, Node target) {
 
 | 题目                                                         | 算法思想 |
 | ------------------------------------------------------------ | -------- |
+| [剑指 Offer 65. 不用加减乘除做加法](https://leetcode-cn.com/problems/bu-yong-jia-jian-cheng-chu-zuo-jia-fa-lcof/) | 位运算   |
 | [461. 汉明距离](https://leetcode-cn.com/problems/hamming-distance/) |          |
 | [136. 只出现一次的数字](https://leetcode-cn.com/problems/single-number/) |          |
 | [268. 丢失的数字](https://leetcode-cn.com/problems/missing-number/) |          |
@@ -1410,7 +1408,7 @@ class Solution {
 
 - 提前返回false： 
 
-  ![image-20210320223958422](/Users/silince/Pictures/Typora/image-20210320223958422.png)
+  ![image-20210320223958422](/assets/imgs/image-20210320223958422.png)
 
 
 
@@ -1434,7 +1432,7 @@ public boolean isValid(String s) {
       return false;
     }
   }
-  return stack.size() == 1; // // s已左括号结尾也可以正常结束，但是stack会存在两个元素(?和左括号)。 
+  return stack.size() == 1; // s已左括号结尾也可以正常结束，但是stack会存在两个元素(?和左括号)。 
 }
 ```
 
@@ -7894,6 +7892,50 @@ int[] count(String word) {
     return counter;
 }
 ```
+
+
+
+----
+
+## [剑指 Offer 65. 不用加减乘除做加法](https://leetcode-cn.com/problems/bu-yong-jia-jian-cheng-chu-zuo-jia-fa-lcof/)
+
+- 简单
+- 2021.03.20：  
+
+> 题目：
+
+```xml
+写一个函数，求两个整数之和，要求在函数体内不得使用 “+”、“-”、“*”、“/” 四则运算符号。
+
+示例:
+输入: a = 1, b = 1
+输出: 2
+```
+
+> 分析：
+
+***方法一：***   和 = 无进位和 + 进位
+
+![image-20210321131545164](/Users/silince/Pictures/Typora/image-20210321131545164.png)
+
+
+
+
+
+> 代码：
+
+```java
+public int add(int a, int b) { // a无进位和 b进位
+  if (b == 0) { // 没有进位后退出递归
+    return a;
+  }
+
+  // 转换成非进位和 + 进位
+  return add(a ^ b, (a & b) << 1);
+}
+```
+
+---
 
 
 
