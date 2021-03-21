@@ -1425,7 +1425,7 @@ public boolean isValid(String s) {
   map.put('?', '?');
 
   LinkedList<Character> stack = new LinkedList<Character>();
-  stack.add('?');
+  stack.add('?');  
   
   for (Character c : s.toCharArray()) {
     if (map.containsKey(c)) {
