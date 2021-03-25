@@ -1005,6 +1005,7 @@ int BFS(Node start, Node target) {
 | [\#234. 回文链表](https://leetcode-cn.com/problems/palindrome-linked-list/) |          |
 | [\#725. 分隔链表](https://leetcode-cn.com/problems/split-linked-list-in-parts/) |          |
 | [\#328. 奇偶链表](https://leetcode-cn.com/problems/odd-even-linked-list/) |          |
+| [\#25. K 个一组翻转链表](https://leetcode-cn.com/problems/reverse-nodes-in-k-group/) |          |
 
 
 
@@ -1514,6 +1515,116 @@ public void backtrack(StringBuilder cur, int open, int close, int max) {
 ```
 
 ---
+
+
+
+## [\#25. K 个一组翻转链表](https://leetcode-cn.com/problems/reverse-nodes-in-k-group/)
+
+- 困难
+- 2021.03.20：😭  
+
+> 题目：
+
+```xml
+给你一个链表，每 k 个节点一组进行翻转，请你返回翻转后的链表。
+k 是一个正整数，它的值小于或等于链表的长度。
+如果节点总数不是 k 的整数倍，那么请将最后剩余的节点保持原有顺序。
+
+进阶：
+你可以设计一个只使用常数额外空间的算法来解决此问题吗？
+你不能只是单纯的改变节点内部的值，而是需要实际进行节点交换。
+
+输入：head = [1,2,3,4,5], k = 2
+输出：[2,1,4,3,5]
+```
+
+> 分析：
+
+步骤分解：
+
+- 链表分区为已翻转部分+待翻转部分+未翻转部分
+- 每次翻转前，要确定翻转链表的范围，这个必须通过 k 此循环来确定
+- 需记录翻转链表前驱和后继，方便翻转完成后把已翻转部分和未翻转部分连接起来
+- 初始需要两个变量 pre 和 end，pre 代表待翻转链表的前驱，end 代表待翻转链表的末尾
+- 经过k此循环，end 到达末尾，记录待翻转链表的后继 next = end.next
+- 翻转链表，然后将三部分链表连接起来，然后重置 pre 和 end 指针，然后进入下一次循环
+- 特殊情况，当翻转部分长度不足 k 时，在定位 end 完成后，end==null，已经到达末尾，说明题目已完成，直接返回即可
+
+![k个一组翻转链表.png](/assets/imgs/866b404c6b0b52fa02385e301ee907fc015742c3766c80c02e24ef3a8613e5ad-k个一组翻转链表.png)
+
+
+
+> 代码：
+
+```java
+public ListNode reverseKGroup(ListNode head, int k) {
+  if (head == null || head.next == null){
+    return head;
+  }
+  //定义一个假的节点。
+  ListNode dummy=new ListNode(0);
+  //假节点的next指向head。
+  // dummy->1->2->3->4->5
+  dummy.next=head;
+  //初始化pre和end都指向dummy。pre指每次要翻转的链表的头结点的上一个节点。end指每次要翻转的链表的尾节点
+  ListNode pre=dummy;
+  ListNode end=dummy;
+
+  while(end.next!=null){
+    //循环k次，找到需要翻转的链表的结尾,这里每次循环要判断end是否等于空,因为如果为空，end.next会报空指针异常。
+    //dummy->1->2->3->4->5 若k为2，循环2次，end指向2
+    for(int i=0;i<k&&end != null;i++){
+      end=end.next;
+    }
+    //如果end==null，即需要翻转的链表的节点数小于k，不执行翻转。
+    if(end==null){
+      break;
+    }
+    //先记录下end.next,方便后面链接链表
+    ListNode next=end.next;
+    //然后断开链表
+    end.next=null;
+    //记录下要翻转链表的头节点
+    ListNode start=pre.next;
+    //翻转链表,pre.next指向翻转后的链表。1->2 变成2->1。 dummy->2->1
+    pre.next=reverse(start);
+    //翻转后头节点变到最后。通过.next把断开的链表重新链接。
+    start.next=next;
+    //将pre换成下次要翻转的链表的头结点的上一个节点。即start
+    pre=start;
+    //翻转结束，将end置为下次要翻转的链表的头结点的上一个节点。即start
+    end=start;
+  }
+  return dummy.next;
+}
+
+//链表翻转
+// 例子：   head： 1->2->3->4
+public ListNode reverse(ListNode head) {
+  //单链表为空或只有一个节点，直接返回原单链表
+  if (head == null || head.next == null){
+    return head;
+  }
+  //前一个节点指针
+  ListNode preNode = null;
+  //当前节点指针
+  ListNode curNode = head;
+  //下一个节点指针
+  ListNode nextNode = null;
+  while (curNode != null){
+    nextNode = curNode.next;//nextNode 指向下一个节点,保存当前节点后面的链表。
+    curNode.next=preNode;//将当前节点next域指向前一个节点   null<-1<-2<-3<-4
+    preNode = curNode;//preNode 指针向后移动。preNode指向当前节点。
+    curNode = nextNode;//curNode指针向后移动。下一个节点变成当前节点
+  }
+  return preNode;
+
+}
+```
+
+---
+
+
 
 
 
@@ -3770,24 +3881,22 @@ lRUCache.get(4);    // 返回 4
 ```java
 // 方法二 HashMap + 自己实现双向链表
 class LRUCache {
-    private HashMap<Integer,DLinkedNode> cache = new HashMap<>();
+    private HashMap<Integer,DLinkedListNode> cache = new HashMap<>();
+    private DLinkedListNode dummyHead= new DLinkedListNode(); // 伪头部
+    private DLinkedListNode dummyTail= new DLinkedListNode(); // 伪尾部
     private int size; // 链表当前当长度(排除伪节点)
     private int capacity; // LRU容量
-    private DLinkedNode dummyHead; // 伪头部
-    private DLinkedNode dummyTail; // 伪尾部
 
     public LRUCache(int capacity) {
         this.size = 0;
         this.capacity = capacity;
-        // 初始化伪节点并且建立引用
-        this.dummyHead = new DLinkedNode();
-        this.dummyTail = new DLinkedNode();
+        // 初始化伪节点引用
         this.dummyHead.next = this.dummyTail;
         this.dummyTail.prev = this.dummyHead;
     }
 
     public int get(int key) {
-        DLinkedNode node = cache.get(key);
+        DLinkedListNode node = cache.get(key);
         if (node==null){
             return -1;
         }
@@ -3800,19 +3909,19 @@ class LRUCache {
     // 插入逻辑
     public void put(int key, int value) {
         // 如果存在就通过cache快速找到node，更新值后移动到链表的头部
-        DLinkedNode node = this.cache.get(key);
+        DLinkedListNode node = this.cache.get(key);
         if (node!=null){
             node.value = value;
             moveToHead(node);
         }else {
             // 不存在则创建节点放入链表的头部并放入cache，然后判断列表容量是否已满，满了的话需要删除链表中的尾节点和cache
-            node = new DLinkedNode(key,value);
+            node = new DLinkedListNode(key,value);
             addToHead(node);
             size++;
             cache.put(key,node);
             if (size>capacity){
                 // 删除链表中的尾节点和cache
-                DLinkedNode tailNode = this.dummyTail.prev;
+                DLinkedListNode tailNode = this.dummyTail.prev;
                 removeNode(tailNode);
                 this.cache.remove(tailNode.key);
                 size--;
@@ -3821,35 +3930,35 @@ class LRUCache {
     }
 
     // 将该节点移动到头部
-    private void moveToHead(DLinkedNode node) {
+    private void moveToHead(DLinkedListNode node) {
         // 先删除该节点 让它的前驱节点指向后继节点
         removeNode(node);
         // 将该节点插入到伪头部之后
         addToHead(node);
     }
 
-    private void addToHead(DLinkedNode node) {
+    private void addToHead(DLinkedListNode node) {
         node.prev = this.dummyHead;
         node.next = this.dummyHead.next;
         this.dummyHead.next.prev = node;
         this.dummyHead.next = node;
     }
 
-    private void removeNode(DLinkedNode node) {
+    private void removeNode(DLinkedListNode node) {
         node.prev.next = node.next;
         node.next.prev = node.prev;
     }
 
-    class DLinkedNode {
+    class DLinkedListNode {
         int key;
         int value;
-        DLinkedNode prev;
-        DLinkedNode next;
+        DLinkedListNode prev;
+        DLinkedListNode next;
 
-        public DLinkedNode() {
+        public DLinkedListNode() {
         }
 
-        public DLinkedNode(int key, int value) {
+        public DLinkedListNode(int key, int value) {
             this.key = key;
             this.value = value;
         }
@@ -4214,6 +4323,74 @@ class Solution {
     }
 }
 ```
+
+
+
+## [\#225. 用队列实现栈](https://leetcode-cn.com/problems/implement-stack-using-queues/)
+
+- 简单
+- 2021.03.20：😎
+
+> 题目：
+
+```xml
+请你仅使用两个队列实现一个后入先出（LIFO）的栈，并支持普通队列的全部四种操作（push、top、pop 和 empty）。
+```
+
+> 分析：
+
+***方法一：***
+
+
+
+
+
+
+
+> 代码：
+
+```java
+Queue<Integer> queue1;
+Queue<Integer> queue2;
+
+/** Initialize your data structure here. */
+public MyStack() {
+  queue1 = new LinkedList<Integer>();
+  queue2 = new LinkedList<Integer>();
+}
+
+/** Push element x onto stack. */
+public void push(int x) {
+  queue2.offer(x);
+  while (!queue1.isEmpty()) {
+    queue2.offer(queue1.poll());
+  }
+  Queue<Integer> temp = queue1;
+  queue1 = queue2;
+  queue2 = temp;
+}
+
+/** Removes the element on top of the stack and returns that element. */
+public int pop() {
+  return queue1.poll();
+}
+
+/** Get the top element. */
+public int top() {
+  return queue1.peek();
+}
+
+/** Returns whether the stack is empty. */
+public boolean empty() {
+  return queue1.isEmpty();
+}
+```
+
+---
+
+
+
+
 
 
 
