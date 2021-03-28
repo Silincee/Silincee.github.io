@@ -1936,13 +1936,14 @@ class Solution {
   public void backtrack(int[] nums, LinkedList<Integer> track) {
     // 触发结束条件
     if (track.size() == nums.length) {
+		  // 就是你 list 是个引用类型，你把它 push 到 res 里面之后，其实 push 的是同一个玩意，到最后输出的全是空的。
       res.add(new LinkedList(track));
       return;
     }
 
     for (int i = 0; i < nums.length; i++) {
       // 判断何时才能前进，排除不合法的选择
-      if (track.contains(nums[i])){
+      if (!track.contains(nums[i])){
         // 做选择
         track.add(nums[i]);
         // 进入下一层决策树
@@ -3671,17 +3672,20 @@ public class Solution {
 
 // 方法二 ⭐️
 public boolean hasCycle(ListNode head) {
-  if(head==null || head.next==null) return false;
+  if (head==null||head.next==null) return false;
 
-  ListNode slow = head; // 慢指针 一次1
-  ListNode quick = head.next; // 快指针 一次2
+  ListNode slow = head;
+  ListNode fast = head;
 
-  while(true){
-    if(quick.next==null||quick.next.next==null) return false;
-    if(quick==slow) return true;
-    slow=slow.next;
-    quick=quick.next.next;
+  while (true){
+    if (fast==null||fast.next==null) return false;
+    fast = fast.next.next;
+    slow = slow.next;
+    if (slow.equals(fast)){
+      return true;
+    }
   }
+
 }
 ```
 
@@ -3916,9 +3920,11 @@ class LRUCache {
         }else {
             // 不存在则创建节点放入链表的头部并放入cache，然后判断列表容量是否已满，满了的话需要删除链表中的尾节点和cache
             node = new DLinkedListNode(key,value);
-            addToHead(node);
-            size++;
             cache.put(key,node);
+            size++;
+          	// 插入头部
+            addToHead(node);
+
             if (size>capacity){
                 // 删除链表中的尾节点和cache
                 DLinkedListNode tailNode = this.dummyTail.prev;
