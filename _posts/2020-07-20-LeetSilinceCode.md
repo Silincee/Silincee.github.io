@@ -1489,28 +1489,43 @@ public void backtrack(路径, 选择列表):
 > 代码：
 
 ```java
-List<String> ans = new ArrayList<String>();
-
+private LinkedList<String> res = new LinkedList<>();
 public List<String> generateParenthesis(int n) {
-  backtrack(new StringBuilder(), 0, 0, n);
-  return ans;
+  int[] arr = new int[2]; // 描述当前括号的状态[左括号数量，右括号数量]
+  StringBuilder list = new StringBuilder();
+  backtrack(arr,list,n);
+  return res;
 }
 
-public void backtrack(StringBuilder cur, int open, int close, int max) {
-  if (cur.length() == max * 2) {
-    ans.add(cur.toString());
+private void backtrack(int[] arr, StringBuilder list,int max) {
+  if (arr[0]<arr[1]){ // 剪枝 左括号数量一定要大于右括号
     return;
   }
-  if (open < max) {
-    cur.append('(');
-    backtrack(cur, open + 1, close, max);
-    cur.deleteCharAt(cur.length() - 1);
+  if (arr[0]==max&&arr[1]==max){
+    res.add(list.toString());
+    return;
   }
-  if (close < open) {
-    cur.append(')');
-    backtrack(cur, open, close + 1, max);
-    cur.deleteCharAt(cur.length() - 1);
+
+  // (
+  if (arr[0]<=max){
+    arr[0] = arr[0]+1;
+    list.append('(');
+    backtrack(arr,list,max);
+    list.deleteCharAt(list.length()-1);
+    arr[0] = arr[0]-1;
   }
+
+
+  // )
+  if (arr[1]<=max){
+    arr[1] = arr[1]+1;
+    list.append(')');
+    backtrack(arr,list,max);
+    list.deleteCharAt(list.length()-1);
+    arr[1] = arr[1]-1;
+  }
+
+}
 }
 ```
 
