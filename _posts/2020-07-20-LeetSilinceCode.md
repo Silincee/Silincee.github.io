@@ -3800,7 +3800,7 @@ public boolean hasCycle(ListNode head) {
 
 ![image-20210408210230845](/assets/imgs/image-20210408210230845.png)
 
-
+> 要是想求环的长度怎么办呢  继续一快一慢，维护一个count=1；循环直第二次相遇，每次循环count++。
 
 > 代码：
 
@@ -3821,6 +3821,26 @@ public ListNode detectCycle(ListNode head) {
     quick = quick.next;
   }
   return quick;
+}
+// 要是想求环的长度怎么办呢  继续一快一慢，维护一个len=0；循环直第二次相遇，每次循环len++。
+public int hasCycleLength(ListNode head) {
+  if (head==null||head.next==null) return -1;
+  ListNode quick = head;
+  ListNode slow = head;
+  while (true){
+    if(quick==null||quick.next==null) return -1;
+    quick = quick.next.next;
+    slow = slow.next;
+    if (quick==slow) break;
+  }
+  int count = 1;
+  quick = quick.next;
+  while (slow!=quick){
+    slow = slow.next;
+    quick = quick.next.next;
+    count++;
+  }
+  return count;
 }
 ```
 
