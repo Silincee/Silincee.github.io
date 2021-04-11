@@ -1164,7 +1164,8 @@ int BFS(Node start, Node target) {
 | [\#242. 有效的字母异位词](https://leetcode-cn.com/problems/valid-anagram/) |          |
 | [\#409. 最长回文串](https://leetcode-cn.com/problems/longest-palindrome/) |          |
 | [\#205. 同构字符串](https://leetcode-cn.com/problems/isomorphic-strings/) |          |
-| [\#647. 回文子串](https://leetcode-cn.com/problems/palindromic-substrings/) |          |
+| [\#647. 回文子串](https://leetcode-cn.com/problems/palindromic-substrings/) ⭐️ | 扩展中心 |
+| [\#5. 最长回文子串](https://leetcode-cn.com/problems/longest-palindromic-substring/) ⭐️ | 扩展中心 |
 | [\#9. 回文数](https://leetcode-cn.com/problems/palindrome-number/) |          |
 | [\#696. 计数二进制子串](https://leetcode-cn.com/problems/count-binary-substrings/) |          |
 
@@ -1174,7 +1175,7 @@ int BFS(Node start, Node target) {
 
 | 题目                                                         | 算法思想 |
 | ------------------------------------------------------------ | -------- |
-| [剑指 Offer 65. 不用加减乘除做加法](https://leetcode-cn.com/problems/bu-yong-jia-jian-cheng-chu-zuo-jia-fa-lcof/) | 位运算   |
+| [剑指 Offer 65. 不用加减乘除做加法](https://leetcode-cn.com/problems/bu-yong-jia-jian-cheng-chu-zuo-jia-fa-lcof/) ⭐️ | 位运算   |
 | [461. 汉明距离](https://leetcode-cn.com/problems/hamming-distance/) |          |
 | [136. 只出现一次的数字](https://leetcode-cn.com/problems/single-number/) |          |
 | [268. 丢失的数字](https://leetcode-cn.com/problems/missing-number/) |          |
@@ -1376,6 +1377,81 @@ public int lengthOfLongestSubstring(String s) {
 唯一需要注意的是，在哪里更新结果 `res` 呢？我们要的是最长无重复子串，哪一个阶段可以保证窗口中的字符串是没有重复的呢？
 
 **这里和之前不一样，要在收缩窗口完成后更新 `res`，因为窗口收缩的 while 条件是存在重复元素，换句话说收缩完成后一定保证窗口中没有重复嘛。**
+
+---
+
+
+
+
+
+## [\#5. 最长回文子串](https://leetcode-cn.com/problems/longest-palindromic-substring/)
+
+- 中等
+- 2021.04.11：😎
+
+> 题目：
+
+```xml
+给你一个字符串 s，找到 s 中最长的回文子串。
+示例 1：
+输入：s = "babad"
+输出："bab"
+解释："aba" 同样是符合题意的答案。
+示例 2：
+输入：s = "cbbd"
+输出："bb"
+```
+
+> 分析：
+
+**寻找回文串的问题核心思想是：从中间开始向两边扩散来判断回文串**。对于最长回文子串，就是这个意思：
+
+```java
+for 0 <= i < len(s):
+    找到以 s[i] 为中心的回文串
+    更新答案
+```
+
+但是呢，我们刚才也说了，回文串的长度可能是奇数也可能是偶数，如果是`abba`这种情况，没有一个中心字符，上面的算法就没辙了。所以我们可以修改一下：
+
+```java
+for 0 <= i < len(s):
+    找到以 s[i] 为中心的回文串
+    找到以 s[i] 和 s[i+1] 为中心的回文串
+    更新答案
+```
+
+**但是这里的索引会越界，需要额外处理：先扩展不符合再缩小左右边界防止索引越界**
+
+> 代码：
+
+```java
+public String longestPalindrome(String s) {
+  String res="";
+  for (int i = 0; i < s.length(); i++) {
+    // 找到以 s[i] 为中心的回文串
+    String s1 = palindrome(s,i,i);
+    res = res.length()>s1.length()?res:s1;
+
+    // 找到以 s[i] 和 s[i+1] 为中心的回文串
+    String s2 = palindrome(s, i, i + 1);
+    res = res.length()>s2.length()?res:s2;
+  }
+  return res;
+}
+
+// 寻找最长回文串函数
+private String palindrome(String s, int left, int right) {
+  // ⚠️ 防止索引越界(先扩展不符合再缩小左右边界防止索引越界)
+  while (left>=0&&right<s.length()&&s.charAt(left)==s.charAt(right)){
+    // 双向展开
+    left--;
+    right++;
+  }
+  // 返回以s[left]和s[right]为中心的最长回文串
+  return s.substring(left+1,right);
+}
+```
 
 ---
 
@@ -3822,7 +3898,7 @@ public ListNode detectCycle(ListNode head) {
   }
   return quick;
 }
-// 要是想求环的长度怎么办呢  继续一快一慢，维护一个len=0；循环直第二次相遇，每次循环len++。
+// 要是想求环的长度怎么办呢  继续一快一慢，维护一个count=1；循环直第二次相遇，每次循环count++。
 public int hasCycleLength(ListNode head) {
   if (head==null||head.next==null) return -1;
   ListNode quick = head;
@@ -7050,6 +7126,66 @@ class Solution {
 
 
 
+## [\#647. 回文子串](https://leetcode-cn.com/problems/palindromic-substrings/)
+
+- 中等
+- 2021.04.11：😎  
+
+> 题目：
+
+```xml
+给定一个字符串，你的任务是计算这个字符串中有多少个回文子串。
+具有不同开始位置或结束位置的子串，即使是由相同的字符组成，也会被视作不同的子串。
+
+示例 1：
+输入："abc"
+输出：3
+解释：三个回文子串: "a", "b", "c"
+示例 2：
+输入："aaa"
+输出：6
+解释：6个回文子串: "a", "a", "a", "aa", "aa", "aaa"
+```
+
+> 分析：
+
+***方法一：***
+
+参照[\#5. 最长回文子串](https://leetcode-cn.com/problems/longest-palindromic-substring/)
+
+
+
+
+
+> 代码：
+
+```java
+private int res=0;
+public int countSubstrings(String s) {
+  for (int i = 0; i < s.length(); i++) {
+    palindrome(s,i,i);
+    palindrome(s,i,i+1);
+  }
+  return res;
+}
+
+private void palindrome(String s, int left, int right) {
+  while (left>=0&&right<s.length()&&s.charAt(left)==s.charAt(right)){
+    left--;
+    right++;
+    res++;
+  }
+}
+```
+
+---
+
+
+
+
+
+
+
 ## [\#652. 寻找重复的子树](https://leetcode-cn.com/problems/find-duplicate-subtrees/)
 
 - 中等
@@ -8392,6 +8528,5 @@ public int add(int a, int b) { // a无进位和 b进位
 ```
 
 ---
-
 
 
