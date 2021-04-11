@@ -134,15 +134,15 @@ public String slidingWindow(String s, String t) {
 
 ## 排序算法
 
-| 题目                                                         | 算法思想 |
-| ------------------------------------------------------------ | -------- |
-| [\#215 数组中的第K个最大元素](http://www.silince.cn/2020/07/20/LeetSilinceCode/#215-数组中的第k个最大元素) | 快速排序 |
-| [\#347 前 K 个高频元素](http://www.silince.cn/2020/07/20/LeetSilinceCode/#347-前-k-个高频元素) | 桶排序   |
-| [\#451 根据字符出现频率排序](https://leetcode-cn.com/problems/sort-characters-by-frequency/) | 桶排序   |
-| [\#75 颜色分类 ]([http://www.silince.cn/2020/07/20/LeetSilinceCode/#75-%E9%A2%9C%E8%89%B2%E5%88%86%E7%B1%BB](http://www.silince.cn/2020/07/20/LeetSilinceCode/#75-颜色分类)) |          |
-|                                                              |          |
-|                                                              |          |
-|                                                              |          |
+| 题目                                                         | 算法思想        |
+| ------------------------------------------------------------ | --------------- |
+| [\#215 数组中的第K个最大元素](http://www.silince.cn/2020/07/20/LeetSilinceCode/#215-数组中的第k个最大元素) | 快速排序/堆排序 |
+| [\#347 前 K 个高频元素](http://www.silince.cn/2020/07/20/LeetSilinceCode/#347-前-k-个高频元素) | 桶排序          |
+| [\#451 根据字符出现频率排序](https://leetcode-cn.com/problems/sort-characters-by-frequency/) | 桶排序          |
+| [\#75 颜色分类 ]([http://www.silince.cn/2020/07/20/LeetSilinceCode/#75-%E9%A2%9C%E8%89%B2%E5%88%86%E7%B1%BB](http://www.silince.cn/2020/07/20/LeetSilinceCode/#75-颜色分类)) |                 |
+|                                                              |                 |
+|                                                              |                 |
+|                                                              |                 |
 
 ```java
 // 快速排序
@@ -726,12 +726,6 @@ int right_bound(int[] nums, int target) {
 
 
 
-
-
-## 分治
-
-## 搜索
-
 ## 动态规划
 
 > [动态规划解题套路框架](https://labuladong.gitbook.io/algo/di-ling-zhang-bi-du-xi-lie/dong-tai-gui-hua-xiang-jie-jin-jie)
@@ -893,7 +887,7 @@ int knapsack(int W, int N, vector<int>& wt, vector<int>& val) {
 | [\#46. 全排列](http://www.silince.cn/2020/07/20/LeetSilinceCode/#46-全排列) | 回溯算法          |
 | [\#51. N 皇后](http://www.silince.cn/2020/07/20/LeetSilinceCode/#51-n-皇后) | 回溯算法          |
 | [\#494. 目标和](http://www.silince.cn/2020/07/20/LeetSilinceCode/#494-%E7%9B%AE%E6%A0%87%E5%92%8C) | 动态规划/背包问题 |
-| [\#22. 括号生成](https://www.silince.cn/2020/07/20/LeetSilinceCode/#22-括号生成) | 回溯算法          |
+| [\#22. 括号生成](https://www.silince.cn/2020/07/20/LeetSilinceCode/#22-括号生成) ⭐️ | 回溯算法          |
 
 **解决一个回溯问题，实际上就是一个决策树的遍历过程**。你只需要思考 3 个问题：
 
@@ -1021,8 +1015,8 @@ int BFS(Node start, Node target) {
 
 | 题目                                                         | 算法思想                  |
 | ------------------------------------------------------------ | ------------------------- |
-| [\#26 删除排序数组中的重复项](http://www.silince.cn/2020/07/20/LeetSilinceCode/#26-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9) | 双指针                    |
-| [\#88 合并两个有序数组](http://www.silince.cn/2020/07/20/LeetSilinceCode/#88-合并两个有序数组) | 双指针                    |
+| [\#26 删除排序数组中的重复项](http://www.silince.cn/2020/07/20/LeetSilinceCode/#26-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9) ⭐️ | 双指针                    |
+| [\#88 合并两个有序数组](http://www.silince.cn/2020/07/20/LeetSilinceCode/#88-合并两个有序数组) ⭐️ | 双指针                    |
 | [\#169 多数元素](http://www.silince.cn/2020/07/20/LeetSilinceCode/#169-多数元素) | 哈希表/排序/随机化/投票法 |
 | [\#674 最长连续递增序列](http://www.silince.cn/2020/07/20/LeetSilinceCode/#674-最长连续递增序列) | 动态规划                  |
 | [\#1051 高度检查器](http://www.silince.cn/2020/07/20/LeetSilinceCode/#1051-高度检查器) | 桶排序                    |
@@ -1125,8 +1119,8 @@ int BFS(Node start, Node target) {
 | [\#232. 用栈实现队列](https://leetcode-cn.com/problems/implement-queue-using-stacks/) |             |
 | [\#225. 用队列实现栈](https://leetcode-cn.com/problems/implement-stack-using-queues/) |             |
 | [\#155. 最小栈](https://leetcode-cn.com/problems/min-stack/) |             |
-| [\#20. 有效的括号](https://www.silince.cn/2020/07/20/LeetSilinceCode/#20-有效的括号) | 辅助栈      |
-| [\#32. 最长有效括号](https://www.silince.cn/2020/07/20/LeetSilinceCode/#32-最长有效括号) | 栈/动态规划 |
+| [\#20. 有效的括号](https://www.silince.cn/2020/07/20/LeetSilinceCode/#20-有效的括号) ⭐️ | 辅助栈      |
+| [\#32. 最长有效括号](https://www.silince.cn/2020/07/20/LeetSilinceCode/#32-最长有效括号) ⭐️ | 栈/动态规划 |
 | [\#739. 每日温度](https://leetcode-cn.com/problems/daily-temperatures/) |             |
 | [\#503. 下一个更大元素 II](https://leetcode-cn.com/problems/next-greater-element-ii/) |             |
 
@@ -1166,16 +1160,19 @@ int BFS(Node start, Node target) {
 | [\#205. 同构字符串](https://leetcode-cn.com/problems/isomorphic-strings/) |          |
 | [\#647. 回文子串](https://leetcode-cn.com/problems/palindromic-substrings/) ⭐️ | 扩展中心 |
 | [\#5. 最长回文子串](https://leetcode-cn.com/problems/longest-palindromic-substring/) ⭐️ | 扩展中心 |
+| [字符串乘法计算](http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484466&idx=1&sn=0281340cc1f41230e4512e905b9d27dd&chksm=9bd7fa3aaca0732c95d25c637d42ad8d9b80f8165098ded837f83791c673b5d6a71721c738a3&scene=21#wechat_redirect) ⭐️ |          |
 | [\#9. 回文数](https://leetcode-cn.com/problems/palindrome-number/) |          |
 | [\#696. 计数二进制子串](https://leetcode-cn.com/problems/count-binary-substrings/) |          |
 
 
 
-## 位运算
+## 位运算/大数
 
 | 题目                                                         | 算法思想 |
 | ------------------------------------------------------------ | -------- |
 | [剑指 Offer 65. 不用加减乘除做加法](https://leetcode-cn.com/problems/bu-yong-jia-jian-cheng-chu-zuo-jia-fa-lcof/) ⭐️ | 位运算   |
+| [\#7. 整数反转](https://leetcode-cn.com/problems/reverse-integer/) ⭐️ | 大数运算 |
+| [大数求和]() ⭐️                                               | 大数运算 |
 | [461. 汉明距离](https://leetcode-cn.com/problems/hamming-distance/) |          |
 | [136. 只出现一次的数字](https://leetcode-cn.com/problems/single-number/) |          |
 | [268. 丢失的数字](https://leetcode-cn.com/problems/missing-number/) |          |
@@ -1188,6 +1185,28 @@ int BFS(Node start, Node target) {
 | [371. 两整数之和](https://leetcode-cn.com/problems/sum-of-two-integers/) |          |
 | [318. 最大单词长度乘积](https://leetcode-cn.com/problems/maximum-product-of-word-lengths/) |          |
 | [338. 比特位计数](https://leetcode-cn.com/problems/counting-bits/) |          |
+
+
+
+---
+
+# 必刷算法题 ⭐️
+
+| 题目                                                        | 算法思想 |
+| ----------------------------------------------------------- | -------- |
+| [手写生产者消费者]()                                        |          |
+| [线程轮流打印]()                                            |          |
+| [IP地址与整数的相互转换]()                                  |          |
+| [\#69. x 的平方根](https://leetcode-cn.com/problems/sqrtx/) |          |
+| []()                                                        |          |
+| []()                                                        |          |
+| []()                                                        |          |
+| []()                                                        |          |
+| []()                                                        |          |
+
+
+
+
 
 
 
@@ -1248,43 +1267,47 @@ int BFS(Node start, Node target) {
 | [剑指 Offer 49 丑数](https://leetcode-cn.com/problems/chou-shu-lcof) |          |
 | [剑指 Offer 50  第一个只出现一次的字符](https://leetcode-cn.com/problems/di-yi-ge-zhi-chu-xian-yi-ci-de-zi-fu-lcof) |          |
 
-| [剑指 Offer 51 数组中的逆序对](https://leetcode-cn.com/problems/shu-zu-zhong-de-ni-xu-dui-lcof) |      |      |
-| ------------------------------------------------------------ | ---- | ---- |
-| [剑指 Offer 52 两个链表的第一个公共节点](https://leetcode-cn.com/problems/liang-ge-lian-biao-de-di-yi-ge-gong-gong-jie-dian-lcof) |      |      |
-| [剑指 Offer 53 - I 在排序数组中查找数字 I](https://leetcode-cn.com/problems/zai-pai-xu-shu-zu-zhong-cha-zhao-shu-zi-lcof) |      |      |
-| [剑指 Offer 53 - II 0～n-1中缺失的数字](https://leetcode-cn.com/problems/que-shi-de-shu-zi-lcof) |      |      |
-| [剑指 Offer 54 二叉搜索树的第k大节点](https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-di-kda-jie-dian-lcof) |      |      |
-| [剑指 Offer 55 - I 二叉树的深度](https://leetcode-cn.com/problems/er-cha-shu-de-shen-du-lcof) |      |      |
-| [剑指 Offer 55 - II 平衡二叉树](https://leetcode-cn.com/problems/ping-heng-er-cha-shu-lcof) |      |      |
-| [剑指 Offer 56 - I 数组中数字出现的次数](https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-lcof) |      |      |
-| [剑指 Offer 56 - II 数组中数字出现的次数 II](https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-ii-lcof) |      |      |
-| [剑指 Offer 57 和为s的两个数字](https://leetcode-cn.com/problems/he-wei-sde-liang-ge-shu-zi-lcof) |      |      |
-| [剑指 Offer 57 - II 和为s的连续正数序列](https://leetcode-cn.com/problems/he-wei-sde-lian-xu-zheng-shu-xu-lie-lcof) |      |      |
-| [剑指 Offer 58 - I 翻转单词顺序](https://leetcode-cn.com/problems/fan-zhuan-dan-ci-shun-xu-lcof) |      |      |
-| [剑指 Offer 58 - II 左旋转字符串](https://leetcode-cn.com/problems/zuo-xuan-zhuan-zi-fu-chuan-lcof) |      |      |
-| [剑指 Offer 59 - I 滑动窗口的最大值](https://leetcode-cn.com/problems/hua-dong-chuang-kou-de-zui-da-zhi-lcof) |      |      |
-| [剑指 Offer 59 - II 队列的最大值](https://leetcode-cn.com/problems/dui-lie-de-zui-da-zhi-lcof) |      |      |
-| [剑指 Offer 60 n个骰子的点数](https://leetcode-cn.com/problems/nge-tou-zi-de-dian-shu-lcof) |      |      |
-| [剑指 Offer 61 扑克牌中的顺子](https://leetcode-cn.com/problems/bu-ke-pai-zhong-de-shun-zi-lcof) |      |      |
-| [剑指 Offer 62 圆圈中最后剩下的数字](https://leetcode-cn.com/problems/yuan-quan-zhong-zui-hou-sheng-xia-de-shu-zi-lcof) |      |      |
-| [剑指 Offer 63 股票的最大利润](https://leetcode-cn.com/problems/gu-piao-de-zui-da-li-run-lcof) |      |      |
-| [剑指 Offer 64 求1+2+…+n](https://leetcode-cn.com/problems/qiu-12n-lcof) |      |      |
-| [剑指 Offer 65 不用加减乘除做加法](https://leetcode-cn.com/problems/bu-yong-jia-jian-cheng-chu-zuo-jia-fa-lcof) |      |      |
-| [剑指 Offer 66 构建乘积数组](https://leetcode-cn.com/problems/gou-jian-cheng-ji-shu-zu-lcof) |      |      |
-| [剑指 Offer 67 把字符串转换成整数](https://leetcode-cn.com/problems/ba-zi-fu-chuan-zhuan-huan-cheng-zheng-shu-lcof) |      |      |
-| [剑指 Offer 68 - I 二叉搜索树的最近公共祖先](https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-zui-jin-gong-gong-zu-xian-lcof) |      |      |
-| [剑指 Offer 68 - II 二叉树的最近公共祖先](https://leetcode-cn.com/problems/er-cha-shu-de-zui-jin-gong-gong-zu-xian-lcof) |      |      |
+| [剑指 Offer 51 数组中的逆序对](https://leetcode-cn.com/problems/shu-zu-zhong-de-ni-xu-dui-lcof) |        |
+| ------------------------------------------------------------ | ------ |
+| [剑指 Offer 52 两个链表的第一个公共节点](https://leetcode-cn.com/problems/liang-ge-lian-biao-de-di-yi-ge-gong-gong-jie-dian-lcof) |        |
+| [剑指 Offer 53 - I 在排序数组中查找数字 I](https://leetcode-cn.com/problems/zai-pai-xu-shu-zu-zhong-cha-zhao-shu-zi-lcof) |        |
+| [剑指 Offer 53 - II 0～n-1中缺失的数字](https://leetcode-cn.com/problems/que-shi-de-shu-zi-lcof) |        |
+| [剑指 Offer 54 二叉搜索树的第k大节点](https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-di-kda-jie-dian-lcof) |        |
+| [剑指 Offer 55 - I 二叉树的深度](https://leetcode-cn.com/problems/er-cha-shu-de-shen-du-lcof) |        |
+| [剑指 Offer 55 - II 平衡二叉树](https://leetcode-cn.com/problems/ping-heng-er-cha-shu-lcof) |        |
+| [剑指 Offer 56 - I 数组中数字出现的次数](https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-lcof) |        |
+| [剑指 Offer 56 - II 数组中数字出现的次数 II](https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-ii-lcof) |        |
+| [剑指 Offer 57 和为s的两个数字](https://leetcode-cn.com/problems/he-wei-sde-liang-ge-shu-zi-lcof) |        |
+| [剑指 Offer 57 - II 和为s的连续正数序列](https://leetcode-cn.com/problems/he-wei-sde-lian-xu-zheng-shu-xu-lie-lcof) |        |
+| [剑指 Offer 58 - I 翻转单词顺序](https://leetcode-cn.com/problems/fan-zhuan-dan-ci-shun-xu-lcof) |        |
+| [剑指 Offer 58 - II 左旋转字符串](https://leetcode-cn.com/problems/zuo-xuan-zhuan-zi-fu-chuan-lcof) |        |
+| [剑指 Offer 59 - I 滑动窗口的最大值](https://leetcode-cn.com/problems/hua-dong-chuang-kou-de-zui-da-zhi-lcof) |        |
+| [剑指 Offer 59 - II 队列的最大值](https://leetcode-cn.com/problems/dui-lie-de-zui-da-zhi-lcof) |        |
+| [剑指 Offer 60 n个骰子的点数](https://leetcode-cn.com/problems/nge-tou-zi-de-dian-shu-lcof) |        |
+| [剑指 Offer 61 扑克牌中的顺子](https://leetcode-cn.com/problems/bu-ke-pai-zhong-de-shun-zi-lcof) |        |
+| [剑指 Offer 62 圆圈中最后剩下的数字](https://leetcode-cn.com/problems/yuan-quan-zhong-zui-hou-sheng-xia-de-shu-zi-lcof) |        |
+| [剑指 Offer 63 股票的最大利润](https://leetcode-cn.com/problems/gu-piao-de-zui-da-li-run-lcof) |        |
+| [剑指 Offer 64 求1+2+…+n](https://leetcode-cn.com/problems/qiu-12n-lcof) |        |
+| [剑指 Offer 65 不用加减乘除做加法](https://leetcode-cn.com/problems/bu-yong-jia-jian-cheng-chu-zuo-jia-fa-lcof) ⭐️ | 位运算 |
+| [剑指 Offer 66 构建乘积数组](https://leetcode-cn.com/problems/gou-jian-cheng-ji-shu-zu-lcof) |        |
+| [剑指 Offer 67 把字符串转换成整数](https://leetcode-cn.com/problems/ba-zi-fu-chuan-zhuan-huan-cheng-zheng-shu-lcof) |        |
+| [剑指 Offer 68 - I 二叉搜索树的最近公共祖先](https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-zui-jin-gong-gong-zu-xian-lcof) |        |
+| [剑指 Offer 68 - II 二叉树的最近公共祖先](https://leetcode-cn.com/problems/er-cha-shu-de-zui-jin-gong-gong-zu-xian-lcof) |        |
 
 ---
 
 
 
-# 题目详解
+
+
+---
+
+# 题解
 
 ## Template
 
 - 中等
-- 2021.03.20：😭  
+- 2021.04.11：😭  
 
 > 题目：
 
@@ -1450,6 +1473,58 @@ private String palindrome(String s, int left, int right) {
   }
   // 返回以s[left]和s[right]为中心的最长回文串
   return s.substring(left+1,right);
+}
+```
+
+---
+
+
+
+## [\#7. 整数反转](https://leetcode-cn.com/problems/reverse-integer/)
+
+- 简单
+- 2021.04.11：😎  
+
+> 题目：
+
+```xml
+给你一个 32 位的有符号整数 x ，返回将 x 中的数字部分反转后的结果。
+如果反转后整数超过 32 位的有符号整数的范围 [−2^31,  2^31 − 1] ，就返回 0。
+假设环境不允许存储 64 位整数（有符号或无符号）。
+ 
+示例 1：
+输入：x = 123
+输出：321
+示例 2：
+输入：x = -123
+输出：-321
+```
+
+> 分析：
+
+注意溢出:
+
+![image-20210321151034098](/assets/imgs/image-20210321151034098.png)
+
+
+
+> 代码：
+
+```java
+// 通过循环将数字 x 的每一位拆开，在计算新值的时候判断是否溢出
+public int reverse(int x) {
+  int ans = 0; // 当前计算结果
+  while (x != 0) {
+    int pop = x%10; // 下一位pop
+    x = x/10;
+    // int 的范围 -2147483648 - 2147483647 ， 所以判断7和-8
+    if (ans > Integer.MAX_VALUE/10 || (ans == Integer.MAX_VALUE/10 && pop > 7)) 
+      return 0;
+    if (ans < Integer.MIN_VALUE/10 || (ans == Integer.MIN_VALUE/10 && pop < -8)) 
+      return 0;
+    ans = ans * 10 + pop;
+  }
+  return ans;
 }
 ```
 
@@ -2398,6 +2473,111 @@ int maxSubArray(int[] nums) {
 ```
 
 ---
+
+
+
+
+
+## [69. x 的平方根](https://leetcode-cn.com/problems/sqrtx/)
+
+- 简单
+- 2021.04.11：😎
+
+> 题目：
+
+```xml
+实现 int sqrt(int x) 函数。
+计算并返回 x 的平方根，其中 x 是非负整数。
+由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。
+
+示例 1:
+输入: 4
+输出: 2
+
+示例 2:
+输入: 8
+输出: 2
+说明: 8 的平方根是 2.82842..., 由于返回类型是整数，小数部分将被舍去。
+```
+
+> 分析：
+
+***方法一：*二分查找**
+
+分析单调性：注意到题目中给出的例 2，小数部分将被舍去。我们就知道了，如果一个数 a 的平方大于 x ，那么 a 一定不是 x 的平方根。我们下一轮需要在 [0..a−1] 区间里继续查找 x 的平方根。
+
+
+
+***方法二：牛顿迭代法***
+
+这种方法可以很有效地求出根号 aa 的近似值：首先随便猜一个近似值 xx，然后不断令 xx 等于 xx 和 a/xa/x 的平均数，迭代个六七次后 xx 的值就已经相当精确了。
+
+例如，我想求根号 2 等于多少。假如我猜测的结果为 4，虽然错的离谱，但你可以看到使用牛顿迭代法后这个值很快就趋近于根号 2 了：
+
+> ( 4 + 2/ 4 ) / 2 = 2.25
+>
+> ( 2.25 + 2/ 2.25 ) / 2 = 1.56944..
+>
+> ( 1.56944..+ 2/1.56944..) / 2 = 1.42189..
+>
+> ( 1.42189..+ 2/1.42189..) / 2 = 1.41423..
+>
+> ….
+
+![image.png](/assets/imgs/c142efde7a7261c6c799d3269cee2f921dc5f5144a410b32afce4dbf036d0ed7-image.png)
+
+![image-20210411232702745](/assets/imgs/image-20210411232702745.png)
+
+
+
+
+
+
+
+> 代码：
+
+```java
+// 二分查找
+public int mySqrt(int x) {
+  int l = 0, r = x, ans = -1;
+  while (l <= r) {
+    int mid = l + (r - l) / 2;
+    if ((long) mid * mid <= x) {
+      ans = mid;
+      l = mid + 1;
+    } else {
+      r = mid - 1;
+    }
+  }
+  return ans;
+}
+
+// 牛顿迭代法
+public int mySqrt(int x) {
+  if (x == 0) {
+    return 0;
+  }
+
+  double C = x, x0 = x;
+  while (true) {
+    double xi = 0.5 * (x0 + C / x0);
+    if (Math.abs(x0 - xi) < 1e-7) {
+      break;
+    }
+    x0 = xi;
+  }
+  return (int) x0;
+}
+
+```
+
+---
+
+
+
+
+
+
 
 
 
@@ -8489,7 +8669,7 @@ int[] count(String word) {
 
 ----
 
-## [剑指 Offer 65. 不用加减乘除做加法](https://leetcode-cn.com/problems/bu-yong-jia-jian-cheng-chu-zuo-jia-fa-lcof/)
+## [\#offer 65. 不用加减乘除做加法](https://leetcode-cn.com/problems/bu-yong-jia-jian-cheng-chu-zuo-jia-fa-lcof/)
 
 - 简单
 - 2021.03.20：  
@@ -8529,4 +8709,727 @@ public int add(int a, int b) { // a无进位和 b进位
 
 ---
 
+
+
+
+
+## [字符串乘法计算](http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484466&idx=1&sn=0281340cc1f41230e4512e905b9d27dd&chksm=9bd7fa3aaca0732c95d25c637d42ad8d9b80f8165098ded837f83791c673b5d6a71721c738a3&scene=21#wechat_redirect)
+
+- 中等
+- 2021.04.11：😭  
+
+> 题目：
+
+```xml
+给定两个以字符串形式表示的非负整数 numl和 num2，返回numl 和 num2的乘积，它们的乘积也表示为字符串形式。
+
+示例:
+输入: num1 = "123", num2 = "456"
+输出: "56088"
+```
+
+> 分析：
+
+对于比较小的数字，做运算可以直接使用编程语言提供的运算符，但是如果相乘的两个因数非常大，语言提供的数据类型可能就会溢出。
+
+需要注意的是，`num1`和`num2`可以非常长，所以不可以把他们直接转成整型然后运算，唯一的思路就是模仿我们手算乘法。
+
+比如说我们手算`123 × 45`，应该会这样计算,**有两个指针`i，j`在`num1`和`num2`上游走，计算乘积，同时将乘积叠加到`res`的正确位置**：
+
+![Image](/assets/imgs/640-8148715.gif)
+
+现在还有一个关键问题，如何将乘积叠加到`res`的正确位置，或者说，如何通过`i，j`计算`res`的对应索引呢？
+
+其实，细心观察之后就发现，**`num1[i]`和`num2[j]`的乘积对应的就是`res[i+j]`和`res[i+j+1]`这两个位置**。
+
+![Image](/assets/imgs/640-8148730..png)
+
+
+
+> 代码：
+
+```java
+private String multiply(String num1,String num2){
+  // 结果最多为 m+n 位数
+  int m = num1.length();
+  int n = num2.length();
+  int[] res = new int[m+n];
+  // 从个位开始逐位相乘
+  for (int i = m-1; i >=0 ; i--) {
+    for (int j = n-1; j >=0 ; j--) {
+      int mul = (num1.charAt(i)-'0') * (num2.charAt(j)-'0');
+      // 乘积在 res 对应的索引位置
+      int p1 = i+j;
+      int p2 = i+j+1;
+      // 叠加到 res 上
+      int sum = mul+res[p2]; // 因为可能会发生进位，所以先加上最末尾位的当前值
+      res[p2] = sum%10;
+      res[p1] += sum/10;
+    }
+  }
+  // 结果前缀可能存的0 (未使用的位)
+  int prefix = 0;
+  while (prefix<res.length&&res[prefix]==0){
+    prefix++;
+  }
+  // 将计算结果转化为字符串
+  StringBuilder builder = new StringBuilder();
+  int zeroIndex = Integer.MAX_VALUE;
+  for (int i = 0; i < res.length; i++) {
+    builder.append(res[i]);
+    if (res[i]==0&&i<zeroIndex){
+      zeroIndex = i;
+    }
+  }
+  return builder.toString().substring(zeroIndex+1,res.length);
+}
+```
+
+---
+
+## 手写生产者消费者
+
+- wait() / notify()方法
+- await() / signal()方法
+- BlockingQueue阻塞队列方法
+
+```java
+// wait() / notify()方法
+public static void main(String args[]) {
+  Storage storage = new Storage();
+
+  new Thread(storage::produce, "生产者P1").start();
+  new Thread(storage::produce, "生产者P2").start();
+  new Thread(storage::produce, "生产者P3").start();
+  new Thread(storage::consume, "消费者C1").start();
+  new Thread(storage::consume, "消费者C2").start();
+  new Thread(storage::consume, "消费者C3").start();
+}
+
+/**
+ * 仓库/资源类
+ */
+public static class Storage {
+  // 设置队列缓存的大小。生产过程中超过这个大小就暂时停止生产
+  private int CAPACITY = 5;
+  // 仓库存储的载体
+  private Queue<String> queue = new LinkedList<>();
+
+  public synchronized void produce() {
+    int i = 0;
+    while (true) {
+      while (queue.size() == CAPACITY) {
+        try {
+          System.out.println("仓库已满,["+Thread.currentThread().getName()+"]等待消费者消费 ");
+          this.wait();
+        } catch (Exception ex) {
+          ex.printStackTrace();
+        }
+      }
+      System.out.println("[" + Thread.currentThread().getName() + "] 生产了 : +" + i);
+      queue.offer(i++ + "(由" + Thread.currentThread().getName() + "生产)");
+      this.notifyAll();
+
+      try {
+        TimeUnit.MILLISECONDS.sleep(new Random().nextInt(1000));
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
+  public synchronized void consume() {
+    while (true) {
+      while (queue.isEmpty()) {
+        try {
+          System.out.println("仓库空了,["+Thread.currentThread().getName()+"]等待生产");
+          this.wait();
+        } catch (Exception ex) {
+          ex.printStackTrace();
+        }
+      }
+      String s = queue.poll();
+      System.out.println("[" + Thread.currentThread().getName() + "] 消费了 : " + s);
+      this.notifyAll();
+
+      try {
+        TimeUnit.MILLISECONDS.sleep(new Random().nextInt(100));
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
+}
+```
+
+```java
+// await() / signal()方法
+public static void main(String args[]) {
+  Storage storage = new Storage();
+
+  new Thread(storage::produce, "生产者P1").start();
+  new Thread(storage::produce, "生产者P2").start();
+  new Thread(storage::produce, "生产者P3").start();
+  new Thread(storage::consume, "消费者C1").start();
+  new Thread(storage::consume, "消费者C2").start();
+  new Thread(storage::consume, "消费者C3").start();
+
+}
+
+/**
+ * 仓库/资源类
+ */
+public static class Storage {
+  // 设置队列缓存的大小。生产过程中超过这个大小就暂时停止生产
+  private int CAPACITY = 5;
+  // 仓库存储的载体
+  private Queue<String> queue = new LinkedList<>();
+
+  private ReentrantLock lock =  new ReentrantLock();
+  private Condition fullCondition = lock.newCondition();
+  private Condition emptyCondition = lock.newCondition();
+
+  public  void produce() {
+    int i = 0;
+    while (true) {
+      lock.lock();
+      try {
+        while (queue.size() == CAPACITY) {
+          try {
+            System.out.println("仓库已满,["+Thread.currentThread().getName()+"]等待消费者消费 ");
+            fullCondition.await();
+          } catch (Exception ex) {
+            ex.printStackTrace();
+          }
+        }
+        System.out.println("[" + Thread.currentThread().getName() + "] 生产了 : +" + i);
+        queue.offer(i++ + "(由" + Thread.currentThread().getName() + "生产)");
+        // 唤醒其他所有生产者、消费者
+        fullCondition.signalAll();
+        emptyCondition.signalAll();
+
+      } catch (Exception e) {
+        e.printStackTrace();
+      } finally {
+        lock.unlock();
+        try {
+          TimeUnit.MILLISECONDS.sleep(new Random().nextInt(2000));
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+  }
+
+  public  void consume() {
+    while (true) {
+      lock.lock();
+      try {
+        while (queue.isEmpty()) {
+          try {
+            System.out.println("仓库空了,["+Thread.currentThread().getName()+"]等待生产");
+            emptyCondition.await();
+          } catch (Exception ex) {
+            ex.printStackTrace();
+          }
+        }
+        String s = queue.poll();
+        System.out.println("[" + Thread.currentThread().getName() + "] 消费了 : " + s);
+        //唤醒其他所有生产者、消费者
+        fullCondition.signalAll();
+        emptyCondition.signalAll();
+
+
+      } catch (Exception e) {
+        e.printStackTrace();
+      } finally {
+        lock.unlock();
+        try {
+          TimeUnit.MILLISECONDS.sleep(new Random().nextInt(2000));
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+  }
+
+}
+```
+
+```java
+// 阻塞队列
+public static void main(String args[]) {
+  Storage storage = new Storage();
+
+  new Thread(storage::produce, "生产者P1").start();
+  new Thread(storage::produce, "生产者P2").start();
+  new Thread(storage::produce, "生产者P3").start();
+  new Thread(storage::consume, "消费者C1").start();
+  new Thread(storage::consume, "消费者C2").start();
+  new Thread(storage::consume, "消费者C3").start();
+
+}
+
+/**
+     * 仓库/资源类
+     */
+public static class Storage {
+  // 设置队列缓存的大小。生产过程中超过这个大小就暂时停止生产
+  private int CAPACITY = 5;
+  // 仓库存储的载体
+  private LinkedBlockingQueue<String> blockingQueue = new LinkedBlockingQueue<>(CAPACITY);
+
+
+  public void produce() {
+    int i = 0;
+    while (true) {
+      try {
+        blockingQueue.put(i++ + "(由" + Thread.currentThread().getName() + "生产)");
+        System.out.println(blockingQueue.size());
+        Thread.sleep(new Random().nextInt(1000));
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
+  public void consume() {
+    while (true) {
+      try {
+        String s = blockingQueue.take();
+        System.out.println("[" + Thread.currentThread().getName() + "] Consuming : " + s);
+
+        //暂停最多1秒
+        Thread.sleep(new Random().nextInt(1000));
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+}
+```
+
+## 线程轮流打印
+
+> 三个线程轮流打印1A 2B 3C（三种方法）,执行2轮。  多线程轮流执行用什么锁 
+
+总纲领：
+
+1. 高内聚低耦合前提下，线程操作资源类
+
+2. 判断/干活/通知
+
+3. 多线程交互中，必须要防止多线程的虚假唤醒，也即(判断只用while，不能用if)
+
+1. 
+
+```java
+// 主函数 线程操作资源类
+public static void main(String[] args) {
+  ShareResource shareResource = new ShareResource();
+
+  new Thread(() -> {
+    for (int i = 0; i < 2; i++) {
+      shareResource.printA();
+    }
+  }, "A").start();
+
+  new Thread(() -> {
+    for (int i = 0; i < 2; i++) {
+      shareResource.printB();
+    }
+  }, "B").start();
+
+  new Thread(() -> {
+    for (int i = 0; i < 2; i++) {
+      shareResource.printC();
+    }
+  }, "C").start();
+}
+```
+
+资源类的4种写法：
+
+> synchronized (Object的wait和notifyAll)
+>
+
+```java
+static class ShareResource {
+
+  private int number = 1;  // A 1   B 2   c 3
+
+
+  public synchronized void printA() throws InterruptedException {
+    // 判断
+    while (number!=1){
+      this.wait();
+    }
+    // 干活
+    System.out.println("A");
+    // 通知
+    number = 2;
+    this.notifyAll();
+  }
+
+  public synchronized void printB() throws InterruptedException {
+    // 判断
+    while (number!=2){
+      this.wait();
+    }
+    // 干活
+    System.out.println("B");
+    // 通知
+    number = 3;
+    this.notifyAll();
+  }
+
+  public synchronized void printC() throws InterruptedException {
+    // 判断
+    while (number!=3){
+      this.wait();
+    }
+    // 干活
+    System.out.println("C");
+    // 通知
+    number = 1;
+    this.notifyAll();
+  }
+}
+```
+
+> ReentrantLock + condition (await/signal)
+>
+
+```java
+static class ShareResource {
+
+  private int number = 1;  // A 1   B 2   c 3
+
+  private ReentrantLock lock = new ReentrantLock();
+  private Condition conditionA = lock.newCondition();
+  private Condition conditionB = lock.newCondition();
+  private Condition conditionC = lock.newCondition();
+
+
+  public void printA() {
+    lock.lock();
+    try {
+      // 1判断 2干活 3通知
+      while (number!=1){
+        conditionA.await();
+      }
+      System.out.println("A");
+      number=2;
+      conditionB.signal();
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+      lock.unlock();
+    }
+  }
+
+  public void printB() {
+    lock.lock();
+    try {
+      // 1判断 2干活 3通知
+      while (number!=2){
+        conditionB.await();
+      }
+      System.out.println("B");
+      number=3;
+      conditionC.signal();
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+      lock.unlock();
+    }
+  }
+
+  public void printC() {
+    lock.lock();
+    try {
+      // 1判断 2干活 3通知
+      while (number!=3){
+        conditionC.await();
+      }
+      System.out.println("C");
+      number=1;
+      conditionA.signal();
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+      lock.unlock();
+    }
+  }
+}
+```
+
+> LockSupport(park/unpark)
+>
+
+```java
+static Thread t1 = null;
+static Thread t2 = null;
+static Thread t3 = null;
+
+// 线程操作资源类   判断干活通知
+static class ShareResource {
+
+  private int number = 1;  // A 1   B 2   c 3
+
+
+  public  void printA() throws InterruptedException {
+    // 判断
+    while (number!=1){
+      LockSupport.park();
+    }
+    // 干活
+    System.out.println("A");
+    // 通知
+    number = 2;
+  }
+
+  public  void printB() throws InterruptedException {
+    // 判断
+    while (number!=2){
+      LockSupport.park();
+    }
+    // 干活
+    System.out.println("B");
+    // 通知
+    number = 3;
+  }
+
+  public  void printC() throws InterruptedException {
+    // 判断
+    while (number!=3){
+      LockSupport.park();
+    }
+    // 干活
+    System.out.println("C");
+    // 通知
+    number = 1;
+  }
+}
+
+public static void main(String[] args) {
+  ShareResource shareResource = new ShareResource();
+
+  t1=new Thread(() -> {
+    for (int i = 0; i < 2; i++) {
+      try {
+        shareResource.printA();
+        LockSupport.unpark(t2);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
+  }, "A");
+
+  t2 = new Thread(() -> {
+    for (int i = 0; i < 2; i++) {
+      try {
+        shareResource.printB();
+        LockSupport.unpark(t3);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
+  }, "B");
+
+  t3=new Thread(() -> {
+    for (int i = 0; i < 2; i++) {
+      try {
+        shareResource.printC();
+        LockSupport.unpark(t1);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
+  }, "C");
+
+  t1.start();
+  t2.start();
+  t3.start();
+}
+```
+
+> 信号量Semaphore
+>
+
+```java
+static class ShareResource {
+  
+  private Semaphore semaphoreA = new Semaphore(1);
+  private Semaphore semaphoreB = new Semaphore(0);
+  private Semaphore semaphoreC = new Semaphore(0);
+
+
+  public void printA() throws InterruptedException {
+    semaphoreA.acquire();
+    System.out.println("A");
+    semaphoreB.release();
+
+  }
+
+  public void printB() throws InterruptedException {
+    semaphoreB.acquire();
+    System.out.println("B");
+    semaphoreC.release();
+  }
+
+  public void printC() throws InterruptedException {
+    semaphoreC.acquire();
+    System.out.println("C");
+    semaphoreA.release();
+  }
+}
+```
+
+## IP地址与整数的相互转换
+
+> ip转整数 把IP地址转换成INT型存储
+
+- 通过String的split方法按.分隔得到4个长度的数组
+- 通过左移位操作（<<）给每一段的数字加权，第一段的权为2的24次方，第二段的权为2的16次方，第三段的权为2的8次方，最后一段的权为1
+
+```java
+public static long ipToLong(String strIp) {
+  String[] ip = strIp.split("\\.");
+  return (Long.parseLong(ip[0]) << 24) 
+    + (Long.parseLong(ip[1]) << 16) + (Long.parseLong(ip[2]) << 8) + Long.parseLong(ip[3]);
+}
+```
+
+> 将数值转换为ip地址
+
+- 将整数值进行右移位操作（>>>），右移24位，右移时高位补0，得到的数字即为第一段IP。
+- 通过与操作符（&）将整数值的高8位设为0，再右移16位，得到的数字即为第二段IP。
+- 通过与操作符吧整数值的高16位设为0，再右移8位，得到的数字即为第三段IP。
+- 通过与操作符吧整数值的高24位设为0，得到的数字即为第四段IP。
+
+```java
+public static String longToIP(Long longIP) {
+  StringBuilder builder = new StringBuilder();
+  builder.append((longIP>>>24)+"."); // 直接右移24位
+  builder.append(((longIP&0x00FFFFFF)>>>16)+"."); // 将高8位置0，然后右移16位
+  builder.append(((longIP&0x0000FFFF)>>>8)+"."); // 将高16位置0，然后右移8位
+  builder.append((longIP&0x000000FF)); // 将高24位置0
+
+  return builder.toString();
+}
+```
+
+---
+
+## 大数求和
+
+- [思路一：定义String变量str1和str2分别存储输入的两个大数，定义num1[]和num2[]两个int型数组，将两个字符串分别逐个字符逆序存入数组(因为要从后面加起)，定义sum[]数组存放求和结果，使用循环两个数组中的元素逐位相加，并判断是否进位，最后逆序输出数组sum[]中的每个元素。](https://blog.csdn.net/tianc_pig/article/details/84335579)
+- 思路二，使用栈结构实现将输入的数字依次存进栈中（栈有先进后出的特点，所以先输入的高位上的数字会被存在栈的底层），在计算和的时候从两个栈中依次取出数据相加存入新的栈中（计算时在栈顶的是个位，然后是十位，以此类推，存进新的栈时在栈底的是个位，然后是十位，以此类推），最后将存放计算结果的栈中元素自顶向底取出打印，这种方法效率较高，时间复杂度低，但是空间复杂度很大，需要占用较多的空间资源。
+
+```java
+// 方式一
+private String largeIntegerSum(String numA, String numB) {
+  int lenA = numA.length();
+  int lenB = numB.length();
+  int maxLen = Math.max(lenA, lenB)+1; // 多一位，因为可能会进位
+  int[] arrayA = new int[maxLen];
+  int[] arrayB = new int[maxLen];
+  int[] result = new int[maxLen];
+
+  // 将字符串逆序存储到数组中
+  for (int i = 0; i < lenA; i++) {
+    arrayA[i] = numA.charAt(lenA-i-1)-'0';
+  }
+  for (int i = 0; i < lenB; i++) {
+    arrayB[i] = numB.charAt(lenB-i-1)-'0';
+  }
+
+  // 进行大数求和
+  for (int i = 0; i < maxLen; i++) {
+    int add = result[i]+ arrayA[i]+arrayB[i];
+    if (add<10){ // 没有进位
+      result[i] = add;
+    }else { // 有进位
+      int remainder = add%10; // 余数
+      result[i] = remainder;
+      // 放置进位,注意防止越界
+      if (i!=maxLen-1){
+        result[i+1] = 1;
+      }
+    }
+  }
+
+  // 再将数组逆序得到最终的结果,先去掉末尾的0
+  StringBuilder builder = new StringBuilder();
+  int lastIndex = 0;
+  for (int i = maxLen-1; i >=0 ; i--) {
+    if (result[i]!=0){
+      lastIndex = i;
+      break;
+    }
+  }
+  for (int i = lastIndex; i >=0 ; i--) {
+    builder.append(result[i]);
+  }
+
+  return builder.toString();
+
+}
+
+// 方式二
+private String largeIntegerSum(String numA, String numB) {
+  // 将两数放入栈中
+  Stack<Integer> stackA = new Stack<>();
+  Stack<Integer> stackB = new Stack<>();
+  Stack<Integer> res = new Stack<>(); // 存放结果和
+  for (int i = 0; i < numA.length(); i++) {
+    stackA.push(numA.charAt(i)-'0');
+  }
+  for (int i = 0; i < numB.length(); i++) {
+    stackB.push(numB.charAt(i)-'0');
+  }
+  int c = 0; // 进位标志位
+
+  // 求和
+  while (!stackA.isEmpty()&&!stackB.isEmpty()){
+    int add = c + stackA.pop() + stackB.pop();
+    if (add<10){
+      res.push(add);
+      c = 0;
+    }else {
+      res.push(add%10);
+      c = 1;
+    }
+  }
+  // 继续加上不为空的栈
+  Stack<Integer> remain = stackA.isEmpty()?stackB:stackA;
+  while (!remain.isEmpty()){
+    int add = c + remain.pop();
+    if (add<10){
+      res.push(add);
+      c = 0;
+    }else {
+      res.push(add%10);
+      c = 1;
+    }
+
+  }
+  // 最高位有进位时,直接最后一个数为1
+  if (c==1){
+    res.push(1);
+  }
+
+  // 返回结果
+  StringBuilder builder = new StringBuilder();
+  while (!res.isEmpty()){
+    builder.append(res.pop());
+  }
+  return builder.toString();
+}
+```
 
