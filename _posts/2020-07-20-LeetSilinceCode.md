@@ -136,7 +136,7 @@ public String slidingWindow(String s, String t) {
 
 | 题目                                                         | 算法思想        |
 | ------------------------------------------------------------ | --------------- |
-| [\#215 数组中的第K个最大元素](http://www.silince.cn/2020/07/20/LeetSilinceCode/#215-数组中的第k个最大元素) | 快速排序/堆排序 |
+| [\#215 数组中的第K个最大元素](http://www.silince.cn/2020/07/20/LeetSilinceCode/#215-数组中的第k个最大元素) ⭐️ | 快速排序/堆排序 |
 | [\#347 前 K 个高频元素](http://www.silince.cn/2020/07/20/LeetSilinceCode/#347-前-k-个高频元素) | 桶排序          |
 | [\#451 根据字符出现频率排序](https://leetcode-cn.com/problems/sort-characters-by-frequency/) | 桶排序          |
 | [\#75 颜色分类 ]([http://www.silince.cn/2020/07/20/LeetSilinceCode/#75-%E9%A2%9C%E8%89%B2%E5%88%86%E7%B1%BB](http://www.silince.cn/2020/07/20/LeetSilinceCode/#75-颜色分类)) |                 |
@@ -888,6 +888,7 @@ int knapsack(int W, int N, vector<int>& wt, vector<int>& val) {
 | [\#51. N 皇后](http://www.silince.cn/2020/07/20/LeetSilinceCode/#51-n-皇后) | 回溯算法          |
 | [\#494. 目标和](http://www.silince.cn/2020/07/20/LeetSilinceCode/#494-%E7%9B%AE%E6%A0%87%E5%92%8C) | 动态规划/背包问题 |
 | [\#22. 括号生成](https://www.silince.cn/2020/07/20/LeetSilinceCode/#22-括号生成) ⭐️ | 回溯算法          |
+| [\#131. 分割回文串](https://leetcode-cn.com/problems/palindrome-partitioning/) | 回溯算法+动态规划 |
 
 **解决一个回溯问题，实际上就是一个决策树的遍历过程**。你只需要思考 3 个问题：
 
@@ -1017,6 +1018,8 @@ int BFS(Node start, Node target) {
 | ------------------------------------------------------------ | ------------------------- |
 | [\#26 删除排序数组中的重复项](http://www.silince.cn/2020/07/20/LeetSilinceCode/#26-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9) ⭐️ | 双指针                    |
 | [\#88 合并两个有序数组](http://www.silince.cn/2020/07/20/LeetSilinceCode/#88-合并两个有序数组) ⭐️ | 双指针                    |
+| [\#287. 寻找重复数](https://leetcode-cn.com/problems/find-the-duplicate-number/) | 二分查找/快慢指针         |
+| [\#349. 两个数组的交集](https://leetcode-cn.com/problems/intersection-of-two-arrays/) ⭐️ | 哈希表/排序+双指针        |
 | [\#169 多数元素](http://www.silince.cn/2020/07/20/LeetSilinceCode/#169-多数元素) | 哈希表/排序/随机化/投票法 |
 | [\#674 最长连续递增序列](http://www.silince.cn/2020/07/20/LeetSilinceCode/#674-最长连续递增序列) | 动态规划                  |
 | [\#1051 高度检查器](http://www.silince.cn/2020/07/20/LeetSilinceCode/#1051-高度检查器) | 桶排序                    |
@@ -1027,7 +1030,6 @@ int BFS(Node start, Node target) {
 | [\#240. 搜索二维矩阵 II](https://leetcode-cn.com/problems/search-a-2d-matrix-ii/) |                           |
 | [\#378. 有序矩阵中第 K 小的元素](https://leetcode-cn.com/problems/kth-smallest-element-in-a-sorted-matrix/) |                           |
 | [\#645. 错误的集合](https://leetcode-cn.com/problems/set-mismatch/) |                           |
-| [\#287. 寻找重复数](https://leetcode-cn.com/problems/find-the-duplicate-number/) |                           |
 | [\#667. 优美的排列 II](https://leetcode-cn.com/problems/beautiful-arrangement-ii/) |                           |
 | [\#697. 数组的度](https://leetcode-cn.com/problems/degree-of-an-array/) |                           |
 | [\#766. 托普利茨矩阵](https://leetcode-cn.com/problems/toeplitz-matrix/) |                           |
@@ -1068,9 +1070,9 @@ int BFS(Node start, Node target) {
 
 | 题目                                                         | 算法思想      |
 | ------------------------------------------------------------ | ------------- |
-| [\#144 非递归实现二叉树的前序遍历](http://www.silince.cn/2020/07/20/LeetSilinceCode/#144-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86) | 前序遍历      |
-| [\#145 非递归实现二叉树的后序遍历](http://www.silince.cn/2020/07/20/LeetSilinceCode/#145-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86) | 后序遍历      |
-| [\#94 非递归实现二叉树的中序遍历](http://www.silince.cn/2020/07/20/LeetSilinceCode/#94-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86) | 中序遍历      |
+| [\#144 非递归实现二叉树的前序遍历](http://www.silince.cn/2020/07/20/LeetSilinceCode/#144-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86) ⭐️ | 前序遍历      |
+| [\#145 非递归实现二叉树的后序遍历](http://www.silince.cn/2020/07/20/LeetSilinceCode/#145-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86) ⭐️ | 后序遍历      |
+| [\#94 非递归实现二叉树的中序遍历](http://www.silince.cn/2020/07/20/LeetSilinceCode/#94-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86) ⭐️ | 中序遍历      |
 | [\#104.树的高度 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#104-二叉树的最大深度) | 递归/广度优先 |
 | [#111.二叉树的最小深度 ⭐️](www.silince.cn/2020/07/20/LeetSilinceCode/#111-二叉树的最小深度) | 递归/广度优先 |
 | [\#110 平衡二叉树 ](http://www.silince.cn/2020/07/20/LeetSilinceCode/#110-平衡二叉树) | 递归          |
@@ -2478,7 +2480,7 @@ int maxSubArray(int[] nums) {
 
 
 
-## [69. x 的平方根](https://leetcode-cn.com/problems/sqrtx/)
+## [\#69. x 的平方根](https://leetcode-cn.com/problems/sqrtx/)
 
 - 简单
 - 2021.04.11：😎
@@ -4969,6 +4971,38 @@ class Solution {
 
 
 
+## [\#287. 寻找重复数](https://leetcode-cn.com/problems/find-the-duplicate-number/)
+
+- 中等
+- 2021.04.11：😎
+
+> 题目：
+
+```xml
+给定一个包含 n + 1 个整数的数组 nums ，其数字都在 1 到 n 之间（包括 1 和 n），可知至少存在一个重复的整数。
+假设 nums 只有 一个重复的整数 ，找出 这个重复的数 。
+```
+
+> 分析：
+
+***方法一：***
+
+
+
+
+
+
+
+> 代码：
+
+```java
+
+```
+
+---
+
+
+
 
 
 ## [\#300. 最长递增子序列](https://leetcode-cn.com/problems/longest-increasing-subsequence/)
@@ -5503,6 +5537,99 @@ class Solution {
     }
 }
 ```
+
+
+
+## [\#349. 两个数组的交集](https://leetcode-cn.com/problems/intersection-of-two-arrays/)
+
+- 简单
+- 2021.04.11：😭  
+
+> 题目：
+
+```xml
+给定两个数组，编写一个函数来计算它们的交集。
+
+示例 1：
+输入：nums1 = [1,2,2,1], nums2 = [2,2]
+输出：[2]
+示例 2：
+输入：nums1 = [4,9,5], nums2 = [9,4,9,8,4]
+输出：[9,4]
+```
+
+> 分析：
+
+***方法一：哈希表***
+
+
+
+***方法二：排序 +双指针***
+
+如果两个数组是有序的，则可以使用双指针的方法得到两个数组的交集。
+
+首先对两个数组进行排序，然后使用两个指针遍历两个数组。可以预见的是加入答案的数组的元素一定是递增的，为了保证加入元素的唯一性，我们需要额外记录变量 pre 表示上一次加入答案数组的元素。
+
+初始时，两个指针分别指向两个数组的头部。每次比较两个指针指向的两个数组中的数字，如果两个数字不相等，则将指向较小数字的指针右移一位，如果两个数字相等，且该数字不等于 pre ，将该数字添加到答案并更新 pre 变量，同时将两个指针都右移一位。当至少有一个指针超出数组范围时，遍历结束。
+
+
+
+> 代码：
+
+```java
+// 空间换时间
+public int[] intersection(int[] nums1, int[] nums2) {
+  Set<Integer> set = new HashSet<>();
+  HashMap<Integer, Integer> map = new HashMap<>();
+  for (int num : nums1) {
+    map.put(num,map.getOrDefault(num,0)+1);
+  }
+  for (int num : nums2) {
+    if (map.get(num)!=null){
+      set.add(num);
+    }
+  }
+
+  int index = 0;
+  int[] res = new int[set.size()];
+  for (Integer integer : set) {
+    res[index++] = integer;
+  }
+  return res;
+}
+
+// 排序 + 双指针
+public int[] intersection(int[] nums1, int[] nums2) {
+  Arrays.sort(nums1);
+  Arrays.sort(nums2);
+
+  int index=0,index1 = 0,index2=0;
+  int len1 = nums1.length,len2 = nums2.length;
+  int[] res = new int[len1+len2];
+
+  while (index1<len1&&index2<len2){
+    if (nums1[index1]==nums2[index2]){
+      if (index==0||nums1[index1]!=res[index-1]){
+        res[index]=nums1[index1];
+        index++;
+      }
+      index1++;
+      index2++;
+    }else if (nums1[index1]<nums2[index2]){
+      index1++;
+    }else {
+      index2++;
+    }
+  }
+  return Arrays.copyOf(res,index);
+}
+```
+
+---
+
+
+
+
 
 
 
