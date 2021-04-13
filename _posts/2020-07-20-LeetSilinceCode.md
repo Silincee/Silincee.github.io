@@ -1021,6 +1021,7 @@ int BFS(Node start, Node target) {
 | [\#88 合并两个有序数组](http://www.silince.cn/2020/07/20/LeetSilinceCode/#88-合并两个有序数组) ⭐️ | 双指针                    |
 | [\#287. 寻找重复数](https://leetcode-cn.com/problems/find-the-duplicate-number/) | 二分查找/快慢指针         |
 | [\#349. 两个数组的交集](https://leetcode-cn.com/problems/intersection-of-two-arrays/) ⭐️ | 哈希表/排序+双指针        |
+| [#剑指 Offer 03 数组中重复的数字](https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof) ⭐️ | 原地排序                  |
 | [\#169 多数元素](http://www.silince.cn/2020/07/20/LeetSilinceCode/#169-多数元素) | 哈希表/排序/随机化/投票法 |
 | [\#674 最长连续递增序列](http://www.silince.cn/2020/07/20/LeetSilinceCode/#674-最长连续递增序列) | 动态规划                  |
 | [\#1051 高度检查器](http://www.silince.cn/2020/07/20/LeetSilinceCode/#1051-高度检查器) | 桶排序                    |
