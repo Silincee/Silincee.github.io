@@ -257,6 +257,7 @@ public int  getResult(int[][] intvs){
 | ------------------------------------------------------------ | -------- |
 | [\#704 二分查找](http://www.silince.cn/2020/07/20/LeetSilinceCode/#704-二分查找) | 二分查找 |
 | [\#34 在排序数组中查找元素的第一个和最后一个位置](http://www.silince.cn/2020/07/20/LeetSilinceCode/#34-在排序数组中查找元素的第一个和最后一个位置) | 二分查找 |
+| [判定子序列](http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484479&idx=1&sn=31a3fc4aebab315e01ea510e482b186a&chksm=9bd7fa37aca0732103ca82e6f2cc23f475cf771696958456fc17d7662abb6b0879e8dfbaf7a1&scene=21#wechat_redirect) | 二分查找 |
 
 二分查找并不简单，Knuth 大佬（发明 KMP 算法的那位）都说二分查找：**思路很简单，细节是魔鬼**。很多人喜欢拿整型溢出的 bug 说事儿，但是二分查找真正的坑根本就不是那个细节问题，而是在于到底要给 `mid` 加一还是减一，while 里到底用 `<=` 还是 `<`。
 
@@ -886,6 +887,7 @@ int knapsack(int W, int N, vector<int>& wt, vector<int>& val) {
 | 题目                                                         | 算法思想          |
 | ------------------------------------------------------------ | ----------------- |
 | [\#46. 全排列](http://www.silince.cn/2020/07/20/LeetSilinceCode/#46-全排列) | 回溯算法          |
+| [剑指 Offer 38 字符串的排列](https://leetcode-cn.com/problems/zi-fu-chuan-de-pai-lie-lcof) ⭐️ | 回溯算法          |
 | [\#51. N 皇后](http://www.silince.cn/2020/07/20/LeetSilinceCode/#51-n-皇后) | 回溯算法          |
 | [\#494. 目标和](http://www.silince.cn/2020/07/20/LeetSilinceCode/#494-%E7%9B%AE%E6%A0%87%E5%92%8C) | 动态规划/背包问题 |
 | [\#22. 括号生成](https://www.silince.cn/2020/07/20/LeetSilinceCode/#22-括号生成) ⭐️ | 回溯算法          |
@@ -1021,7 +1023,7 @@ int BFS(Node start, Node target) {
 | [\#88 合并两个有序数组](http://www.silince.cn/2020/07/20/LeetSilinceCode/#88-合并两个有序数组) ⭐️ | 双指针                    |
 | [\#287. 寻找重复数](https://leetcode-cn.com/problems/find-the-duplicate-number/) | 二分查找/快慢指针         |
 | [\#349. 两个数组的交集](https://leetcode-cn.com/problems/intersection-of-two-arrays/) ⭐️ | 哈希表/排序+双指针        |
-| [#剑指 Offer 03 数组中重复的数字](https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof) ⭐️ | 原地排序                  |
+| [#剑指 Offer 03 数组中重复的数字](https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof) ⭐️ | 原地交换                  |
 | [\#169 多数元素](http://www.silince.cn/2020/07/20/LeetSilinceCode/#169-多数元素) | 哈希表/排序/随机化/投票法 |
 | [\#674 最长连续递增序列](http://www.silince.cn/2020/07/20/LeetSilinceCode/#674-最长连续递增序列) | 动态规划                  |
 | [\#1051 高度检查器](http://www.silince.cn/2020/07/20/LeetSilinceCode/#1051-高度检查器) | 桶排序                    |
@@ -1157,16 +1159,19 @@ int BFS(Node start, Node target) {
 
 ## 字符串
 
-| 题目                                                         | 算法思想 |
-| ------------------------------------------------------------ | -------- |
-| [\#242. 有效的字母异位词](https://leetcode-cn.com/problems/valid-anagram/) |          |
-| [\#409. 最长回文串](https://leetcode-cn.com/problems/longest-palindrome/) |          |
-| [\#205. 同构字符串](https://leetcode-cn.com/problems/isomorphic-strings/) |          |
-| [\#647. 回文子串](https://leetcode-cn.com/problems/palindromic-substrings/) ⭐️ | 扩展中心 |
-| [\#5. 最长回文子串](https://leetcode-cn.com/problems/longest-palindromic-substring/) ⭐️ | 扩展中心 |
-| [字符串乘法计算](http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484466&idx=1&sn=0281340cc1f41230e4512e905b9d27dd&chksm=9bd7fa3aaca0732c95d25c637d42ad8d9b80f8165098ded837f83791c673b5d6a71721c738a3&scene=21#wechat_redirect) ⭐️ |          |
-| [\#9. 回文数](https://leetcode-cn.com/problems/palindrome-number/) |          |
-| [\#696. 计数二进制子串](https://leetcode-cn.com/problems/count-binary-substrings/) |          |
+| 题目                                                         | 算法思想        |
+| ------------------------------------------------------------ | --------------- |
+| [\#242. 有效的字母异位词](https://leetcode-cn.com/problems/valid-anagram/) |                 |
+| [\#409. 最长回文串](https://leetcode-cn.com/problems/longest-palindrome/) |                 |
+| [\#205. 同构字符串](https://leetcode-cn.com/problems/isomorphic-strings/) |                 |
+| [\#647. 回文子串](https://leetcode-cn.com/problems/palindromic-substrings/) ⭐️ | 扩展中心        |
+| [\#5. 最长回文子串](https://leetcode-cn.com/problems/longest-palindromic-substring/) ⭐️ | 扩展中心        |
+| [字符串乘法计算](http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484466&idx=1&sn=0281340cc1f41230e4512e905b9d27dd&chksm=9bd7fa3aaca0732c95d25c637d42ad8d9b80f8165098ded837f83791c673b5d6a71721c738a3&scene=21#wechat_redirect) ⭐️ |                 |
+| [剑指 Offer 05 替换空格](https://leetcode-cn.com/problems/ti-huan-kong-ge-lcof) ⭐️ | 线性遍历        |
+| [剑指 Offer 38 字符串的排列](https://leetcode-cn.com/problems/zi-fu-chuan-de-pai-lie-lcof) | 回溯            |
+| [判定子序列](http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484479&idx=1&sn=31a3fc4aebab315e01ea510e482b186a&chksm=9bd7fa37aca0732103ca82e6f2cc23f475cf771696958456fc17d7662abb6b0879e8dfbaf7a1&scene=21#wechat_redirect) | 二分查找/双指针 |
+| [\#9. 回文数](https://leetcode-cn.com/problems/palindrome-number/) |                 |
+| [\#696. 计数二进制子串](https://leetcode-cn.com/problems/count-binary-substrings/) |                 |
 
 
 
@@ -1189,6 +1194,15 @@ int BFS(Node start, Node target) {
 | [371. 两整数之和](https://leetcode-cn.com/problems/sum-of-two-integers/) |          |
 | [318. 最大单词长度乘积](https://leetcode-cn.com/problems/maximum-product-of-word-lengths/) |          |
 | [338. 比特位计数](https://leetcode-cn.com/problems/counting-bits/) |          |
+
+## 数学
+
+| 题目                | 算法思想 |
+| ------------------- | -------- |
+| [n!末尾0的个数]() ⭐️ | 因式分解 |
+|                     |          |
+|                     |          |
+|                     |          |
 
 
 
@@ -8798,6 +8812,242 @@ int[] count(String word) {
 
 ----
 
+
+
+## [\#剑指 Offer 03. 数组中重复的数字](https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/)
+
+- 中等
+- 2021.04.13：
+
+> 题目：
+
+```xml
+找出数组中重复的数字。
+在一个长度为 n 的数组 nums 里的所有数字都在 0～n-1 的范围内。数组中某些数字是重复的，但不知道有几个数字重复了，也不知道每个数字重复了几次。请找出数组中任意一个重复的数字。
+
+示例 1：
+输入：
+[2, 3, 1, 0, 2, 5, 3]
+输出：2 或 3 
+```
+
+> 分析：
+
+题目说明尚未被充分使用，即 在一个长度为 n 的数组 nums 里的所有数字都在 0 ~ n-1 的范围内 。 此说明含义：数组元素的 索引 和 值 是 一对多 的关系。
+
+因此，可遍历数组并通过交换操作，使元素的 索引 与 值 一一对应（即 nums[i] =i ）。因而，就能通过索引映射对应的值，起到与字典等价的作用。
+
+![Picture0.png](/assets/imgs/1618146573-bOieFQ-Picture0.png)
+
+遍历中，第一次遇到数字 x 时，将其交换至索引 x 处；而当第二次遇到数字 x 时，一定有 nums[x] =x ，此时即可得到一组重复数字。
+
+
+
+> 代码：
+
+```java
+public int findRepeatNumber(int[] nums) {
+  int i = 0;
+  while(i < nums.length) {
+    if(nums[i] == i) {
+      i++;
+      continue;
+    }
+    if(nums[nums[i]] == nums[i]) return nums[i];
+    int tmp = nums[i];
+    nums[i] = nums[tmp];
+    nums[tmp] = tmp;
+  }
+  return -1;
+}
+```
+
+---
+
+
+
+## [\#剑指 Offer 05. 替换空格](https://leetcode-cn.com/problems/ti-huan-kong-ge-lcof/)
+
+- 简单
+- 2021.04.13：
+
+> 题目：
+
+```xml
+请实现一个函数，把字符串 s 中的每个空格替换成"%20"。
+
+示例 1：
+输入：s = "We are happy."
+输出："We%20are%20happy."
+```
+
+> 分析：
+
+ Java 语言中，字符串都被设计成「不可变」的类型，即无法直接修改字符串的某一位字符，需要新建一个字符串实现。
+
+遍历列表 s 中的每个字符 c ：
+
+-  当 c 为空格时：向 res 后添加字符串 "%20" ；
+
+- 当 c不为空格时：向 res 后添加字符 c ；
+
+- 将列表 res 转化为字符串并返回。
+
+
+
+> 代码：
+
+```java
+public String replaceSpace(String s) {
+  StringBuilder res = new StringBuilder();
+  for(Character c : s.toCharArray())
+  {
+    if(c == ' ') res.append("%20");
+    else res.append(c);
+  }
+  return res.toString();
+}
+```
+
+---
+
+
+
+## [\#剑指 Offer 38. 字符串的排列](https://leetcode-cn.com/problems/zi-fu-chuan-de-pai-lie-lcof/)
+
+- 中等
+- 2021.04.13：
+
+> 题目：
+
+```xml
+输入一个字符串，打印出该字符串中字符的所有排列。
+你可以以任意顺序返回这个字符串数组，但里面不能有重复元素。
+
+示例:
+输入：s = "abc"
+输出：["abc","acb","bac","bca","cab","cba"]
+```
+
+> 分析：
+
+***方法一：***
+
+如果没有重复字符，我们可以选择逐个添加的方式，回溯求解，在没有添加过的字符里面进行选择和添加。那么这一题不一样，字符会出现重复，回溯剪枝时需要注意，**如果选择新字符后的串之前已经遍历过了，直接跳过，注意把新字符从选择列表中移除。**
+
+![IMG_7676D34FDF79-1](/Users/silince/Develop/博客/blog_to_git/assets/imgs/IMG_7676D34FDF79-1.jpeg)
+
+***方法二：***
+
+因此该题更适合用字符交换的方式求解【方法二】。字符串可以包含重复的字符，因此返回数组的长度我们不得而知，直接交换最终得到的字符串也会重复，要去重复可以用set容器来存储得到的结果，最后返回结果集的数组形式即可。
+
+我们对字符串中的字符进行两两交换，可以得到所有结果，这种交换同样是做出选择的方式：
+
+首先在第一个位置，选择所有可能的字符，这里面就有len种选择，然后在每一种选择里面将第一个位置固定，第二个位置又有len-1种选择，在每一种选择里面又将第二个位置固定，每一种的第三个位置又有len-2种选择，如此往复，直到最后一个位置。
+
+加上该算法的部分导图，大家可以结合代码看一下：
+
+![无标题4.png](/assets/imgs/1616507813-lSZXTB-无标题4.png)
+
+如何剪枝：当字符串存在重复字符时，排列方案中也存在重复的排列方案。为排除重复方案，需在固定某位字符时，**保证 “每种字符只在此位固定一次” ，即遇到重复字符时不交换，直接跳过。**
+
+即在每一层记录一个已遍历过的字符Set。
+
+
+
+> 代码：
+
+```java
+// 方法一
+private ArrayList<String> res = new ArrayList<>(); // 结果集
+private Set<String> set = new HashSet<>(); // 保存已遍历过的前缀，用于剪枝
+
+private List<String> permutation(String s) {
+  backtrack(s.toCharArray(), new LinkedList<Integer>());
+  return res;
+}
+
+// list : 当前路径,已遍历过的字符下标
+private void backtrack(char[] arr, LinkedList<Integer> list) {
+  if (list.size() == arr.length) {
+    String s = getString(arr, list);
+    System.out.println(s);
+    res.add(s);
+    return;
+  }
+
+  // 遍历可选列表
+  for (int i = 0; i < arr.length; i++) {
+    if (!list.contains(i)) {
+      list.add(i);
+
+      // 判断是否要开启后续递归(当前串是否为遍历过的前缀)
+      String temp = getString(arr, list);
+      if (set.contains(temp)){
+        list.removeLast();
+        continue;
+      }
+      set.add(temp);
+
+      backtrack(arr, list);
+
+      list.removeLast();
+    }
+  }
+}
+
+// 将已遍历过的字符转换为字符串
+private String getString(char[] arr, LinkedList<Integer> list){
+  StringBuilder builder = new StringBuilder();
+  for (int c : list) {
+    builder.append(arr[c]);
+  }
+  return builder.toString();
+}
+
+// 方法二 两两交换
+private ArrayList<String> res = new ArrayList<>(); // 结果集
+
+private List<String> permutation(String s) {
+  backtrack(s.toCharArray(),  0);
+  return res;
+}
+
+// index: 当前交换字符的下标
+private void backtrack(char[] arr, int index){
+  if (index == arr.length-1) {
+    res.add(new String(arr));
+    return;
+  }
+
+  // 选择列表：当前字符可与 自己和之后的字符进行交换
+  HashSet<Character> set = new HashSet<>();
+  for (int i = index; i < arr.length; i++) {
+    if (set.contains(arr[i])) continue;
+    set.add(arr[i]);
+
+    swap(arr,index,i);
+    backtrack(arr,index+1);
+    swap(arr,index,i);
+  }
+
+}
+
+private void  swap(char[] arr,int i,int j){
+  char temp = arr[i];
+  arr[i] = arr[j];
+  arr[j] = temp;
+}
+```
+
+---
+
+
+
+
+
+
+
 ## [\#剑指 Offer 45 把数组排成最小的数](https://leetcode-cn.com/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof) 
 
 - 中等
@@ -8899,7 +9149,7 @@ public String minNumber(int[] nums) {
 
 
 
-## [\#offer 65. 不用加减乘除做加法](https://leetcode-cn.com/problems/bu-yong-jia-jian-cheng-chu-zuo-jia-fa-lcof/)
+## [\#剑指Offer 65. 不用加减乘除做加法](https://leetcode-cn.com/problems/bu-yong-jia-jian-cheng-chu-zuo-jia-fa-lcof/)
 
 - 简单
 - 2021.03.20：  
@@ -9662,4 +9912,169 @@ private String largeIntegerSum(String numA, String numB) {
   return builder.toString();
 }
 ```
+
+
+
+## [n!末尾0的个数]()
+
+- 简单
+- 2021.04.13：
+
+> 题目：
+
+```xml
+输入一个正整数n，求 n! 末尾有多少个0；
+
+实例：
+n = 10 时， n! = 3628800，所以答案为2
+```
+
+> 分析：
+
+10进制数结尾的每一个0都表示有一个因数10存在——任何进制都一样，对于一个M进制的数，让结尾多一个0就等价于乘以M。 
+
+10可以分解为2 × 5——因此只有质数2和5相乘能产生0，别的任何两个质数相乘都不能产生0，而且2，5相乘只产生一个0。 
+
+所以，分解后的整个因数式中有多少对(2, 5)，结果中就有多少个0，而分解的结果中，2的个数显然是多于5的，因此，有多少个5，就有多少个(2, 5)对。 
+
+所以，讨论1000的阶乘结尾有几个0的问题，就被转换成了1到1000所有这些数的质因数分解式有多少个5的问题。
+
+
+
+
+
+> 代码：
+
+```java
+public int getResult(int n){
+  if (n<5) return 0;
+
+  int count = 0;
+  for (int i = 5; i <= n; i++) {
+    int temp = i;
+    while (temp/5!=0&&temp%5==0){
+      temp = temp/5;
+      count++;
+    }
+  }
+  return count;
+}
+```
+
+---
+
+
+
+## [判定子序列](http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484479&idx=1&sn=31a3fc4aebab315e01ea510e482b186a&chksm=9bd7fa37aca0732103ca82e6f2cc23f475cf771696958456fc17d7662abb6b0879e8dfbaf7a1&scene=21#wechat_redirect)
+
+- 简单
+- 2021.04.13：
+
+> 题目：
+
+```xml
+如何判定字符串s是否是字符串t的子序列（可以假定s长度比较小，且t的长度非常大）。举两个例子：
+s = "abc", t = "ahbgdc", return true.
+s = "axc", t = "ahbgdc", return false.
+```
+
+> 分析：
+
+***方法一： 双指针***
+
+其思路也非常简单，利用双指针`i, j`分别指向`s, t`，一边前进一边匹配子序列
+
+
+
+***方法二： 二分查找***
+
+这不就是最优解法了吗，时间复杂度只需 O(N)，N 为`t`的长度。
+
+是的，如果仅仅是这个问题，这个解法就够好了，**不过这个问题还有 后续**：
+
+如果给你一系列字符串`s1,s2,...`和字符串`t`，你需要判定每个串`s`是否是`t`的子序列（可以假定`s`相对较短，`t`很长）。
+
+```java
+boolean[] isSubsequence(String[] sn, String t);
+```
+
+你也许会问，这不是很简单吗，还是刚才的逻辑，加个 for 循环不就行了？
+
+可以，但是此解法处理每个`s`时间复杂度仍然是 O(N)，而如果巧妙运用二分查找，可以将时间复杂度降低，大约是 O(MlogN)，M 为 s 的长度。由于 N 相对 M 大很多，所以后者效率会更高。
+
+二分思路主要是对`t`进行预处理，用一个字典`index`将每个字符出现的索引位置按顺序存储下来（对于 ASCII 字符，可以用大小为 256 的数组充当字典）：
+
+二分查找返回目标值`val`的索引，对于搜索**左侧边界**的二分查找，有一个特殊性质：**当`val`不存在时，得到的索引恰好是比`val`大的最小元素索引**。
+
+![Image](/assets/imgs/640-20210414163713405.gif)
+
+
+
+> 代码：
+
+```java
+// 双指针
+private boolean isSubsequence(String str1, String str2) {
+  int i = 0, j = 0;
+  while (i < str1.length() && j < str2.length()) {
+    if (str1.charAt(i) == str2.charAt(j)) {
+      i++;
+    }
+    j++;
+  }
+  return i == str1.length();
+
+}
+// 方法二：建立索引+二分查找
+private boolean isSubsequence(String str1, String str2) {
+  // 预处理 建立索引
+  ArrayList<Integer>[] index = new ArrayList[256];
+  for (int i = 0; i < str2.length(); i++) {
+    char c = str2.charAt(i);
+    if (index[c]==null){
+      index[c] = new ArrayList<>();
+    }
+    index[c].add(i);
+  }
+
+  // 串t上的指针
+  int j = 0;
+  // 借助 index 查找 s[i]
+  for (int i = 0; i < str1.length(); i++) {
+    char c = str1.charAt(i);
+    // 不包含字符c
+    if (index[c]==null) return false;
+    // 二分查找区间中未找到字符c
+    int pos = leftBinarySearch(index[c],j);
+    if (pos==-1) return false;
+    // 变更j为最新的索引+1
+    j = index[c].get(pos)+1;
+  }
+  return true;
+}
+
+// 当target不存在时，得到的索引恰好是比target大的最小元素索引
+private int leftBinarySearch(ArrayList<Integer> arr, int target) {
+  int left = 0;
+  int right = arr.size()-1;
+
+  while (left<=right){
+    int mid = left + (right-left)/2;
+    if (target>arr.get(mid)){
+      left = mid  +1;
+    }else if (target<arr.get(mid)){
+      right = mid-1;
+    }else if (target==arr.get(mid)){
+      right = mid-1;
+    }
+  }
+
+  if (left==arr.size()) return -1; // target 比所有元素都大
+
+  return left;
+}
+
+```
+
+---
 
