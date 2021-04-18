@@ -740,6 +740,7 @@ int right_bound(int[] nums, int target) {
 | [\#322 零钱兑换](http://www.silince.cn/2020/07/20/LeetSilinceCode/#322-零钱兑换) | 动态规划                       |
 | [\#72. 编辑距离](https://labuladong.gitbook.io/algo/dong-tai-gui-hua-xi-lie/1.2-zi-xu-lie-lei-xing-wen-ti/bian-ji-ju-li) | 子序列问题/动态规划            |
 | [\#300. 最长递增子序列]()                                    | 子序列问题/动态规划            |
+| [乘积最大]()⭐️                                                | 动态规划                       |
 | [\#354. 俄罗斯套娃信封问题]()                                | 子序列问题/动态规划            |
 | [\#53. 最大子序和]()                                         | 子序列问题/最大子数组/动态规划 |
 | [\#1143. 最长公共子序列]()                                   | 最长公共子序列问题/动态规划    |
@@ -10074,6 +10075,70 @@ private int leftBinarySearch(ArrayList<Integer> arr, int target) {
   return left;
 }
 
+```
+
+---
+
+
+
+## 乘积最大
+
+- 中等
+- 2021.04.13：
+
+> 题目：
+
+```xml
+设有一个长度为N的数字串，要求选手使用K个乘号将它分成K+1个部分，找出一种分法，使得这K+1个部分的乘积能够为最大。
+同时，为了帮助选手能够正确理解题意，主持人还举了如下的一个例子：
+有一个数字串：312， 当N=3，K=1时会有以下两种分法：
+3*12=36
+31*2=62
+这时，符合题目要求的结果是：31*2=62
+```
+
+> 分析：⚠️：j<=m<i
+
+![image-20210418200828968](/assets/imgs/image-20210418200828968.png)
+
+举例：`dp[2][1] = max(dp[2][1],dp[1][0]*mul[2][2]) = max(0,1*2) = 2; 2<=m<1`
+
+`dp[3][1] = max(dp[3][1],dp[1][0]*mul[2][3],dp[2][0]*mul[3][3]) = max(0,1*23,12*3) = 36; 3<=m<1`
+
+![IMG_96D1A48B2F85-1](/assets/imgs/IMG_96D1A48B2F85-1.jpeg)
+
+
+
+> 代码：
+
+```java
+public static int getResult(String str,int n){
+  char[] arr = str.toCharArray();
+  int len = str.length();
+  int[][] dp = new int[len][n+1];
+  // 初始化dp[i][0]:前i个字符有0个乘号时的最大值
+  for (int i = 0; i < str.length(); i++) {
+    for (int j = 0; j <= i; j++) {
+      dp[i][0] = dp[i][0]*10 +(arr[j]-'0');
+    }
+  }
+
+  // 状态转移 dp[i,j] = max(dp[i][j],dp[m,j-1]*mul[m+1,i]) j<=m<i
+  // mul[i][j]:字符串的第i位到第j位表示的数字
+  for (int j = 1; j < n + 1; j++) {
+    for (int i = len-1; i >= j; i--) {
+      // 取最大值
+      for (int m = j-1; m < i; m++) {
+        dp[i][j] = Math.max(dp[i][j],dp[m][j-1]*getMul(str,m+1,i));
+      }
+    }
+  }
+  return dp[len-1][n];
+}
+
+private static int getMul(String s,int start, int end) {
+  return Integer.parseInt(s.substring(start,end+1));
+}
 ```
 
 ---
