@@ -10,8 +10,6 @@ tags: [LeetCode,数据结构 ]
 
 > [labuladong 的算法小抄 技巧模版总结](https://labuladong.gitbook.io/algo/)   [repo](https://github.com/labuladong/fucking-algorithm)    [公众号完整文章](https://mp.weixin.qq.com/s/AWsL7G89RtaHyHjRPNJENA)
 >
-> now: 背包类型问题
->
 > [刷题目录](https://github.com/CyC2018/CS-Notes/blob/master/notes/Leetcode%20%E9%A2%98%E8%A7%A3%20-%20%E7%9B%AE%E5%BD%95.md)
 >
 > [如何科学的刷 LeetCode ](https://zhuanlan.zhihu.com/p/96883783)
