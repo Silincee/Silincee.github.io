@@ -690,6 +690,8 @@ final V remove(Object key, int hash, Object value) {
 
 size 方法需要重点说明一下。爱思考的小伙伴可能就会想到，并发情况下，有可能在统计期间，数组元素个数不停的变化，而且，整个表还被分成了 N个 Segment，怎样统计才能保证结果的准确性呢？我们一起来看下吧。
 
+**其实源码中前两行的注释也说的非常清楚了。我们先采用乐观的方式，认为在统计 size 的过程中，并没有发生 put， remove 等会改变 Segment 结构的操作。但是，如果发生了，就需要重试。如果重试2次都不成功(执行三次，第一次不能叫做重试)，就只能强制把所有 Segment 都加锁之后，再统计了，以此来得到准确的结果。**
+
 ```java
 public int size() {
   // Try a few times to get accurate count. On failure due to
@@ -751,7 +753,7 @@ public int size() {
 }
 ```
 
-其实源码中前两行的注释也说的非常清楚了。我们先采用乐观的方式，认为在统计 size 的过程中，并没有发生 put， remove 等会改变 Segment 结构的操作。但是，如果发生了，就需要重试。如果重试2次都不成功(执行三次，第一次不能叫做重试)，就只能强制把所有 Segment 都加锁之后，再统计了，以此来得到准确的结果。
+
 
 
 
@@ -930,6 +932,8 @@ private final Node<K,V>[] initTable() {
 
 ## addCount()方法
 
+> 如何统计ConcurrentHashMap的元素个数？
+
 若 put 方法元素插入成功之后，则会调用此方法，传入参数为 addCount(1L, binCount)。这个方法的目的很简单，就是把整个 table 的元素个数加 1 。但是，实现比较难。
 
 我们先思考一下，如果让我们自己去实现这样的统计元素个数，怎么实现？
@@ -938,11 +942,11 @@ private final Node<K,V>[] initTable() {
 
 **这样虽然也可以实现。但是，设想一下现在有非常多的线程，都在同一时间操作这个 size 变量，将会造成特别严重的竞争。所以，基于此，这里做了更好的优化。让这些竞争的线程，分散到不同的对象里边，单独操作它自己的数据(计数变量)，用这样的方式尽量降低竞争。到最后需要统计 size 的时候，再把所有对象里边的计数相加就可以了。**
 
-上边提到的 size ，在此用 baseCount 表示。分散到的对象用 CounterCell 表示，对象里边的计数变量用 value 表示。注意这里的变量都是 volatile 修饰的。
+**上边提到的 size ，在此用 baseCount 表示。分散到的对象用 CounterCell 表示，对象里边的计数变量用 value 表示。注意这里的变量都是 volatile 修饰的。**
 
-当需要修改元素数量时，线程会先去 CAS 修改 baseCount 加1，若成功即返回。若失败，则线程被分配到某个 CounterCell ，然后操作 value 加1。若成功，则返回。否则，给当前线程重新分配一个 CounterCell，再尝试给 value 加1。（这里简略的说，实际更复杂）
+**当需要修改元素数量时，线程会先去 CAS 修改 baseCount 加1，若成功即返回。若失败，则线程被分配到某个 CounterCell ，然后操作 value 加1。若成功，则返回。否则，给当前线程重新分配一个 CounterCell，再尝试给 value 加1。（这里简略的说，实际更复杂）**
 
-CounterCell 会组成一个数组，也会涉及到扩容问题。所以，先画一个示意图帮助理解一下。
+**CounterCell 会组成一个数组，也会涉及到扩容问题。所以，先画一个示意图帮助理解一下。**
 
 ![image-20210119185911183](/assets/imgs/image-20210119185911183.png)
 
