@@ -420,29 +420,29 @@ public List<String> resolveSessionIds(HttpServletRequest request) {
 ```java
 @Override
 public List<String> readCookieValues(HttpServletRequest request) {
-	//从请求头中获取cookies
-	Cookie[] cookies = request.getCookies();
-	List<String> matchingCookieValues = new ArrayList<>();
-	if (cookies != null) {
-		for (Cookie cookie : cookies) {
-			//获取存放sessionid的那个cookie，cookieName默认是SESSION
-			if (this.cookieName.equals(cookie.getName())) {
-				//默认的话sessionid是加密的
-				String sessionId = (this.useBase64Encoding
-						? base64Decode(cookie.getValue())
-						: cookie.getValue());
-				if (sessionId == null) {
-					continue;
-				}
-				if (this.jvmRoute != null && sessionId.endsWith(this.jvmRoute)) {
-					sessionId = sessionId.substring(0,
-							sessionId.length() - this.jvmRoute.length());
-				}
-				matchingCookieValues.add(sessionId);
-			}
-		}
-	}
-	return matchingCookieValues;
+  //从请求头中获取cookies
+  Cookie[] cookies = request.getCookies();
+  List<String> matchingCookieValues = new ArrayList<>();
+  if (cookies != null) {
+    for (Cookie cookie : cookies) {
+      //获取存放sessionid的那个cookie，cookieName默认是SESSION
+      if (this.cookieName.equals(cookie.getName())) {
+        //默认的话sessionid是加密的
+        String sessionId = (this.useBase64Encoding
+                            ? base64Decode(cookie.getValue())
+                            : cookie.getValue());
+        if (sessionId == null) {
+          continue;
+        }
+        if (this.jvmRoute != null && sessionId.endsWith(this.jvmRoute)) {
+          sessionId = sessionId.substring(0,
+                                          sessionId.length() - this.jvmRoute.length());
+        }
+        matchingCookieValues.add(sessionId);
+      }
+    }
+  }
+  return matchingCookieValues;
 }
 ```
 
@@ -490,11 +490,7 @@ private BoundHashOperations<Object, Object, Object> getSessionBoundHashOperation
 String getSessionKey(String sessionId) {
   return this.namespace + "sessions:" + sessionId;
 }
-
-
-
-
----
+```
 
 
 
