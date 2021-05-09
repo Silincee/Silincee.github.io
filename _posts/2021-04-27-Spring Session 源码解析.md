@@ -319,10 +319,9 @@ public void writeCookieValue(CookieValue cookieValue) {
   //将设置好的cookie放入响应头中
   response.addHeader("Set-Cookie", sb.toString());
 }
+```
 
-
-
-
+---
 
 ## 读取session的过程
 
@@ -365,6 +364,8 @@ public HttpSessionWrapper getSession(boolean create) {
 }
 
 ```
+
+
 
 2）getRequestedSession()方法
 
