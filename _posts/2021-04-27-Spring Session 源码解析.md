@@ -32,7 +32,7 @@ tags: [登陆验证, 分布式,]
 
 ### ip_hash负载均衡策略
 
-> 根据Ip做hash计算，同一个ip的请求始终会定位到一台web服务器上。
+> 根据ip做hash计算，同一个ip的请求始终会定位到一台web服务器上。
 
 优点:
 
@@ -43,7 +43,7 @@ tags: [登陆验证, 分布式,]
 缺点
 
 - session还是存在服务器中的，所以服务器重启可能导致部分session丢失，影响业务，如部分用户需要重新登录
-- 如果服务器需要水平扩展，rehash后session重新分布，也会有一部分用户路由不到正确的session
+- 如果服务器需要水平扩展，rehash后session重新分布，也会有一部分用户路由不到正确的服务器。
 
 ### session复制
 
@@ -56,7 +56,7 @@ tags: [登陆验证, 分布式,]
 
 缺点：
 
-- Session同步会有延迟，会影带宽
+- Session同步会有延迟，会影响带宽
 - 受限于内存资源，在大用户量，高并发，高流量场景，会占用大量内存
 - 增加服务器不灵活，不易于扩展
   
@@ -551,6 +551,20 @@ public class ServletRequestWrapper implements ServletRequest {
 - 每个责任对象专注于做自己的事情，职责明确
 
 最佳应用场景：有多个对象可以处理同一个请求时，比如:多级请求、请假/加薪等审批流程、JavaWeb中Tomcat对 Encoding 的处理、拦截器。
+
+
+
+
+
+# 总结
+
+springsession主要是用来解决分布式场景下session不一致的问题的，常见的方案还有ip_hash绑定和session复制。ip_hash绑定的话是通过nginx的负载均衡策略来实现，来自同一个ip的请求始终会落到同一台服务器上。这种方式可以支持水平扩展，不过扩展时的rehash会导致部分用户路由不到正确的服务器，另外服务器宕机重启也会导致部分session的丢失，需要用户重新登录。session复制方案的话是用tomcat集群自带的session复制来实现的，它会把session通过组播的方式发送到其他服务器上，解决了前面单个服务器宕机的问题，不过这种方式会占用大量内存，也不方便服务器的扩展，同步还会影响带宽。
+
+对于分布式、高并发的场景，采用session统一存储是一个比较适合的方案。我项目里的话主要还是采用redis来实现的，搭配redis的集群、主从复制和持久化机制也可以实现服务的高可用，同时扩展起来了非常方便。开发中的话我是采用SpringSession来实现的，只需要加上注解和修改一下配置就可以实现session的统一存储，而且使用方式和单机版也没有什么差别。它的话其实就是增加了一个`SessionRepositoryFilter`过滤器，在执行该过滤器的方法时就会用装饰者模式（HttpServletRequest对HttpServletRequest做了一次包装增加了http的功能，之后SessionRepositoryRequestWrapper对他又进行了一次包装增加了session的功能）对当前的请求和响应包装成对应的`SessionRepositoryWrapper`类来拓展被装饰对象的功能。实际上就是重写了getSession()方法来改变了session的存储和读取逻辑，采用配置中的redis存取方式。
+
+
+
+
 
 
 
