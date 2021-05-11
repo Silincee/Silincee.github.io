@@ -8,13 +8,11 @@ tags: [LeetCode,数据结构 ]
 
 # PLAN
 
-> [labuladong 的算法小抄 技巧模版总结](https://labuladong.gitbook.io/algo/)   [repo](https://github.com/labuladong/fucking-algorithm)    [公众号完整文章](https://mp.weixin.qq.com/s/AWsL7G89RtaHyHjRPNJENA)
->
-> [刷题目录](https://github.com/CyC2018/CS-Notes/blob/master/notes/Leetcode%20%E9%A2%98%E8%A7%A3%20-%20%E7%9B%AE%E5%BD%95.md)
->
-> [如何科学的刷 LeetCode ](https://zhuanlan.zhihu.com/p/96883783)
+如何正确地开启刷题生活：
 
-
+- [如何科学的刷 LeetCode ](https://zhuanlan.zhihu.com/p/96883783)
+- [labuladong 的算法小抄 技巧模版总结](https://labuladong.gitbook.io/algo/)   [repo](https://github.com/labuladong/fucking-algorithm)    [公众号完整文章](https://mp.weixin.qq.com/s/AWsL7G89RtaHyHjRPNJENA)
+- [刷题目录](https://github.com/CyC2018/CS-Notes/blob/master/notes/Leetcode 题解 - 目录.md)
 
 # 算法思想
 
@@ -249,7 +247,7 @@ public int  getResult(int[][] intvs){
 
 ## 二分查找
 
-> [二分查找](https://labuladong.gitbook.io/algo/di-ling-zhang-bi-du-xi-lie/er-fen-cha-zhao-xiang-jie)
+> 传送门：[Silince带你理解二分查找的船新版本！再也不怕写错二分查找啦(大概😤](http://www.silince.cn/2021/04/19/我再也不怕写错二分查找啦-大概/)
 
 | 题目                                                         | 算法思想 |
 | ------------------------------------------------------------ | -------- |
@@ -7305,7 +7303,6 @@ public int longestCommonSubsequence(String s1,String s2,int m,int n){
 - 2020.10.01：😭  
 
 > 题目：
->
 
 ```xml
 给定两个二叉树，想象当你将它们中的一个覆盖到另一个上时，两个二叉树的一些节点便会重叠。
@@ -7314,7 +7311,6 @@ public int longestCommonSubsequence(String s1,String s2,int m,int n){
 ```
 
 > 分析：
->
 
 需要注意：这两颗树并不是长得完全一样，有的树可能有左节点，但有的树没有。
 对于这种情况，我们统一的都把他们挂到树 1 上面就可以了，对于上面例子中的两颗树，合并起来的结果如下：
@@ -7332,7 +7328,6 @@ public int longestCommonSubsequence(String s1,String s2,int m,int n){
 递归函数内：将两个树的节点相加后，再赋给树 1 的节点。再递归的执行两个树的左节点，递归执行两个树的右节点
 
 > 代码：
->
 
 ```java
 class Solution {
@@ -9531,7 +9526,6 @@ public static void main(String[] args) {
 资源类的4种写法：
 
 > synchronized (Object的wait和notifyAll)
->
 
 ```java
 static class ShareResource {
@@ -9578,7 +9572,6 @@ static class ShareResource {
 ```
 
 > ReentrantLock + condition (await/signal)
->
 
 ```java
 static class ShareResource {
@@ -9648,7 +9641,6 @@ static class ShareResource {
 ```
 
 > LockSupport(park/unpark)
->
 
 ```java
 static Thread t1 = null;
@@ -9738,7 +9730,6 @@ public static void main(String[] args) {
 ```
 
 > 信号量Semaphore
->
 
 ```java
 static class ShareResource {
