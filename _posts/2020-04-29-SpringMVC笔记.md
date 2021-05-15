@@ -2,7 +2,7 @@
 layout: post
 title:  "springMVC笔记"
 date:   2020-04-29 20:31:06 +0800--
-categories: [Java]
+categories: [Java, 框架, ]
 tags: [JavaEE, spring, ]  
 
 ---
@@ -524,8 +524,8 @@ return "success"; }
    不能被使用。解决问题就是需要配置静态资源不进行拦截，在springmvc.xml配置文件添加如下配置
 
     	1. mvc:resources标签配置不过滤
-         	1. location元素表示webapp目录下的包下的所有文件
-         	2. mapping元素表示以/static开头的所有请求路径，如/static/a 或者/static/a/b
+    	  	1. location元素表示webapp目录下的包下的所有文件
+    	  	2. mapping元素表示以/static开头的所有请求路径，如/static/a 或者/static/a/b
 
    ```xml
     <!-- 设置静态资源不过滤 -->

@@ -2,7 +2,7 @@
 layout: post
 title:  "Spring Data JPA"
 date:   2020-07-11 21:40:06 +0800--
-categories: [Java]
+categories: [Java, 框架, ]
 tags: [Spring, JavaEE, ]  
 ---
 
