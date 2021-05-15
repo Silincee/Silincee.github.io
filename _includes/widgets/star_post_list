@@ -2,7 +2,7 @@
     <div class="widget-title"><i class="icon-star"> 推荐文章</i></div>
 
     <ul class="post-list">
-        <li class="post-list-item"><a class="post-list-link" href="http://www.silince.cn/2020/08/26/Java%E9%AB%98%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">Java高并发编程</a></li>
+        <li class="post-list-item"><a class="post-list-link" href="http://www.silince.cn/2020/12/16/%E4%BB%8EReentrantLock%E7%9A%84%E5%AE%9E%E7%8E%B0%E7%9C%8BAQS%E7%9A%84%E5%8E%9F%E7%90%86/">从ReentrantLock的实现看AQS的原理</a></li>
     </ul>
 
     <ul class="post-list">
