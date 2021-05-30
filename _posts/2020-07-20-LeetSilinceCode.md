@@ -26,7 +26,7 @@ tags: [LeetCode,数据结构 ]
 | [\#345 反转字符串中的元音字符](http://www.silince.cn/2020/07/20/LeetSilinceCode/#345-反转字符串中的元音字符) | 双指针          |
 | [\#680 回文字符串](http://www.silince.cn/2020/07/20/LeetSilinceCode/#680-%E5%9B%9E%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2) | 双指针          |
 | [\#88 合并两个有序数组](http://www.silince.cn/2020/07/20/LeetSilinceCode/#88-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84) | 双指针          |
-| [\#141 判断链表是否存在环](http://www.silince.cn/2020/07/20/LeetSilinceCode/#141-判断链表是否存在环) | 双指针          |
+| [\#141 判断链表是否存在环](http://www.silince.cn/2020/07/20/LeetSilinceCode/#141-判断链表是否存在环) ⭐️ | 快慢指针        |
 | [\#524 最长子序列](http://www.silince.cn/2020/07/20/LeetSilinceCode/#524-最长子序列) | 双指针          |
 
 
@@ -1048,20 +1048,22 @@ int BFS(Node start, Node target) {
 1. 舍得用变量，千万别想着节省变量，否则容易被逻辑绕晕
 2. head 有可能需要改动时，先增加一个 假head，返回的时候直接取 假head.next，这样就不需要为修改 head 增加一大堆逻辑了。
 
-| 题目                                                         | 算法思想 |
-| ------------------------------------------------------------ | -------- |
-| [\#160. 相交链表](https://leetcode-cn.com/problems/intersection-of-two-linked-lists/) |          |
-| [\#206. 反转链表](https://leetcode-cn.com/problems/reverse-linked-list/) |          |
-| [\#21.合并两个有序链表](https://leetcode-cn.com/problems/merge-two-sorted-lists/) |          |
-| [\#143. 重排链表](https://leetcode-cn.com/problems/reorder-list/) |          |
-| [\#83.删除排序链表中的重复元素](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/) |          |
-| [\#19.删除链表的倒数第 N 个结点](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/) |          |
-| [\#24.两两交换链表中的节点](https://leetcode-cn.com/problems/swap-nodes-in-pairs/) |          |
-| [\#445. 两数相加 II](https://leetcode-cn.com/problems/add-two-numbers-ii/) |          |
-| [\#234. 回文链表](https://leetcode-cn.com/problems/palindrome-linked-list/) |          |
-| [\#725. 分隔链表](https://leetcode-cn.com/problems/split-linked-list-in-parts/) |          |
-| [\#328. 奇偶链表](https://leetcode-cn.com/problems/odd-even-linked-list/) |          |
-| [\#25. K 个一组翻转链表](https://leetcode-cn.com/problems/reverse-nodes-in-k-group/) |          |
+| 题目                                                         | 算法思想      |
+| ------------------------------------------------------------ | ------------- |
+| [\#160. 两链表相交](https://leetcode-cn.com/problems/intersection-of-two-linked-lists/) ⭐️ | 无环/有环     |
+| [\#141 判断链表是否存在环](http://www.silince.cn/2020/07/20/LeetSilinceCode/#141-判断链表是否存在环) ⭐️ | 快慢指针      |
+| [\#142. 环形链表 II](https://leetcode-cn.com/problems/linked-list-cycle-ii/) ⭐️ | 数学+快慢指针 |
+| [\#206. 反转链表](https://leetcode-cn.com/problems/reverse-linked-list/) |               |
+| [\#21.合并两个有序链表](https://leetcode-cn.com/problems/merge-two-sorted-lists/) |               |
+| [\#143. 重排链表](https://leetcode-cn.com/problems/reorder-list/) |               |
+| [\#83.删除排序链表中的重复元素](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/) |               |
+| [\#19.删除链表的倒数第 N 个结点](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/) |               |
+| [\#24.两两交换链表中的节点](https://leetcode-cn.com/problems/swap-nodes-in-pairs/) |               |
+| [\#445. 两数相加 II](https://leetcode-cn.com/problems/add-two-numbers-ii/) |               |
+| [\#234. 回文链表](https://leetcode-cn.com/problems/palindrome-linked-list/) |               |
+| [\#725. 分隔链表](https://leetcode-cn.com/problems/split-linked-list-in-parts/) |               |
+| [\#328. 奇偶链表](https://leetcode-cn.com/problems/odd-even-linked-list/) |               |
+| [\#25. K 个一组翻转链表](https://leetcode-cn.com/problems/reverse-nodes-in-k-group/) |               |
 
 
 
@@ -4400,6 +4402,113 @@ class LRUCache {
             this.value = value;
         }
     }
+}
+```
+
+---
+
+
+
+## [\#160. 相交链表](https://leetcode-cn.com/problems/intersection-of-two-linked-lists/)
+
+- 简单
+- 2021.05.26
+
+> 题目：
+
+```xml
+编写一个程序，找到两个单链表相交的起始节点。
+```
+
+![image-20210526163511586](/assets/imgs/image-20210526163511586.png)
+
+
+
+> 分析：
+
+先判断单链表有没有环，设置两个指针，一个走一步，一个走两步，如果能相遇则说明存在环。[\#141 判断链表是否存在环](http://www.silince.cn/2020/07/20/LeetSilinceCode/#141-判断链表是否存在环) 
+
+
+
+> case1:无环场景下(两个都没环)
+>
+> 可以理解成两个人速度一致， 走过的路程一致。那么肯定会同一个时间点到达终点。如果到达终点的最后一段路两人都走的话，那么这段路上俩人肯定是肩并肩手牵手的。
+
+设链表A的长度为a+c，链表B的长度为b+c，a为链表A不公共部分，b为链表B不公共部分，c为链表A、B的公共部分。
+
+![image-20210526165538080](/assets/imgs/image-20210526165538080.png)
+
+将两个链表连起来，A->B和B->A，长度：a+c+b+c=b+c+a+c：
+
+- 若链表AB相交，则a+c+b与b+c+a就会抵消，**它们就会在c处相遇**；
+- 若不相交，则c为null，则a+b=b+a，它们各自移动到尾部循环结束，即返回null。
+
+![相交链表.png](/assets/imgs/e86e947c8b87ac723b9c858cd3834f9a93bcc6c5e884e41117ab803d205ef662-相交链表.png)
+
+
+
+> case2:两个都有环，如何判断两链表是否相交
+
+若两个链表都有环，则分别得到每个链表的入环节点node1，node2，然后进行有环单链表判断是否相交。 [\#142. 环形链表 II](https://leetcode-cn.com/problems/linked-list-cycle-ii/)
+
+- 单链表相交那肯定是同一个环，所以入环节点肯定是同一个。
+- 如果也想要求相交的起始节点的话，就和case1一样，只不过需要把连接点改成环的起始节点。
+
+
+
+> case3:一个有环，一个没环：不用判断了，肯定两链表不相交
+
+
+
+> 代码：
+
+```java
+// 无环场景下
+public class Solution {
+  public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+    ListNode A = headA, B = headB;
+    while (A != B) {
+      A = A != null ? A.next : headB;
+      B = B != null ? B.next : headA;
+    }
+    return A;  // 不相交也会返回null
+  }
+}
+
+// 有环场景下
+public static ListNode  getIntersectionNode(ListNode headA,ListNode headB){
+  ListNode cycleNodeA = detectCycle(headA);
+  ListNode cycleNodeB = detectCycle(headB);
+
+  if (cycleNodeA==cycleNodeB){ // 如果入环节点相同,则两有环单链表相交
+    ListNode A = headA, B = headB;
+    while (A != B) {
+      A = A != cycleNodeA ? A.next : headB;
+      B = B != cycleNodeA ? B.next : headA;
+    }
+    return A;
+  }
+
+  return null; // 两有环单链表不相交
+}
+
+// 返回入环节点
+public static ListNode detectCycle(ListNode head) {
+  if (head==null||head.next==null) return null;
+  ListNode quick = head;
+  ListNode slow = head;
+  while (true){
+    if(quick==null||quick.next==null) return null;
+    quick = quick.next.next;
+    slow = slow.next;
+    if (quick==slow) break;
+  }
+  quick = head;
+  while (slow!=quick){
+    slow = slow.next;
+    quick = quick.next;
+  }
+  return quick;
 }
 ```
 
@@ -9045,9 +9154,9 @@ public String replaceSpace(String s) {
 
 如果没有重复字符，我们可以选择逐个添加的方式，回溯求解，在没有添加过的字符里面进行选择和添加。那么这一题不一样，字符会出现重复，回溯剪枝时需要注意，**如果选择新字符后的串之前已经遍历过了，直接跳过，注意把新字符从选择列表中移除。**
 
-![IMG_7676D34FDF79-1](/Users/silince/Develop/博客/blog_to_git/assets/imgs/IMG_7676D34FDF79-1.jpeg)
+![IMG_7676D34FDF79-1](/assets/imgs/IMG_7676D34FDF79-1.jpeg)
 
-***方法二：***
+**⭐️ 方法二：**
 
 因此该题更适合用字符交换的方式求解【方法二】。字符串可以包含重复的字符，因此返回数组的长度我们不得而知，直接交换最终得到的字符串也会重复，要去重复可以用set容器来存储得到的结果，最后返回结果集的数组形式即可。
 

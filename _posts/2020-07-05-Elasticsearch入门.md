@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Elasticsearch"
+title:  "Elasticsearch入门"
 date:   2020-07-05 20:40:06 +0800--
 categories: [Java]
 tags: [Elasticsearch, JavaEE, ]  
@@ -84,11 +84,11 @@ docker run -e ES_JAVA_OPTS="-Xms256 -Xmx256m" -d -p 9200:9200  -p 9300:9300 --na
 
 > /Users/silince/Develop/MagicDontTouch/IdeaProjects/ElasticSearch/springdata-elasticsearch
 
-### 1. 什么是Spring Data Elasticsearch
+## 1. 什么是Spring Data Elasticsearch
 
 Spring Data 是一个用于简化数据库访问，并支持云服务的开源框架。其主要目标是使得对数据的访问变得方便快捷，并支持map-reduce框架和云计算数据服务。Spring Data可以极大的简化JPA的写法，可以在几乎不用写实现的情况下，实现对数据的访问和操作。除了CRUD外，还包括如分页、排序等一些常用的功能。
 
-### 2. 搭建工程
+## 2. 搭建工程
 
 1. 创建一个pom工程
 2. 添加相关坐标
@@ -97,30 +97,30 @@ Spring Data 是一个用于简化数据库访问，并支持云服务的开源�
    2. `elasticsearch:repositories` 包扫描器，扫描dao
    3. 配置 `ElasticsearchTemplate`对象，就是一个bean
 
-### 3. 管理索引库
+## 3. 管理索引库
 
 1. 创建一个实体类，其实就是一个JavaBean(pojo)映射到一个文档上，需要添加一些注解进行标注
 2. 创建一个Dao，需要继承ElasticSearchRepository接口。
 3. 编写测试代码
 
-### 4. 创建索引
+## 4. 创建索引
 
 直接使用ElasticsearchTemplate对象的createIndex方法创建索引，并配置映射关系
 
-### 5. 添加文档
+## 5. 添加文档
 
 1. 创建一个Article对象
 2. 使用ArticleRepository对象向索引库中添加文档 。
 
-### 6. 删除文档
+## 6. 删除文档
 
 直接使用ArticleRepository对象的deleteById方法直接删除
 
-### 7. 查询文档
+## 7. 查询文档
 
 直接使用ArticleRepository对象的查询方法
 
-### 8. 自定义查询方法
+## 8. 自定义查询方法
 
 根据SpringDataES的命名规则来命名，无需自己实现。
 
@@ -130,7 +130,7 @@ ps：
 
 2. 可以对搜索的内容先分词然后再进行查询，每个词之间都是and的关系
 
-### 9. 使用原生的查询条件查询
+## 9. 使用原生的查询条件查询
 
 1. 创建NativeSearchQuery对象，设置查询条件(QueryBuilder)
 2. 使用ElasticSearchTemplate对象执行查询

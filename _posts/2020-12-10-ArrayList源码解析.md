@@ -2,7 +2,7 @@
 layout: post
 title: "ArrayList源码解析"
 date: 2020-12-10 11:21:16 +0800--
-categories: [Java, ]
+categories: [Java, 数据结构, ]
 tags: [Java, ArrayList, ]  
 
 ---
