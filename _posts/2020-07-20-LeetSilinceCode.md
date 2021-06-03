@@ -1377,8 +1377,6 @@ s 由英文字母、数字、符号和空格组成
 
 分析：
 
-这个题终于有了点新意，不是一套框架就出答案，不过反而更简单了，稍微改一改框架就行了：
-
 ```java
 public int lengthOfLongestSubstring(String s) {
 
