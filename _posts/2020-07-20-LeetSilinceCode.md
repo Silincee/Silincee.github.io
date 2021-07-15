@@ -2944,6 +2944,7 @@ class Solution {
 
 - Medium
 - 2020.10.01：😭  
+- 2021.07.15：😎
 
 题目：
 
@@ -4126,6 +4127,7 @@ public int hasCycleLength(ListNode head) {
 
 - Medium
 - 2020.10.01：😭  
+- 2021.07.15：😎
 
 题目：
 
@@ -4178,6 +4180,7 @@ public List<Integer> preorderTraversal(TreeNode root) {
 
 - Medium
 - 2020.10.01：😭  
+- 2021.07.15：😎
 
 题目：
 
