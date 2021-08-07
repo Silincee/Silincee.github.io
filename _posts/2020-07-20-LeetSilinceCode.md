@@ -1082,7 +1082,7 @@ int BFS(Node start, Node target) {
 | [\#543 两节点的最长路径 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#543-二叉树的直径) | 递归          |
 | [\#226 翻转树 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#226-%E7%BF%BB%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91) | 前序遍历/递归 |
 | [\#116 填充每个节点的下一个右侧节点指针 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#116-填充每个节点的下一个右侧节点指针) | 前序遍历/递归 |
-| [\#114. 二叉树展开为链表 ](http://www.silince.cn/2020/07/20/LeetSilinceCode/#114-二叉树展开为链表) | 后序遍历/递归 |
+| [\#114. 二叉树展开为链表 ](http://www.silince.cn/2020/07/20/LeetSilinceCode/#114-二叉树展开为链表) ⭐️ | 后序遍历/递归 |
 | [\#617 归并两棵树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#617-%E5%90%88%E5%B9%B6%E4%BA%8C%E5%8F%89%E6%A0%91) | 递归          |
 | [\#654. 最大二叉树 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#654-最大二叉树) | 递归          |
 | [\#105. 从前序与中序遍历序列构造二叉树 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#105-从前序与中序遍历序列构造二叉树) | 递归          |
@@ -6563,6 +6563,16 @@ dp[i][j] = dp[i-1][j] + dp[i-1][j-nums[i-1]];
 然后，根据状态转移方程写出动态规划算法：
 
 ```java
+int findTargetSumWays(int[] nums, int target) {
+    int sum = 0;
+    for (int n : nums) sum += n;
+    // 这两种情况，不可能存在合法的子集划分
+    if (sum < target || (sum + target) % 2 == 1) {
+        return 0;
+    }
+    return subsets(nums, (sum + target) / 2);
+}
+
 /* 计算 nums 中有几个子集的和为 sum */
 int subsets(int[] nums, int sum) {
     int n = nums.length;
@@ -7200,7 +7210,7 @@ class Solution {
         }
         int Left = depth(node.left);
         int Right = depth(node.right);
-        max=Math.max(Left+Right,maxd);//将每个节点最大直径(左子树深度+右子树深度)当前最大值比较并取大者
+        max=Math.max(Left+Right,max);//将每个节点最大直径(左子树深度+右子树深度)当前最大值比较并取大者
         return Math.max(Left,Right)+1;//返回节点深度
     }
 }
