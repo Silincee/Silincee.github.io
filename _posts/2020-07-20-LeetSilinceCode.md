@@ -798,7 +798,7 @@ for 状态1 in 状态1的所有取值：
 
 给你一个可装载重量为 `W` 的背包和 `N` 个物品，每个物品有重量和价值两个属性。其中第 `i` 个物品的重量为 `wt[i]`，价值为 `val[i]`，现在让你用这个背包装物品，最多能装的价值是多少？
 
-<img src="/Users/silince/Pictures/Typora/image-20210318111553983.png" alt="image-20210318111553983" style="zoom:67%;" />
+![image-20210822221958578](/assets/imgs/image-20210822221958578.png)
 
 举个简单的例子，输入如下：
 
@@ -6777,31 +6777,31 @@ F(N) = F(N - 1) + F(N - 2), 其中 N > 1.
 ```java
 // 方法一
 class Solution {
-    public int fib(int N) {
-      if (N==0) return 0;
-		  if (N==1||N==2) return 1;
-		  return fib(N-1)+fib(N-2);
-    }
+  public int fib(int N) {
+    if (N==0) return 0;
+    if (N==1||N==2) return 1;
+    return fib(N-1)+fib(N-2);
+  }
 }
 
 // 方法二
 class Solution {
-    public int fib(int N) {
-		  if (N<1) return 0;
-		  // 备忘录全初始化为0
-		  int[] memo = new int[N+1];
-		  // 进行带备忘录的回归
-		  return helper(memo,N);
-    }
-  
-    public int helper(int[] memo,int n){
-    	// base case
-		  if (n==1||n==2) return 1;
-		  // 已经计算过
-		  if (memo[n] !=0) return memo[n];
-		  memo[n] = helper(memo,n-1)+helper(memo,n-2);
-		  return memo[n];
-	}
+  public int fib(int N) {
+    if (N<1) return 0;
+    // 备忘录全初始化为0
+    int[] memo = new int[N+1];
+    // 进行带备忘录的回归
+    return helper(memo,N);
+  }
+
+  public int helper(int[] memo,int n){
+    // base case
+    if (n==1||n==2) return 1;
+    // 已经计算过
+    if (memo[n] !=0) return memo[n];
+    memo[n] = helper(memo,n-1)+helper(memo,n-2);
+    return memo[n];
+  }
 }
 
 // 方法三
@@ -6809,15 +6809,15 @@ class Solution {
   public int fib(int N) {
     if (N==0) return 0;
     if (N == 1) return 1;  
-      
-		int[] dp = new int[N+1];
-		// base case
-		dp[0] = 0;
+
+    int[] dp = new int[N+1];
+    // base case
+    dp[0] = 0;
     dp[1] = 1;
-		for (int i = 2; i <=N ; i++) {
-			dp[i]=dp[i-1]+dp[i-2];
-		}
-		return dp[N];
+    for (int i = 2; i <=N ; i++) {
+      dp[i]=dp[i-1]+dp[i-2];
+    }
+    return dp[N];
   }
 }
 // 再优化
