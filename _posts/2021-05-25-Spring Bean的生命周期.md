@@ -361,7 +361,7 @@ Spring对Bean进行实例化（相当于 new ）,对于BeanFactory一般是延�
 
 ## InstantiationAwareBeanPostProcessor
 
-InstantiationAwareBeanPostProcessor这个接口主要是帮助你在Bean实例化之前做一些操作。它继承自 BeanPostProcessor接口，其中 postProcessBeforeInstantiation()方法是在目标对象实例化之前调用的方法，可以返回目标实例的一个代理用来代替目标实例。postProcessPropertyValues方法是在属性值被设置到目标实例之前调用，可以修改属性的设值。
+**InstantiationAwareBeanPostProcessor**这个接口主要是帮助你在Bean实例化之前做一些操作。它继承自 BeanPostProcessor接口，其中 postProcessBeforeInstantiation()方法是在目标对象实例化之前调用的方法，可以返回目标实例的一个代理用来代替目标实例。postProcessPropertyValues方法是在属性值被设置到目标实例之前调用，可以修改属性的设值。
 
 ## 设置属性（依赖注入）
 
@@ -411,10 +411,10 @@ BeanPostProcess的postProcessAfterInitialzation(Object bean, String beanName ) �
 
 ## 小结
 
-Spring 中的 bean 生命周期 
+Spring 中的 bean 生命周期流程：
 
 - 注册阶段：主要任务是通过各种BeanDefinitionReader读取各种配置来源信息（比如读取xml文件、注解、配置类等），并将其转化为BeanDefintion的过程(**定义并描述一个Spring Bean，方便后续解析实例化等操作,是一个ConcurrentHashMap**)。如果存在父子依赖关系，则把BeanDefinition转化为RootBeanDefinition。
-- **实例化阶段：将BeanDefinition中的Bean实例放到包装类BeanWrapper中**。然后进行对象的属性赋值，如果实现了各种`Aware`接口则调用相应的方法(aware 的目的是为了让bean获取spring容器的各种服务)。
+- **实例化阶段：实例化的对象被包装在BeanWrapper对象中**，另外还有InstantiationAwareBeanPostProcessor接口在实例化前后做一些操作。然后进行对象的属性赋值，如果实现了各种`Aware`接口则调用相应的方法(aware 的目的是为了让bean获取spring容器的各种服务)。
 - **初始化阶段：**主要处理`InitializingBean::afterPropertiesSet`和自定义的`init-method`方法，另外还可以定义`BeanPostProcessor`接口来实现初始化阶段的前置处理和后置处理。使用结束有进入销毁阶段。
 - **销毁阶段：**在bean销毁的时候做一些处理。主要处理DisposableBean接口的`destroy()`和自定义的`destroy-method`方法的逻辑。
 
