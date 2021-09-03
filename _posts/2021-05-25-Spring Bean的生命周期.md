@@ -353,13 +353,11 @@ Bean的完整生命周期经历了各种方法调用，这些方法可以划分�
 - 容器级生命周期接口方法：这个包括了InstantiationAwareBeanPostProcessor 和 BeanPostProcessor 这两个接口实现，一般称它们的实现类为“后处理器”。
 - 工厂后处理器接口方法：这个包括了AspectJWeavingEnabler, ConfigurationClassPostProcessor, CustomAutowireConfigurer等等非常有用的工厂后处理器接口的方法。工厂后处理器也是容器级的。在应用上下文装配配置文件之后立即调用。
 
-![img](/assets/imgs/181454040628981.png)
+![image-20210903201331040](/assets/imgs/image-20210903201331040.png)
 
 ## Bean的实例化 （通过构造方法进行实例化）
 
 Spring对Bean进行实例化（相当于 new ）,对于BeanFactory一般是延迟实例化，就是说调用getBean方法才会实例化，但是对于ApplicationContext，当容器初始化完成之后，就完成了所有Bean的实例化工作。实例化的对象被包装在BeanWrapper对象中，BeanWrapper提供了设置对象属性的接口，从而避免了使用反射机制设置属性。
-
-
 
 ## InstantiationAwareBeanPostProcessor
 
