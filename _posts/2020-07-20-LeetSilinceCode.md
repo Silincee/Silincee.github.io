@@ -1050,9 +1050,9 @@ int BFS(Node start, Node target) {
 
 | 题目                                                         | 算法思想      |
 | ------------------------------------------------------------ | ------------- |
-| [\#160. 两链表相交](https://leetcode-cn.com/problems/intersection-of-two-linked-lists/) ⭐️ | 无环/有环     |
+| [\#160. 两链表相交](http://www.silince.cn/2020/07/20/LeetSilinceCode/#160-%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8) ⭐️ | 无环/有环     |
 | [\#141 判断链表是否存在环](http://www.silince.cn/2020/07/20/LeetSilinceCode/#141-判断链表是否存在环) ⭐️ | 快慢指针      |
-| [\#142. 环形链表 II](https://leetcode-cn.com/problems/linked-list-cycle-ii/) ⭐️ | 数学+快慢指针 |
+| [\#142. 环形链表 II](http://www.silince.cn/2020/07/20/LeetSilinceCode/#142-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8-ii) ⭐️ | 数学+快慢指针 |
 | [\#206. 反转链表](https://leetcode-cn.com/problems/reverse-linked-list/) |               |
 | [\#21.合并两个有序链表](https://leetcode-cn.com/problems/merge-two-sorted-lists/) |               |
 | [\#143. 重排链表](https://leetcode-cn.com/problems/reorder-list/) |               |
@@ -4440,8 +4440,6 @@ class LRUCache {
 
 先判断单链表有没有环，设置两个指针，一个走一步，一个走两步，如果能相遇则说明存在环。[\#141 判断链表是否存在环](http://www.silince.cn/2020/07/20/LeetSilinceCode/#141-判断链表是否存在环) 
 
-
-
 > case1:无环场景下(两个都没环)
 >
 > 可以理解成两个人速度一致， 走过的路程一致。那么肯定会同一个时间点到达终点。如果到达终点的最后一段路两人都走的话，那么这段路上俩人肯定是肩并肩手牵手的。
@@ -4457,16 +4455,17 @@ class LRUCache {
 
 ![相交链表.png](/assets/imgs/e86e947c8b87ac723b9c858cd3834f9a93bcc6c5e884e41117ab803d205ef662-相交链表.png)
 
-
-
 > case2:两个都有环，如何判断两链表是否相交
 
 若两个链表都有环，则分别得到每个链表的入环节点node1，node2，然后进行有环单链表判断是否相交。 [\#142. 环形链表 II](https://leetcode-cn.com/problems/linked-list-cycle-ii/)
 
-- 单链表相交那肯定是同一个环，所以入环节点肯定是同一个。
-- 如果也想要求相交的起始节点的话，就和case1一样，只不过需要把连接点改成环的起始节点。
+- 第一种：不相交。
+- 第二种：环外相交。单链表相交那肯定是同一个环，所以入环节点肯定是同一个，直接返回即可。
+- 第三种：环内相交，如果遇到了，那么两个入环节点都是最近的点，任意返回一个都可以。
 
+**如果两个环的入环节点相等，就是第二个，不是就是1或3。区分1和3，选一个链表的入环节点开始next遍历，如果在再次遇到这个节点之前没有遇到另一个入环节点就是1，如果相遇了就是3,此时任选一个返回就好了。**
 
+![image-20210904171108593](/assets/imgs/image-20210904171108593.png)
 
 > case3:一个有环，一个没环：不用判断了，肯定两链表不相交
 
@@ -4492,16 +4491,19 @@ public static ListNode  getIntersectionNode(ListNode headA,ListNode headB){
   ListNode cycleNodeA = detectCycle(headA);
   ListNode cycleNodeB = detectCycle(headB);
 
-  if (cycleNodeA==cycleNodeB){ // 如果入环节点相同,则两有环单链表相交
-    ListNode A = headA, B = headB;
-    while (A != B) {
-      A = A != cycleNodeA ? A.next : headB;
-      B = B != cycleNodeA ? B.next : headA;
-    }
-    return A;
+  // 如果入环节点相同,则两有环单链表环外相交
+  if (cycleNodeA==cycleNodeB){
+    return cycleNodeA;
   }
-
-  return null; // 两有环单链表不相交
+  // 环内相交
+  node = cycleNodeA.next;
+  while(node != cycleNodeA){
+    if(node == cycleNodeB){
+      return cycleNodeA;
+    }
+  }
+  // 两有环单链表不相交
+  return null; 
 }
 
 // 返回入环节点
