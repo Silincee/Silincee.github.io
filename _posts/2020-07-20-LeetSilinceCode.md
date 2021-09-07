@@ -1121,8 +1121,8 @@ int BFS(Node start, Node target) {
 
 | 题目                                                         | 算法思想    |
 | ------------------------------------------------------------ | ----------- |
-| [\#232. 用栈实现队列](https://leetcode-cn.com/problems/implement-queue-using-stacks/) |             |
-| [\#225. 用队列实现栈](https://leetcode-cn.com/problems/implement-stack-using-queues/) |             |
+| [\#232. 用栈实现队列](http://www.silince.cn/2020/07/20/LeetSilinceCode/#225-%E7%94%A8%E9%98%9F%E5%88%97%E5%AE%9E%E7%8E%B0%E6%A0%88) |             |
+| [\#225. 用队列实现栈](http://www.silince.cn/2020/07/20/LeetSilinceCode/#225-%E7%94%A8%E9%98%9F%E5%88%97%E5%AE%9E%E7%8E%B0%E6%A0%88) |             |
 | [\#155. 最小栈](https://leetcode-cn.com/problems/min-stack/) |             |
 | [\#20. 有效的括号](https://www.silince.cn/2020/07/20/LeetSilinceCode/#20-有效的括号) ⭐️ | 辅助栈      |
 | [\#32. 最长有效括号](https://www.silince.cn/2020/07/20/LeetSilinceCode/#32-最长有效括号) ⭐️ | 栈/动态规划 |
