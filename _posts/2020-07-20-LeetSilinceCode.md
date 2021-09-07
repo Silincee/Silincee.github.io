@@ -4030,20 +4030,19 @@ public class Solution {
 
 // 方法二 ⭐️
 public boolean hasCycle(ListNode head) {
-  if (head==null||head.next==null) return false;
-
-  ListNode slow = head;
+  if(head == null) return false;
   ListNode fast = head;
+  ListNode slow = head;
 
-  while (true){
-    if (fast==null||fast.next==null) return false;
+  while(fast!=null && fast.next!=null){
     fast = fast.next.next;
     slow = slow.next;
-    if (slow.equals(fast)){
+    if(fast == slow){
       return true;
     }
   }
 
+  return false;
 }
 ```
 
@@ -4074,11 +4073,11 @@ public boolean hasCycle(ListNode head) {
 - 设链表共有 a+b个节点，其中 **链表头部到链表入口** 有 a 个节点（不计链表入口节点）， **链表环** 有 b 个节点。f快指针走过的步数，s慢指针走过的步数。
 
 - f=2s （快指针每次2步，路程刚好2倍）
-- f = s + nb (相遇时，刚好多走了n圈）
+- f - s = nb (相遇时，刚好多走了n圈）
 
 推出：s = nb
 
-从head结点走到入环点需要走 ： a + nb， 而slow已经走了nb，那么slow再走a步就是入环点了。
+从head结点走到入环点需要走 ： **a + nb**， 而slow已经走了nb，那么slow再走a步就是入环点了。
 
 如何知道slow刚好走了a步？ 从head开始，和slow指针一起走，相遇时刚好就是a步
 
@@ -4117,11 +4116,12 @@ public int hasCycleLength(ListNode head) {
     slow = slow.next;
     if (quick==slow) break;
   }
+  
   int count = 1;
   quick = quick.next;
   while (slow!=quick){
     slow = slow.next;
-    quick = quick.next.next;
+    quick = quick.next;
     count++;
   }
   return count;
