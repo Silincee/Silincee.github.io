@@ -179,6 +179,71 @@ public static void quickSort(int[] nums, int start, int end) {
 }
 ```
 
+> 堆排序
+
+- **堆排序就是利用大顶堆或者小顶堆的特性来进行排序的。**它的基本思想就是：
+  - 给定以下一个数组，（完全二叉树一般用数组来存储）。
+  - 初始化大顶堆，我们需要从树的最后一层开始，逐渐的把大值向上调整（左右孩子节点中较大的节点和父节点交换），直到第一层。
+  - 取出排序。既然构建成堆结构了，那么接下来，我们取出堆顶的数据，也就是数组第一个数 9 ，取法是将数组的第一位和最后一位调换，然后将数组的待排序的范围 -1。
+- 初始化堆 O(m)； 每次取出堆顶元素时候需调整为大顶堆的时间复杂度为 O(logm)。因此堆排序的复杂度为1次建堆和n次调整的复杂度O(m+nlogm)=O(nlogm)。
+
+```java
+// 堆排序
+public static void sort(int[] arr) {
+  int length = arr.length;
+  //构建堆
+  buildHeap(arr, length);
+  for ( int i = length - 1; i > 0; i-- ) {
+    //将堆顶元素与末位元素调换
+    int temp = arr[0];
+    arr[0] = arr[i];
+    arr[i] = temp;
+    //数组长度-1 隐藏堆尾元素
+    length--;
+    //将堆顶元素下沉 目的是将最大的元素浮到堆顶来
+    sink(arr, 0, length);
+  }
+}
+private static void buildHeap(int[] arr, int length) {
+  for (int i = length / 2; i >= 0; i--) {
+    sink(arr, i, length);
+  }
+}
+
+/**
+ * 下沉调整
+ * @param arr 数组
+ * @param index 调整位置
+ * @param length 数组范围
+ */
+private static void sink(int[] arr, int index, int length) {
+  int leftChild = 2 * index + 1;//左子节点下标
+  int rightChild = 2 * index + 2;//右子节点下标
+  int present = index;//要调整的节点下标
+
+  //下沉左边
+  if (leftChild < length && arr[leftChild] > arr[present]) {
+    present = leftChild;
+  }
+
+  //下沉右边
+  if (rightChild < length && arr[rightChild] > arr[present]) {
+    present = rightChild;
+  }
+
+  //如果下标不相等 证明调换过了
+  if (present != index) {
+    //交换值
+    int temp = arr[index];
+    arr[index] = arr[present];
+    arr[present] = temp;
+
+    //继续下沉
+    sink(arr, present, length);
+  }
+}
+```
+
 
 
 
