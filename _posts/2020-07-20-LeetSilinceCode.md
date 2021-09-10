@@ -855,7 +855,7 @@ for 状态1 in 状态1的所有取值：
 
 | 题目                                                         | 算法思想                                                     |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [\#322. 零钱兑换](https://leetcode-cn.com/problems/coin-change/) | 完全背包最值问题：外循环coins,内循环amount正序               |
+| [\#322. 零钱兑换](http://www.silince.cn/2020/07/20/LeetSilinceCode/#322-%E9%9B%B6%E9%92%B1%E5%85%91%E6%8D%A2) | 完全背包最值问题：外循环coins,内循环amount正序               |
 | [\#494. 目标和](http://www.silince.cn/2020/07/20/LeetSilinceCode/#494-%E7%9B%AE%E6%A0%87%E5%92%8C) | 0-1背包不考虑元素顺序的组合问题:选nums里的数得到target的种数,外循环nums,内循环target倒序 |
 | [\#416. 分割等和子集](http://www.silince.cn/2020/07/20/LeetSilinceCode/#416-%E5%88%86%E5%89%B2%E7%AD%89%E5%92%8C%E5%AD%90%E9%9B%86) | 0-1背包存在性问题：是否存在一个子集,其和为target=sum/2,外循环nums,内循环target倒序 |
 | [\#518. 零钱兑换 II](http://www.silince.cn/2020/07/20/LeetSilinceCode/#518-%E9%9B%B6%E9%92%B1%E5%85%91%E6%8D%A2-ii) | 完全背包不考虑顺序的组合问题：外循环coins,内循环target正序   |
@@ -5908,9 +5908,12 @@ public int lengthOfLIS(int[] height) {
 > 代码：
 
 ```java
+// 方法一：类似于目标和，看作是组合问题。>0则是存在
 public boolean canPartition(int[] nums) {
   int sum = Arrays.stream(nums).sum();
-  if(sum%2==1) return false;
+  if(sum%2==1) {
+    return false;
+  }
   return dp(nums,sum/2);
 }
 
@@ -5919,20 +5922,46 @@ boolean dp(int[] nums,int target){
   // 初始化
   int n = nums.length;
   int[] dp = new int[target+1];
+  // 因为背包没有空间的时候，就相当于装满了，也是一种装法
+  dp[0]=1;
 
   // dp公式 dp[j] = dp[j] + dp[j-nums[i]];
   // 0-1问题，先遍历物品再遍历背包,倒序且>nums[i]
   for(int i=0;i<nums.length;i++){
-    for(int j=targrt;j>=nums[i];j--){
+    for(int j=target;j>=nums[i];j--){
       dp[j] += dp[j-nums[i]];
     }
   }
-
-  return dp[target]!=0?true:false;
-
+  return dp[target] != 0;
 }
 
-// 状态压缩
+// 方法二：看作是0-1背包存在性问题-是否存在一个子集,其和为target=sum/2,外循环nums,内循环target倒序
+public boolean canPartition(int[] nums) {
+  int sum = Arrays.stream(nums).sum();
+  if(sum%2==1) {
+    return false;
+  }
+  return dp(nums,sum/2);
+}
+
+// weight:nums bagWeight:target
+boolean dp(int[] nums,int target){
+  // 初始化
+  int n = nums.length;
+  boolean[] dp = new boolean[target+1];
+  dp[0]=true;
+
+  // dp公式 dp[j] = dp[j] + dp[j-nums[i]];
+  // 0-1问题，先遍历物品再遍历背包,倒序且>nums[i]
+  for(int i=0;i<nums.length;i++){
+    for(int j=target;j>=nums[i];j--){
+      dp[j] = dp[j] || dp[j - nums[i]];
+    }
+  }
+
+  return dp[target];
+
+}
 ```
 
 ---
@@ -6831,132 +6860,50 @@ class Solution {
 
 > 分析：
 
-**方法一：**我们可以把这个问题转化为背包问题的描述形式**：
+我们可以把这个问题转化为背包问题的描述形式：
 
 有一个背包，最大容量为`amount`，有一系列物品`coins`，每个物品的重量为`coins[i]`，**每个物品的数量无限**。请问有多少种方法，能够把背包恰好装满？
 
 这个问题和我们前面讲过的两个背包问题，**有一个最大的区别就是，每个物品的数量是无限的**，这也就是传说中的「**完全背包问题**」，没啥高大上的，无非就是状态转移方程有一点变化而已。
 
-下面就以背包问题的描述形式，继续按照流程来分析。
+但本题和纯完全背包不一样，**纯完全背包是能否凑成总金额，而本题是要求凑成总金额的个数！**
 
-**第一步要明确两点，「状态」和「选择」**。
+注意题目描述中是凑成总金额的硬币组合数，为什么强调是组合数呢？
 
-这部分都是背包问题的老套路了，我还是啰嗦一下吧：
+例如示例一：
 
-状态有两个，就是「背包的容量」和「可选择的物品」，选择就是「装进背包」或者「不装进背包」。
+5 = 2 + 2 + 1
 
-明白了状态和选择，动态规划问题基本上就解决了，只要往这个框架套就完事儿了：
+5 = 2 + 1 + 2
 
-```
-for 状态1 in 状态1的所有取值：
-    for 状态2 in 状态2的所有取值：
-        for ...
-            dp[状态1][状态2][...] = 计算(选择1，选择2...)
-```
+这是一种组合，都是 2 2 1。
 
-**第二步要明确**`dp`数组的定义。
+如果问的是排列数，那么上面就是两种排列了。**组合不强调元素之间的顺序，排列强调元素之间的顺序**。
 
-首先看看刚才找到的「状态」，有两个，也就是说我们需要一个二维`dp`数组。
+dp[j]:凑成总金额j的货币组合数为dp[j]
 
-`dp[i][j]`的定义如下：
+递推公式：dp[j] += dp[j - coins[i]];
 
-**若只使用前`i`个物品，当背包容量为`j`时，有`dp[i][j]`种方法可以装满背包。**
-
-换句话说，翻译回我们题目的意思就是：
-
-**若只使用`coins`中的前`i`个硬币的面值，若想凑出金额`j`，有`dp[i][j]`种凑法**。
-
-经过以上的定义，可以得到：
-
-base case 为`dp[0][..] = 0， dp[..][0] = 1`。因为如果不使用任何硬币面值，就无法凑出任何金额；如果凑出的目标金额为 0，那么“无为而治”就是唯一的一种凑法。
-
-我们最终想得到的答案就是`dp[N][amount]`，其中`N`为`coins`数组的大小。
-
-大致的伪码思路如下： 
+初始化:首先dp[0]一定要为1，dp[0] = 1是 递归公式的基础。从dp[i]的含义上来讲就是，凑成总金额0的货币组合数为1。
 
 ```java
-int dp[N+1][amount+1]
-dp[0][..] = 0
-dp[..][0] = 1
-
-for i in [1..N]:
-    for j in [1..amount]:
-        把物品 i 装进背包,
-        不把物品 i 装进背包
-return dp[N][amount]  
-```
-
-**第三步，根据「选择」，思考状态转移的逻辑**。
-
-注意，<u>我们这个问题的特殊点在于物品的数量是无限的</u>，所以这里和之前写的背包问题文章有所不同。 
-
-**如果你不把这第`i`个物品装入背包**，也就是说你不使用`coins[i]`这个面值的硬币，那么凑出面额`j`的方法数`dp[i][j]`应该等于`dp[i-1][j]`，继承之前的结果。
-
-**如果你把这第`i`个物品装入了背包**，也就是说你使用`coins[i]`这个面值的硬币，<u>那么`dp[i][j]`应该等于`dp[i][j-coins[i-1]]`</u>。
-
-首先由于`i`是从 1 开始的，所以`coins`的索引是`i-1`时表示第`i`个硬币的面值。
-
-`dp[i][j-coins[i-1]]`也不难理解，如果你决定使用这个面值的硬币，那么就应该关注如何凑出金额`j - coins[i-1]`。
-
-比如说，你想用面值为 2 的硬币凑出金额 5，那么如果你知道了凑出金额 3 的方法，再加上一枚面额为 2 的硬币，不就可以凑出 5 了嘛。
-
-**综上就是两种选择，而我们想求的`dp[i][j]`是「共有多少种凑法」，所以`dp[i][j]`的值应该是以上两种选择的结果之和**：
-
-```java
-for (int i = 1; i <= n; i++) {
-    for (int j = 1; j <= amount; j++) {
-        if (j - coins[i-1] >= 0)
-            dp[i][j] = dp[i - 1][j] 
-                     + dp[i][j-coins[i-1]];
-return dp[N][W]
-```
-
-**最后一步，把伪码翻译成代码，处理一些边界情况**。
-
-我用 Java 写的代码，把上面的思路完全翻译了一遍，并且处理了一些边界问题：
-
-```java
-int change(int amount, int[] coins) {
-    int n = coins.length;
-    int[][] dp = amount int[n + 1][amount + 1];
-    // base case
-    for (int i = 0; i <= n; i++) 
-        dp[i][0] = 1;
-
-    for (int i = 1; i <= n; i++) {
-        for (int j = 1; j <= amount; j++)
-            if (j - coins[i-1] >= 0)
-                dp[i][j] = dp[i - 1][j] 
-                         + dp[i][j - coins[i-1]];
-            else 
-                dp[i][j] = dp[i - 1][j];
+public int change(int amount, int[] coins) {
+  //递推表达式
+  int[] dp = new int[amount + 1];
+  //初始化dp数组，表示金额为0时只有一种情况，也就是什么都不装
+  dp[0] = 1;
+  for (int i = 0; i < coins.length; i++) {
+    for (int j = coins[i]; j <= amount; j++) {
+      dp[j] += dp[j - coins[i]];
     }
-    return dp[n][amount];
+  }
+  return dp[amount];
 }
 ```
 
-而且，我们通过观察可以发现，`dp`数组的转移只和`dp[i][..]`和`dp[i-1][..]`有关，所以可以压缩状态，进一步降低算法的空间复杂度：
 
-```java
-int change(int amount, int[] coins) {
-    int n = coins.length;
-    int[] dp = new int[amount + 1];
-    dp[0] = 1; // base case
-    for (int i = 1; i <= n; i++)
-        for (int j = 1; j <= amount; j++)
-            if (j - coins[i-1] >= 0){
-                dp[j] = dp[j] + dp[j-coins[i-1]];
-            }else{
-                dp[j] = dp[j];
-            }
 
-    return dp[amount];
-}
-```
 
-这个解法和之前的思路完全相同，将二维`dp`数组压缩为一维，时间复杂度 O(N*amount)，空间复杂度 O(amount)。
-
-至此，这道零钱兑换问题也通过背包问题的框架解决了
 
 ---
 
