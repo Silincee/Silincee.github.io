@@ -315,11 +315,12 @@ public int  getResult(int[][] intvs){
 
 > 传送门：[Silince带你理解二分查找的船新版本！再也不怕写错二分查找啦(大概😤](http://www.silince.cn/2021/04/19/我再也不怕写错二分查找啦-大概/)
 
-| 题目                                                         | 算法思想 |
-| ------------------------------------------------------------ | -------- |
-| [\#704 二分查找](http://www.silince.cn/2020/07/20/LeetSilinceCode/#704-二分查找) | 二分查找 |
-| [\#34 在排序数组中查找元素的第一个和最后一个位置](http://www.silince.cn/2020/07/20/LeetSilinceCode/#34-在排序数组中查找元素的第一个和最后一个位置) | 二分查找 |
-| [判定子序列](http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484479&idx=1&sn=31a3fc4aebab315e01ea510e482b186a&chksm=9bd7fa37aca0732103ca82e6f2cc23f475cf771696958456fc17d7662abb6b0879e8dfbaf7a1&scene=21#wechat_redirect) | 二分查找 |
+| 题目                                                         | 算法思想  |
+| ------------------------------------------------------------ | --------- |
+| [\#704 二分查找](http://www.silince.cn/2020/07/20/LeetSilinceCode/#704-二分查找) | 二分查找  |
+| [\#34 在排序数组中查找元素的第一个和最后一个位置](http://www.silince.cn/2020/07/20/LeetSilinceCode/#34-在排序数组中查找元素的第一个和最后一个位置) | 二分查找  |
+| [判定子序列](http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484479&idx=1&sn=31a3fc4aebab315e01ea510e482b186a&chksm=9bd7fa37aca0732103ca82e6f2cc23f475cf771696958456fc17d7662abb6b0879e8dfbaf7a1&scene=21#wechat_redirect) | 二分查找  |
+| [分段和最大值最小]()                                         | 二分check |
 
 二分查找并不简单，Knuth 大佬（发明 KMP 算法的那位）都说二分查找：**思路很简单，细节是魔鬼**。很多人喜欢拿整型溢出的 bug 说事儿，但是二分查找真正的坑根本就不是那个细节问题，而是在于到底要给 `mid` 加一还是减一，while 里到底用 `<=` 还是 `<`。
 
@@ -10320,6 +10321,78 @@ public static int getResult(String str,int n){
 
 private static int getMul(String s,int start, int end) {
   return Integer.parseInt(s.substring(start,end+1));
+}
+```
+
+---
+
+## 分段和最大值最小
+
+- 中等
+- 2021.09.10：
+
+> 题目：
+
+```
+有一个长度为n的序列A，序列中的第i个数为A[i] (1<=i<=n)，现在你可以将序列分成至多连续的k段。 对于每一段，我们定义这一段的不平衡度为段内的最大值减去段内的最小值。显然，对于长度为1的段，其不平衡度为0。 对于一种合法的分段方式（即每一段连续且不超过k段），我们定义这种分段方式的不平衡度为每一段的不平衡度的最大值。 现在你需要找到不平衡度最小的分段方式，输出这种分段方式的不平衡度即可。
+
+如 3 3 5 5 2 5 至多分为3段
+最终分为[3 5 5], [2], [5]，该种分段方式的不平衡度为2。
+```
+
+> 分析：分段check
+
+算出差值范围，用二分枚举差值大小，然后去模拟check
+
+要求每段和最大值最小，left取这个数列中元素最小值，right取整个数列最大值和最小值的差值。那么要求的每段和的不平衡度的最大值就一定在left和right之间。可以再用二分法进行求解。
+
+这种题目的关键在于理解好`check()`函数的意义。
+
+`check()`函数中
+
+> 代码：
+
+```java
+public static int getResult(int[] nums, int k) {
+  int max = Integer.MIN_VALUE;
+  int min = Integer.MAX_VALUE;
+  // 首先找出整个数组中的两个最值
+  for (int num : nums) {
+    max = Math.max(max, num);
+    min = Math.min(min, num);
+  }
+  // 这里是采用了二分的思路，因为段的不平衡度是非严格递增的（有不变的情况,如12234），也就是有序的，故可以使用二分法
+  // left为0，即平衡度的最小值；right为max-min，即段为整个数组时的平衡度，此时拆分后的段的平衡度不可能超过这个值
+  int l = -1, r = max - min + 1, m = 0;
+  while (l + 1 != r) {
+    m = (l + r) / 2;
+    // 检查平衡度小于等于m的段是否存在，若不存在，说明需要往大于m的方向寻找
+    if (!check(nums, k, m)) {
+      l = m;
+    } else { // 若存在，我们缩小右边界，看看是否存在更小的平衡度
+      r = m;
+    }
+  }
+  // 因为left是从0开始的，而且每次只递增1，那么最后跳出时就是我们所求的结果
+  return r;
+}
+
+// 检查该平衡度下分段时候超出限制
+static boolean check(int[] nums, int k, int x) {
+  int max = nums[0], min = nums[0];
+  for (int i = 1; i < nums.length; i++) {
+    max = Math.max(max, nums[i]);
+    min = Math.min(min, nums[i]);
+    // 当平衡度大于x时，开启下一个段。直到达到段数的限制，则返回false
+    if (max - min > x) {
+      k--;
+      if (k <= 0) {
+        return false;
+      }
+      max = min = nums[i];
+    }
+  }
+  return k > 0;
 }
 ```
 
