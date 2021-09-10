@@ -851,94 +851,17 @@ for 状态1 in 状态1的所有取值：
 
 ## 背包问题
 
-| 题目                                                         | 算法思想          |
-| ------------------------------------------------------------ | ----------------- |
-| [\#494. 目标和](http://www.silince.cn/2020/07/20/LeetSilinceCode/#494-%E7%9B%AE%E6%A0%87%E5%92%8C) | 动态规划/背包问题 |
-| [\#416. 分割等和子集](https://leetcode-cn.com/problems/partition-equal-subset-sum/) | 0-1背包问题的变体 |
-| [\#518. 零钱兑换 II](https://leetcode-cn.com/problems/coin-change-2/) | 完全背包问题      |
+> [背包问题整理]()
 
-> 经典动态规划：0-1 背包问题
-
-今天就来说一下背包问题吧，就讨论最常说的 0-1 背包问题。描述：
-
-给你一个可装载重量为 `W` 的背包和 `N` 个物品，每个物品有重量和价值两个属性。其中第 `i` 个物品的重量为 `wt[i]`，价值为 `val[i]`，现在让你用这个背包装物品，最多能装的价值是多少？
-
-![image-20210822221958578](/assets/imgs/image-20210822221958578.png)
-
-举个简单的例子，输入如下：
-
-```java
-N = 3, W = 4
-wt = [2, 1, 3]
-val = [4, 2, 3]
-```
-
-算法返回 6，选择前两件物品装进背包，总重量 3 小于 `W`，可以获得最大价值 6。
-
-题目就是这么简单，一个典型的动态规划问题。这个题目中的物品不可以分割，要么装进包里，要么不装，不能说切成两块装一半。这就是 0-1 背包这个名词的来历。
-
-解决这个问题没有什么排序之类巧妙的方法，只能穷举所有可能，根据我们「动态规划详解」中的套路，直接走流程就行了。
-
-- 明确状态和选择：只要给定几个可选物品和一个背包的容量限制，就形成了一个背包问题，对不对？**所以状态有两个，就是「背包的容量」和「可选择的物品」**。再说选择，也很容易想到啊，对于每件物品，你能选择什么？**选择就是「装进背包」或者「不装进背包」嘛**。
-
-```java
-for 状态1 in 状态1的所有取值：
-    for 状态2 in 状态2的所有取值：
-        for ...
-            dp[状态1][状态2][...] = 择优(选择1，选择2...)
-```
-
-- 明确**`dp`数组的定义**  :**`dp[i][w]`的定义如下：对于前`i`个物品，当前背包的容量为`w`，这种情况下可以装的最大价值是`dp[i][w]`。**
-
-```java
-int dp[N+1][W+1]
-dp[0][..] = 0
-dp[..][0] = 0
-
-for i in [1..N]:
-    for w in [1..W]:
-        dp[i][w] = max(
-            把物品 i 装进背包,
-            不把物品 i 装进背包
-        )
-return dp[N][W]
-```
-
-- **根据「选择」，思考状态转移的逻辑**。**如果你没有把这第****`i`个物品装入背包**，那么很显然，最大价值`dp[i][w]`应该等于`dp[i-1][w]`。你不装嘛，那就继承之前的结果。**如果你把这第**`i`个物品装入了背包**，那么`dp[i][w]`应该等于`dp[i-1][w-wt[i-1]] + val[i-1]`。
-
-```java
-for i in [1..N]:
-    for w in [1..W]:
-        dp[i][w] = max(
-            dp[i-1][w],
-            dp[i-1][w - wt[i-1]] + val[i-1]
-        )
-return dp[N][W]
-```
-
-- **把伪码翻译成代码，处理一些边界情况**。
-
-```java
-int knapsack(int W, int N, vector<int>& wt, vector<int>& val) {
-    // vector 全填入 0，base case 已初始化
-    vector<vector<int>> dp(N + 1, vector<int>(W + 1, 0));
-    for (int i = 1; i <= N; i++) {
-        for (int w = 1; w <= W; w++) {
-            if (w - wt[i-1] < 0) {
-                // 当前背包容量装不下，只能选择不装入背包
-                dp[i][w] = dp[i - 1][w];
-            } else {
-                // 装入或者不装入背包，择优
-                dp[i][w] = max(dp[i - 1][w - wt[i-1]] + val[i-1], 
-                               dp[i - 1][w]);
-            }
-        }
-    }
-    return dp[N][W];
-}
-```
-
-
+| 题目                                                         | 算法思想                                                     |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [\#322. 零钱兑换](https://leetcode-cn.com/problems/coin-change/) | 完全背包最值问题：外循环coins,内循环amount正序               |
+| [\#494. 目标和](http://www.silince.cn/2020/07/20/LeetSilinceCode/#494-%E7%9B%AE%E6%A0%87%E5%92%8C) | 0-1背包不考虑元素顺序的组合问题:选nums里的数得到target的种数,外循环nums,内循环target倒序 |
+| [\#416. 分割等和子集](http://www.silince.cn/2020/07/20/LeetSilinceCode/#416-%E5%88%86%E5%89%B2%E7%AD%89%E5%92%8C%E5%AD%90%E9%9B%86) | 0-1背包存在性问题：是否存在一个子集,其和为target=sum/2,外循环nums,内循环target倒序 |
+| [\#518. 零钱兑换 II](http://www.silince.cn/2020/07/20/LeetSilinceCode/#518-%E9%9B%B6%E9%92%B1%E5%85%91%E6%8D%A2-ii) | 完全背包不考虑顺序的组合问题：外循环coins,内循环target正序   |
+| [279. 完全平方数](https://leetcode-cn.com/problems/perfect-squares/) | 完全背包的最值问题：外循环nums,内循环target正序              |
+| [377. 组合总和 Ⅳ](https://leetcode-cn.com/problems/combination-sum-iv/) | 考虑顺序的组合问题：外循环target,内循环nums                  |
+| [1049. 最后一块石头的重量 II](https://leetcode-cn.com/problems/last-stone-weight-ii/) | 0/1背包最值问题：外循环stones,内循环target=sum/2倒序         |
 
 
 
@@ -5313,7 +5236,7 @@ class Solution {
 
 首先明确 dp 数组所存数据的含义。这步很重要，如果不得当或者不够清晰，会阻碍之后的步骤。
 
-然后根据 dp 数组的定义，运用数学归纳法的思想，假设 *d**p*[0...*i*−1] 都已知，想办法求出 *d**p*[*i*]，一旦这一步完成，整个题目基本就解决了。
+然后根据 dp 数组的定义，运用数学归纳法的思想，假设 dp[0...i−1] 都已知，想办法求出 dp[i]，一旦这一步完成，整个题目基本就解决了。
 
 但如果无法完成这一步，很可能就是 dp 数组的定义不够恰当，需要重新定义 dp 数组的含义；或者可能是 dp 数组存储的信息还不够，不足以推出下一步的答案，需要把 dp 数组扩大成二维数组甚至三维数组。
 
@@ -5348,7 +5271,7 @@ class Solution {
 
 分析：
 
-***方法一：***暴力递归
+> ***方法一：***暴力递归
 
 首先，这个问题是动态规划问题，因为它具有「最优子结构」的。**要符合「最优子结构」，子问题间必须互相独立**。
 
@@ -5429,7 +5352,8 @@ class Solution {
 
 
 
-方法二：带备忘录的递归
+> 方法二：带备忘录的递归
+>
 
 类似之前斐波那契数列的例子，只需要稍加修改，就可以通过备忘录消除子问题.
 
@@ -5474,39 +5398,36 @@ class Solution {
 
 
 
-方法三：dp数组的迭代解法
+> 方法三：
+>
 
-当然，我们也可以自底向上使用 dp table 来消除重叠子问题，关于「状态」「选择」和 base case 与之前没有区别，`dp` 数组的定义和刚才 `dp` 函数类似，也是把「状态」，也就是目标金额作为变量。不过 `dp` 函数体现在函数参数，而 `dp` 数组体现在数组索引：
+weight数组在本题中就是硬币的面额coins；value数组则都是1；求value的最小值
 
-**`dp`** **数组的定义：当目标金额为** **`i`** **时，至少需要** **`dp[i]`** **枚硬币凑出**。
-
-根据我们文章开头给出的动态规划代码框架可以写出如下解法：
-
-PS：为啥 `dp` 数组初始化为 `amount + 1` 呢，因为凑成 `amount` 金额的硬币数最多只可能等于 `amount`（全用 1 元面值的硬币），所以初始化为 `amount + 1` 就相当于初始化为正无穷，便于后续取最小值。
+完全背包最值问题：外循环物品coins,内循环背包容量amount正序且`背包容量target >= coins[i]`。
 
 ```java
 class Solution {
 
   public int coinChange(int[] coins, int amount) {
 
-    // 数组大小为 amount+1，初始值也为amount+1
+    // dp[j]：凑足总额为j所需钱币的最少个数为dp[j]
     int[] dp = new int[amount + 1];
-    for (int i = 0; i <= amount; i++) {
-      dp[i]=amount+1;
+    // 考虑到递推公式的特性，dp[j]必须初始化为一个最大的数，否则就会在min(dp[j - coins[i]] + 1, dp[j])比较的过程中被初始值覆盖。
+    for (int j = 0; j <= amount; j++) {
+      dp[j] = Integer.MAX_VALUE;
     }
 
-    // base case
-    dp[0]=0;
-    // 外层 for 循环遍历所有状态的所有值
-    for (int i = 0; i < dp.length; i++) {
-      // 内层 for 循环在求所有选择的最小值
-      for (int coin : coins) {
-        // 子问题无解，跳过
-        if (i-coin<0) continue;
-        dp[i]=Math.min(dp[i],1+dp[i-coin]);
+    // base case：首先凑足总金额为0所需钱币的个数一定是0，那么dp[0] = 0
+    dp[0] = 0;
+    // 确定遍历顺序：完全背包最值问题-外循环物品coins,内循环背包容量amount正序
+    for (int i = 0; i < coins.length; i++) {
+      for (int j = coins[i]; j <= amount; j++) {
+        if (dp[j - coins[i]] != Integer.MAX_VALUE) { //只有dp[j-coins[i]]不是初始最大值时，该位才有选择的必要
+          dp[j] = Math.min(dp[j], dp[j - coins[i]] + 1);
+        }
       }
     }
-    return (dp[amount]==amount+1)?-1:dp[amount];
+    return dp[amount] == Integer.MAX_VALUE?-1:dp[amount];
   }
 }
 ```
@@ -5978,9 +5899,7 @@ public int lengthOfLIS(int[] height) {
 
 > 分析：
 
-对于这个问题，我们可以先对集合求和，得出`sum`，把问题转化为背包问题：
-
-**给一个可装载重量为`sum/2`的背包和`N`个物品，每个物品的重量为`nums[i]`。现在让你装物品，是否存在一种装法，能够恰好将背包装满**？
+0-1背包存在性问题：是否存在一个子集,其和为target=sum/2,外循环nums,内循环target倒序
 
 具体实现参考 [\#494-目标和](http://www.silince.cn/2020/07/20/LeetSilinceCode/#494-目标和)
 
@@ -5995,28 +5914,21 @@ public boolean canPartition(int[] nums) {
   return dp(nums,sum/2);
 }
 
-// 有几种方法可以到达target
+// weight:nums bagWeight:target
 boolean dp(int[] nums,int target){
   // 初始化
   int n = nums.length;
-  int[][] dp = new int[n+1][target+1];
-  for(int i=0;i<=n;i++){
-    dp[i][0] = 1;
-  }
+  int[] dp = new int[target+1];
 
-  // dp公式 dp[i][j] = dp[i-1][j] + dp[i-1][j-nums[i-1]];
-  for(int i = 1;i<=n;i++){
-    for(int j=0;j<=target;j++){
-      // 放得下
-      if(j>=nums[i-1]){
-        dp[i][j] = dp[i-1][j] + dp[i-1][j-nums[i-1]];
-      }else{
-        dp[i][j] = dp[i-1][j];
-      }
+  // dp公式 dp[j] = dp[j] + dp[j-nums[i]];
+  // 0-1问题，先遍历物品再遍历背包,倒序且>nums[i]
+  for(int i=0;i<nums.length;i++){
+    for(int j=targrt;j>=nums[i];j--){
+      dp[j] += dp[j-nums[i]];
     }
   }
 
-  return dp[n][target]!=0?true:false;
+  return dp[target]!=0?true:false;
 
 }
 
@@ -6602,7 +6514,7 @@ int findTargetSumWays(int[] nums, int target) {
 
 好的，变成背包问题的标准形式：
 
-**有一个背包，容量为** **`sum`**，现在给你 **`N`** **个物品，第** **`i`** **个物品的重量为** **`nums[i - 1]`**（注意 **`1 <= i <= N`**），每个物品只有一个，请问你有几种不同的方法能够恰好装满这个背包？
+**有一个背包，容量为** **`sum`**，现在给你 **`N`** **个物品，第** **`i`** **个物品的重量为** **`nums[i]`**，每个物品只有一个，请问你有几种不同的方法能够恰好装满这个背包？
 
 现在，这就是一个正宗的动态规划问题了，下面按照我们一直强调的动态规划套路走流程：
 
@@ -6612,30 +6524,22 @@ int findTargetSumWays(int[] nums, int target) {
 
 **第二步要明确** **`dp`** **数组的定义**。
 
-按照背包问题的套路，可以给出如下定义：
+`dp[j]` 表示：填满j（包括j）这么大容积的包，有`dp[i]`种方法
 
-`dp[i][j] = x` 表示，若只在前 `i` 个物品中选择，若当前背包的容量为 `j`，则最多有 `x` 种方法可以恰好装满背包。
+其实也可以使用二维dp数组来求解本题，`dp[i][j]`：使用 下标为[0, i]的nums[i]能够凑满j（包括j）这么大容量的包，有`dp[i][j]`种方法。
 
-翻译成我们探讨的子集问题就是，若只在 `nums` 的前 `i` 个元素中选择，若目标和为 `j`，则最多有 `x` 种方法划分子集。
+**第三步确定递推公式。**
 
-根据这个定义，显然 `dp[0][..] = 0`，因为没有物品的话，根本没办法装背包；`dp[..][0] = 1`，因为如果背包的最大载重为 0，「什么都不装」就是唯一的一种装法。
+有哪些来源可以推出dp[j]呢？
 
-我们所求的答案就是 `dp[N][sum]`，即使用所有 `N` 个物品，有几种方法可以装满容量为 `sum` 的背包。
+不考虑`nums[i]`的情况下，填满容量为`j - nums[i]`的背包，有`dp[j]`种方法。
 
-**第三步，根据「选择」，思考状态转移的逻辑**。
+那么只要搞到`nums[i]`的话，凑成`dp[j]`就有`dp[j - nums[i]] `种方法。
 
-回想刚才的 `dp` 数组含义，可以根据「选择」对 `dp[i][j]` 得到以下状态转移：
-
-如果不把 `nums[i]` 算入子集，**或者说你不把这第** **`i`** **个物品装入背包**，那么恰好装满背包的方法数就取决于上一个状态 `dp[i-1][j]`，继承之前的结果。
-
-如果把 `nums[i]` 算入子集，**或者说你把这第** **`i`** **个物品装入了背包**，那么只要看前 `i - 1` 个物品有几种方法可以装满 `j - nums[i-1]` 的重量就行了，所以取决于状态 `dp[i-1][j-nums[i-1]]`。
-
-PS：注意我们说的 `i` 是从 1 开始算的，而数组 `nums` 的索引时从 0 开始算的，所以 `nums[i-1]` 代表的是第 `i` 个物品的重量，`j - nums[i-1]` 就是背包装入物品 `i` 之后还剩下的容量。
-
-**由于** **`dp[i][j]`** **为装满背包的总方法数，所以应该以上两种选择的结果求和，得到状态转移方程**：
+所以求组合类问题的公式，都是类似这种：
 
 ```java
-dp[i][j] = dp[i-1][j] + dp[i-1][j-nums[i-1]];
+dp[j] += dp[j - nums[i]]
 ```
 
 然后，根据状态转移方程写出动态规划算法：
@@ -6654,65 +6558,21 @@ int findTargetSumWays(int[] nums, int target) {
 /* 计算 nums 中有几个子集的和为 sum */
 int subsets(int[] nums, int sum) {
     int n = nums.length;
-    int[][] dp = new int[n + 1][sum + 1];
-    // base case
-    for (int i = 0; i <= n; i++) {
-        dp[i][0] = 1;
-    }
-
-
-    for (int i = 1; i <= n; i++) {
-        for (int j = 0; j <= sum; j++) {
-            if (j >= nums[i-1]) {
-                // 两种选择的结果之和
-                dp[i][j] = dp[i-1][j] + dp[i-1][j-nums[i-1]];
-            } else {
-                // 背包的空间不足，只能选择不装物品 i
-                dp[i][j] = dp[i-1][j];
-            }
-        }
-    }
-    return dp[n][sum];
-}
-```
-
-然后，发现这个 `dp[i][j]` 只和前一行 `dp[i-1][..]` 有关，那么肯定可以优化成一维 `dp`：
-
-```java
-/* 计算 nums 中有几个子集的和为 sum */
-int subsets(int[] nums, int sum) {
-    int n = nums.length;
     int[] dp = new int[sum + 1];
-    // base case
+    // 初始化：什么都不放也是一种方法
     dp[0] = 1;
 
 
-    for (int i = 1; i <= n; i++) {
-        // j 要从后往前遍历
-        for (int j = sum; j >= 0; j--) {
-            // 状态转移方程
-            if (j >= nums[i-1]) {
-                dp[j] = dp[j] + dp[j-nums[i-1]];
-            } else {
-                dp[j] = dp[j];
-            }
+    for (int i = 0; i < n; i++) {
+        for (int j = sum; j >= nums[i]; j--) {
+                dp[j] = dp[j] + dp[j-nums[i]];
         }
     }
     return dp[sum];
 }
 ```
 
-**对照二维** **`dp`**，只要把 **`dp`** **数组的第一个维度全都去掉就行了，唯一的区别就是这里的** **`j`** **要从后往前遍历，原因如下**：
 
-因为二维压缩到一维的根本原理是，`dp[j]` 和 `dp[j-nums[i-1]]` 还没被新结果覆盖的时候，相当于二维 `dp` 中的 `dp[i-1][j]` 和 `dp[i-1][j-nums[i-1]]`。
-
-那么，我们就要做到：**在计算新的** **`dp[j]`** **的时候，**`dp[j]` **和** **`dp[j-nums[i-1]]`** **还是上一轮外层 for 循环的结果**。
-
-如果你从前往后遍历一维 `dp` 数组，`dp[j]` 显然是没问题的，但是 `dp[j-nums[i-1]]` 已经不是上一轮外层 for 循环的结果了，这里就会使用错误的状态，当然得不到正确的答案。
-
-现在，这道题算是彻底解决了。
-
-总结一下，回溯算法虽好，但是复杂度高，即便消除一些冗余计算，也只是「剪枝」，没有本质的改进。而动态规划就比较玄学了，经过各种改造，从一个加减法问题变成子集问题，又变成背包问题，经过各种套路写出解法，又搞出状态压缩，还得反向遍历。
 
 
 
