@@ -18,16 +18,17 @@ tags: [LeetCode,数据结构]
 
 ## 双指针 
 
-| 题目                                                         | 算法思想        |
-| ------------------------------------------------------------ | --------------- |
-| [\#11 盛最多水的容器](http://www.silince.cn/2020/07/20/LeetSilinceCode/#11-盛最多水的容器) | 双指针          |
-| [\#167 有序数组的 Two Sum](http://www.silince.cn/2020/07/20/LeetSilinceCode/#167-%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84-two-sum) | 双指针/二分查找 |
-| [\#633 两数平方和](http://www.silince.cn/2020/07/20/LeetSilinceCode/#633-两数平方和-) | 双指针          |
-| [\#345 反转字符串中的元音字符](http://www.silince.cn/2020/07/20/LeetSilinceCode/#345-反转字符串中的元音字符) | 双指针          |
-| [\#680 回文字符串](http://www.silince.cn/2020/07/20/LeetSilinceCode/#680-%E5%9B%9E%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2) | 双指针          |
-| [\#88 合并两个有序数组](http://www.silince.cn/2020/07/20/LeetSilinceCode/#88-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84) | 双指针          |
-| [\#141 判断链表是否存在环](http://www.silince.cn/2020/07/20/LeetSilinceCode/#141-判断链表是否存在环) ⭐️ | 快慢指针        |
-| [\#524 最长子序列](http://www.silince.cn/2020/07/20/LeetSilinceCode/#524-最长子序列) | 双指针          |
+| 题目                                                         | 算法思想                  |
+| ------------------------------------------------------------ | ------------------------- |
+| [\#11 盛最多水的容器](http://www.silince.cn/2020/07/20/LeetSilinceCode/#11-盛最多水的容器) | 双指针                    |
+| [\#167 有序数组的 Two Sum](http://www.silince.cn/2020/07/20/LeetSilinceCode/#167-%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84-two-sum) | 双指针/二分查找           |
+| [\#633 两数平方和](http://www.silince.cn/2020/07/20/LeetSilinceCode/#633-两数平方和-) | 双指针                    |
+| [\#345 反转字符串中的元音字符](http://www.silince.cn/2020/07/20/LeetSilinceCode/#345-反转字符串中的元音字符) | 双指针                    |
+| [\#680 回文字符串](http://www.silince.cn/2020/07/20/LeetSilinceCode/#680-%E5%9B%9E%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2) | 双指针                    |
+| [\#88 合并两个有序数组](http://www.silince.cn/2020/07/20/LeetSilinceCode/#88-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84) | 双指针                    |
+| [\#141 判断链表是否存在环](http://www.silince.cn/2020/07/20/LeetSilinceCode/#141-判断链表是否存在环) ⭐️ | 快慢指针                  |
+| [\#524 最长子序列](http://www.silince.cn/2020/07/20/LeetSilinceCode/#524-最长子序列) | 双指针                    |
+| [\#5. 最长回文子串](https://leetcode-cn.com/problems/longest-palindromic-substring/) | 双指针-中间开始向两边扩散 |
 
 
 
@@ -807,7 +808,8 @@ int right_bound(int[] nums, int target) {
 | [\#1143. 最长公共子序列]()                                   | 最长公共子序列问题/动态规划    |
 | [\#583. 两个字符串的删除操作]()                              | 最长公共子序列问题/动态规划    |
 | [\#712. 两个字符串的最小ASCII删除和]()                       | 最长公共子序列问题/动态规划    |
-| [\#516. 最长回文子序列]()                                    | **⭐️子序列问题解题模板**        |
+| [\#516. 最长回文子序列]()                                    | 动态规划                       |
+|                                                              |                                |
 
 **首先，动态规划问题的一般形式就是求最值**。动态规划其实是运筹学的一种最优化方法，只不过在计算机问题上应用比较多，比如说让你求**最长**递增子序列呀，**最小**编辑距离呀等等。
 
@@ -1453,30 +1455,27 @@ for 0 <= i < len(s):
 > 代码：
 
 ```java
+private String res = "";
 public String longestPalindrome(String s) {
-  String res="";
   for (int i = 0; i < s.length(); i++) {
     // 找到以 s[i] 为中心的回文串
-    String s1 = palindrome(s,i,i);
-    res = res.length()>s1.length()?res:s1;
-
+    palindrome(s,i,i);
     // 找到以 s[i] 和 s[i+1] 为中心的回文串
-    String s2 = palindrome(s, i, i + 1);
-    res = res.length()>s2.length()?res:s2;
+    palindrome(s, i, i + 1);
   }
   return res;
 }
 
 // 寻找最长回文串函数
 private String palindrome(String s, int left, int right) {
-  // ⚠️ 防止索引越界(先扩展不符合再缩小左右边界防止索引越界)
+  // ⚠️ 防止索引越界(先扩展指针，如果不符合了再缩小左右边界防止索引越界)
   while (left>=0&&right<s.length()&&s.charAt(left)==s.charAt(right)){
     // 双向展开
     left--;
     right++;
   }
-  // 返回以s[left]和s[right]为中心的最长回文串
-  return s.substring(left+1,right);
+  // 更新res为s[left]和s[right]为中心的最长回文串
+  res = s.substring(left + 1, right + 1 - 1).length() > res.length() ? s.substring(left + 1, right + 1 - 1) : res;
 }
 ```
 
@@ -6840,6 +6839,79 @@ class Solution {
 ```
 
 ---
+
+
+
+## [\#516. 最长回文子序列](https://leetcode-cn.com/problems/longest-palindromic-subsequence/)
+
+- 中等
+- 2021.04.13：
+
+> 题目：
+
+```xml
+给你一个字符串 s ，找出其中最长的回文子序列，并返回该序列的长度。
+子序列定义为：不改变剩余字符顺序的情况下，删除某些字符或者不删除任何字符形成的一个序列。
+
+示例 1：
+输入：s = "bbbab"
+输出：4
+解释：一个可能的最长回文子序列为 "bbbb" 。
+
+示例 2：
+输入：s = "cbbd"
+输出：2
+解释：一个可能的最长回文子序列为 "bb" 。
+```
+
+> 分析：动态规划
+
+- 状态：`dp[i][j]` 表示 `s` 的第 `i` 个字符到第 `j` 个字符组成的子串中，最长的回文序列长度是多少。
+
+- 初始化：`dp[i][i] = 1` 单个字符的最长回文序列是 1。 j必须大于i，不满足的都初始化为0.
+
+- 转移方程：
+
+  - 如果 s 的第 i 个字符和第 j 个字符相同的话`dp[i][j] = dp[i + 1][j - 1] + 2`
+
+    ![image-20210910115255203](/assets/imgs/image-20210910115255203.png)
+
+  - 如果 s 的第 i 个字符和第 j 个字符不同的话`dp[i][j] = max(dp[i + 1][j], dp[i][j - 1])`
+
+    ![image-20210910115319644](/assets/imgs/image-20210910115319644.png)
+
+- 遍历顺序：`dp[i][j]`是依赖于`dp[i + 1][j - 1]` 、`dp[i][j - 1]`和 `dp[i + 1][j]`。也就是从矩阵的角度来说是`dp[i][j]` 下一行和左边的的数据。 所以遍历i的时候一定要从下到上,从左到右遍历，这样才能保证，下一行的数据是经过计算的。
+
+- 结果：`dp[0][n - 1]`
+
+![image-20210910131031256](/assets/imgs/image-20210910131031256.png)
+
+> 代码：
+
+```java
+public int longestPalindromeSubseq(String s) {
+  int len = s.length();
+  int[][] dp = new int[len + 1][len + 1];
+  // 从后往前遍历 保证情况不漏
+  for (int i = len - 1; i >= 0; i--) { 
+    dp[i][i] = 1; // 初始化
+    for (int j = i + 1; j < len; j++) {
+      if (s.charAt(i) == s.charAt(j)) {
+        dp[i][j] = dp[i + 1][j - 1] + 2;
+      } else {
+        dp[i][j] = Math.max(dp[i + 1][j], Math.max(dp[i][j], dp[i][j - 1]));
+      }
+    }
+  }
+  return dp[0][len - 1];
+}
+```
+
+---
+
+
+
+
 
 ## [\#518. 零钱兑换 II](https://leetcode-cn.com/problems/coin-change-2/)
 
