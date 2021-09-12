@@ -6,14 +6,6 @@ categories: [数据结构]
 tags: [LeetCode,数据结构]  
 ---
 
-# PLAN
-
-如何正确地开启刷题生活：
-
-- [如何科学的刷 LeetCode ](https://zhuanlan.zhihu.com/p/96883783)
-- [labuladong 的算法小抄 技巧模版总结](https://labuladong.gitbook.io/algo/)   [repo](https://github.com/labuladong/fucking-algorithm)    [公众号完整文章](https://mp.weixin.qq.com/s/AWsL7G89RtaHyHjRPNJENA)
-- [刷题目录](https://github.com/CyC2018/CS-Notes/blob/master/notes/Leetcode 题解 - 目录.md)
-
 # 算法思想
 
 ## 双指针 
@@ -1069,6 +1061,7 @@ int BFS(Node start, Node target) {
 | [\#94 非递归实现二叉树的中序遍历](http://www.silince.cn/2020/07/20/LeetSilinceCode/#94-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86) ⭐️ | 中序遍历      |
 | [\#104.树的高度 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#104-二叉树的最大深度) | 递归/广度优先 |
 | [#111.二叉树的最小深度 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#111-二叉树的最小深度) | 递归/广度优先 |
+| [剑指 Offer 28. 对称的二叉树](https://leetcode-cn.com/problems/dui-cheng-de-er-cha-shu-lcof/) |               |
 | [\#110 平衡二叉树 ](http://www.silince.cn/2020/07/20/LeetSilinceCode/#110-平衡二叉树) | 递归          |
 | [\#543 两节点的最长路径 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#543-二叉树的直径) | 递归          |
 | [\#226 翻转树 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#226-%E7%BF%BB%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91) | 前序遍历/递归 |
@@ -1103,6 +1096,25 @@ int BFS(Node start, Node target) {
 | [\#501 寻找二叉查找树中出现次数最多的值](http://www.silince.cn/2020/07/20/LeetSilinceCode/#501-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E4%BC%97%E6%95%B0) | BST           |
 | [\# 208 实现-trie-前缀树](http://www.silince.cn/2020/07/20/LeetSilinceCode/#208-%E5%AE%9E%E7%8E%B0-trie-%E5%89%8D%E7%BC%80%E6%A0%91) | Trie          |
 | [\# 677 键值映射](http://www.silince.cn/2020/07/20/LeetSilinceCode/#677-%E9%94%AE%E5%80%BC%E6%98%A0%E5%B0%84) | Trie          |
+
+```java
+// 自定义TreeNode节点
+static class TreeNode {
+  public int val;
+  public TreeNode left;
+  public TreeNode right;
+
+  public TreeNode(int val) {
+    this.val = val;
+  }
+
+  TreeNode(int val, TreeNode left, TreeNode right) {
+    this.val = val;
+    this.left = left;
+    this.right = right;
+  }
+}
+```
 
 
 
@@ -2991,19 +3003,19 @@ class Solution {
   public int numDecodings(String s) {
     int n = s.length();
     s = " " + s;
-    char[] cs = s.toCharArray();
-    int[] f = new int[n + 1];
+    char[] arr = s.toCharArray();
+    int[] dp = new int[n + 1];
     f[0] = 1;
     for (int i = 1; i <= n; i++) { 
       // a : 代表「当前位置」单独形成 item
       // b : 代表「当前位置」与「前一位置」共同形成 item
-      int a = cs[i] - '0', b = (cs[i - 1] - '0') * 10 + (cs[i] - '0');
+      int a = arr[i] - '0', b = (arr[i - 1] - '0') * 10 + (arr[i] - '0');
       // 如果 a 属于有效值，那么 f[i] 可以由 f[i - 1] 转移过来
-      if (1 <= a && a <= 9) f[i] = f[i - 1];
+      if (1 <= a && a <= 9) dp[i] = dp[i - 1];
       // 如果 b 属于有效值，那么 f[i] 可以由 f[i - 2] 或者 f[i - 1] & f[i - 2] 转移过来
-      if (10 <= b && b <= 26) f[i] += f[i - 2];
+      if (10 <= b && b <= 26) dp[i] += dp[i - 2];
     }
-    return f[n];
+    return dp[n];
   }
 }
 ```
@@ -9200,6 +9212,49 @@ public String replaceSpace(String s) {
 ```
 
 ---
+
+
+
+## [剑指 Offer 28. 对称的二叉树](https://leetcode-cn.com/problems/dui-cheng-de-er-cha-shu-lcof/)
+
+- 简单
+- 2021.04.13：
+
+> 题目：
+
+```xml
+请实现一个函数，用来判断一棵二叉树是不是对称的。如果一棵二叉树和它的镜像一样，那么它是对称的。
+例如，二叉树 [1,2,2,3,4,4,3] 是对称的。
+
+    1
+   / \
+  2   2
+ / \ / \
+3  4 4  3
+但是下面这个 [1,2,2,null,3,null,3] 则不是镜像对称的:
+    1
+   / \
+  2   2
+   \   \
+   3    
+```
+
+> 代码：
+
+```java
+public boolean isSymmetric(TreeNode root) {
+  return root == null ? true : recur(root.left, root.right);
+}
+boolean recur(TreeNode L, TreeNode R) {
+  if(L == null && R == null) return true;
+  if(L == null || R == null || L.val != R.val) return false;
+  return recur(L.left, R.right) && recur(L.right, R.left);
+}
+```
+
+---
+
+
 
 
 
