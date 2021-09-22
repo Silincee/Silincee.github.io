@@ -92,8 +92,8 @@ MSL 与 TTL 的区别：MSL 的单位是时间，而 TTL 是经过路由跳数�
 其定义在 Linux 内核代码里的名称为 TCP_TIMEWAIT_LEN：
 
 ```
-#define TCP_TIMEWAIT_LEN (60*HZ) /* how long to wait to destroy TIME-WAIT 
-                                    state, about 60 seconds  */
+/* how long to wait to destroy TIME-WAIT state, about 60 seconds  */
+#define TCP_TIMEWAIT_LEN (60*HZ) 
 ```
 
 如果要修改 TIME_WAIT 的时间长度，只能修改 Linux 内核代码里 TCP_TIMEWAIT_LEN 的值，并重新编译 Linux 内核。
@@ -134,7 +134,7 @@ net.ipv4.ip_local_port_range
 - **net.ipv4.tcp_max_tw_buckets**
 - **程序中使用 SO_LINGER ，应用强制使用 RST 关闭。**
 
-**<u>方式一：net.ipv4.tcp_tw_reuse 和 tcp_timestamps</u>**
+> **方式一：net.ipv4.tcp_tw_reuse 和 tcp_timestamps**
 
 如下的 Linux 内核参数开启后，则可以**复用处于 TIME_WAIT 的 socket 为新的连接所用**和**快速回收连接**
 
@@ -155,13 +155,14 @@ net.ipv4.tcp_timestamps=1（默认即为 1）
 
 温馨提醒：`net.ipv4.tcp_tw_reuse`要慎用，因为使用了它就必然要打开时间戳的支持 `net.ipv4.tcp_timestamps`，**当客户端与服务端主机时间不同步时，客户端的发送的消息会被直接拒绝掉**。
 
-**<u>方式二：net.ipv4.tcp_max_tw_buckets</u>**
+> **方式二：net.ipv4.tcp_max_tw_buckets**
 
 这个值默认为 18000，当系统中处于 TIME_WAIT 的连接**一旦超过这个值时，系统就会将所有的 TIME_WAIT 连接状态重置。**
 
-**<u>这个方法过于暴力，而且治标不治本，带来的问题远比解决的问题多，不推荐使用。</u>**
+**这个方法过于暴力，而且治标不治本，带来的问题远比解决的问题多，不推荐使用。**
 
-**<u>方式三：程序中使用 SO_LINGER</u>**
+> **方式三：程序中使用 SO_LINGER**
+>
 
 我们可以通过设置 socket 选项，来设置调用 close 关闭连接行为。
 
@@ -186,6 +187,8 @@ RFC 1323 在 TCP Reliability一节里，引入了timestamp的TCP选项，两个4
 
 tcp_tw_reuse 和 tcp_tw_recycle就依赖这些时间字段。
 
+
+
 ### **net.ipv4.tcp_tw_reuse**
 
 字面意思，reuse TIME_WAIT状态的连接。
@@ -197,6 +200,12 @@ tcp_tw_reuse 和 tcp_tw_recycle就依赖这些时间字段。
 那么，当连接被复用了之后，延迟或者重发的数据包到达，新的连接怎么判断，到达的数据是属于复用后的连接，还是复用前的连接呢？那就需要依赖前面提到的两个时间字段了。复用连接后，这条连接的时间被更新为当前的时间，当延迟的数据达到，延迟数据的时间是小于新连接的时间，所以，内核可以通过时间判断出，延迟的数据可以安全的丢弃掉了。
 
 这个配置，依赖于连接双方，同时对timestamps的支持。同时，这个配置，仅仅影响outbound连接，即做为客户端的角色，连接服务端[connect(dest_ip, dest_port)]时复用TIME_WAIT的socket。
+
+> 连接池可以复用连接，是不是意味着，需要等到上个连接time wait结束后才能再次使用?
+
+- 所谓连接池复用，复用的一定是活跃的连接，所谓活跃，第一表明连接池里的连接都ESTABLISHED的，第二，连接池做为上层应用，会有定时的心跳去保持连接的活跃性。既然连接都是活跃的，那就不存在有TIME_WAIT的概念了，在上篇里也有提到，TIME_WAIT是在主动关闭连接的一方，在关闭连接后才进入的状态。既然已经关闭了，那么这条连接肯定已经不在连接池里面了，即被连接池释放了。
+
+
 
 ### **net.ipv4.tcp_tw_recycle**
 
@@ -210,11 +219,7 @@ tcp_tw_reuse 和 tcp_tw_recycle就依赖这些时间字段。
 
 
 
-> 连接池可以复用连接，是不是意味着，需要等到上个连接time wait结束后才能再次使用?
-
-- 所谓连接池复用，复用的一定是活跃的连接，所谓活跃，第一表明连接池里的连接都是ESTABLISHED的，第二，连接池做为上层应用，会有定时的心跳去保持连接的活跃性。既然连接都是活跃的，那就不存在有TIME_WAIT的概念了，在上篇里也有提到，TIME_WAIT是在主动关闭连接的一方，在关闭连接后才进入的状态。既然已经关闭了，那么这条连接肯定已经不在连接池里面了，即被连接池释放了。
-
-
+## 其它优化方案
 
 > 作为负载均衡的机器随机端口使用完的情况下大量time_wait，如果不调整上文的那三个参数，还有其他的更好的方案吗？
 
