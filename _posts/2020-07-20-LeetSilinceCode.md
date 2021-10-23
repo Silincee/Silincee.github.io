@@ -794,7 +794,7 @@ int right_bound(int[] nums, int target) {
 | [\#509 斐波那契数](http://www.silince.cn/2020/07/20/LeetSilinceCode/#509-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0) | 动态规划                       |
 | [\#322 零钱兑换](http://www.silince.cn/2020/07/20/LeetSilinceCode/#322-零钱兑换) | 动态规划                       |
 | [\#72. 编辑距离](https://labuladong.gitbook.io/algo/dong-tai-gui-hua-xi-lie/1.2-zi-xu-lie-lei-xing-wen-ti/bian-ji-ju-li) | 子序列问题/动态规划            |
-| [\#300. 最长递增子序列]()                                    | 子序列问题/动态规划            |
+| [\#300. 最长递增子序列](http://www.silince.cn/2020/07/20/LeetSilinceCode/#300-%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97) | 子序列问题/动态规划            |
 | [乘积最大]()⭐️                                                | 动态规划                       |
 | [\#354. 俄罗斯套娃信封问题]()                                | 子序列问题/动态规划            |
 | [\#53. 最大子序和]()                                         | 子序列问题/最大子数组/动态规划 |
@@ -1008,6 +1008,7 @@ int BFS(Node start, Node target) {
 | [\#674 最长连续递增序列](http://www.silince.cn/2020/07/20/LeetSilinceCode/#674-最长连续递增序列) | 动态规划                  |
 | [\#1051 高度检查器](http://www.silince.cn/2020/07/20/LeetSilinceCode/#1051-高度检查器) | 桶排序                    |
 | [\#1160 拼写单词](http://www.silince.cn/2020/07/20/LeetSilinceCode/#1160-拼写单词) | counter方法/HashMap       |
+| [\#300. 最长递增子序列](http://www.silince.cn/2020/07/20/LeetSilinceCode/#300-%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97) | 动态规划+二分             |
 | [\#283. 移动零](https://leetcode-cn.com/problems/move-zeroes/) |                           |
 | [\#566. 重塑矩阵](https://leetcode-cn.com/problems/reshape-the-matrix/) |                           |
 | [\#485. 最大连续 1 的个数](https://leetcode-cn.com/problems/max-consecutive-ones/) |                           |
@@ -5153,6 +5154,8 @@ class Solution {
 
 
 ## [\#300. 最长递增子序列](https://leetcode-cn.com/problems/longest-increasing-subsequence/)
+
+> 最长递减子序列 = 翻转数组后求最长递增子序列
 
 - 中等
 - 2020.12.02：😭  
