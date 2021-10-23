@@ -5188,13 +5188,13 @@ class Solution {
 
 举个例子：
 
-![image-20201215094712388](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201215094712388.png)
+![image-20201215094712388](/assets/imgs/image-20201215094712388.png)
 
-![image-20201215094729199](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201215094729199.png)
+![image-20201215094729199](/assets/imgs/image-20201215094729199.png)
 
 算法演进的过程是这样的：
 
-![Image](/Users/silince/Develop/博客/blog_to_git/assets/imgs/640.gif)
+![Image](/assets/imgs/640.gif)
 
 根据这个定义，我们的最终结果（子序列的最大长度）应该是 dp 数组中的最大值。
 
@@ -5212,7 +5212,7 @@ return res;
 
 我们已经知道了` dp[0...4]` 的所有结果，我们如何通过这些已知结果推出` dp[5] `呢？
 
-![image-20201215094913042](/Users/silince/Develop/博客/blog_to_git/assets/imgs/image-20201215094913042.png)
+![image-20201215094913042](/assets/imgs/image-20201215094913042.png)
 
 根据刚才我们对 dp 数组的定义，现在想求 dp[5] 的值，也就是想求以 nums[5] 为结尾的最长递增子序列。
 
@@ -5220,9 +5220,9 @@ nums[5] = 3，既然是递增子序列，我们只要找到前面那些结尾比
 
 当然，可能形成很多种新的子序列，但是我们只要最长的，把最长子序列的长度作为 dp[5] 的值即可。
 
-![Image](/Users/silince/Develop/博客/blog_to_git/assets/imgs/640-20201215094958703.gif)
+![Image](/assets/imgs/640-20201215094958703.gif)
 
-![Image](/Users/silince/Develop/博客/blog_to_git/assets/imgs/640.png)
+![Image](/assets/imgs/640.png)
 
 
 
@@ -5230,7 +5230,7 @@ nums[5] = 3，既然是递增子序列，我们只要找到前面那些结尾比
 
 类似数学归纳法，你已经可以通过 dp[0...4] 算出 dp[5] 了，那么任意 dp[i] 你肯定都可以算出来：
 
-![Image](/Users/silince/Develop/博客/blog_to_git/assets/imgs/640-7997035..png)
+![Image](/assets/imgs/640-7997035..png)
 
 
 
