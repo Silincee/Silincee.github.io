@@ -5176,12 +5176,6 @@ class Solution {
 
 最长递增子序列（Longest Increasing Subsequence，简写 LIS）是比较经典的一个问题，比较容易想到的是动态规划解法，时间复杂度 O(N^2)，我们借这个问题来由浅入深讲解如何写动态规划。
 
-比较难想到的是利用[二分查找](https://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484498&idx=1&sn=df58ef249c457dd50ea632f7c2e6e761&source=41#wechat_redirect)，时间复杂度是 O(NlogN)，我们通过一种简单的纸牌游戏来辅助理解这种巧妙的解法。
-
-我们设计动态规划算法，不是需要一个 dp 数组吗？我们可以假设 `dp[0...i−1]` 都已经被算出来了，然后问自己：怎么通过这些结果算出`dp[i]` ?
-
-直接拿最长递增子序列这个问题举例你就明白了。不过，首先要定义清楚 dp 数组的含义，即 dp[i] 的值到底代表着什么？
-
 **我们的定义是这样的：dp[i] 表示以 nums[i] 这个数结尾的最长递增子序列的长度。**
 
 举个例子：
@@ -5262,6 +5256,35 @@ class Solution {
 然后根据 dp 数组的定义，运用数学归纳法的思想，假设 dp[0...i−1] 都已知，想办法求出 dp[i]，一旦这一步完成，整个题目基本就解决了。
 
 但如果无法完成这一步，很可能就是 dp 数组的定义不够恰当，需要重新定义 dp 数组的含义；或者可能是 dp 数组存储的信息还不够，不足以推出下一步的答案，需要把 dp 数组扩大成二维数组甚至三维数组。
+
+> 动态规划+二分查找
+
+很具小巧思。新建数组 track，用于保存最长上升子序列。
+
+对原序列进行遍历，将每位元素二分插入 track 中。
+
+**如果 track 中元素都比它小，将它插到最后。否则，用它覆盖掉track数组中大于等于该元素中最小的那个元素。**
+
+总之，思想就是让 track 中存储比较小的元素。这样，track 未必是真实的最长上升子序列，但长度是对的。（**总是致力于构造最小上升队列，让后面新的数更有可能累加上**）
+
+```java
+public int lengthOfLIS(int[] nums) {
+  int[] track = new int[nums.length];
+  int res = 0; // 当前track数组的长度
+  for(int num : nums) {
+    int l = -1, r = res;
+    while(l+1 != r) {
+      int m = (l + r) / 2;
+      if(track[m] < num) l = m;
+      else r = m;
+    }
+    
+    track[r] = num;
+    if(r==res) res++; // 如果r=res表示没找到第一个大于num的数，将num插到最后。长度+1
+  }
+  return res;
+}
+```
 
 ---
 
