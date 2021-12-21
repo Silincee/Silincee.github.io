@@ -1037,7 +1037,7 @@ int BFS(Node start, Node target) {
 | [\#160. 两链表相交](http://www.silince.cn/2020/07/20/LeetSilinceCode/#160-%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8) ⭐️ | 无环/有环     |
 | [\#141 判断链表是否存在环](http://www.silince.cn/2020/07/20/LeetSilinceCode/#141-判断链表是否存在环) ⭐️ | 快慢指针      |
 | [\#142. 环形链表 II](http://www.silince.cn/2020/07/20/LeetSilinceCode/#142-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8-ii) ⭐️ | 数学+快慢指针 |
-| [\#206. 反转链表](https://leetcode-cn.com/problems/reverse-linked-list/) |               |
+| [\#206. 反转链表](https://leetcode-cn.com/problems/reverse-linked-list/) | 迭代/递归     |
 | [\#25. K 个一组翻转链表](http://www.silince.cn/2020/07/20/LeetSilinceCode/#25-k-%E4%B8%AA%E4%B8%80%E7%BB%84%E7%BF%BB%E8%BD%AC%E9%93%BE%E8%A1%A8) ⭐️ | 链表分区      |
 | [\#143. 重排链表](https://leetcode-cn.com/problems/reorder-list/) |               |
 | [\#83.删除排序链表中的重复元素](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/) |               |
