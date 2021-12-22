@@ -1032,22 +1032,24 @@ int BFS(Node start, Node target) {
 1. 舍得用变量，千万别想着节省变量，否则容易被逻辑绕晕。
 2. head 有可能需要改动时，先增加一个 假head，返回的时候直接取 假head.next，这样就不需要为修改 head 增加一大堆逻辑了。   
 
-| 题目                                                         | 算法思想      |
-| ------------------------------------------------------------ | ------------- |
-| [\#160. 两链表相交](http://www.silince.cn/2020/07/20/LeetSilinceCode/#160-%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8) ⭐️ | 无环/有环     |
-| [\#141 判断链表是否存在环](http://www.silince.cn/2020/07/20/LeetSilinceCode/#141-判断链表是否存在环) ⭐️ | 快慢指针      |
-| [\#142. 环形链表 II](http://www.silince.cn/2020/07/20/LeetSilinceCode/#142-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8-ii) ⭐️ | 数学+快慢指针 |
-| [\#206. 反转链表](http://www.silince.cn/2020/07/20/LeetSilinceCode/#206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8) | 迭代/递归     |
-| [\#25. K 个一组翻转链表](http://www.silince.cn/2020/07/20/LeetSilinceCode/#25-k-%E4%B8%AA%E4%B8%80%E7%BB%84%E7%BF%BB%E8%BD%AC%E9%93%BE%E8%A1%A8) ⭐️ | 链表分区      |
-| [\#143. 重排链表](https://leetcode-cn.com/problems/reorder-list/) |               |
-| [\#83.删除排序链表中的重复元素](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/) |               |
-| [\#19.删除链表的倒数第 N 个结点](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/) |               |
-| [\#24.两两交换链表中的节点](https://leetcode-cn.com/problems/swap-nodes-in-pairs/) |               |
-| [\#445. 两数相加 II](https://leetcode-cn.com/problems/add-two-numbers-ii/) |               |
-| [\#234. 回文链表](https://leetcode-cn.com/problems/palindrome-linked-list/) |               |
-| [\#725. 分隔链表](https://leetcode-cn.com/problems/split-linked-list-in-parts/) |               |
-| [\#328. 奇偶链表](https://leetcode-cn.com/problems/odd-even-linked-list/) |               |
-| [\#21.合并两个有序链表](https://leetcode-cn.com/problems/merge-two-sorted-lists/) |               |
+| 题目                                                         | 算法思想                 |
+| ------------------------------------------------------------ | ------------------------ |
+| [\#160. 两链表相交](http://www.silince.cn/2020/07/20/LeetSilinceCode/#160-%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8) ⭐️ | 无环/有环                |
+| [\#141 判断链表是否存在环](http://www.silince.cn/2020/07/20/LeetSilinceCode/#141-判断链表是否存在环) ⭐️ | 快慢指针                 |
+| [\#142. 环形链表 II](http://www.silince.cn/2020/07/20/LeetSilinceCode/#142-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8-ii) ⭐️ | 数学+快慢指针            |
+| [\#206. 反转链表](http://www.silince.cn/2020/07/20/LeetSilinceCode/#206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8) | 迭代/递归                |
+| [\#25. K 个一组翻转链表](http://www.silince.cn/2020/07/20/LeetSilinceCode/#25-k-%E4%B8%AA%E4%B8%80%E7%BB%84%E7%BF%BB%E8%BD%AC%E9%93%BE%E8%A1%A8) ⭐️ | 链表分区                 |
+| [876. 链表的中间结点](https://leetcode-cn.com/problems/middle-of-the-linked-list/) | 快慢指针                 |
+| [21. 合并两个有序链表](https://leetcode-cn.com/problems/merge-two-sorted-lists/) | 指针                     |
+| [\#143. 重排链表](https://leetcode-cn.com/problems/reorder-list/) | 找中点+反转链表+合并链表 |
+| [\#83.删除排序链表中的重复元素](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/) |                          |
+| [\#19.删除链表的倒数第 N 个结点](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/) |                          |
+| [\#24.两两交换链表中的节点](https://leetcode-cn.com/problems/swap-nodes-in-pairs/) |                          |
+| [\#445. 两数相加 II](https://leetcode-cn.com/problems/add-two-numbers-ii/) |                          |
+| [\#234. 回文链表](https://leetcode-cn.com/problems/palindrome-linked-list/) |                          |
+| [\#725. 分隔链表](https://leetcode-cn.com/problems/split-linked-list-in-parts/) |                          |
+| [\#328. 奇偶链表](https://leetcode-cn.com/problems/odd-even-linked-list/) |                          |
+| [\#21.合并两个有序链表](https://leetcode-cn.com/problems/merge-two-sorted-lists/) |                          |
 
 
 
@@ -1235,7 +1237,7 @@ static class TreeNode {
 ## Template
 
 - 中等
-- 2021.04.13：
+- 2021.11.22：
 
 > 题目：
 
@@ -1567,6 +1569,49 @@ public boolean isValid(String s) {
     }
   }
   return stack.size() == 1; // s已左括号结尾也可以正常结束，但是stack会存在两个元素(?和左括号)。 
+}
+```
+
+---
+
+
+
+## [21. 合并两个有序链表](https://leetcode-cn.com/problems/merge-two-sorted-lists/)
+
+- 简单
+- 2021.11.22：😎
+
+> 题目：
+
+```xml
+将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 
+```
+
+> 分析：迭代
+
+head 有可能需要改动时，先增加一个 假head，返回的时候直接取 假head.next，这样就不需要为修改 head 增加一大堆逻辑了。
+
+> 代码：
+
+```java
+public ListNode mergeTwoLists(ListNode head1, ListNode head2) {
+  // 哨兵节点
+  ListNode dummyHead = new ListNode(-1);
+
+  ListNode pre = dummyHead;
+  while(head1!=null&&head2!=null){
+    if(head1.val<=head2.val){
+      pre.next = head1;
+      head1 = head1.next;
+    }else{
+      pre.next = head2;
+      head2 = head2.next;
+    }
+    pre = pre.next;
+  }
+  pre.next = head1==null?head2:head1;
+
+  return dummyHead.next;
 }
 ```
 
@@ -4130,6 +4175,124 @@ public int hasCycleLength(ListNode head) {
     count++;
   }
   return count;
+}
+```
+
+---
+
+
+
+## [143. 重排链表](https://leetcode-cn.com/problems/reorder-list/)
+
+- 中等
+- 2021.11.22：
+
+> 题目：
+
+```xml
+给定一个单链表 L 的头节点 head ，单链表 L 表示为：
+L0 → L1 → … → Ln - 1 → Ln
+请将其重新排列后变为：
+L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …
+不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。
+```
+
+> 分析：
+
+***方法一：线性表***
+
+因为链表不支持下标访问，所以我们无法随机访问链表中任意位置的元素。
+
+因此比较容易想到的一个方法是，我们利用线性表存储该链表，然后利用线性表可以下标访问的特点，直接按顺序访问指定元素，重建该链表即可。
+
+***方法二：寻找链表中点 + 链表逆序 + 合并链表***
+
+目标链表即为将原链表的左半端和反转后的右半端合并后的结果，因此该任务可以划分为三步：
+
+1. 找到原链表的中点(快慢指针) - #876
+2. 将原链表的右半端反转(反转链表) - #206
+3. 将原链表的两端合并，因为两链表长度相差不超过 1，因此直接合并即可。- #21
+
+
+
+> 代码：
+
+```java
+// 方法一：线性表
+public void reorderList(ListNode head) {
+  if (head == null) {
+    return;
+  }
+  List<ListNode> list = new ArrayList<ListNode>();
+  ListNode node = head;
+  while (node != null) {
+    list.add(node);
+    node = node.next;
+  }
+  int i = 0, j = list.size() - 1;
+  while (i < j) {
+    list.get(i).next = list.get(j);
+    i++;
+    list.get(j).next = list.get(i);
+    j--;
+  }
+  list.get(i).next = null;
+}
+
+// 方法二：寻找链表中点 + 链表逆序 + 合并链表
+public void reorderList(ListNode head) {
+  // 快慢指针找中点
+  ListNode quick = head;
+  ListNode slow = head;
+  while(quick.next!=null&&quick.next.next!=null){
+    slow = slow.next;
+    quick = quick.next.next;
+  }
+
+  ListNode head2 = slow.next;
+  slow.next = null; // 断开链表
+
+  // 反转后链表头节点为pre指针
+  ListNode pre = null;
+  ListNode cur = head2;
+  while(cur!=null){
+    ListNode temp = cur.next;
+    cur.next = pre;
+    pre = cur;
+    cur = temp;
+  }
+  // 合并链表
+  mergeList(head,pre);
+}
+
+public void mergeList(ListNode head1, ListNode head2) {
+  while(head1!=null && head2!=null){
+    ListNode temp1 = head1.next;
+    ListNode temp2 = head2.next;
+
+    head1.next = head2;
+    head2.next = temp1;
+    head1 = temp1;
+    head2 = temp2;
+  } 
+  
+  // #21-跟通用的合并链表(返回合并后的头节点)
+  public ListNode mergeList2(ListNode head1, ListNode head2) {
+    // 哨兵节点
+    ListNode dummyHead = new ListNode(-1);
+
+    ListNode pre = dummyHead;
+    while(head1!=null&&head2!=null){
+      pre.next = head1;
+      head1 = head1.next;
+      pre = pre.next;
+      pre.next = head2;
+      head2 = head2.next;
+      pre = pre.next;
+    }
+    pre.next = head1==null?head2:head1;  
+    return dummyHead.next;
+  }
 }
 ```
 
@@ -8643,6 +8806,54 @@ while (!q1.isEmpty() && !q2.isEmpty()) {
 ---
 
 
+
+## [876. 链表的中间结点](https://leetcode-cn.com/problems/middle-of-the-linked-list/)
+
+- 简单
+- 2021.11.12：😎
+
+> 题目：
+
+```xml
+给定一个头结点为 head 的非空单链表，返回链表的中间结点。
+如果有两个中间结点，则返回第二个中间结点。
+示例 1：
+输入：[1,2,3,4,5]
+输出：此列表中的结点 3 (序列化形式：[3,4,5])
+返回的结点值为 3 。 (测评系统对该结点序列化表述是 [3,4,5])。
+注意，我们返回了一个 ListNode 类型的对象 ans，这样：
+ans.val = 3, ans.next.val = 4, ans.next.next.val = 5, 以及 ans.next.next.next = NULL.
+
+示例 2：
+输入：[1,2,3,4,5,6]
+输出：此列表中的结点 4 (序列化形式：[4,5,6])
+由于该列表有两个中间结点，值分别为 3 和 4，我们返回第二个结点。
+```
+
+> 分析：
+
+***方法一：快慢指针***
+
+注意链表为偶数的情况。
+
+
+
+> 代码：
+
+```java
+public ListNode middleNode(ListNode head) {
+  // 快慢指针找中点
+  ListNode quick = head;
+  ListNode slow = head;
+  while(quick.next!=null&&quick.next.next!=null){
+    slow = slow.next;
+    quick = quick.next.next;
+  }
+  return quick.next==null?slow:slow.next;
+}
+```
+
+---
 
 
 
