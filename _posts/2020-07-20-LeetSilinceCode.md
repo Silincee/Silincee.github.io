@@ -1039,9 +1039,9 @@ int BFS(Node start, Node target) {
 | [\#142. 环形链表 II](http://www.silince.cn/2020/07/20/LeetSilinceCode/#142-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8-ii) ⭐️ | 数学+快慢指针            |
 | [\#206. 反转链表](http://www.silince.cn/2020/07/20/LeetSilinceCode/#206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8) | 迭代/递归                |
 | [\#25. K 个一组翻转链表](http://www.silince.cn/2020/07/20/LeetSilinceCode/#25-k-%E4%B8%AA%E4%B8%80%E7%BB%84%E7%BF%BB%E8%BD%AC%E9%93%BE%E8%A1%A8) ⭐️ | 链表分区                 |
-| [876. 链表的中间结点](https://leetcode-cn.com/problems/middle-of-the-linked-list/) | 快慢指针                 |
-| [21. 合并两个有序链表](https://leetcode-cn.com/problems/merge-two-sorted-lists/) | 指针                     |
-| [\#143. 重排链表](https://leetcode-cn.com/problems/reorder-list/) | 找中点+反转链表+合并链表 |
+| [876. 链表的中间结点](http://www.silince.cn/2020/07/20/LeetSilinceCode/#876-链表的中间结点) | 快慢指针                 |
+| [21. 合并两个有序链表 ](http://www.silince.cn/2020/07/20/LeetSilinceCode/#21-合并两个有序链表)⭐️ | 指针                     |
+| [\#143. 重排链表](http://www.silince.cn/2020/07/20/LeetSilinceCode/#143-重排链表) ⭐️ | 找中点+反转链表+合并链表 |
 | [\#83.删除排序链表中的重复元素](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/) |                          |
 | [\#19.删除链表的倒数第 N 个结点](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/) |                          |
 | [\#24.两两交换链表中的节点](https://leetcode-cn.com/problems/swap-nodes-in-pairs/) |                          |
