@@ -1037,13 +1037,13 @@ int BFS(Node start, Node target) {
 | [\#160. 两链表相交](http://www.silince.cn/2020/07/20/LeetSilinceCode/#160-%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8) ⭐️ | 无环/有环                |
 | [\#141 判断链表是否存在环](http://www.silince.cn/2020/07/20/LeetSilinceCode/#141-判断链表是否存在环) ⭐️ | 快慢指针                 |
 | [\#142. 环形链表 II](http://www.silince.cn/2020/07/20/LeetSilinceCode/#142-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8-ii) ⭐️ | 数学+快慢指针            |
-| [\#206. 反转链表](http://www.silince.cn/2020/07/20/LeetSilinceCode/#206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8) | 迭代/递归                |
+| [\#206. 反转链表](http://www.silince.cn/2020/07/20/LeetSilinceCode/#206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8) ⭐️ | 迭代/递归                |
 | [\#25. K 个一组翻转链表](http://www.silince.cn/2020/07/20/LeetSilinceCode/#25-k-%E4%B8%AA%E4%B8%80%E7%BB%84%E7%BF%BB%E8%BD%AC%E9%93%BE%E8%A1%A8) ⭐️ | 链表分区                 |
-| [876. 链表的中间结点](http://www.silince.cn/2020/07/20/LeetSilinceCode/#876-链表的中间结点) | 快慢指针                 |
+| [876. 链表的中间结点](http://www.silince.cn/2020/07/20/LeetSilinceCode/#876-链表的中间结点) ⭐️ | 快慢指针                 |
 | [21. 合并两个有序链表 ](http://www.silince.cn/2020/07/20/LeetSilinceCode/#21-合并两个有序链表)⭐️ | 指针                     |
 | [\#143. 重排链表](http://www.silince.cn/2020/07/20/LeetSilinceCode/#143-重排链表) ⭐️ | 找中点+反转链表+合并链表 |
-| [\#83.删除排序链表中的重复元素](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/) |                          |
-| [\#19.删除链表的倒数第 N 个结点](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/) |                          |
+| [\#83.删除排序链表中的重复元素](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/) | TODO                     |
+| [\#19.删除链表的倒数第 N 个结点](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/) | TODO                     |
 | [\#24.两两交换链表中的节点](https://leetcode-cn.com/problems/swap-nodes-in-pairs/) |                          |
 | [\#445. 两数相加 II](https://leetcode-cn.com/problems/add-two-numbers-ii/) |                          |
 | [\#234. 回文链表](https://leetcode-cn.com/problems/palindrome-linked-list/) |                          |
@@ -1597,20 +1597,19 @@ head 有可能需要改动时，先增加一个 假head，返回的时候直接�
 public ListNode mergeTwoLists(ListNode head1, ListNode head2) {
   // 哨兵节点
   ListNode dummyHead = new ListNode(-1);
-
-  ListNode pre = dummyHead;
+  ListNode cur = dummyHead;
+  
   while(head1!=null&&head2!=null){
     if(head1.val<=head2.val){
-      pre.next = head1;
+      cur.next = head1;
       head1 = head1.next;
     }else{
-      pre.next = head2;
+      cur.next = head2;
       head2 = head2.next;
     }
-    pre = pre.next;
+    cur = cur.next;
   }
-  pre.next = head1==null?head2:head1;
-
+  cur.next = head1==null?head2:head1;
   return dummyHead.next;
 }
 ```
@@ -4123,7 +4122,7 @@ public boolean hasCycle(ListNode head) {
 - 设链表共有 a+b个节点，其中 **链表头部到链表入口** 有 a 个节点（不计链表入口节点）， **链表环** 有 b 个节点。f快指针走过的步数，s慢指针走过的步数。
 
 - f=2s （快指针每次2步，路程刚好2倍）
-- f - s = nb (相遇时，刚好多走了n圈）
+- f  = s + nb (相遇时，刚好多走了n圈）
 
 推出：s = nb
 
@@ -4139,21 +4138,23 @@ public boolean hasCycle(ListNode head) {
 
 ```java
 public ListNode detectCycle(ListNode head) {
-  if (head==null||head.next==null) return null;
-  ListNode quick = head;
+  if(head==null||head.next==null) return null;
+  
   ListNode slow = head;
-  while (true){
-    if(quick==null||quick.next==null) return null;
-    quick = quick.next.next;
+  ListNode fast = head;
+  while(fast.next!=null&&fast.next.next!=null){
     slow = slow.next;
-    if (quick==slow) break;
+    fast = fast.next.next;
+    if(slow==fast){
+      fast = head;
+      while(fast!=slow){
+        fast = fast.next;
+        slow = slow.next;
+      }
+      return slow;
+    }
   }
-  quick = head;
-  while (slow!=quick){
-    slow = slow.next;
-    quick = quick.next;
-  }
-  return quick;
+  return null;
 }
 // 要是想求环的长度怎么办呢  继续一快一慢，维护一个count=1；循环直第二次相遇，每次循环count++。
 public int hasCycleLength(ListNode head) {
@@ -4166,7 +4167,7 @@ public int hasCycleLength(ListNode head) {
     slow = slow.next;
     if (quick==slow) break;
   }
-  
+
   int count = 1;
   quick = quick.next;
   while (slow!=quick){
@@ -4628,8 +4629,8 @@ class LRUCache {
 若两个链表都有环，则分别得到每个链表的入环节点node1，node2，然后进行有环单链表判断是否相交。 [\#142. 环形链表 II](https://leetcode-cn.com/problems/linked-list-cycle-ii/)
 
 - 第一种：不相交。
-- 第二种：环外相交。单链表相交那肯定是同一个环，所以入环节点肯定是同一个，直接返回即可。
-- 第三种：环内相交，如果遇到了，那么两个入环节点都是最近的点，任意返回一个都可以。
+- 第二种：环外相交。单链表相交那肯定是同一个环，所以**入环节点**肯定是同一个，直接返回即可。
+- 第三种：环内相交，如果遇到了，**那么两个入环节点都是最近的点，任意返回一个都可以。**
 
 **如果两个环的入环节点相等，就是第二个，不是就是1或3。区分1和3，选一个链表的入环节点开始next遍历，如果在再次遇到这个节点之前没有遇到另一个入环节点就是1，如果相遇了就是3,此时任选一个返回就好了。**
 
@@ -4645,7 +4646,8 @@ class LRUCache {
 // 无环场景下
 public class Solution {
   public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-    ListNode A = headA, B = headB;
+    ListNode A = headA;
+    ListNode B = headB;
     while (A != B) {
       A = A != null ? A.next : headB;
       B = B != null ? B.next : headA;
@@ -4663,7 +4665,7 @@ public static ListNode  getIntersectionNode(ListNode headA,ListNode headB){
   if (cycleNodeA==cycleNodeB){
     return cycleNodeA;
   }
-  // 环内相交
+  // 环内相交(环内转一圈还没找到CycleB说明两有环单链表不相交)
   node = cycleNodeA.next;
   while(node != cycleNodeA){
     if(node == cycleNodeB){
@@ -4674,23 +4676,25 @@ public static ListNode  getIntersectionNode(ListNode headA,ListNode headB){
   return null; 
 }
 
-// 返回入环节点
-public static ListNode detectCycle(ListNode head) {
-  if (head==null||head.next==null) return null;
-  ListNode quick = head;
+// 返回入环节点-142. 环形链表 II
+public ListNode detectCycle(ListNode head) {
+  if(head==null||head.next==null) return null;
+
   ListNode slow = head;
-  while (true){
-    if(quick==null||quick.next==null) return null;
-    quick = quick.next.next;
+  ListNode fast = head;
+  while(fast.next!=null&&fast.next.next!=null){
     slow = slow.next;
-    if (quick==slow) break;
+    fast = fast.next.next;
+    if(slow==fast){
+      fast = head;
+      while(fast!=slow){
+        fast = fast.next;
+        slow = slow.next;
+      }
+      return slow;
+    }
   }
-  quick = head;
-  while (slow!=quick){
-    slow = slow.next;
-    quick = quick.next;
-  }
-  return quick;
+  return null;
 }
 ```
 
