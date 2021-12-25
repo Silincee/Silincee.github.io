@@ -1032,24 +1032,24 @@ int BFS(Node start, Node target) {
 1. 舍得用变量，千万别想着节省变量，否则容易被逻辑绕晕。
 2. head 有可能需要改动时，先增加一个 假head，返回的时候直接取 假head.next，这样就不需要为修改 head 增加一大堆逻辑了。   
 
-| 题目                                                         | 算法思想                 |
-| ------------------------------------------------------------ | ------------------------ |
-| [\#160. 两链表相交](http://www.silince.cn/2020/07/20/LeetSilinceCode/#160-%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8) ⭐️ | 无环/有环                |
-| [\#141 判断链表是否存在环](http://www.silince.cn/2020/07/20/LeetSilinceCode/#141-判断链表是否存在环) ⭐️ | 快慢指针                 |
-| [\#142. 环形链表 II](http://www.silince.cn/2020/07/20/LeetSilinceCode/#142-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8-ii) ⭐️ | 数学+快慢指针            |
-| [\#206. 反转链表](http://www.silince.cn/2020/07/20/LeetSilinceCode/#206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8) ⭐️ | 迭代/递归                |
-| [\#25. K 个一组翻转链表](http://www.silince.cn/2020/07/20/LeetSilinceCode/#25-k-%E4%B8%AA%E4%B8%80%E7%BB%84%E7%BF%BB%E8%BD%AC%E9%93%BE%E8%A1%A8) ⭐️ | 链表分区                 |
-| [876. 链表的中间结点](http://www.silince.cn/2020/07/20/LeetSilinceCode/#876-链表的中间结点) ⭐️ | 快慢指针                 |
-| [21. 合并两个有序链表 ](http://www.silince.cn/2020/07/20/LeetSilinceCode/#21-合并两个有序链表)⭐️ | 指针                     |
-| [\#143. 重排链表](http://www.silince.cn/2020/07/20/LeetSilinceCode/#143-重排链表) ⭐️ | 找中点+反转链表+合并链表 |
-| [\#83.删除排序链表中的重复元素](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/) | TODO                     |
-| [\#19.删除链表的倒数第 N 个结点](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/) | TODO                     |
-| [\#24.两两交换链表中的节点](https://leetcode-cn.com/problems/swap-nodes-in-pairs/) |                          |
-| [\#445. 两数相加 II](https://leetcode-cn.com/problems/add-two-numbers-ii/) |                          |
-| [\#234. 回文链表](https://leetcode-cn.com/problems/palindrome-linked-list/) |                          |
-| [\#725. 分隔链表](https://leetcode-cn.com/problems/split-linked-list-in-parts/) |                          |
-| [\#328. 奇偶链表](https://leetcode-cn.com/problems/odd-even-linked-list/) |                          |
-| [\#21.合并两个有序链表](https://leetcode-cn.com/problems/merge-two-sorted-lists/) |                          |
+| 题目                                                         | 算法思想                                  |
+| ------------------------------------------------------------ | ----------------------------------------- |
+| [\#160. 两链表相交](http://www.silince.cn/2020/07/20/LeetSilinceCode/#160-%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8) ⭐️ | 无环/有环                                 |
+| [\#141 判断链表是否存在环](http://www.silince.cn/2020/07/20/LeetSilinceCode/#141-判断链表是否存在环) ⭐️ | 快慢指针                                  |
+| [\#142. 环形链表 II](http://www.silince.cn/2020/07/20/LeetSilinceCode/#142-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8-ii) ⭐️ | 数学+快慢指针                             |
+| [\#206. 反转链表](http://www.silince.cn/2020/07/20/LeetSilinceCode/#206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8) ⭐️ | 迭代/递归                                 |
+| [\#25. K 个一组翻转链表](http://www.silince.cn/2020/07/20/LeetSilinceCode/#25-k-%E4%B8%AA%E4%B8%80%E7%BB%84%E7%BF%BB%E8%BD%AC%E9%93%BE%E8%A1%A8) ⭐️ | 链表分区                                  |
+| [876. 链表的中间结点](http://www.silince.cn/2020/07/20/LeetSilinceCode/#876-链表的中间结点) ⭐️ | 快慢指针                                  |
+| [21. 合并两个有序链表 ](http://www.silince.cn/2020/07/20/LeetSilinceCode/#21-合并两个有序链表)⭐️ | 指针                                      |
+| [\#143. 重排链表](http://www.silince.cn/2020/07/20/LeetSilinceCode/#143-重排链表) ⭐️ | 找中点+反转链表+合并链表                  |
+| [\#83.删除排序链表中的重复元素](http://www.silince.cn/2020/07/20/LeetSilinceCode/#83.删除排序链表中的重复元素) | 一次遍历                                  |
+| [\#19.删除链表的倒数第 N 个结点](http://www.silince.cn/2020/07/20/LeetSilinceCode/#83.删除排序链表中的重复元素/#19.删除链表的倒数第 N 个结点) | 快慢指针(快指针先走N步)+pre指针+dummyHead |
+| [\#24.两两交换链表中的节点](https://leetcode-cn.com/problems/swap-nodes-in-pairs/) |                                           |
+| [\#445. 两数相加 II](https://leetcode-cn.com/problems/add-two-numbers-ii/) |                                           |
+| [\#234. 回文链表](https://leetcode-cn.com/problems/palindrome-linked-list/) |                                           |
+| [\#725. 分隔链表](https://leetcode-cn.com/problems/split-linked-list-in-parts/) |                                           |
+| [\#328. 奇偶链表](https://leetcode-cn.com/problems/odd-even-linked-list/) |                                           |
+| [\#21.合并两个有序链表](https://leetcode-cn.com/problems/merge-two-sorted-lists/) |                                           |
 
 
 
@@ -1237,7 +1237,7 @@ static class TreeNode {
 ## Template
 
 - 中等
-- 2021.11.22：
+- 2021.11.25：
 
 > 题目：
 
@@ -1501,6 +1501,53 @@ class Solution {
         }
         return res;
     }
+}
+```
+
+---
+
+
+
+## [19. 删除链表的倒数第 N 个结点](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/)
+
+- 中等
+- 2021.11.25：
+
+> 题目：
+
+```xml
+给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。
+```
+
+> 分析：
+
+***方法一：***
+
+快慢指针，让fast指针先走n步。
+
+为了方便删除第一结点，最好加一个哨兵节点。
+
+为了方便删除尾节点(n=1时)，最好还是以`fast!=null`作为判断条件比较好，而不是`fast.next!=null`，不然不能使fast遍历到null。
+
+> 代码：
+
+```java
+public ListNode removeNthFromEnd(ListNode head, int n) {
+  ListNode dummy = new ListNode(-1);
+  dummy.next = head;
+  ListNode pre = dummy;
+  ListNode slow = head;
+  ListNode fast = head;
+  for(int i=0;i<n;i++){
+    fast = fast.next;
+  }
+  while(fast!=null){ // 再简单一点的话slow指针可以删掉,直接pre.next = pre.next.next
+    pre = pre.next;
+    slow = slow.next;
+    fast = fast.next;
+  }
+  pre.next = slow.next;
+  return dummy.next;
 }
 ```
 
@@ -2782,6 +2829,53 @@ public String minWindow(String s, String t) {
 移动 `left` 收缩窗口时，窗口内的字符都是可行解，所以应该在收缩窗口的阶段进行最小覆盖子串的更新，以便从可行解中找到长度最短的最终结果。
 
 至此，应该可以完全理解这套框架了，滑动窗口算法又不难，就是细节问题让人烦得很。**以后遇到滑动窗口算法，你就按照这框架写代码，保准没有 bug，还省事儿**。
+
+---
+
+
+
+## [83. 删除排序链表中的重复元素](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/)
+
+- 简单
+- 2021.11.25：😎
+
+> 题目：
+
+```xml
+存在一个按升序排列的链表，给你这个链表的头节点 head ，请你删除所有重复的元素，使每个元素 只出现一次。
+返回同样按升序排列的结果链表。
+```
+
+> 分析：
+
+***方法一：***
+
+由于给定的链表是排好序的，因此**重复的元素在链表中出现的位置是连续的**，因此我们只需要对链表进行一次遍历，就可以删除重复的元素。
+
+当我们遍历到链表的最后一个节点时，`cur` 为空节点，如果不加以判断并操作，就会导致无法删除链表尾部的最后一个重复节点,如输入`[1,1,2,3,3]`的结果为`[1,2,3,3]`。
+
+
+
+> 代码：
+
+```java
+public ListNode deleteDuplicates(ListNode head) {
+  ListNode dummyHead = new ListNode(-1);
+  ListNode pre = dummyHead;
+  ListNode cur = head;
+  while(cur!=null){
+    if(pre.val!=cur.val){
+      pre.next = cur;
+      pre = cur;
+    }
+    cur = cur.next;
+    if(cur==null){ // ⚠️要一个判断进行尾重复节点的删除操作
+      pre.next = cur;
+    }
+  }
+  return dummyHead.next;
+}
+```
 
 ---
 
