@@ -1043,7 +1043,7 @@ int BFS(Node start, Node target) {
 | [21. 合并两个有序链表 ](http://www.silince.cn/2020/07/20/LeetSilinceCode/#21-合并两个有序链表)⭐️ | 指针                                      |
 | [\#143. 重排链表](http://www.silince.cn/2020/07/20/LeetSilinceCode/#143-重排链表) ⭐️ | 找中点+反转链表+合并链表                  |
 | [\#83.删除排序链表中的重复元素](http://www.silince.cn/2020/07/20/LeetSilinceCode/#83.删除排序链表中的重复元素) | 一次遍历                                  |
-| [\#19.删除链表的倒数第 N 个结点](http://www.silince.cn/2020/07/20/LeetSilinceCode/#83.删除排序链表中的重复元素/#19.删除链表的倒数第 N 个结点) | 快慢指针(快指针先走N步)+pre指针+dummyHead |
+| [\#19.删除链表的倒数第 N 个结点](http://www.silince.cn/2020/07/20/LeetSilinceCode/#19.删除链表的倒数第 N 个结点) | 快慢指针(快指针先走N步)+pre指针+dummyHead |
 | [\#24.两两交换链表中的节点](https://leetcode-cn.com/problems/swap-nodes-in-pairs/) |                                           |
 | [\#445. 两数相加 II](https://leetcode-cn.com/problems/add-two-numbers-ii/) |                                           |
 | [\#234. 回文链表](https://leetcode-cn.com/problems/palindrome-linked-list/) |                                           |
