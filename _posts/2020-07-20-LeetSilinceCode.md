@@ -1535,12 +1535,15 @@ class Solution {
 public ListNode removeNthFromEnd(ListNode head, int n) {
   ListNode dummy = new ListNode(-1);
   dummy.next = head;
+  
   ListNode pre = dummy;
   ListNode slow = head;
   ListNode fast = head;
-  for(int i=0;i<n;i++){
+  while(n!=0){
     fast = fast.next;
+    n--;
   }
+  
   while(fast!=null){ // 再简单一点的话slow指针可以删掉,直接pre.next = pre.next.next
     pre = pre.next;
     slow = slow.next;
