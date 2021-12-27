@@ -1166,15 +1166,15 @@ static class TreeNode {
 
 | 题目                                                         | 算法思想          |
 | ------------------------------------------------------------ | ----------------- |
-| [242. 有效的字母异位词](https://leetcode-cn.com/problems/valid-anagram/) |                   |
+| [242. 有效的字母异位词](http://www.silince.cn/2020/07/20/LeetSilinceCode/#242-%E6%9C%89%E6%95%88%E7%9A%84%E5%AD%97%E6%AF%8D%E5%BC%82%E4%BD%8D%E8%AF%8D) | 排序/hashtable    |
 | [\#409. 最长回文串](https://leetcode-cn.com/problems/longest-palindrome/) |                   |
 | [\#205. 同构字符串](https://leetcode-cn.com/problems/isomorphic-strings/) |                   |
-| [\#647. 回文子串](https://leetcode-cn.com/problems/palindromic-substrings/) ⭐️ | 扩展中心          |
-| [\#5. 最长回文子串](https://leetcode-cn.com/problems/longest-palindromic-substring/) ⭐️ | 扩展中心          |
-| [\#1371. 每个元音包含偶数次的最长子字符串](https://leetcode-cn.com/problems/find-the-longest-substring-containing-vowels-in-even-counts/) | 前缀和 + 状态压缩 |
+| [\#647. 回文子串](http://www.silince.cn/2020/07/20/LeetSilinceCode/#647-%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2) ⭐️ | 扩展中心          |
+| [\#5. 最长回文子串](http://www.silince.cn/2020/07/20/LeetSilinceCode/#5-%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2) ⭐️ | 扩展中心          |
+| [\#1371. 每个元音包含偶数次的最长子字符串](http://www.silince.cn/2020/07/20/LeetSilinceCode/#1371-%E6%AF%8F%E4%B8%AA%E5%85%83%E9%9F%B3%E5%8C%85%E5%90%AB%E5%81%B6%E6%95%B0%E6%AC%A1%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2) | 前缀和 + 状态压缩 |
 | [字符串乘法计算](http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484466&idx=1&sn=0281340cc1f41230e4512e905b9d27dd&chksm=9bd7fa3aaca0732c95d25c637d42ad8d9b80f8165098ded837f83791c673b5d6a71721c738a3&scene=21#wechat_redirect) ⭐️ |                   |
-| [剑指 Offer 05 替换空格](https://leetcode-cn.com/problems/ti-huan-kong-ge-lcof) ⭐️ | 线性遍历          |
-| [剑指 Offer 38 字符串的排列](https://leetcode-cn.com/problems/zi-fu-chuan-de-pai-lie-lcof) | 回溯              |
+| [剑指 Offer 05 替换空格](http://www.silince.cn/2020/07/20/%E5%89%91%E6%8C%87offer/#%E5%89%91%E6%8C%87-offer-05-%E6%9B%BF%E6%8D%A2%E7%A9%BA%E6%A0%BC) ⭐️ | 线性遍历          |
+| [剑指 Offer 38 字符串的排列](http://www.silince.cn/2020/07/20/%E5%89%91%E6%8C%87offer/#%E5%89%91%E6%8C%87-offer-38-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%8E%92%E5%88%97) | 回溯              |
 | [判定子序列](http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484479&idx=1&sn=31a3fc4aebab315e01ea510e482b186a&chksm=9bd7fa37aca0732103ca82e6f2cc23f475cf771696958456fc17d7662abb6b0879e8dfbaf7a1&scene=21#wechat_redirect) | 二分查找/双指针   |
 | [\#9. 回文数](https://leetcode-cn.com/problems/palindrome-number/) ⭐️ |                   |
 | [\#696. 计数二进制子串](https://leetcode-cn.com/problems/count-binary-substrings/) |                   |
