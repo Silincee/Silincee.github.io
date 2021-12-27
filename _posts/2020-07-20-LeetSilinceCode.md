@@ -1166,7 +1166,7 @@ static class TreeNode {
 
 | 题目                                                         | 算法思想          |
 | ------------------------------------------------------------ | ----------------- |
-| [\#242. 有效的字母异位词](https://leetcode-cn.com/problems/valid-anagram/) |                   |
+| [242. 有效的字母异位词](https://leetcode-cn.com/problems/valid-anagram/) |                   |
 | [\#409. 最长回文串](https://leetcode-cn.com/problems/longest-palindrome/) |                   |
 | [\#205. 同构字符串](https://leetcode-cn.com/problems/isomorphic-strings/) |                   |
 | [\#647. 回文子串](https://leetcode-cn.com/problems/palindromic-substrings/) ⭐️ | 扩展中心          |
@@ -1176,7 +1176,7 @@ static class TreeNode {
 | [剑指 Offer 05 替换空格](https://leetcode-cn.com/problems/ti-huan-kong-ge-lcof) ⭐️ | 线性遍历          |
 | [剑指 Offer 38 字符串的排列](https://leetcode-cn.com/problems/zi-fu-chuan-de-pai-lie-lcof) | 回溯              |
 | [判定子序列](http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484479&idx=1&sn=31a3fc4aebab315e01ea510e482b186a&chksm=9bd7fa37aca0732103ca82e6f2cc23f475cf771696958456fc17d7662abb6b0879e8dfbaf7a1&scene=21#wechat_redirect) | 二分查找/双指针   |
-| [\#9. 回文数](https://leetcode-cn.com/problems/palindrome-number/) |                   |
+| [\#9. 回文数](https://leetcode-cn.com/problems/palindrome-number/) ⭐️ |                   |
 | [\#696. 计数二进制子串](https://leetcode-cn.com/problems/count-binary-substrings/) |                   |
 
 
@@ -1236,8 +1236,8 @@ static class TreeNode {
 
 ## Template
 
-- 中等
-- 2021.11.25：
+- 简单
+- 2021.11.27：
 
 > 题目：
 
@@ -5451,6 +5451,77 @@ class Solution {
 ```
 
 ---
+
+
+
+## [242. 有效的字母异位词](https://leetcode-cn.com/problems/valid-anagram/)
+
+- 简单
+- 2021.11.27：
+
+> 题目：
+
+```xml
+给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。
+注意：若 s 和 t 中每个字符出现的次数都相同，则称 s 和 t 互为字母异位词。
+
+示例 1:
+输入: s = "anagram", t = "nagaram"
+输出: true
+示例 2:
+输入: s = "rat", t = "car"
+输出: false
+```
+
+> 分析：
+
+***方法一：排序***
+
+
+
+***方法二：哈希表***
+
+- 首先判断两个字符串长度是否相等，不相等则直接返回 false
+- 若相等，则初始化 26 个字母哈希表，遍历字符串 s 和 t
+- s 负责在对应位置增加，t 负责在对应位置减少
+- 如果哈希表的值都为 0，则二者是字母异位词
+
+
+
+> 代码：
+
+```java
+// 方法一
+public boolean isAnagram(String s, String t) {
+  if (s.length() != t.length()) {
+    return false;
+  }
+  char[] str1 = s.toCharArray();
+  char[] str2 = t.toCharArray();
+  Arrays.sort(str1);
+  Arrays.sort(str2);
+  return Arrays.equals(str1, str2);
+}
+
+// 方法二
+public boolean isAnagram(String s, String t) {
+  if(s.length()!=t.length()) return false;
+  int[] table = new int[26];
+
+  for(int i=0;i<s.length();i++){
+    table[s.charAt(i)-'a']++;
+    table[t.charAt(i)-'a']--;
+  }
+  for(int i:table){
+    if(i!=0) return false;
+  }
+  return true;
+}
+```
+
+---
+
+
 
 
 
