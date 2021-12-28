@@ -1167,8 +1167,8 @@ static class TreeNode {
 | 题目                                                         | 算法思想          |
 | ------------------------------------------------------------ | ----------------- |
 | [242. 有效的字母异位词](http://www.silince.cn/2020/07/20/LeetSilinceCode/#242-%E6%9C%89%E6%95%88%E7%9A%84%E5%AD%97%E6%AF%8D%E5%BC%82%E4%BD%8D%E8%AF%8D) | 排序/hashtable    |
-| [\#409. 最长回文串](https://leetcode-cn.com/problems/longest-palindrome/) |                   |
-| [\#205. 同构字符串](https://leetcode-cn.com/problems/isomorphic-strings/) |                   |
+| [409. 最长回文串](http://www.silince.cn/2020/07/20/LeetSilinceCode/409-最长回文串) | hash表+一次遍历   |
+| [205. 同构字符串](http://www.silince.cn/2020/07/20/LeetSilinceCode/205-同构字符串) | hash表            |
 | [\#647. 回文子串](http://www.silince.cn/2020/07/20/LeetSilinceCode/#647-%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2) ⭐️ | 扩展中心          |
 | [\#5. 最长回文子串](http://www.silince.cn/2020/07/20/LeetSilinceCode/#5-%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2) ⭐️ | 扩展中心          |
 | [\#1371. 每个元音包含偶数次的最长子字符串](http://www.silince.cn/2020/07/20/LeetSilinceCode/#1371-%E6%AF%8F%E4%B8%AA%E5%85%83%E9%9F%B3%E5%8C%85%E5%90%AB%E5%81%B6%E6%95%B0%E6%AC%A1%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2) | 前缀和 + 状态压缩 |
@@ -5002,6 +5002,81 @@ class Solution {
 
 ---
 
+## [205. 同构字符串](https://leetcode-cn.com/problems/isomorphic-strings/)
+
+- 简单
+- 2021.11.27：
+
+> 题目：
+
+```xml
+给定两个字符串 s 和 t，判断它们是否是同构的。
+如果 s 中的字符可以按某种映射关系替换得到 t ，那么这两个字符串是同构的。
+每个出现的字符都应当映射到另一个字符，同时不改变字符的顺序(⭐️)。不同字符不能映射到同一个字符上，相同字符只能映射到同一个字符上，字符可以映射到自己本身。
+可以假设 s 和 t 长度相同。
+
+示例 1:
+输入：s = "egg", t = "add"
+输出：true
+示例 2：
+输入：s = "foo", t = "bar"
+输出：false
+```
+
+> 分析：
+
+***方法一：index***
+
+两字符串中映射字母的index应该相同才能是同构字符串(每个出现的字符都应当映射到另一个字符，同时不改变字符的顺序)。
+
+***方法二：哈希表***
+
+使用两个map 保存 s[i] 到 t[i] 和 t[i] 到 s[i] 的映射关系，如果发现对应不上，立刻返回 false
+
+
+
+
+
+> 代码：
+
+```java
+// 方法一 index
+public boolean isIsomorphic(String s, String t) {
+  char[] sArr = s.toCharArray();
+  char[] tArr = t.toCharArray();
+  for(int i=0;i<s.length();i++){
+    if(s.indexOf(sArr[i])!=t.indexOf(tArr[i])){
+      return false;
+    }
+  }
+  return true;
+}
+
+
+// 方法二 哈希表
+public boolean isIsomorphic(String s, String t) {
+  Map<Character, Character> map1 = new HashMap<>();
+  Map<Character, Character> map2 = new HashMap<>();
+  for (int i = 0; i < s.length(); i++) {
+    if (!map1.containsKey(s.charAt(i))) {
+      map1.put(s.charAt(i), t.charAt(i)); // map1保存 s[i] 到 t[i]的映射
+    }
+    if (!map2.containsKey(t.charAt(i))) {
+      map2.put(t.charAt(i), s.charAt(i)); // map2保存 t[i] 到 s[i]的映射
+    }
+    // 无法映射，返回 false
+    if (map1.get(s.charAt(i)) != t.charAt(i) || map2.get(t.charAt(i)) != s.charAt(i)) {
+      return false;
+    }
+  }
+  return true;
+}
+```
+
+---
+
+
+
 
 
 ## [206 反转链表](https://leetcode-cn.com/problems/reverse-linked-list/)
@@ -6330,6 +6405,59 @@ public int lengthOfLIS(int[] height) {
 ```
 
 ---
+
+## [409. 最长回文串](https://leetcode-cn.com/problems/longest-palindrome/)
+
+- 简单
+- 2021.11.27：
+
+> 题目：
+
+```xml
+给定一个包含大写字母和小写字母的字符串，找到通过这些字母构造成的最长的回文串。
+在构造过程中，请注意区分大小写。比如 "Aa" 不能当做一个回文字符串。
+示例 1:
+输入:
+"abccccdd"
+输出:
+7
+解释:
+我们可以构造的最长的回文串是"dccaccd", 它的长度是 7。
+```
+
+> 分析：
+
+***方法一：***
+
+遍历字符串, 只能出现一个次数为奇数的字符，所以我们直接记录有多少个字符出现次数为奇数就可以了。
+
+
+
+
+
+> 代码：
+
+```java
+// ASCLL码，十进制的话，共128个
+public int longestPalindrome(String s) {
+  int[] arr = new int[128];
+  int len = s.length();
+  for(char c : s.toCharArray()) {
+    arr[c]++;
+  }
+  int count = 0;
+  for (int i : arr) {
+    if(i%2==1){
+      count++;
+    }
+  }
+  return count == 0 ? len : (len - count + 1); 
+}
+```
+
+---
+
+
 
 
 
