@@ -1166,10 +1166,10 @@ static class TreeNode {
 
 | 题目                                                         | 算法思想          |
 | ------------------------------------------------------------ | ----------------- |
-| [242. 有效的字母异位词](http://www.silince.cn/2020/07/20/LeetSilinceCode/#242-%E6%9C%89%E6%95%88%E7%9A%84%E5%AD%97%E6%AF%8D%E5%BC%82%E4%BD%8D%E8%AF%8D) | 排序/hashtable    |
-| [409. 最长回文串](http://www.silince.cn/2020/07/20/LeetSilinceCode/409-最长回文串) | hash表+一次遍历   |
-| [205. 同构字符串](http://www.silince.cn/2020/07/20/LeetSilinceCode/205-同构字符串) | hash表            |
-| [\#647. 回文子串](http://www.silince.cn/2020/07/20/LeetSilinceCode/#647-%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2) ⭐️ | 扩展中心          |
+| [242. 有效的字母异位词](http://www.silince.cn/2020/07/20/LeetSilinceCode/#242-%E6%9C%89%E6%95%88%E7%9A%84%E5%AD%97%E6%AF%8D%E5%BC%82%E4%BD%8D%E8%AF%8D) ⭐️ | 排序/hashtable    |
+| [409. 最长回文串](http://www.silince.cn/2020/07/20/LeetSilinceCode/409-最长回文串) ⭐️ | hash表+一次遍历   |
+| [205. 同构字符串](http://www.silince.cn/2020/07/20/LeetSilinceCode/205-同构字符串) ⭐️ | hash表            |
+| [\#647. 回文子串](http://www.silince.cn/2020/07/20/LeetSilinceCode/#647-%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2) ⭐️ | 中心扩展/动态规划 |
 | [\#5. 最长回文子串](http://www.silince.cn/2020/07/20/LeetSilinceCode/#5-%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2) ⭐️ | 扩展中心          |
 | [\#1371. 每个元音包含偶数次的最长子字符串](http://www.silince.cn/2020/07/20/LeetSilinceCode/#1371-%E6%AF%8F%E4%B8%AA%E5%85%83%E9%9F%B3%E5%8C%85%E5%90%AB%E5%81%B6%E6%95%B0%E6%AC%A1%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2) | 前缀和 + 状态压缩 |
 | [字符串乘法计算](http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484466&idx=1&sn=0281340cc1f41230e4512e905b9d27dd&chksm=9bd7fa3aaca0732c95d25c637d42ad8d9b80f8165098ded837f83791c673b5d6a71721c738a3&scene=21#wechat_redirect) ⭐️ |                   |
@@ -1355,6 +1355,8 @@ public int lengthOfLongestSubstring(String s) {
 
 > 分析：
 
+**方法一：扩展中心**
+
 **寻找回文串的问题核心思想是：从中间开始向两边扩散来判断回文串**。对于最长回文子串，就是这个意思：
 
 ```java
@@ -1374,30 +1376,77 @@ for 0 <= i < len(s):
 
 **但是这里的索引会越界，需要额外处理：先扩展不符合再缩小左右边界防止索引越界**
 
+
+
+**方法二：动态规划**
+
+状态：`dp[i][j]` 表示字符串`s`在`[i,j]`区间的子串是否是一个回文串。
+
+状态转移方程：当 `s[i] == s[j] && (j - i < 2 || dp[i + 1][j - 1]) `时，`dp[i][j]=true`，否则为false
+
+这个状态转移方程是什么意思呢？
+
+- case1: 当只有一个字符时，比如 a 自然是一个回文串。
+- case2: 当有两个字符时，如果是相等的，比如 aa，也是一个回文串。
+- case3: 当有三个及以上字符时，比如 ababa 这个字符记作串 1，把两边的 a 去掉，也就是 bab 记作串 2，可以看出只要串2是一个回文串，那么左右各多了一个 a 的串 1 必定也是回文串。所以当 `s[i]==s[j]` 时，自然要看 `dp[i+1][j-1] `是不是一个回文串。
+
+![image-20211228212405111](/assets/imgs/image-20211228212405111.png)
+
+遍历顺序：
+
+`s[i]==s[j]`取决于状态 `dp[i+1][j-1] `。
+
+所以遍历顺序需要从下到上，从左到右。
+
+
+
 > 代码：
 
 ```java
+// 方法一：扩展中心
 private String res = "";
 public String longestPalindrome(String s) {
   for (int i = 0; i < s.length(); i++) {
     // 找到以 s[i] 为中心的回文串
-    palindrome(s,i,i);
+    isPalindrome(s,i,i);
     // 找到以 s[i] 和 s[i+1] 为中心的回文串
-    palindrome(s, i, i + 1);
+    isPalindrome(s, i, i + 1);
   }
   return res;
 }
-
 // 寻找最长回文串函数
-private String palindrome(String s, int left, int right) {
+private void isPalindrome(String s, int left, int right) {
   // ⚠️ 防止索引越界(先扩展指针，如果不符合了再缩小左右边界防止索引越界)
-  while (left>=0&&right<s.length()&&s.charAt(left)==s.charAt(right)){
+  while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)){
     // 双向展开
     left--;
     right++;
   }
   // 更新res为s[left]和s[right]为中心的最长回文串
-  res = s.substring(left + 1, right + 1 - 1).length() > res.length() ? s.substring(left + 1, right + 1 - 1) : res;
+  if((right-1)-(left+1)+1>res.length()){ // 因为在while循环中多扩展了一次，计算长度时记得收回
+    res = s.substring(left+1,right-1+1); // substring(int beginIndex, int endIndex),不包括endIndex
+  }
+}
+
+// 方法二 动态规划
+public String longestPalindrome(String s) {
+  String res = "";
+  boolean[][] dp = new boolean[s.length()][s.length()];
+  // 注意遍历顺序
+  for (int i= s.length() - 1; i >= 0; i--){  
+    for (int j = i; j < s.length(); j++){
+      if (s.charAt(i) == s.charAt(j)) {
+        if (j - i < 2) { // case1 和 case2
+          dp[i][j] = true;
+          if(j-i+1>res.length()) res = s.substring(i,j+1);
+        } else if (dp[i + 1][j - 1]) { // case3
+          dp[i][j] = true;
+          if(j-i+1>res.length()) res = s.substring(i,j+1);
+        }
+      }
+    }
+  }
+  return res;
 }
 ```
 
@@ -8123,32 +8172,107 @@ class Solution {
 
 > 分析：
 
-***方法一：***
+***方法一：中心扩展***
 
-参照[\#5. 最长回文子串](https://leetcode-cn.com/problems/longest-palindromic-substring/)
+参照[\#5. 最长回文子串](http://www.silince.cn/2020/07/20/LeetSilinceCode/#5-%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2)
+
+**寻找回文串的问题核心思想是：从中间开始向两边扩散来判断回文串**。对于最长回文子串，就是这个意思：
+
+```java
+for 0 <= i < len(s):
+    找到以 s[i] 为中心的回文串
+    更新答案
+```
+
+但是呢，我们刚才也说了，回文串的长度可能是奇数也可能是偶数，如果是`abba`这种情况，没有一个中心字符，上面的算法就没辙了。所以我们可以修改一下：
+
+```java
+for 0 <= i < len(s):
+    找到以 s[i] 为中心的回文串
+    找到以 s[i] 和 s[i+1] 为中心的回文串
+    更新答案
+```
+
+注意防止越界。
 
 
 
+**方法二：动态规划**
 
+状态：`dp[i][j]` 表示字符串`s`在`[i,j]`区间的子串是否是一个回文串。
+
+状态转移方程：当 `s[i] == s[j] && (j - i < 2 || dp[i + 1][j - 1]) `时，`dp[i][j]=true`，否则为false
+
+这个状态转移方程是什么意思呢？
+
+- case1: 当只有一个字符时，比如 a 自然是一个回文串。
+- case2: 当有两个字符时，如果是相等的，比如 aa，也是一个回文串。
+- case3: 当有三个及以上字符时，比如 ababa 这个字符记作串 1，把两边的 a 去掉，也就是 bab 记作串 2，可以看出只要串2是一个回文串，那么左右各多了一个 a 的串 1 必定也是回文串。所以当 `s[i]==s[j]` 时，自然要看 `dp[i+1][j-1] `是不是一个回文串。
+
+![image-20211228212405111](/assets/imgs/image-20211228212405111.png)
+
+遍历顺序：
+
+`s[i]==s[j]`取决于状态 `dp[i+1][j-1] `。
+
+所以遍历顺序需要从下到上，从左到右。
 
 > 代码：
 
 ```java
+// 方法一：中心扩展
 private int res=0;
 public int countSubstrings(String s) {
   for (int i = 0; i < s.length(); i++) {
-    palindrome(s,i,i);
-    palindrome(s,i,i+1);
+    isPalindrome(s,i,i);
+    isPalindrome(s,i,i+1);
   }
   return res;
 }
-
-private void palindrome(String s, int left, int right) {
-  while (left>=0&&right<s.length()&&s.charAt(left)==s.charAt(right)){
+// 判断时候是回文串,注意防止越界
+private void isPalindrome(String s, int left, int right) {
+  while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)){
     left--;
     right++;
     res++;
   }
+}
+
+// 方法二 动态规划
+public int countSubstrings(String s) {
+  boolean[][] dp = new boolean[s.length()][s.length()];
+  int ans = 0;
+
+  for (int i = s.length() - 1; i >= 0; i--) {  // 注意遍历顺序
+    for (int j = i; j < s.length(); j++) {
+      if (s.charAt(i) == s.charAt(j) && (j - i < 2 || dp[i + 1][j - 1])) {
+        dp[i][j] = true;
+        ans++;
+      }
+    }
+  }
+
+  return ans;
+}
+// 可读性高一点的写法
+public int countSubstrings(String s) {
+  boolean[][] dp = new boolean[s.length()][s.length()];
+  int ans = 0;
+  // 注意遍历顺序
+  for (int i = s.length() - 1; i >= 0; i--) {  
+    for (int j = i; j < s.length(); j++) {
+      if (s.charAt(i) == s.charAt(j)) {
+        if (j - i < 2) { // case1 和 case2
+          ans++;
+          dp[i][j] = true;
+        } else if (dp[i + 1][j - 1]) { // case3
+          ans++;
+          dp[i][j] = true;
+        }
+      }
+    }
+  }
+  return ans;
 }
 ```
 
