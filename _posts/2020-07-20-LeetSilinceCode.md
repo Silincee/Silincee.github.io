@@ -9711,12 +9711,14 @@ int[] count(String word) {
 ```java
 public int findTheLongestSubstring(String s) {
   int n=s.length();
+  //pos数组存储的是这些奇偶性状态第一次出现的数组下标
   //1左移5次 相当于2^5=32，从00000-11111种状态，代表5个元音字母的个数是否为偶数，0代表偶数，1代表奇数
   int[] pos=new int[1<<5];
   //把数组用-1填充，区分00000的情况
   Arrays.fill(pos,-1);
-  int res=0,status=0;
-  pos[0]=0;
+  int res = 0;
+  int status = 0; //status对应的是当前节点所有元音字母的奇偶性
+  pos[0]=0; //当全部元音字母为0时返回的就是当前序列长度
   //有n个字符 循环n次，状态值初始为0
   for(int i=0;i<n;i++){
     char ch=s.charAt(i);
@@ -9736,7 +9738,7 @@ public int findTheLongestSubstring(String s) {
     //奇偶性相同的两个数的差，必定为偶数 只会有一个偶数00000
     //因此出现两个相同状态的数，他们中间必定出现了偶数次数的aeiou
     if(pos[status]>=0){
-      res=Math.max(ans,i-pos[status]+1);
+      res=Math.max(res,i-pos[status]+1);
     }else{
       //pos[status]==-1 说明该status是第一次出现，只保存最先出现的这个值
       pos[status]=i+1; // 表示在字符串前i个字符中，各个元音字母的状态
