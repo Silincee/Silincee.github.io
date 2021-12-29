@@ -9722,7 +9722,7 @@ public int findTheLongestSubstring(String s) {
   Arrays.fill(pos, -1);
   int res = 0;
   int status = 0; //⭐️status对应的是当前节点所有元音字母的奇偶性
-  pos[0] = 0; //所有元音字母出现次数为0时返回的就是当前序列长度(用于配合i+1)
+  pos[0] = 0; //状态00000第一次出现在字符串长度为0的时候，这么设置是为了配合i+1
   //有n个字符 循环n次，状态值初始为0
   for (int i = 0; i < s.length(); i++) {
     char ch = s.charAt(i);
@@ -9737,11 +9737,11 @@ public int findTheLongestSubstring(String s) {
     } else if (ch == 'o') {
       status ^= (1 << 4);
     }
-    //如果status对应的pos[status]大于等于0 说明已经找到符合要求的子串
+    //如果status对应的pos[status]不等于初始值-1了 说明已经找到符合要求的子串
     //因为两个子串的奇偶性相等，说明中间子串是符合要求的。
     //奇偶性相同的两个数的差，必定为偶数 只会有一个偶数00000
     //因此出现两个相同状态的数，他们中间必定出现了偶数次数的aeiou
-    if (pos[status] >= 0) {
+    if (pos[status] != -1) {
       res = Math.max(res, i - pos[status] + 1);
     } else {
       //pos[status]==-1 说明该status是第一次出现，只保存最先出现的这个值
