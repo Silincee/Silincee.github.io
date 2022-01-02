@@ -1174,9 +1174,9 @@ static class TreeNode {
 | [\#1371. 每个元音包含偶数次的最长子字符串](http://www.silince.cn/2020/07/20/LeetSilinceCode/#1371-%E6%AF%8F%E4%B8%AA%E5%85%83%E9%9F%B3%E5%8C%85%E5%90%AB%E5%81%B6%E6%95%B0%E6%AC%A1%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2) | 前缀和 + 状态压缩  |
 | [字符串乘法计算](http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484466&idx=1&sn=0281340cc1f41230e4512e905b9d27dd&chksm=9bd7fa3aaca0732c95d25c637d42ad8d9b80f8165098ded837f83791c673b5d6a71721c738a3&scene=21#wechat_redirect) ⭐️ |                    |
 | [剑指 Offer 05 替换空格](http://www.silince.cn/2020/07/20/%E5%89%91%E6%8C%87offer/#%E5%89%91%E6%8C%87-offer-05-%E6%9B%BF%E6%8D%A2%E7%A9%BA%E6%A0%BC) ⭐️ | 线性遍历           |
-| [剑指 Offer 38 字符串的排列](http://www.silince.cn/2020/07/20/%E5%89%91%E6%8C%87offer/#%E5%89%91%E6%8C%87-offer-38-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%8E%92%E5%88%97) | 回溯               |
+| [剑指 Offer 38 字符串的排列](http://www.silince.cn/2020/07/20/%E5%89%91%E6%8C%87offer/#%E5%89%91%E6%8C%87-offer-38-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%8E%92%E5%88%97) ⭐️ | 回溯               |
 | [判定子序列](http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484479&idx=1&sn=31a3fc4aebab315e01ea510e482b186a&chksm=9bd7fa37aca0732103ca82e6f2cc23f475cf771696958456fc17d7662abb6b0879e8dfbaf7a1&scene=21#wechat_redirect) | 二分查找/双指针    |
-| [\#9. 回文数](https://leetcode-cn.com/problems/palindrome-number/) ⭐️ |                    |
+| [9. 回文数](https://leetcode-cn.com/problems/palindrome-number/) ⭐️ |                    |
 | [\#696. 计数二进制子串](https://leetcode-cn.com/problems/count-binary-substrings/) |                    |
 
 
@@ -1237,7 +1237,7 @@ static class TreeNode {
 ## Template
 
 - 简单
-- 2021.11.27：
+- 2022.01.02：
 
 > 题目：
 
@@ -1505,6 +1505,48 @@ public int reverse(int x) {
 ---
 
 
+
+## [9. 回文数](https://leetcode-cn.com/problems/palindrome-number/)
+
+- 简单
+- 2022.01.02：😎
+
+> 题目：
+
+```xml
+给你一个整数 x ，如果 x 是一个回文整数，返回 true ；否则，返回 false 。
+回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。例如，121 是回文，而 123 不是。
+
+示例 1：
+输入：x = 121
+输出：true
+示例 2：
+输入：x = -121
+输出：false
+解释：从左向右读, 为 -121 。 从右向左读, 为 121- 。因此它不是一个回文数。
+示例 3：
+输入：x = 10
+输出：false
+解释：从右向左读, 为 01 。因此它不是一个回文数。
+```
+
+> 分析：
+
+***方法一：***
+
+
+
+
+
+
+
+> 代码：
+
+```java
+
+```
+
+---
 
 
 
