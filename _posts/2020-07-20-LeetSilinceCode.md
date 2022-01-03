@@ -1176,7 +1176,7 @@ static class TreeNode {
 | [剑指 Offer 05 替换空格](http://www.silince.cn/2020/07/20/%E5%89%91%E6%8C%87offer/#%E5%89%91%E6%8C%87-offer-05-%E6%9B%BF%E6%8D%A2%E7%A9%BA%E6%A0%BC) ⭐️ | 线性遍历           |
 | [剑指 Offer 38 字符串的排列](http://www.silince.cn/2020/07/20/%E5%89%91%E6%8C%87offer/#%E5%89%91%E6%8C%87-offer-38-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%8E%92%E5%88%97) ⭐️ | 回溯               |
 | [判定子序列](http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484479&idx=1&sn=31a3fc4aebab315e01ea510e482b186a&chksm=9bd7fa37aca0732103ca82e6f2cc23f475cf771696958456fc17d7662abb6b0879e8dfbaf7a1&scene=21#wechat_redirect) | 二分查找/双指针    |
-| [9. 回文数](https://leetcode-cn.com/problems/palindrome-number/) ⭐️ |                    |
+| [9. 回文数](http://www.silince.cn/2020/07/20/LeetSilinceCode/#9-%E5%9B%9E%E6%96%87%E6%95%B0) ⭐️ | 数学/中心扩张      |
 | [\#696. 计数二进制子串](https://leetcode-cn.com/problems/count-binary-substrings/) |                    |
 
 
@@ -1532,18 +1532,67 @@ public int reverse(int x) {
 
 > 分析：
 
-***方法一：***
+***方法一：数学***
+
+如果是负数则一定不是回文数，直接返回 false
+
+如果是正数，则将其**倒序数值**计算出来，然后比较和原数值是否相等
+
+如果是回文数则相等返回 true，如果不是则不相等 false
+
+比如 123 的倒序 321，不相等；121 的倒序 121，相等
 
 
 
-
+***方法二：回文串(字符串)***
 
 
 
 > 代码：
 
 ```java
+// 方法一
+public boolean isPalindrome(int x) {
+  if(x < 0) return false;
+  int cur = 0;
+  int num = x;
+  while(num != 0) {
+    cur = cur * 10 + num % 10;
+    num /= 10;
+  }
+  return cur == x; //如果溢出了说明反转前后肯定不一样 那肯定不是回文数了
+}
 
+// 方法一优化版(实际上比较一半即可)
+public boolean isPalindrome(int x) {
+  // 排除一些特殊情况，负数、10的倍数(0除外)
+  if (x < 0 || (x % 10 == 0 && x != 0))
+    return false;
+  int rev = 0;
+  while (rev < x) {
+    rev = x % 10 + rev * 10;
+    x /= 10; //一半就是 /= 后剩的值大小
+  }    
+  return (rev == x || rev/10 == x);//长度为偶数时rev==x;奇数时候rev/10==x
+}
+
+// 方法二 
+public boolean isPalindrome(int x) {
+
+  String s = String.valueOf(x);
+  int left = s.length()/2;
+  int right = s.length()/2;
+  if(s.length()%2==0){
+    left = s.length()/2;
+    right = s.length()/2-1;
+  }
+  while(left>=0&&right<s.length()){
+    if(s.charAt(left)!=s.charAt(right)) return false;
+    left--;
+    right++;
+  }
+  return true;
+}
 ```
 
 ---
