@@ -4631,6 +4631,8 @@ public List<Integer> preorderTraversal(TreeNode root) {
 
 ***方法二：***[迭代实现(使用栈)](https://leetcode-cn.com/problems/binary-tree-postorder-traversal/solution/16xing-dai-ma-mo-ban-qing-song-gao-ding-qian-xu-zh/)   **后序遍历，可以看成将一颗树左右反转，然后先序遍历，左后的结果取反。**
 
+`后续遍历 = reverse(反转树先序遍历)`
+
 我们也可以用迭代的方式实现方法一的递归函数，两种方式是等价的，区别在于递归的时候隐式地维护了一个栈，而我们在迭代的时候需要显式地将这个栈模拟出来，其余的实现与细节都相同，具体可以参考下面的代码。
 
 主要思想：先遍历左子树，再遍历右子树，最后取根节点的值。步骤：(对主要思想里边的步骤逆序处理 左右根-->根右左 )
