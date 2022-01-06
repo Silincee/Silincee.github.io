@@ -4542,6 +4542,8 @@ public void mergeList(ListNode head1, ListNode head2) {
 
 ## [\#144. 二叉树的前序遍历](https://leetcode-cn.com/problems/binary-tree-preorder-traversal/)
 
+> [遍历二叉树的方法合集](https://leetcode-cn.com/problems/binary-tree-preorder-traversal/solution/leetcodesuan-fa-xiu-lian-dong-hua-yan-shi-xbian-2/)
+
 - Medium
 - 2020.10.01：😭  
 - 2021.07.15：😎
@@ -4557,13 +4559,24 @@ public void mergeList(ListNode head1, ListNode head2) {
 ***方法一：***递归
 
 ***方法二：***[迭代实现(使用栈)](https://leetcode-cn.com/problems/binary-tree-postorder-traversal/solution/16xing-dai-ma-mo-ban-qing-song-gao-ding-qian-xu-zh/)
+
 先取根节点的值，再遍历左子树，再遍历右子树。步骤：
 
 - 步骤一：取根节点的值
 - 步骤二：遍历左子树
 - 步骤三：遍历右子树
 
+本质上是在模拟递归，因为在递归的过程中使用了系统栈，所以在迭代的解法中常用`Stack`来模拟系统栈。
 
+首先我们应该创建一个Stack用来存放节点，首先我们想要打印根节点的数据，此时Stack里面的内容为空，**所以我们优先将头结点加入Stack，然后打印**。
+
+之后我们应该先打印左子树，然后右子树。所以在root加入stack后先将其替换为左子树`root=root.left`。
+
+如果左子树不存在则弹出root替换为其右子树。
+
+此时你能得到的流程如下:
+
+![image-20220106193041742](/assets/imgs/image-20220106193041742.png)
 
 代码：
 
@@ -4573,14 +4586,11 @@ public List<Integer> preorderTraversal(TreeNode root) {
   Stack<TreeNode> stack=new Stack<>();
   while(root!=null||(!stack.isEmpty())){
     if(root!=null){
-      list.add(root.val);//步骤一，取根节点的值
-      stack.push(root);//把根节点放入栈中
+      stack.push(root);//步骤一，把根节点放入栈中,同时打印该节点(本题中为放入list)
+      list.add(root.val);
       root=root.left;//步骤二，遍历左子树
-    }
-    else{
-      TreeNode tem=stack.pop();
-
-      root=tem.right;//步骤三，遍历右子树
+    }else{
+      root=stack.pop().right;//步骤三，遍历右子树
     }
   }
   return list;
@@ -4658,11 +4668,8 @@ public List<Integer> postorderTraversal(TreeNode root) {
       stack.push(root);//把根节点放入栈中
       list.add(0,root.val);//步骤一，在index=0处插入根结点的值
       root=root.right;//步骤二，遍历右子树
-    }
-    else{
-      TreeNode tem=stack.pop();
-
-      root=tem.left;//步骤三，遍历左子树
+    }else{
+      root=stack.pop().left;//步骤三，遍历左子树
     }
   }
   return list;
