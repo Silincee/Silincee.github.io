@@ -1064,7 +1064,8 @@ int BFS(Node start, Node target) {
 | [\#94 非递归实现二叉树的中序遍历](http://www.silince.cn/2020/07/20/LeetSilinceCode/#94-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86) ⭐️ | 中序遍历      |
 | [\#104.树的高度 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#104-二叉树的最大深度) | 递归/广度优先 |
 | [#111.二叉树的最小深度 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#111-二叉树的最小深度) | 递归/广度优先 |
-| [剑指 Offer 28. 对称的二叉树](https://leetcode-cn.com/problems/dui-cheng-de-er-cha-shu-lcof/) |               |
+| [剑指 Offer 28. 对称的二叉树](http://www.silince.cn/2020/07/20/%E5%89%91%E6%8C%87offer/#%E5%89%91%E6%8C%87-offer-28-%E5%AF%B9%E7%A7%B0%E7%9A%84%E4%BA%8C%E5%8F%89%E6%A0%91) ⭐️ | 递归          |
+| [剑指 Offer 26. 树的子结构](https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof/) |               |
 | [\#110 平衡二叉树 ](http://www.silince.cn/2020/07/20/LeetSilinceCode/#110-平衡二叉树) | 递归          |
 | [\#543 两节点的最长路径 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#543-二叉树的直径) | 递归          |
 | [\#226 翻转树 ⭐️](http://www.silince.cn/2020/07/20/LeetSilinceCode/#226-%E7%BF%BB%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91) | 前序遍历/递归 |
