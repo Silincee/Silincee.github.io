@@ -4149,29 +4149,24 @@ BFS 可以找到最短距离，但是空间复杂度高，而 DFS 的空间复�
 代码：
 
 ```java
-class Solution {
-  public void flatten(TreeNode root) {
-    // base case
-    if (root == null) return;
+public void flatten(TreeNode root) {
+  // base case
+  if (root == null) return;
 
-    flatten(root.left);
-    flatten(root.right);
+  flatten(root.left);
+  flatten(root.right);
 
-      /**** 后序遍历位置 ****/
-      // 1、左右子树已经被拉平成一条链表
-      TreeNode left = root.left;
-      TreeNode right = root.right;
+  /**** 后序遍历位置 ****/
+  // 1、将左子树作为右子树,并把左子树置空
+  TreeNode temp = root.right;
+  root.right = root.left;
+  root.left = null;
 
-      // 2、将左子树作为右子树
-      root.left = null;
-      root.right = left;
-
-      // 3、将原先的右子树接到当前右子树的末端
-      while (root.right != null) { // ⚠️ while非常重要，需要循环找到最后当前右子树的末端
-        root = root.right;
-      }
-      root.right = right;
-}
+  // 2、将原先的右子树接到当前右子树的末端
+  while (root.right != null) { // ⚠️ while非常重要，需要循环找到最后当前右子树的末端
+    root = root.right;
+  }
+  root.right = temp;
 }
 ```
 
@@ -8664,32 +8659,36 @@ TreeNode constructMaximumBinaryTree(int[] nums) {
 代码：
 
 ```java
-class Solution {
-    public TreeNode constructMaximumBinaryTree(int[] nums) {
-    	return build(nums,0,nums.length-1);
+public TreeNode constructMaximumBinaryTree(int[] nums) {
+  return build(nums,0,nums.length-1);
+}
+
+// 先序遍历创建根节点，将 nums[lo..hi] 构造成符合条件的树
+public TreeNode build(int[] nums,int low,int high){
+  if (low>high) return null;
+
+  // 找到数组中的最大值和对应的索引
+  int index = getMaxIndex(nums,low,high);
+  TreeNode root = new TreeNode(nums[index]);
+  
+  // 递归调用构造左右子树
+  root.left = build(nums,low,index-1);
+  root.right = build(nums,index+1,high);
+
+  return root;
+}
+
+public int getMaxIndex(int[] nums,int left,int right){
+  int max = Integer.MIN_VALUE;
+  int index = -1;
+  for(int i = left;i<=right;i++){
+    if(nums[i]>max){
+      max = nums[i];
+      index = i;
     }
-
-    // 将 nums[lo..hi] 构造成符合条件的树，返回根节点
-    public TreeNode build(int[] nums,int low,int high){
-    	if (low>high) return null;
-
-		// 找到数组中的最大值和对应的索引
-		int index = -1;
-		int maxVal = Integer.MIN_VALUE;
-		for (int i = low; i <=high; i++) { // ⚠️ 只能用<= 因为是要得到索引
-			if (maxVal<nums[i]){
-				index=i;
-				maxVal = nums[i];
-			}
-		}
-
-		TreeNode root = new TreeNode(maxVal);
-		// 递归调用构造左右子树
-		root.left = build(nums,low,index-1);
-		root.right = build(nums,index+1,high);
-
-		return root;
-	}
+  }
+  return index;
+}
 ```
 
 ---
