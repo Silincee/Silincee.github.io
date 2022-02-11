@@ -8654,7 +8654,7 @@ TreeNode constructMaximumBinaryTree(int[] nums) {
 
 看懂了吗？**对于每个根节点，只需要找到当前`nums`中的最大值和对应的索引，然后递归调用左右数组构造左右子树即可**。
 
-
+​    
 
 代码：
 
