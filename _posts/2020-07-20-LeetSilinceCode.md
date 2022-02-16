@@ -1923,6 +1923,17 @@ k 是一个正整数，它的值小于或等于链表的长度。
 
 > 分析：
 
+方法一：栈(容易理解)
+
+k个一组压栈，然后出栈构建新链表：
+
+- 注意原节点的next指针要置空，防止循环链表。
+- 注意链表最后不足k的部分不需要翻转，这时候直接把栈底的节点连接到cur之后即可。
+
+
+
+方法二：
+
 步骤分解：
 
 - 链表分区为已翻转部分+待翻转部分+未翻转部分
@@ -1940,6 +1951,44 @@ k 是一个正整数，它的值小于或等于链表的长度。
 > 代码：
 
 ```java
+// 方法一
+public ListNode reverseKGroup(ListNode head, int k) {
+  if (head == null) {
+    return null;
+  }
+  Stack<ListNode> stack = new Stack<>();
+  ListNode dummyNode = new ListNode(-1);
+  ListNode cur = dummyNode;
+
+  while (head!= null || !stack.isEmpty()) {
+    // k个一组压栈
+    for (int i = 0; i < k; i++) {
+      // 注意链表最后不足k的部分不需要翻转，这时候直接把栈底的节点连接到cur之后即可。
+      if (head == null) {
+        while(!stack.isEmpty()){
+          ListNode node = stack.pop();
+          if(stack.size()==0){
+            cur.next = node;
+          }
+        }
+        break;
+      }
+      stack.push(head);
+      head = head.next;
+    }
+
+    // 出栈构建新链表
+    while (!stack.isEmpty()) {
+      ListNode node = stack.pop();
+      cur.next = node;
+      node.next = null;
+      cur = node;
+    }
+  }
+  return dummyNode.next;
+}
+
+// 方法二
 public ListNode reverseKGroup(ListNode head, int k) {
   if (head == null || head.next == null){
     return head;
