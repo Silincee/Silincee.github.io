@@ -1042,14 +1042,13 @@ int BFS(Node start, Node target) {
 | [876. 链表的中间结点](http://www.silince.cn/2020/07/20/LeetSilinceCode/#876-链表的中间结点) ⭐️ | 快慢指针                                  |
 | [21. 合并两个有序链表 ](http://www.silince.cn/2020/07/20/LeetSilinceCode/#21-合并两个有序链表)⭐️ | 指针                                      |
 | [\#143. 重排链表](http://www.silince.cn/2020/07/20/LeetSilinceCode/#143-重排链表) ⭐️ | 找中点+反转链表+合并链表                  |
-| [\#83.删除排序链表中的重复元素](http://www.silince.cn/2020/07/20/LeetSilinceCode/#83-删除排序链表中的重复元素) | 一次遍历                                  |
-| [\#19.删除链表的倒数第N个结点](http://www.silince.cn/2020/07/20/LeetSilinceCode/#19-%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%AC-n-%E4%B8%AA%E7%BB%93%E7%82%B9) | 快慢指针(快指针先走N步)+pre指针+dummyHead |
+| [\#83.删除排序链表中的重复元素](http://www.silince.cn/2020/07/20/LeetSilinceCode/#83-删除排序链表中的重复元素)⭐️ | 一次遍历                                  |
+| [\#19.删除链表的倒数第N个结点 ](http://www.silince.cn/2020/07/20/LeetSilinceCode/#19-%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%AC-n-%E4%B8%AA%E7%BB%93%E7%82%B9)⭐️ | 快慢指针(快指针先走N步)+pre指针+dummyHead |
 | [\#24.两两交换链表中的节点](https://leetcode-cn.com/problems/swap-nodes-in-pairs/) |                                           |
 | [\#445. 两数相加 II](https://leetcode-cn.com/problems/add-two-numbers-ii/) |                                           |
 | [\#234. 回文链表](https://leetcode-cn.com/problems/palindrome-linked-list/) |                                           |
 | [\#725. 分隔链表](https://leetcode-cn.com/problems/split-linked-list-in-parts/) |                                           |
 | [\#328. 奇偶链表](https://leetcode-cn.com/problems/odd-even-linked-list/) |                                           |
-| [\#21.合并两个有序链表](https://leetcode-cn.com/problems/merge-two-sorted-lists/) |                                           |
 
 
 
