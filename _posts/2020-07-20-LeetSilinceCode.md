@@ -3045,25 +3045,25 @@ public String minWindow(String s, String t) {
 
 由于给定的链表是排好序的，因此**重复的元素在链表中出现的位置是连续的**，因此我们只需要对链表进行一次遍历，就可以删除重复的元素。
 
-当我们遍历到链表的最后一个节点时，`cur` 为空节点，如果不加以判断并操作，就会导致无法删除链表尾部的最后一个重复节点,如输入`[1,1,2,3,3]`的结果为`[1,2,3,3]`。
-
 
 
 > 代码：
 
 ```java
 public ListNode deleteDuplicates(ListNode head) {
-  ListNode dummyHead = new ListNode(-1);
+  if(head==null) return null;
+  ListNode dummyHead = new ListNode(Integer.MAX_VALUE);
+  dummyHead.next = head;
   ListNode pre = dummyHead;
   ListNode cur = head;
+  
   while(cur!=null){
-    if(pre.val!=cur.val){
-      pre.next = cur;
+    if(pre.val==cur.val){
+      pre.next = cur.next;
+      cur = cur.next;
+    }else{
       pre = cur;
-    }
-    cur = cur.next;
-    if(cur==null){ // ⚠️要一个判断进行尾重复节点的删除操作
-      pre.next = cur;
+      cur = cur.next;
     }
   }
   return dummyHead.next;
