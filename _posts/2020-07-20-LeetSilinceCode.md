@@ -2004,7 +2004,8 @@ public ListNode reverseKGroup(ListNode head, int k) {
   while(end.next!=null){
     //循环k次，找到需要翻转的链表的结尾,这里每次循环要判断end是否等于空,因为如果为空，end.next会报空指针异常。
     //dummy->1->2->3->4->5 若k为2，循环2次，end指向2
-    for(int i=0;i<k&&end != null;i++){
+    for(int i=0;i<k;i++){
+      if(end== null) break;
       end=end.next;
     }
     //如果end==null，即需要翻转的链表的节点数小于k，不执行翻转。
