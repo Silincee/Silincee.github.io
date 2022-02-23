@@ -2034,8 +2034,8 @@ public ListNode reverseKGroup(ListNode head, int k) {
 // 例子：   head： 1->2->3->4
 public ListNode reverse(ListNode head) {
   //单链表为空或只有一个节点，直接返回原单链表
-  if (head == null || head.next == null){
-    return head;
+  if (head == null){
+    return null;
   }
   //前一个节点指针
   ListNode preNode = null;
