@@ -1222,7 +1222,7 @@ static class TreeNode {
 | [线程轮流打印](http://www.silince.cn/2020/07/20/LeetSilinceCode/#%E7%BA%BF%E7%A8%8B%E8%BD%AE%E6%B5%81%E6%89%93%E5%8D%B0) |          |
 | [IP地址与整数的相互转换](http://www.silince.cn/2020/07/20/LeetSilinceCode/#ip%E5%9C%B0%E5%9D%80%E4%B8%8E%E6%95%B4%E6%95%B0%E7%9A%84%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2) |          |
 | [\#69. x 的平方根](http://www.silince.cn/2020/07/20/LeetSilinceCode/#69-x-%E7%9A%84%E5%B9%B3%E6%96%B9%E6%A0%B9) |          |
-| []()                                                         |          |
+| [手写阻塞队列](http://www.silince.cn/2020/07/20/LeetSilinceCode/#手写阻塞队列) |          |
 | []()                                                         |          |
 | []()                                                         |          |
 | []()                                                         |          |
@@ -10203,6 +10203,62 @@ public static class Storage {
   }
 }
 ```
+
+
+
+## 手写阻塞队列
+
+```java
+public static void main(String[] args) {
+  MyBlockingQueue myBlockingQueue = new MyBlockingQueue();
+  new Thread(()->{
+    for (int i = 0; i < 20; i++) {
+      myBlockingQueue.offer(i);
+    }
+  }).start();
+  new Thread(()->{
+    for (int i = 0; i < 20; i++) {
+      System.out.println(myBlockingQueue.poll());
+    }
+  }).start();
+}
+
+static class MyBlockingQueue{
+  private int capcity = 10;
+  private Queue<Integer> queue = new LinkedList<>();
+  public synchronized void offer(Integer i){
+    while (queue.size()==capcity){
+      try {
+        System.out.println("队列已满，等待插入: "+i);
+        this.wait();
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
+    queue.offer(i);
+    System.out.println("数据插入成功: "+i);
+    this.notifyAll();
+  }
+
+  public synchronized Integer poll(){
+    while(queue.size()==0){
+      try {
+        System.out.println("队列为空！！");
+        this.wait();
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
+    Integer listNode = queue.poll();
+    this.notifyAll();
+    return listNode;
+  }
+}
+```
+
+
+
+
 
 ## 线程轮流打印
 
