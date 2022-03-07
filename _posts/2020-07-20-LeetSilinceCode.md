@@ -794,15 +794,16 @@ int right_bound(int[] nums, int target) {
 | [\#509 斐波那契数](http://www.silince.cn/2020/07/20/LeetSilinceCode/#509-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0) | 动态规划                       |
 | [\#322 零钱兑换](http://www.silince.cn/2020/07/20/LeetSilinceCode/#322-零钱兑换) | 动态规划                       |
 | [\#72. 编辑距离](https://labuladong.gitbook.io/algo/dong-tai-gui-hua-xi-lie/1.2-zi-xu-lie-lei-xing-wen-ti/bian-ji-ju-li) | 子序列问题/动态规划            |
+| [#152.乘积最大子数组](https://leetcode-cn.com/problems/maximum-product-subarray/) | 动态规划                       |
 | [\#300. 最长递增子序列](http://www.silince.cn/2020/07/20/LeetSilinceCode/#300-%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97) | 子序列问题/动态规划            |
-| [乘积最大]()⭐️                                                | 动态规划                       |
-| [\#354. 俄罗斯套娃信封问题]()                                | 子序列问题/动态规划            |
+| [乘积最大](http://www.silince.cn/2020/07/20/LeetSilinceCode/#%E4%B9%98%E7%A7%AF%E6%9C%80%E5%A4%A7)⭐️ | 动态规划                       |
+| [\#354. 俄罗斯套娃信封问题](http://www.silince.cn/2020/07/20/LeetSilinceCode/#354-%E4%BF%84%E7%BD%97%E6%96%AF%E5%A5%97%E5%A8%83%E4%BF%A1%E5%B0%81%E9%97%AE%E9%A2%98) | 子序列问题/动态规划            |
 | [\#53. 最大子序和](http://www.silince.cn/2020/07/20/LeetSilinceCode/#53-%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%92%8C) | 子序列问题/最大子数组/动态规划 |
-| [\#1143. 最长公共子序列]()                                   | 最长公共子序列问题/动态规划    |
-| [\#583. 两个字符串的删除操作]()                              | 最长公共子序列问题/动态规划    |
-| [\#712. 两个字符串的最小ASCII删除和]()                       | 最长公共子序列问题/动态规划    |
-| [\#516. 最长回文子序列]()                                    | 动态规划                       |
-| [\#91. 解码方法](https://leetcode-cn.com/problems/decode-ways/) | 动态规划                       |
+| [\#1143. 最长公共子序列](http://www.silince.cn/2020/07/20/LeetSilinceCode/#1143-%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%AD%90%E5%BA%8F%E5%88%97) | 最长公共子序列问题/动态规划    |
+| [\#583. 两个字符串的删除操作](http://www.silince.cn/2020/07/20/LeetSilinceCode/#583-%E4%B8%A4%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%88%A0%E9%99%A4%E6%93%8D%E4%BD%9C) | 最长公共子序列问题/动态规划    |
+| [\#712. 两个字符串的最小ASCII删除和](http://www.silince.cn/2020/07/20/LeetSilinceCode/#712-%E4%B8%A4%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%9C%80%E5%B0%8Fascii%E5%88%A0%E9%99%A4%E5%92%8C) | 最长公共子序列问题/动态规划    |
+| [\#516. 最长回文子序列](http://www.silince.cn/2020/07/20/LeetSilinceCode/#516-%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E5%BA%8F%E5%88%97) | 动态规划                       |
+| [\#91. 解码方法](http://www.silince.cn/2020/07/20/LeetSilinceCode/#91-%E8%A7%A3%E7%A0%81%E6%96%B9%E6%B3%95) | 动态规划                       |
 
 **首先，动态规划问题的一般形式就是求最值**。动态规划其实是运筹学的一种最优化方法，只不过在计算机问题上应用比较多，比如说让你求**最长**递增子序列呀，**最小**编辑距离呀等等。
 
@@ -4878,6 +4879,63 @@ class LRUCache {
 ```
 
 ---
+
+## [\#152. 乘积最大子数组](https://leetcode-cn.com/problems/maximum-product-subarray/)
+
+- 中等
+- 2022.03.07：
+
+> 题目：
+
+```xml
+给你一个整数数组 nums ，请你找出数组中乘积最大的非空连续子数组（该子数组中至少包含一个数字），并返回该子数组所对应的乘积。
+测试用例的答案是一个 32-位 整数。
+子数组 是数组的连续子序列。
+
+示例 1:
+输入: nums = [2,3,-2,4]
+输出: 6
+解释: 子数组 [2,3] 有最大乘积 6。
+示例 2:
+输入: nums = [-2,0,-1]
+输出: 0
+解释: 结果不能为 2, 因为 [-2,-1] 不是子数组。
+```
+
+> 分析：
+
+- 遍历数组时计算当前最大值，不断更新
+- 令curMax为当前最大值，则当前最大值为`curMax=max(curMax*nums[i]，nums[i])`
+- **由于存在负数，那么会导致最大的变最小的，最小的变最大的。因此还需要维护当前最小值imin**， `curMin=min(curMin[i]，nums[i])`
+- 当负数出现时则curMax与curMin进行交换再进行下一步计算
+
+
+
+> 代码：
+
+```java
+public int maxProduct(int[] nums) {
+  int max = Integer.MIN_VALUE;
+  int curMax = 1;
+  int curMin = 1;
+  for(int i = 0; i<nums.length; i++){
+    if(nums[i] < 0){
+      int temp = curMax;
+      curMax = curMin;
+      curMin = temp;
+    }
+    curMax = Math.max(curMax*nums[i],nums[i]);
+    curMin = Math.min(curMin*nums[i],nums[i]);
+
+    max = Math.max(max,curMax);
+  }
+  return max;
+}
+```
+
+---
+
+
 
 
 
