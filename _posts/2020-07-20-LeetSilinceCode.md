@@ -4904,16 +4904,57 @@ class LRUCache {
 
 > 分析：
 
-- 遍历数组时计算当前最大值，不断更新
-- 令curMax为当前最大值，则当前最大值为`curMax=max(curMax*nums[i]，nums[i])`
-- **由于存在负数，那么会导致最大的变最小的，最小的变最大的。因此还需要维护当前最小值curMin**， `curMin=min(curMin[i]，nums[i])`
-- 当负数出现时则curMax与curMin进行交换再进行下一步计算
+**方法一：动态规划**
+
+这题是求数组中子区间的最大乘积，对于乘法，我们需要注意，负数乘以负数，会变成正数，所以解这题的 时候我们需要维护两个变量，当前的最大值，以及最小值，最小值可能为负数，但没准下一步乘以一个负 数，当前的最大值就变成最小值，而最小值则变成最大值了。
+
+我们的动态方程可能这样：
+
+- `maxDP[i] = max(nums[i], maxDP[i-1]*nums[i], minDP[i-1]*nums[i]) `
+
+- `minDP[i] = min(nums[i], minDP[i-1]*nums[i], maxDP[i-1]*nums[i]) `
+
+- `dp[i] = max(dp[i-1], maxDP[i])`
+
+其中，与i元素自己进行比较是为了处理i元素之前全都是0的情况。如果nums[i]为0，那么maxDP和minDP都为0， 我们需要从nums[i+1]重新开始。
+
+
+
+**方法二：一次遍历，保存阶段最大值/阶段最小值**
+
+- 遍历数组时计算结果最大值max，不断更新
+- 令curMax为阶段最大值，则阶段最大值为`curMax=max(curMax*nums[i]，nums[i])`
+- **由于存在负数，那么会导致最大的变最小的，最小的变最大的。因此还需要维护阶段最小值curMin**， `curMin=min(curMin[i]，nums[i])`
+- **因此当负数出现时则curMax与curMin进行交换再进行下一步计算**
 
 
 
 > 代码：
 
 ```java
+// 方法一
+public int maxProduct(int[] nums) {
+  if(nums.length == 0) return 0;
+  int ans = nums[0];
+  //两个mDP分别定义为以i结尾的子数组的最大积与最小积；
+  int[] maxDP = new int[nums.length];
+  int[] minDP = new int[nums.length];
+  //初始化DP；
+  maxDP[0] = nums[0]; 
+  minDP[0] = nums[0];
+
+  for(int i = 1; i < nums.length; i++){
+    //最大积的可能情况有：元素i自己本身，上一个最大积与i元素累乘，上一个最小积与i元素累乘；
+    //与i元素自己进行比较是为了处理i元素之前全都是0的情况；
+    maxDP[i] = Math.max(nums[i], Math.max(maxDP[i-1]*nums[i], minDP[i-1]*nums[i]));
+    minDP[i] = Math.min(nums[i], Math.min(maxDP[i-1]*nums[i], minDP[i-1]*nums[i]));
+    //记录ans；
+    ans = Math.max(ans, maxDP[i]);
+  }
+  return ans;
+}
+
+// 方法二
 public int maxProduct(int[] nums) {
   int max = Integer.MIN_VALUE; //结果最大值
   int curMax = 1; //阶段最大值 
@@ -4926,7 +4967,7 @@ public int maxProduct(int[] nums) {
       curMin = temp;
     }
     //在这里用乘积和元素本身比较的意思是：
-    //对于最小值来说，最小值是本身则说明这个元素值比前面连续子数组的最小值还小。相当于重置了阶段最小值的起始位置
+    //对于最小值来说，最小值是本身则说明这个元素值比前面连续子数组的最小值还小。⭐️相当于重置了阶段最小值的起始位置
     curMax = Math.max(curMax*nums[i],nums[i]);
     curMin = Math.min(curMin*nums[i],nums[i]);
     //对比阶段最大值和结果最大值
