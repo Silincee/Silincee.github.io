@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e1108593-cb63-4cf8-9894-877d9ad19767" name="Default" comment="refactor: change video's size." />
+    <list default="true" id="e1108593-cb63-4cf8-9894-877d9ad19767" name="Default" comment="refactor: change video's size.">
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +37,7 @@
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="459">
-              <caret line="34" column="19" selection-start-line="34" selection-start-column="19" selection-end-line="34" selection-end-column="19" />
+              <caret line="34" column="18" selection-start-line="34" selection-start-column="18" selection-end-line="34" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -72,6 +74,7 @@
       <find>leancloud-visitors-count</find>
       <find>title</find>
       <find>url</find>
+      <find>阅读量</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -283,7 +286,7 @@
       <workItem from="1581574357807" duration="2901000" />
       <workItem from="1581578153142" duration="2871000" />
       <workItem from="1583504210261" duration="760000" />
-      <workItem from="1648523726466" duration="1407000" />
+      <workItem from="1648523726466" duration="1587000" />
     </task>
     <task id="LOCAL-00145" summary="add post: pix2pix.">
       <created>1547289484065</created>
@@ -632,7 +635,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2167000" />
+    <option name="totallyTimeSpent" value="2347000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -806,7 +809,7 @@
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
-          <caret line="34" column="19" selection-start-line="34" selection-start-column="19" selection-end-line="34" selection-end-column="19" />
+          <caret line="34" column="18" selection-start-line="34" selection-start-column="18" selection-end-line="34" selection-end-column="18" />
         </state>
       </provider>
     </entry>
