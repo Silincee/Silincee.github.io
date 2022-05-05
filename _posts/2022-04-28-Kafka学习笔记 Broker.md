@@ -234,6 +234,6 @@ Kafka 的 producer 生产数据，要写入到 log 文件中，写的过程是�
 相关参数：
 
 - log.flush.interval.messages：强制页缓存刷写到磁盘的条数，默认是 long 的最大值， 9223372036854775807。一般不建议修改，交给系统自己管 理。
-- log.flush.interval.ms：每隔多久，刷数据到磁盘，默认是 null。一般不建议修改， 交给系统自己管理。
+- log.flush.interval.ms：每隔多久，刷数据到磁盘，默认是 null。一般不建议修改， 交给系统自己管理。 
 
 
