@@ -225,15 +225,15 @@ Kafka 的 producer 生产数据，要写入到 log 文件中，写的过程是�
 
 **4**)页缓存 **+** 零拷贝技术
 
-- **零拷贝**:Kafka的数据加工处理操作交由Kafka生产者和Kafka消费者处理。Kafka Broker应用层不关心存储的数据，所以就不用走应用层，传输效率高。
+- **零拷贝**:Kafka的数据加工处理操作交由Kafka生产者和Kafka消费者处理。==Kafka Broker应用层不关心存储的数据，所以就不用走应用层，传输效率高。==
 
-- **PageCache页缓存**:Kafka重度依赖底层操作系统提供的PageCache功能。当上层有写操作时，操作系统只是将数据写入 PageCache。当读操作发生时，先从PageCache中查找，如果找不到，再去磁盘中读取。实际上PageCache是把尽可能多的空闲内存 都当做了磁盘缓存来使用。
+- **PageCache页缓存**:Kafka重度依赖底层操作系统提供的PageCache功能。当上层有写操作时，操作系统只是将数据写入 PageCache。当读操作发生时，先从PageCache中查找，如果找不到，再去磁盘中读取。==实际上PageCache是把尽可能多的空闲内存都当做了磁盘缓存来使用。==
 
   ![image-20220505161603741](/assets/imgs/image-20220505161603741.png)
 
 相关参数：
 
-- log.flush.interval.messages：强制页缓存刷写到磁盘的条数，默认是 long 的最大值， 9223372036854775807。一般不建议修改，交给系统自己管 理。
+- log.flush.interval.messages：强制页缓存刷写到磁盘的条数，默认是 long 的最大值， 9223372036854775807。一般不建议修改，交给系统自己管理。
 - log.flush.interval.ms：每隔多久，刷数据到磁盘，默认是 null。一般不建议修改， 交给系统自己管理。 
 
 
