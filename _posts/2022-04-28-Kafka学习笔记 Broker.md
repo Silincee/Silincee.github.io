@@ -66,7 +66,7 @@ Kafka 集群中有一个 broker 的 Controller 会被选举为 Controller Leader
 
 > 如果 kafka 服务器只有 4 个节点，那么设置 kafka 的分区数大于服务器台数，在 kafka 底层如何分配存储副本呢?
 
-创建 16 分区，3 个副本场景下会如下分配(示意图中省略了12-15分区)，目的是为了尽可能的保持==负载均衡==
+创建 16 分区，3 个副本场景下会如下分配(示意图中省略了12-15分区)，目的是为了尽可能的保持`负载均衡`
 
 ![image-20220503232233272](/assets/imgs/image-20220503232233272.png)
 
@@ -118,7 +118,7 @@ bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic three
 
 | 参数名称                                | 描述                                                         |
 | --------------------------------------- | ------------------------------------------------------------ |
-| auto.leader.rebalance.enable            | 默认是 true。 自动 Leader Partition 平衡。生产环 境中，==leader 重选举的代价比较大，可能会带来性能影响，建议设置为 false 关闭。== |
+| auto.leader.rebalance.enable            | 默认是 true。 自动 Leader Partition 平衡。生产环 境中，`leader 重选举的代价比较大，可能会带来性能影响，建议设置为 false 关闭。` |
 | leader.imbalance.per.broker.percentage  | 默认是 10%。每个 broker 允许的不平衡的 leader 的比率。如果每个 broker 超过了这个值，控制器会触发 leader 的平衡。 |
 | leader.imbalance.check.interval.seconds | 默认值 300 秒。检查 leader 负载是否平衡的间隔 时间。         |
 
@@ -150,7 +150,7 @@ bin/kafka-reassign-partitions.sh -- bootstrap-server localhost:9092 --reassignme
 
 Topic是逻辑上的概念，而partition是物理上的概念，每个partition对应于一个log文件，该log文件中存储的就是Producer生产的数据。
 
-- Producer生产的数据会被不断==追加==到该log文件末端，为防止log文件过大导致数据定位效率低下，Kafka采取了分片和索引机制， 将每个partition分为多个segment。
+- Producer生产的数据会被不断`追加`到该log文件末端，为防止log文件过大导致数据定位效率低下，Kafka采取了分片和索引机制， 将每个partition分为多个segment。
 - 每个segment包括:“.index”文件、“.log”文件和.timeindex等文件。这些文件位于一个文件夹下，该文件夹的命名规则为:topic名称+分区序号，例如:first-0。
 
 ![image-20220504232359653](/assets/imgs/image-20220504232359653.png)
@@ -205,7 +205,7 @@ Kafka 中提供的日志清理策略有 `delete` 和 `compact` 两种。
 
 压缩后的offset可能是不连续的，比如上图中没有6，当从这些offset消费消息时，将会拿到比这个offset大 的offset对应的消息，实际上会拿到offset为7的消息，并从这个位置开始消费。
 
-⚠️==这种策略只适合特殊场景，比如消息的key是用户ID，value是用户的资料，通过这种压缩策略，整个消息集里就保存了所有用户最新的资料。==
+⚠️`这种策略只适合特殊场景，比如消息的key是用户ID，value是用户的资料，通过这种压缩策略，整个消息集里就保存了所有用户最新的资料。`
 
 
 
@@ -225,9 +225,9 @@ Kafka 的 producer 生产数据，要写入到 log 文件中，写的过程是�
 
 **4**)页缓存 **+** 零拷贝技术
 
-- **零拷贝**:Kafka的数据加工处理操作交由Kafka生产者和Kafka消费者处理。==Kafka Broker应用层不关心存储的数据，所以就不用走应用层，传输效率高。==
+- **零拷贝**:Kafka的数据加工处理操作交由Kafka生产者和Kafka消费者处理。`Kafka Broker应用层不关心存储的数据，所以就不用走应用层，传输效率高。`
 
-- **PageCache页缓存**:Kafka重度依赖底层操作系统提供的PageCache功能。当上层有写操作时，操作系统只是将数据写入 PageCache。当读操作发生时，先从PageCache中查找，如果找不到，再去磁盘中读取。==实际上PageCache是把尽可能多的空闲内存都当做了磁盘缓存来使用。==
+- **PageCache页缓存**:Kafka重度依赖底层操作系统提供的PageCache功能。当上层有写操作时，操作系统只是将数据写入 PageCache。当读操作发生时，先从PageCache中查找，如果找不到，再去磁盘中读取。`实际上PageCache是把尽可能多的空闲内存都当做了磁盘缓存来使用。`
 
   ![image-20220505161603741](/assets/imgs/image-20220505161603741.png)
 
