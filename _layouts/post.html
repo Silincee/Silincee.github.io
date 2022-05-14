@@ -98,6 +98,7 @@ layout: base
         });
         // 自己创建的Class的名字
         var name='Counter';
+        // 在leancloud创建记录函数
         function createRecord(Counter){
             // 设置 ACL
             var acl = new AV.ACL();
@@ -132,10 +133,14 @@ layout: base
                 console.error('创建记录失败: ' + error.message);
             });
         }
+        // 显示阅读量函数
         function showCount(Counter){
             // 是否需要创建新纪录的标志（添加一篇新文章）
             var flag=false;
             var query = new AV.Query(name);
+            var elements=document.getElementsByClassName('leancloud-visitors');
+            var url = elements[i].id;
+            query.equalTo('url',decodeURI(url))
             query.greaterThanOrEqualTo('time', 0);
             query.find().then(function (results) {
                 // 当获取到的记录为0时置默认值
@@ -149,7 +154,6 @@ layout: base
                 }
                 // 将获取到的数据设置为text
                 for (var i = 0; i < results.length; i++) {
-                    console.log('遍历results'+i)
                     var item = results[i];
                     var url = item.get('url');
                     var time = item.get('time');
@@ -157,9 +161,9 @@ layout: base
                     if(element==null){
                         continue;
                     }
-                    console.log(url)
-                    console.log(element)
-                    console.log(time)
+                    console.log(url);
+                    console.log(element);
+                    console.log(time);
                     element.textContent = time;
                 }
                 // 当某个span含有默认值时说明需要创建记录
