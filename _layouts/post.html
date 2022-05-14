@@ -28,10 +28,10 @@ layout: base
 
 
             <!-- TODO ⭐阅读量统计， id 将作为查询条件 -->
-            <span id={{page.url}} class="leancloud-visitors" data-flag-title={{page.title}}>
+            <span>
                 <span class="post-meta-divider">|</span>
 <!--                <span class="post-meta-item-text">阅读量 </span>-->
-                <span id="{{ post.url }}" class="leancloud_visitors" data-flag-title="{{ post.title }}"> - </span>
+                <span id="{{ page.url }}" class="leancloud-visitors" data-flag-title="{{ page.title }}"> - </span>
             </span>
         </p>
 
@@ -104,7 +104,7 @@ layout: base
             acl.setPublicReadAccess(true);
             acl.setPublicWriteAccess(true);
             // 获得span的所有元素
-            var elements=document.getElementsByClassName('leancloud_visitors');
+            var elements=document.getElementsByClassName('leancloud-visitors');
             console.log(elements);
             // 一次创建多条记录
             var allcounter=[];
@@ -171,6 +171,7 @@ layout: base
             });
         }
         $(function() {
+            console.log('开始执行阅读量检查')
             var Counter = AV.Object.extend(name);
             showCount(Counter);
         });
