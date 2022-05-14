@@ -118,7 +118,7 @@ layout: base
                 var newcounter = new Counter();
                 newcounter.setACL(acl);
                 newcounter.set("title", title);
-                newcounter.set("url", url);
+                newcounter.set("url", decodeURI(url));
                 newcounter.set("time", 0);
                 allcounter.push(newcounter);
                 // 顺便更新显示span为默认值0
@@ -139,8 +139,8 @@ layout: base
             query.greaterThanOrEqualTo('time', 0);
             query.find().then(function (results) {
                 // 当获取到的记录为0时置默认值
-                if(results.length==0){
-                    $('.leancloud_visitors').text('-');
+                if(results.length===0){
+                    $('.leancloud-visitors').text('-');
                     flag=true;
                     console.log('返回查询记录为空');
                     // 如果获取到空记录就创建新记录
@@ -149,11 +149,11 @@ layout: base
                 }
                 // 将获取到的数据设置为text
                 for (var i = 0; i < results.length; i++) {
-                    console.log('遍历results')
+                    console.log('遍历results'+i)
                     var item = results[i];
                     var url = item.get('url');
                     var time = item.get('time');
-                    var element = document.getElementById(url);
+                    var element = document.getElementById(encodeURI(url));
                     if(element==null){
                         continue;
                     }
@@ -163,15 +163,15 @@ layout: base
                     element.textContent = time;
                 }
                 // 当某个span含有默认值时说明需要创建记录
-                if($('.leancloud_visitors').text().indexOf("-") != -1){
+                if($('.leancloud-visitors').text().indexOf("-") != -1){
                     console.log('某个span含有默认值时说明需要创建记录')
                     flag=true;
                 }
-                // 当获取的记录数与span个数不吻合时
-                if(results.length != $('.leancloud_visitors').length){
-                    console.log('获取的记录数与span个数不吻合时')
-                    flag=true;
-                }
+                // // 当获取的记录数与span个数不吻合时
+                // if(results.length != $('.leancloud-visitors').length){
+                //     console.log('获取的记录数与span个数不吻合时')
+                //     flag=true;
+                // }
                 if(flag){
                     createRecord(Counter);
                 }
