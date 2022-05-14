@@ -31,7 +31,6 @@ layout: base
             <span id={{page.url}} class="leancloud-visitors" data-flag-title={{page.title}}>
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-text">阅读量 </span>
-                <span class="leancloud-visitors-count"></span>
                 <span id="{{ post.url }}" class="leancloud_visitors" data-flag-title="{{ post.title }}"> - </span>次
             </span>
         </p>
@@ -64,31 +63,15 @@ layout: base
     <script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
     <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-    <!-- 同时兼容http与https -->
-<script src="//cdn1.lncld.net/static/js/2.5.0/av-min.js"></script>
 
     <p><br/>既已览卷至此，何不品评一二：</p>
     <div id="valine_comment" class="fb_comments_container"></div>
-    <script>
-        var notify = '{{site.valine.notify}}' === true;
-        var verify = '{{site.valine.verify}}.>' === true;
-        var visitor = '{{site.valine.visitor}}.>' === true;
 
-        new Valine({
-            av: AV,
-            el: '#valine_comment',
-            notify: notify,
-            verify: verify,
-            // smiles_url: '/smiles',
-            visitor: true,
-            app_id: '{{site.valine.app_id}}',
-            app_key: '{{site.valine.app_key}}',
-            placeholder: '{{site.valine.placeholder}}',
-            avatar: '{{site.valine.avatar}}',
-        });
 
-            // 第一个参数是appid，第二个参数是appkey，此处的只是示例
+<script>
+    // 第一个参数是appid，第二个参数是appkey，此处的只是示例
     AV.initialize("9U9rabcOwEdkgqtG7okL8Fdl-gzGzoHsz", "tXqrAnTzTFiQuT4L1LYXRti0");
+    console.log('appid appkey 设置成功！');
     // 自己创建的Class的名字
     var name='Counter';
     function createRecord(Counter){
@@ -166,6 +149,27 @@ layout: base
       var Counter = AV.Object.extend(name);
       showCount(Counter);
     });
+</script>
+
+
+
+    <script>
+        var notify = '{{site.valine.notify}}' === true;
+        var verify = '{{site.valine.verify}}.>' === true;
+        var visitor = '{{site.valine.visitor}}.>' === true;
+
+        new Valine({
+            av: AV,
+            el: '#valine_comment',
+            notify: notify,
+            verify: verify,
+            // smiles_url: '/smiles',
+            visitor: true,
+            app_id: '{{site.valine.app_id}}',
+            app_key: '{{site.valine.app_key}}',
+            placeholder: '{{site.valine.placeholder}}',
+            avatar: '{{site.valine.avatar}}',
+        });
     </script>
 
 
