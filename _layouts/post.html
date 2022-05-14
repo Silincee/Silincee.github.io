@@ -2,7 +2,7 @@
 layout: base
 ---
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-    浏览量:&nbsp;<span id="{{ post.url }}" class="leancloud_visitors" data-flag-title="{{ post.title }}"> - </span>次
+
 
     <header class="post-header">
         <h1 class="post-title" itemprop="name headline">{{ page.title }}</h1>
@@ -32,6 +32,7 @@ layout: base
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-text">阅读量 </span>
                 <span class="leancloud-visitors-count"></span>
+                <span id="{{ post.url }}" class="leancloud_visitors" data-flag-title="{{ post.title }}"> - </span>次
             </span>
         </p>
 
