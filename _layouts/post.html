@@ -153,6 +153,9 @@ layout: base
                     var url = item.get('url');
                     var time = item.get('time');
                     var element = document.getElementById(url);
+                    if(element==null){
+                        continue;
+                    }
                     console.log(url)
                     console.log(element)
                     console.log(time)
