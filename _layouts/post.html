@@ -149,6 +149,7 @@ layout: base
                 }
                 // 将获取到的数据设置为text
                 for (var i = 0; i < results.length; i++) {
+                    console.log('遍历results')
                     var item = results[i];
                     var url = item.get('url');
                     var time = item.get('time');
@@ -163,10 +164,12 @@ layout: base
                 }
                 // 当某个span含有默认值时说明需要创建记录
                 if($('.leancloud_visitors').text().indexOf("-") != -1){
+                    console.log('某个span含有默认值时说明需要创建记录')
                     flag=true;
                 }
                 // 当获取的记录数与span个数不吻合时
                 if(results.length != $('.leancloud_visitors').length){
+                    console.log('获取的记录数与span个数不吻合时')
                     flag=true;
                 }
                 if(flag){
