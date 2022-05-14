@@ -72,7 +72,11 @@ layout: base
 
 <script>
     // 第一个参数是appid，第二个参数是appkey，此处的只是示例
-    AV.initialize("9U9rabcOwEdkgqtG7okL8Fdl-gzGzoHsz", "tXqrAnTzTFiQuT4L1LYXRti0","www.silince.cn");
+    AV.init({
+        appId: "9U9rabcOwEdkgqtG7okL8Fdl-gzGzoHsz",
+        appKey: "tXqrAnTzTFiQuT4L1LYXRti0",
+        serverURL: "www.silince.cn"
+    });
     console.log('appid appkey 设置成功！');
     // 自己创建的Class的名字
     var name='Counter';
