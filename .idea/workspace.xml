@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e1108593-cb63-4cf8-9894-877d9ad19767" name="Default" comment="refactor: change video's size.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/_config.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_layouts/post.html" beforeDir="false" afterPath="$PROJECT_DIR$/_layouts/post.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,20 +17,29 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/index.html">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/about.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="65" selection-start-line="65" selection-end-line="65" />
+            <state relative-caret-position="334">
+              <caret line="133" column="67" lean-forward="true" selection-start-line="133" selection-start-column="67" selection-end-line="133" selection-end-column="67" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="488">
+              <caret line="32" column="73" lean-forward="true" selection-start-line="32" selection-start-column="73" selection-end-line="32" selection-end-column="73" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/_layouts/post.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="71" selection-start-line="71" selection-end-line="71" />
+            <state relative-caret-position="231">
+              <caret line="107" column="34" selection-start-line="107" selection-start-column="34" selection-end-line="107" selection-end-column="34" />
               <folding>
                 <element signature="n#style#0;n#a#0;n#div#1;n#article#0;n#!!top" expanded="true" />
               </folding>
@@ -63,12 +73,20 @@
       <find>阅读量</find>
       <find>new Valine({</find>
       <find>www.google-analytics.com/analytics.js</find>
-      <find>google</find>
       <find>https://hm.baidu.com/hm.js?c219c26e0dad544483e5fea5713ef996</find>
       <find>liveQuery</find>
       <find>google_ad_client</find>
       <find>cdn1.lncld.net/static/js/2.5.0/av-min.js</find>
       <find>console.log('appid appkey 设置成功！');</find>
+      <find>AV.</find>
+      <find>app_id</find>
+      <find>google</find>
+      <find>AV.Query</find>
+      <find>fb_comments_container</find>
+      <find>Comment</find>
+      <find>counter</find>
+      <find>访问次数</find>
+      <find>计数</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -87,9 +105,9 @@
         <option value="$PROJECT_DIR$/_layouts/base.html" />
         <option value="$PROJECT_DIR$/_includes/footer/footer.html" />
         <option value="$PROJECT_DIR$/assets/js/av.min.js" />
+        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/_config.yml" />
         <option value="$PROJECT_DIR$/_layouts/post.html" />
-        <option value="$PROJECT_DIR$/index.html" />
       </list>
     </option>
   </component>
@@ -297,7 +315,7 @@
       <workItem from="1581578153142" duration="2871000" />
       <workItem from="1583504210261" duration="760000" />
       <workItem from="1648523726466" duration="1587000" />
-      <workItem from="1652514389617" duration="5997000" />
+      <workItem from="1652514389617" duration="7656000" />
     </task>
     <task id="LOCAL-00145" summary="add post: pix2pix.">
       <created>1547289484065</created>
@@ -646,7 +664,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8344000" />
+    <option name="totallyTimeSpent" value="10003000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -820,13 +838,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/about.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3608">
-          <caret line="164" column="22" selection-start-line="164" selection-start-column="22" selection-end-line="164" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/js/tongji.baidu.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
@@ -853,35 +864,52 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/_site/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="125" column="64" selection-start-line="125" selection-start-column="64" selection-end-line="125" selection-end-column="64" />
+        <state relative-caret-position="258">
+          <caret line="542" column="38" selection-start-line="542" selection-start-column="38" selection-end-line="542" selection-end-column="38" />
           <folding>
             <element signature="n#style#0;n#iframe#0;n#noscript#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_config.yml">
+    <entry file="file://$PROJECT_DIR$/_site/2018/11/28/jekyll更新博客流程/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="86" column="35" selection-start-line="86" selection-start-column="35" selection-end-line="86" selection-end-column="35" />
+        <state relative-caret-position="673">
+          <caret line="417" column="26" lean-forward="true" selection-start-line="417" selection-start-column="26" selection-end-line="417" selection-end-column="26" />
+          <folding>
+            <element signature="n#style#0;n#a#1;n#td#0;n#div#1;n#div#0;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_layouts/post.html">
+    <entry file="file://$PROJECT_DIR$/about.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="71" selection-start-line="71" selection-end-line="71" />
-          <folding>
-            <element signature="n#style#0;n#a#0;n#div#1;n#article#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="334">
+          <caret line="133" column="67" lean-forward="true" selection-start-line="133" selection-start-column="67" selection-end-line="133" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_config.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1760">
+          <caret line="80" column="8" selection-start-line="80" selection-start-column="8" selection-end-line="80" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="65" selection-start-line="65" selection-end-line="65" />
+        <state relative-caret-position="488">
+          <caret line="32" column="73" lean-forward="true" selection-start-line="32" selection-start-column="73" selection-end-line="32" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_layouts/post.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="107" column="34" selection-start-line="107" selection-start-column="34" selection-end-line="107" selection-end-column="34" />
+          <folding>
+            <element signature="n#style#0;n#a#0;n#div#1;n#article#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
