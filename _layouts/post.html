@@ -138,9 +138,7 @@ layout: base
             // 是否需要创建新纪录的标志（添加一篇新文章）
             var flag=false;
             var query = new AV.Query(name);
-            var elements=document.getElementsByClassName('leancloud-visitors');
-            var url = elements[i].id;
-            query.equalTo('url',decodeURI(url))
+            query.equalTo('url',decodeURI(page.url));
             query.greaterThanOrEqualTo('time', 0);
             query.find().then(function (results) {
                 // 当获取到的记录为0时置默认值
