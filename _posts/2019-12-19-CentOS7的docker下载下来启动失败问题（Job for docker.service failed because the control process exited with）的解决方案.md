@@ -2,7 +2,7 @@
 layout: post
 title:  "CentOS7的docker下载下来启动失败问题（Job for docker.service failed because the control process exited with）的解决方案"
 date:   2019-12-19 12:30:06 +0800--
-categories: [服务器]
+categories: [运维, ]
 tags: [docker, ]  
 ---
 # CentOS7的docker下载下来启动失败问题（Job for docker.service failed because the control process exited with）的解决方案
