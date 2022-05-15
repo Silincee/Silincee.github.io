@@ -2,7 +2,7 @@
 layout: post
 title:  "Elasticsearch入门"
 date:   2020-07-05 20:40:06 +0800--
-categories: [Java]
+categories: [Elasticsearch, ]
 tags: [Elasticsearch, JavaEE, ]  
 ---
 

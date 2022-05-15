@@ -2,7 +2,7 @@
 layout: post
 title:  "Elasticsearch中的数值类型索引"
 date:   2022-03-03 21:10:06 +0800--
-categories: [Java, ]
+categories: [Elasticsearch, ]
 tags: [Elasticsearch, ]  
 ---
 
