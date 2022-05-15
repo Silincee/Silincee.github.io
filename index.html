@@ -29,8 +29,8 @@ layout: base
             <!-- TODO ⭐显示每篇博客阅读量, id 将作为查询条件 -->
                 <span id={{post.url}} class="leancloud-visitors" data-flag-title={{post.title}}>
                     <span class="post-meta-divider">|</span>
-<!--                    <span class="post-meta-item-text">阅读量 </span>-->
-<!--                    <span class="leancloud-visitors-count"></span>-->
+                    <span class="post-meta-item-text">阅读量 </span>
+                    <span id="{{ page.url }}" class="leancloud-visitors" data-flag-title="{{ page.title }}"> - </span>
                 </span>
                   ☕️
         </span>
@@ -61,6 +61,111 @@ layout: base
         app_key: '{{site.valine.app_key}}',
         placeholder: '{{site.valine.placeholder}}',
         avatar: '{{site.valine.avatar}}',
+    });
+</script>
+
+<script>
+    // 第一个参数是appid，第二个参数是appkey，此处的只是示例
+    AV.init({
+        appId: "5DQcAzLXlbQQx0VLGzy2uqQ6-gzGzoHsz",
+        appKey: "zxmHQRmRHzl6aaiAVqBhmNGd",
+        serverURL: "https://leancloud.cn"
+    });
+    // 自己创建的Class的名字
+    var name='Counter';
+    // 在leancloud创建记录函数
+    function createRecord(Counter){
+        // 设置 ACL
+        var acl = new AV.ACL();
+        acl.setPublicReadAccess(true);
+        acl.setPublicWriteAccess(true);
+        // 获得span的所有元素
+        var elements=document.getElementsByClassName('leancloud-visitors');
+        console.log(elements);
+        // 一次创建多条记录
+        var allcounter=[];
+        for (var i = 0; i < elements.length ; i++) {
+            // 若某span的内容不包括 '-' ，则不必创建记录
+            if(elements[i].textContent.indexOf('-') == -1){
+                continue;
+            }
+            var title = elements[i].getAttribute('data-flag-title');
+            var url = elements[i].id;
+            var newcounter = new Counter();
+            newcounter.setACL(acl);
+            newcounter.set("title", title);
+            newcounter.set("url", decodeURI(url));
+            newcounter.set("time", 0);
+            allcounter.push(newcounter);
+            // 顺便更新显示span为默认值0
+            elements[i].textContent=0;
+        }
+        AV.Object.saveAll(allcounter).then(function (todo) {
+            // 成功保存记录之后
+            console.log('创建记录成功！');
+        }, function (error) {
+            // 异常错误
+            console.error('创建记录失败: ' + error.message);
+        });
+    }
+    // 显示阅读量函数
+    function showCount(Counter){
+        // 是否需要创建新纪录的标志（添加一篇新文章）
+        var flag=false;
+        var query = new AV.Query(name);
+
+        var elements=document.getElementsByClassName('leancloud-visitors');
+
+        for(var i = 0;i<elements.length;i++){
+            var url = elements[i].id;
+            query.equalTo('url',decodeURI(url));
+            query.greaterThanOrEqualTo('time', 0);
+            query.find().then(function (results) {
+                // 当获取到的记录为0时置默认值
+                if(results.length===0){
+                    $('.leancloud-visitors').text('-');
+                    flag=true;
+                    console.log('返回查询记录为空');
+                    // 如果获取到空记录就创建新记录
+                    // createRecord(Counter);
+                    return;
+                }
+                // 将获取到的数据设置为text
+                for (var i = 0; i < results.length; i++) {
+                    var item = results[i];
+                    var url = item.get('url');
+                    var time = item.get('time');
+                    var element = document.getElementById(encodeURI(url));
+                    if(element==null){
+                        continue;
+                    }
+                    console.log(url);
+                    console.log(element);
+                    console.log(time);
+                    element.textContent = time;
+                }
+                // 当某个span含有默认值时说明需要创建记录
+                if($('.leancloud-visitors').text().indexOf("-") != -1){
+                    console.log('某个span含有默认值时说明需要创建记录')
+                    flag=true;
+                }
+                // // 当获取的记录数与span个数不吻合时
+                // if(results.length != $('.leancloud-visitors').length){
+                //     console.log('获取的记录数与span个数不吻合时')
+                //     flag=true;
+                // }
+                if(flag){
+                    // createRecord(Counter);
+                }
+            }, function (error) {
+                console.log('query error:'+error.message);
+            });
+        }
+    }
+    $(function() {
+        console.log('开始执行阅读量检查')
+        var Counter = AV.Object.extend(name);
+        showCount(Counter);
     });
 </script>
 
