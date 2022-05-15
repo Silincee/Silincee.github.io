@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e1108593-cb63-4cf8-9894-877d9ad19767" name="Default" comment="refactor: change video's size.">
+      <change beforePath="$PROJECT_DIR$/_layouts/post.html" beforeDir="false" afterPath="$PROJECT_DIR$/_layouts/post.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,26 +16,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="644">
-              <caret line="145" column="17" selection-start-line="145" selection-start-column="17" selection-end-line="145" selection-end-column="17" />
-              <folding>
-                <element signature="e#2266#3585#0" />
-              </folding>
+            <state relative-caret-position="264">
+              <caret line="142" selection-start-line="142" selection-end-line="143" selection-end-column="41" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/_layouts/post.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1625">
-              <caret line="192" column="13" selection-start-line="91" selection-start-column="4" selection-end-line="192" selection-end-column="13" />
+            <state relative-caret-position="554">
+              <caret line="165" selection-start-line="165" selection-end-line="167" selection-end-column="41" />
               <folding>
                 <element signature="n#style#0;n#a#0;n#div#1;n#article#0;n#!!top" expanded="true" />
-                <element signature="n#script#4;n#article#0;n#!!top" />
               </folding>
             </state>
           </provider>
@@ -81,11 +78,11 @@
       <find>访问次数</find>
       <find>计数</find>
       <find>valine_comment</find>
-      <find>leancloud-visitors</find>
       <find>cdn1.lncld.net/static/js/2.5.0/av-min</find>
       <find>2.5.0</find>
       <find>applicationId</find>
       <find>appendChild</find>
+      <find>leancloud-visitors</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -104,9 +101,9 @@
         <option value="$PROJECT_DIR$/_includes/footer/footer.html" />
         <option value="$PROJECT_DIR$/assets/js/av.min.js" />
         <option value="$PROJECT_DIR$/_config.yml" />
-        <option value="$PROJECT_DIR$/_layouts/post.html" />
         <option value="$PROJECT_DIR$/_layouts/base.html" />
         <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/_layouts/post.html" />
       </list>
     </option>
   </component>
@@ -304,7 +301,7 @@
       <workItem from="1583504210261" duration="760000" />
       <workItem from="1648523726466" duration="1587000" />
       <workItem from="1652514389617" duration="15039000" />
-      <workItem from="1652588786509" duration="2786000" />
+      <workItem from="1652588786509" duration="3013000" />
     </task>
     <task id="LOCAL-00145" summary="add post: pix2pix.">
       <created>1547289484065</created>
@@ -653,7 +650,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20172000" />
+    <option name="totallyTimeSpent" value="20399000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -947,23 +944,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_layouts/post.html">
+    <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1625">
-          <caret line="192" column="13" selection-start-line="91" selection-start-column="4" selection-end-line="192" selection-end-column="13" />
-          <folding>
-            <element signature="n#style#0;n#a#0;n#div#1;n#article#0;n#!!top" expanded="true" />
-            <element signature="n#script#4;n#article#0;n#!!top" />
-          </folding>
+        <state relative-caret-position="264">
+          <caret line="142" selection-start-line="142" selection-end-line="143" selection-end-column="41" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
+    <entry file="file://$PROJECT_DIR$/_layouts/post.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="644">
-          <caret line="145" column="17" selection-start-line="145" selection-start-column="17" selection-end-line="145" selection-end-column="17" />
+        <state relative-caret-position="554">
+          <caret line="165" selection-start-line="165" selection-end-line="167" selection-end-column="41" />
           <folding>
-            <element signature="e#2266#3585#0" />
+            <element signature="n#style#0;n#a#0;n#div#1;n#article#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>

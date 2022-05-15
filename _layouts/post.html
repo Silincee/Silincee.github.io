@@ -106,7 +106,7 @@ layout: base
             acl.setPublicWriteAccess(true);
             // 获得span的所有元素
             var elements=document.getElementsByClassName('leancloud-visitors');
-            console.log(elements);
+            // console.log(elements);
             // 一次创建多条记录
             var allcounter=[];
             for (var i = 0; i < elements.length ; i++) {
@@ -163,9 +163,9 @@ layout: base
                     if(element==null){
                         continue;
                     }
-                    console.log(url);
-                    console.log(element);
-                    console.log(time);
+                    // console.log(url);
+                    // console.log(element);
+                    // console.log(time);
                     element.textContent = time;
                 }
                 // 当某个span含有默认值时说明需要创建记录

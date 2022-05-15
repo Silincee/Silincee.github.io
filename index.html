@@ -118,7 +118,7 @@ layout: base
         for(var i = 0;i<elements.length;i++){
             var query = new AV.Query(name);
             var url = elements[i].id;
-            console.log(i+'^^^'+decodeURI(url));
+            // console.log(i+'^^^'+decodeURI(url));
             query.equalTo('url',decodeURI(url));
             query.greaterThanOrEqualTo('time', 0);
             query.find().then(function (results) {
@@ -140,8 +140,8 @@ layout: base
                     if(element==null){
                         continue;
                     }
-                    console.log(element);
-                    console.log(time);
+                    // console.log(element);
+                    // console.log(time);
                     element.textContent = time;
                 }
                 if(flag){
