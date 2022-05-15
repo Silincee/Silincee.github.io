@@ -18,8 +18,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1668">
-              <caret line="32" column="97" selection-start-line="32" selection-start-column="97" selection-end-line="32" selection-end-column="97" />
+            <state relative-caret-position="409">
+              <caret line="136" column="26" lean-forward="true" selection-start-line="136" selection-start-column="26" selection-end-line="136" selection-end-column="26" />
+              <folding>
+                <element signature="e#2266#3585#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -27,7 +30,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/_layouts/post.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="622">
+            <state relative-caret-position="1625">
               <caret line="192" column="13" selection-start-line="91" selection-start-column="4" selection-end-line="192" selection-end-column="13" />
               <folding>
                 <element signature="n#style#0;n#a#0;n#div#1;n#article#0;n#!!top" expanded="true" />
@@ -301,7 +304,7 @@
       <workItem from="1583504210261" duration="760000" />
       <workItem from="1648523726466" duration="1587000" />
       <workItem from="1652514389617" duration="15039000" />
-      <workItem from="1652588786509" duration="1129000" />
+      <workItem from="1652588786509" duration="1739000" />
     </task>
     <task id="LOCAL-00145" summary="add post: pix2pix.">
       <created>1547289484065</created>
@@ -650,7 +653,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18515000" />
+    <option name="totallyTimeSpent" value="19125000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -946,7 +949,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/_layouts/post.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="622">
+        <state relative-caret-position="1625">
           <caret line="192" column="13" selection-start-line="91" selection-start-column="4" selection-end-line="192" selection-end-column="13" />
           <folding>
             <element signature="n#style#0;n#a#0;n#div#1;n#article#0;n#!!top" expanded="true" />
@@ -957,8 +960,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1668">
-          <caret line="32" column="97" selection-start-line="32" selection-start-column="97" selection-end-line="32" selection-end-column="97" />
+        <state relative-caret-position="409">
+          <caret line="136" column="26" lean-forward="true" selection-start-line="136" selection-start-column="26" selection-end-line="136" selection-end-column="26" />
+          <folding>
+            <element signature="e#2266#3585#0" />
+          </folding>
         </state>
       </provider>
     </entry>

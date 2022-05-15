@@ -131,8 +131,8 @@ layout: base
                     return;
                 }
                 // 将获取到的数据设置为text
-                for (var i = 0; i < results.length; i++) {
-                    var item = results[i];
+                for (var j = 0; j < results.length; j++) {
+                    var item = results[j];
                     var url = item.get('url');
                     var time = item.get('time');
                     var element = document.getElementById(encodeURI(url));
