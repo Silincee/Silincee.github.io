@@ -141,18 +141,9 @@ layout: base
                         continue;
                     }
                     console.log(element);
+                    console.log(time);
                     element.textContent = time;
                 }
-                // 当某个span含有默认值时说明需要创建记录
-                if($('.leancloud-visitors').text().indexOf("-") != -1){
-                    console.log('某个span含有默认值时说明需要创建记录')
-                    flag=true;
-                }
-                // // 当获取的记录数与span个数不吻合时
-                // if(results.length != $('.leancloud-visitors').length){
-                //     console.log('获取的记录数与span个数不吻合时')
-                //     flag=true;
-                // }
                 if(flag){
                     // createRecord(Counter);
                 }
