@@ -112,11 +112,11 @@ layout: base
     function showCount(Counter){
         // 是否需要创建新纪录的标志（添加一篇新文章）
         var flag=false;
-        var query = new AV.Query(name);
 
         var elements=document.getElementsByClassName('leancloud-visitors');
 
         for(var i = 0;i<elements.length;i++){
+            var query = new AV.Query(name);
             var url = elements[i].id;
             console.log(i+'^^^'+decodeURI(url));
             query.equalTo('url',decodeURI(url));
