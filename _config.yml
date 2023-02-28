@@ -90,3 +90,21 @@ valine:
   placeholder: say something~~\n - 昵称 为你所要显示的评论的ID；\n - 邮箱 只有后台可见，仅供讨论过程中是否需要交流邮件而设置，请放心填写;\n - 网址 为你的评论的昵称的超链接。\n当然，以上都可以不写，评论依然会显示……
   guest_info: nick,mail,link
   pageSize: 10
+
+# 看板娘配置
+live2d:
+  enable: false
+  scriptFrom: local
+  pluginRootPath: live2dw/
+  pluginJsPath: lib/
+  pluginModelPath: assets/
+  tagMode: false
+  debug: false
+  model:
+    use: unitychan
+  display:
+    position: right
+    width: 150
+    height: 300
+  mobile:
+    show: false
