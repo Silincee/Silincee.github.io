@@ -91,7 +91,7 @@ valine:
   guest_info: nick,mail,link
   pageSize: 10
 
-# 看板娘配置
+# TODO 看板娘配置 byRin
 live2d:
   enable: false
   scriptFrom: local
