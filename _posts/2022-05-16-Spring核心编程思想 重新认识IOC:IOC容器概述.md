@@ -98,6 +98,58 @@ private static void lookupInLazy(BeanFactory beanFactory) {
 
 # 依赖注入
 
+1）根据Bean名称注入
+
+2）根据Bean类型注入(单个Bean对象/集合Bean对象)
+
+```xml
+<bean id="userRepository" class="cn.rin.thinking.ioc.overview.repository.UserRepository"
+      autowire="byType"> <!--  Auto-Wiring 自动绑定-->
+  <!-- 硬编码,手动配置-->
+  <!--        <property name="users">-->
+  <!--            <util:list>-->
+  <!--                <ref bean="rootUser"/>-->
+  <!--                <ref bean="user"/>-->
+  <!--            </util:list>-->
+  <!--        </property>-->
+</bean>
+```
+
+3）注入容器内建Bean对象
+
+4）注入非Bean对象
+
+5）注入类型(实时注入/延时注入)
+
+```java
+/**
+ * 用户信息仓库
+ *
+ * @author rin
+ * @since 2023.03.19
+ */
+@Data
+public class UserRepository {
+
+  /** 
+    * 定义 bean 
+    */ 
+  private Collection<User> users;
+
+  /**
+    * 内建非 Bean对象(依赖)
+    */
+  private BeanFactory beanFactory;
+
+  /** 
+    * 延时注入
+    */ 
+  private ObjectFactory<User> userObjectFactory;
+}
+```
+
+
+
 
 
 # 依赖来源
