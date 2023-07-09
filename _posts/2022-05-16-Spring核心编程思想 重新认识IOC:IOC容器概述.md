@@ -154,21 +154,34 @@ public class UserRepository {
 
 # 依赖来源
 
-1）自定义Bean
+1）自定义Bean，如业务Bean
 
-2）容器内建Bean对象
+2）容器内建Bean对象，如org.springframework.core.env.Environment
 
-3）容器内建依赖
-
-
-
-
+3）容器内建依赖，如BeanFactory
 
 # 配置元信息
 
+1）Bean定义配置
 
+- 基于XML文件
+- 基于Properties文件
+- 基于Java注解
+- 基于Java API
+
+2）Ioc容器配置
+
+- 基于XML文件
+- 基于Java注解
+- 基于Java API
+
+3）外部化属性配置
+
+- 基于Java注解(@Value)
 
 # IoC容器
+
+
 
 
 
