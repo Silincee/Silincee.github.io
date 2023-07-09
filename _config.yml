@@ -1,13 +1,13 @@
 # Site settings
-title: Silince
-subtitle: [ 👩🏻‍💻]
+title: Rin's blog
+subtitle: [你来啦 👩🏻‍💻]
 keywords: Silince
 description: 想过平静生活的帅气上班族
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://www.jojofans.club/" # 你的域名
-page_no_title: "Silince's blog" # 文章无标题时默认显示内容
+page_no_title: "Rin's blog blog" # 文章无标题时默认显示内容
 beian: # "浙ICP备20005827号"
-author: Silince
+author: Rin
 email: zhangjianlincn@outlook.com
 
 # Build settings
