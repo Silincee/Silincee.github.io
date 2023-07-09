@@ -154,6 +154,14 @@ public class UserRepository {
 
 # 依赖来源
 
+1）自定义Bean
+
+2）容器内建Bean对象
+
+3）容器内建依赖
+
+
+
 
 
 # 配置元信息
