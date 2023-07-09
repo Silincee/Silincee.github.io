@@ -181,7 +181,52 @@ public class UserRepository {
 
 # IoC容器
 
+> ApplicationContext、BeanFactory谁才是真正的IoC容器？
 
+结论：**ApplicationContext、BeanFactory其实是同一类东西，只不过在底层实现的时候，ApplicationContext组合了一个BeanFactory实现。**在上下文里面的实现它是组合了的一个方式，同时它又在接口上面是继承的关系。这种方式实际上类似于代理的方式，相当于我用代理对象去查这个东西，它并不是自己具备这个能力，而是外面组装了一个组合对象来帮助自己去做这个事情，这就是ApplicationContext、BeanFactory的区别。BeanFactory是一个底层的IoC容器，ApplicationContext是在它的基础上增加了一些特性(ApplicationContext是BeanFactory的一个超集，BeanFactory的能力ApplicationContext都有，并且提供更多的特性，AOP更好的整合、国际化的支持、事物的发布等等)。
+
+```java
+// ConfigurableApplicationContext <- ApplicationContext <- BeanFactory
+// ConfigurableApplicationContext#getBeanFactory()
+
+ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:META-INF/dependency-injection-context.xml");
+// 自定义Bean
+UserRepository userRepository = applicationContext.getBean("userRepository", UserRepository.class);
+// false 为什么这个表达式不会成立
+System.out.println(userRepository.getBeanFactory() == applicationContext);
+```
+
+实际上 ApplicationContext `implements` ConfigurableApplicationContext，ApplicationContext 的 `getBeanFactory()`方法就来自于父类接口。
+
+```java
+public abstract class AbstractApplicationContext extends DefaultResourceLoader implements ConfigurableApplicationContext {
+  public abstract ConfigurableListableBeanFactory getBeanFactory() throws IllegalStateException;
+
+  public <T> T getBean(Class<T> requiredType) throws BeansException {
+    this.assertBeanFactoryActive();
+    return this.getBeanFactory().getBean(requiredType);
+  }
+}
+```
+
+而该方法的具体实现可以在AbstractRefreshableApplicationContext类中看到，实际上是把beanFactory的能力组合到了AbstractApplicationContext中，并不是完完全全去抽象或者基层这个类，因此`userRepository.getBeanFactory() == applicationContext`才会是false。
+
+```java
+public abstract class AbstractRefreshableApplicationContext extends AbstractApplicationContext {
+  
+  @Nullable
+  private volatile DefaultListableBeanFactory beanFactory;
+
+  public final ConfigurableListableBeanFactory getBeanFactory() {
+    DefaultListableBeanFactory beanFactory = this.beanFactory;
+    if (beanFactory == null) {
+      throw new IllegalStateException("BeanFactory not initialized or already closed - call 'refresh' before accessing beans via the ApplicationContext");
+    } else {
+      return beanFactory;
+    }
+  }
+}
+```
 
 
 
